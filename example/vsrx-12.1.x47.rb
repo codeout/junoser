@@ -26803,6 +26803,14 @@ rule(:juniper_protocols_vstp) do
                     )
                 )
             )
+        ),
+        "interface" arg (
+          sc(
+            "priority" arg,
+            "cost" arg,
+            "mode" ("p2p" | "shared"),
+            "edge"
+          )
         )
     )
 end
