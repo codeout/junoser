@@ -38,15 +38,81 @@ module Junoser
 
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
-      str.gsub! /"contents" \(\s*syslog_object\s*\)/, 'syslog_object'
-      str.gsub!(/^(\s*)"inline-services"/) { %[#$1"inline-services" (
-#$1  "bandwidth" ("1g" | "10g")
-#$1)] }
+      str.gsub! '"as-number" arg', 'arg'
+      str.gsub! '"equal-literal"', '"="'
+      str.gsub! '"plus-literal"', '"+"'
+      str.gsub! '"minus-literal"', '"-"'
+
+      str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
+      str.gsub! '"vlan" ("id-name" | "all")', '"vlan" ("all" | arg)'
+      str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }
+      str.gsub! '"metric-value" arg', 'arg'
+      str.gsub! '"limit-threshold" arg', 'arg'
+      str.gsub! '"filename" arg', 'arg'
+      str.gsub! '"description" arg', '"description" (quote | arg)'
+      str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
+
+
+      str.gsub!(/^(\s*)"inline-services"/) do
+        format(['"inline-services" (',
+                '  "bandwidth" ("1g" | "10g")',
+                ')'], $1)
+      end
+      str.gsub!(/^(\s*)"ieee-802.3ad" \(\s*sc\(\s*"lacp" \(\s*sc\(/) do
+        format(['"802.3ad" (',
+                '  sc(',
+                '    arg,',
+                '    "lacp" (',
+                '      sc(',
+                '        "force-up",'], $1)
+      end
+      str.gsub!(/^(\s*)"as-path" \(\s*sc\(\s*"path" arg/) do
+        format(['"as-path" (',
+                '  sc(',
+                '    arg'], $1)
+      end
+      str.gsub!(/^(\s*)"as-path" arg \(\s*sc\(\s*"path" arg\s*\)/) do
+        format(['"as-path" arg (',
+                '  sc(',
+                '    quote,',
+                '    arg',
+                '  )'], $1)
+      end
+
+      %w[metric metric2 metric3 metric4 tag tag2 preference preference2 color color2 local-preference].each do |key|
+        str.gsub!(/^(\s*"#{key}" \(\s*sc\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
+      end
+
+      str.gsub!(/(s\(\s*)"address" \(\s*arg\s*\)/) { "#{$1}arg" }
+      str.gsub!(/^(\s*"idle-timeout" \(\s*sc\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
+
+      str = omit_label(str, 'contents', 'syslog_object')
+      str = omit_label(str, 'interface', 'cos_interfaces_type')
+      str = omit_label(str, 'interface', 'ir_interfaces_type')
+      str = omit_label(str, 'interface', 'interfaces_type')
+      str = omit_label(str, 'client-address-list', 'client_address_object')
+      str = omit_label(str, 'prefix-list-item', 'prefix_list_items')
+      str = omit_label(str, 'instance', 'juniper_routing_instance')
+      str = omit_label(str, 'vlan', 'vlan_type')
+
+      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmpv6"#$1"icmp"] }
+      str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
+      str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+
       str
     end
 
-    def format(str)
-      str.empty? ? '' : OFFSET + str
+    def omit_label(str, label, content)
+      str.gsub(/(\s*)"#{label}" \(\s*#{content}\s*\)/) { "#{$1}#{content}" }
+    end
+
+    def format(str, offset=OFFSET)
+      case str
+      when String
+        str.empty? ? '' : offset + str
+      when Array
+        str.map {|s| s.empty? ? '' : offset + s.to_s }.join("\n")
+      end
     end
 
     def rule_header
@@ -57,7 +123,7 @@ module Junoser
   class Parser < Parslet::Parser
     # block with children maybe
     def b(object, *children)
-      children.inject(object) {|rule, child| rule >> (space >> child).maybe }
+      children.inject(object) {|rule, child| rule >> (space >> child | eos) }
     end
 
     # with an argument, and children maybe
@@ -72,7 +138,8 @@ module Junoser
 
     # sequence
     def s(*objects)
-      objects.inject {|rule, object| rule >> (space >> object) }
+      # TODO:  eval "minOccurs" attribute of choice element
+      objects.inject {|rule, object| rule >> (space >> object).maybe }
     end
 
     # sequential choice
@@ -83,7 +150,9 @@ module Junoser
     rule(:arg)     { match('\\S').repeat(1) }
     rule(:space)   { match('\\s').repeat(1) }
     rule(:any)     { match('.').repeat(1) }
+    rule(:eos)     { match('$') }
     rule(:dotted)  { match('[^. \\t\\n\\r\\f]').repeat(1) >> match('\.') >> match('[^. \\t\\n\\r\\f]').repeat(1) }
+    rule(:quote)   { match('"') >> match('[^"]').repeat(1) >> match('"') }
     rule(:address) { match('[0-9a-fA-F:\.]').repeat(1) }
     rule(:prefix ) { address >> (match('/') >> match('[0-9]').repeat(1)).maybe }
 
