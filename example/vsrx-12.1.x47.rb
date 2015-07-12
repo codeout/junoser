@@ -21325,6 +21325,9 @@ rule(:juniper_protocols) do
         "bgp" (
           juniper_protocols_bgp
         ),
+        "bfd" (
+          juniper_protocols_bfd
+        ),
         "dvmrp" (
             sc(
                 c(
@@ -24155,6 +24158,19 @@ rule(:juniper_protocols_bgp) do
         ),
         "drop-path-attributes" arg
     )
+end
+
+rule(:juniper_protocols_bfd) do
+  "traceoptions" (
+    sc(
+      "file" (
+        trace_file_type
+      ),
+      "flag" ("adjacency" | "all" | "error" | "event" | "issu" | "nsr-packet" | "nsr-synchronization" | "packet" | "pipe" | "pipe-detail" | "ppm-packet" | "state" | "timer") (
+        "disable"
+      )
+    )
+  )
 end
 
 rule(:bgp_afi_default) do
@@ -27216,6 +27232,9 @@ rule(:juniper_routing_instance) do
             sc(
                 "bgp" (
                   juniper_protocols_bgp
+                ),
+                "bfd" (
+                  juniper_protocols_bfd
                 ),
                 "ospf" (
                   juniper_protocols_ospf
