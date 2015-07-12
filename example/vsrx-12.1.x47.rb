@@ -4276,10 +4276,10 @@ rule(:configuration) do
                   "pgcp",
                   "border-signaling-gateway",
                   "ids",
-                  "nat",
+                  "nat" service_nat_object,
                   "l2tp",
                   "adaptive-services-pics",
-                  "service-set",
+                  "service-set" service_set_object,
                   "service-interface-pools" (
                       sc(
                           "pool" (
@@ -38092,3 +38092,189 @@ rule(:zone_system_services_object_type) do
   )
 end
 
+rule(:service_set_object) do
+  arg.as(:arg) (
+    sc(
+      "allow-multicast",
+      "extension-service" arg (
+        any
+      ),
+      "ids-rules" arg,
+      "ids-rule-sets" arg,
+      "interface-service" (
+        "service-interface" arg
+      ),
+      "ipsec-vpn-options" (
+        sc(
+          "anti-replay-window-size" arg,
+          "clear-dont-fragment-bit" arg,
+          "ike-access-profile" arg,
+          "local-gateway" arg,
+          "no-anti-replay",
+          "passive-mode-tunneling",
+          "trusted-ca" any,
+          "tunnel-mtu" arg
+        )
+      ),
+      "ip-reassembly-rules" arg,
+      "ipsec-vpn-rules" arg,
+      "ipsec-vpn-rule-sets" arg,
+      "max-flows" arg,
+      "max-drop-flows" (
+        sc(
+          "ingress" arg,
+          "egress" arg
+        )
+      ),
+      "nat-options" (
+        sc(
+          "land-attack-check" ("ip-only" | "ip-port"),
+          "max-sessions-per-subscriber" arg,
+          "stateful-nat64" (
+            "clear-dont-fragment-bit"
+          )
+        )
+      ),
+      "nat-rules" arg,
+      "nat-rule-sets" arg,
+      "next-hop-service" (
+        sc(
+          "inside-service-interface" dotted,
+          "outside-service-interface" dotted,
+          "outside-service-interface-type local",
+          "service-interface-pool" arg
+        )
+      ),
+      "pgcp-rules" arg,
+      "pgcp-rule-sets" arg,
+      "ptsp-rules" arg,
+      "ptsp-rule-sets" arg,
+      "service-set-options" (
+        sc(
+          "bypass-traffic-on-exceeding-flow-limits",
+          "bypass-traffic-on-pic-failure",
+          "enable-asymmetric-traffic-processing",
+          "support-uni-directional-traffic"
+        )
+      ),
+      "snmp-trap-thresholds" (
+        sc(
+          "flows" (
+            sc(
+              "high" arg,
+              "low" arg
+            )
+          ),
+          "nat-address-port" (
+            sc(
+              "high" arg,
+              "low" arg
+            )
+          )
+        )
+      ),
+      "softwire-options" (
+        "dslite-ipv6-prefix-length" arg
+      ),
+      "softwire-rules" arg,
+      "softwire-rule-sets" arg,
+      "stateful-firewall-rules" arg,
+      "stateful-firewall-rule-sets" arg,
+      "syslog" (
+        "host" arg (
+          "class" (
+            sc(
+              "alg-logs",
+              "ids-logs",
+              "nat-logs",
+              "packet-logs",
+              "pcp-logs",
+              "session-logs" (
+                sc(
+                  ("open" | "close"),
+                  "stateful-firewall-logs"
+                )
+              ),
+              "services" arg,
+              "facility-override" arg,
+              "interface-service" arg
+            )
+          )
+        )
+      )
+    )
+  )
+end
+
+rule(:service_nat_object) do
+  sc(
+    "pool" arg (
+      sc(
+        "address" prefix,
+        b(s("address-range", "low", arg, "high", arg) | "port",
+          sc(
+            "automatic" ("sequential" | "random-allocation"),
+            s("range", "low", arg, "high", arg) | "preserve-parity",
+            "preserve-range" any
+          )
+        )
+      )
+    ),
+
+    "rule" arg (
+      sc(
+        "match-direction" ("input" | "output"),
+        "term" arg (
+          sc(
+            "from" (
+              sc(
+                "application-sets" arg,
+                "applications" any,
+                "destination-address" (
+                  (prefix | "any-unicast") (
+                    "except"
+                  )
+                ),
+                b(s("destination-address-range", "low", arg, "high", arg),
+                  "except"
+                ),
+                "source-address" (
+                  (prefix | "any-unicast") (
+                    "except"
+                  )
+                ),
+                b(s("source-address-range", "low", arg, "high", arg),
+                  "except"
+                )
+              )
+            ),
+            "then" (
+              sc(
+                "no-translation",
+                "translated" (
+                  sc(
+                    "address-pooling paired",
+                    "destination-pool" arg,
+                    "destination-prefix" arg,
+                    "dns-alg-pool" arg,
+                    "dns-alg-prefix" arg,
+                    "filtering-type" arg,
+                    "mapping-type" arg,
+                    "overload-pool" arg,
+                    "overload-prefix" arg,
+                    "source-pool" arg,
+                    "source-prefix" arg,
+                    "translation-type" (
+                      ("basic-nat-pt" | "basic-nat44" | "basic-nat66" | "dnat-44" | "dynamic-nat44" | "napt-44" | "napt-66" | "napt-pt" | "stateful-nat64" | "twice-basic-nat-44" | "twice-dynamic-nat-44" | "twice-napt-44")
+                    )
+                  )
+                )
+              )
+            ),
+            "syslog"
+          )
+        )
+      )
+    )
+  )
+end
