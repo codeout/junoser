@@ -6967,11 +6967,12 @@ end
 
 rule(:ethernet_switching_type) do
     sc(
-        "port-mode" arg,
+        "port-mode" ("access" | "trunk"),
+        "interface-mode-mode" ("access" | "trunk"),
         "reflective-relay",
         "vlan" (
             sc(
-                "members" arg
+                "members" ("all" | arg)
             )
         ),
         "native-vlan-id" arg,
@@ -6979,6 +6980,25 @@ rule(:ethernet_switching_type) do
             sc(
                 "input" arg,
                 "output" arg
+            )
+        ),
+        "storm-control" (
+            sc(
+                "action-shutdown",
+                "interface" ("all" | "name") (
+                    sc(
+                        "bandwidth" arg,
+                        "no-broadcast",
+                        "no-unknown-unicast",
+                        "level" arg,
+                        c(
+                          "multicast",
+                          "no-multicast",
+                          "no-registered-multicast",
+                          "no-unregistered-multicast"
+                        )
+                    )
+                )
             )
         )
     )
@@ -16165,6 +16185,7 @@ rule(:juniper_ethernet_options) do
                         "bandwidth" arg,
                         "no-broadcast",
                         "no-unknown-unicast",
+                        "level" arg,
                         c(
                           "multicast",
                           "no-multicast",
@@ -16651,7 +16672,23 @@ rule(:juniper_forwarding_options) do
         ),
         "fast-reroute-priority" arg,
         "cut-through",
-        "ipmc-miss-do-l2mc"
+        "ipmc-miss-do-l2mc",
+        "storm-control-profiles" arg (
+          sc(
+            "action-shutdown",
+            "all" (
+              sc(
+                "bandwidth-level" arg,
+                "bandwidth-percentage" arg,
+                "no-broadcast",
+                "no-multicast",
+                "no-registered-multicast",
+                "no-unknown-unicast",
+                "no-unregistered-multicast"
+              )
+            )
+          )
+        )
     )
 end
 
