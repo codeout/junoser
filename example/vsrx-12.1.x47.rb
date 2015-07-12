@@ -22912,7 +22912,26 @@ rule(:juniper_protocols) do
                 )
             )
         ),
-        "dcbx",
+        "dcbx" (
+          sc(
+            "disable",
+            "interface" ("all" | arg) (
+              sc(
+                "application-map" arg,
+                "applications" (
+                  "fcoe" (
+                    "no-auto-negotiation"
+                  )
+                ),
+                "disable",
+                "priority-flow-control" (
+                  "no-auto-negotiation"
+                )
+              )
+            )
+          )
+        ),
+
         "lldp" (
             sc(
                 c(
