@@ -1,5 +1,3 @@
-require "junoser/version"
-
-module Junoser
-  # Your code goes here...
-end
+require 'junoser/display'
+require 'junoser/parser'
+require 'junoser/version'

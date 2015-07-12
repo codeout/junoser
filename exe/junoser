@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'pathname'
+
+$: << File.expand_path('../../lib', Pathname.new(__FILE__).realpath)
+
+require 'junoser/cli'
+
+
+command = nil
+opts = OptionParser.new do |opts|
+  opts.banner = 'junoser: an juniper configuration parser'
+  opts.define_head 'Usage: junoser [options] [path]'
+  opts.separator ''
+  opts.separator 'Options:'
+
+  opts.on '-c', '--check', 'Verify syntax' do
+    command = :check
+  end
+
+  opts.on '-d', '--display-set', 'Translate to "display set" form' do
+    command = :display_set
+  end
+
+  opts.on_tail '-h', '--help', 'Show this message' do
+    puts opts
+    exit
+  end
+
+  opts.on_tail '-v', '--version', 'Show version' do
+    puts Junoser::VERSION
+  end
+end
+opts.parse!
+
+case command
+when :check
+  Junoser::Cli.commit_check
+when :display_set
+  Junoser::Cli.display_set
+else
+  puts opts
+  abort
+end
