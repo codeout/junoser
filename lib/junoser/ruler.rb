@@ -39,6 +39,9 @@ module Junoser
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
       str.gsub! /"contents" \(\s*syslog_object\s*\)/, 'syslog_object'
+      str.gsub!(/^(\s*)"inline-services"/) { %[#$1"inline-services" (
+#$1  "bandwidth" ("1g" | "10g")
+#$1)] }
       str
     end
 
