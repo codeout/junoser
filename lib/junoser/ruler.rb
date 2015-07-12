@@ -83,6 +83,9 @@ module Junoser
     rule(:arg)     { match('\\S').repeat(1) }
     rule(:space)   { match('\\s').repeat(1) }
     rule(:any)     { match('.').repeat(1) }
+    rule(:dotted)  { match('[^. \\t\\n\\r\\f]').repeat(1) >> match('\.') >> match('[^. \\t\\n\\r\\f]').repeat(1) }
+    rule(:address) { match('[0-9a-fA-F:\.]').repeat(1) }
+    rule(:prefix ) { address >> (match('/') >> match('[0-9]').repeat(1)).maybe }
 
     root(:set)
     rule(:set) { (str('set') | str('deactivate')) >> space >> configuration }
