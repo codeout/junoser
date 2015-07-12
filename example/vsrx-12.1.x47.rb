@@ -4547,6 +4547,60 @@ rule(:configuration) do
                     vlan_type
                   )
               )
+          ),
+          "virtual-chassis" (
+            sc(
+              "aliases" (
+                "serial-number" arg (
+                  "alias-name" arg
+                )
+              ),
+              "auto-provisioned",
+              "auto-sw-update" (
+                arg (
+                  "package-name" arg
+                )
+              ),
+              "fast-failover" ("ge" | "vcp disable" | "xe"),
+              "graceful-restart" (
+                "disable"
+              ),
+              "id" arg,
+              "mac-persistence-timer" (
+                ("minutes" | "disable")
+              ),
+              "member" arg (
+                sc(
+                  "location" arg,
+                  "mastership-priority" arg,
+                  "no-management-vlan",
+                  "serial-number" arg,
+                  "role" ("line-card" | "routing-engine")
+                )
+              ),
+              "no-split-detection",
+              "preprovisioned",
+              "traceoptions" (
+                sc(
+                  "file" (
+                    sc(
+                      "files" arg,
+                      "no-stamp",
+                      "replace",
+                      "size" arg,
+                      "world-readable",
+                      "no-world-readable",
+                      arg
+                    )
+                  ),
+                  "flag" ("detail" | "disable" | "receive" | "send")
+                )
+              ),
+              "vc-port" (
+                "lag-hash" ("packet-based" | "source-port-based")
+              ),
+              "vcp-no-hold-time"
+            )
           )
       )
 end
