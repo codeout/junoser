@@ -5,7 +5,7 @@ module Junoser
     class ConfigStore
       extend Forwardable
 
-      OFFSET = '  '
+      OFFSET = '    '
 
       def initialize(depth=0)
         @hash = {}
