@@ -22,7 +22,6 @@ module Junoser
             parser.parse config
           rescue Parslet::ParseFailed
             $stderr.puts "Invalid syntax:\n#{struct(current_stack.dup, str)}"
-raise
             failed = true
           end
         end
