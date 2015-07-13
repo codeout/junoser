@@ -43,7 +43,8 @@ module Junoser
       private
 
       def join_arg(str)
-        str.gsub!(/\narg\((.*)\)\n/) { " #$1\n" }
+        str.gsub!(/\narg\((.*)\)$/) { " #$1" }
+        str.gsub!(/arg\((.*)\)/) { "#$1" }
         str
       end
     end

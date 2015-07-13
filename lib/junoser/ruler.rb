@@ -128,7 +128,7 @@ module Junoser
 
     # with an argument, and children maybe
     def a(object, arg, *children)
-      b(object >> space >> arg, *children)
+      b(object.as(:statement) >> space >> arg.as(:argument), *children)
     end
 
     # choice

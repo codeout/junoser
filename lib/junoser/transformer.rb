@@ -26,6 +26,14 @@ module Junoser
       %[#{label}\n#{children.join("\n")}]
     end
 
+    rule(statement: simple(:statement), argument: simple(:argument)) do
+      "#{statement} #{argument}"
+    end
+
+    rule(statement: simple(:statement), argument: sequence(:arguments)) do
+      %[#{statement}\n#{arguments.join("\n")}]
+    end
+
     rule(oneline: simple(:str)) do
       str.gsub "\n", ' '
     end
