@@ -20,6 +20,10 @@ module Junoser
         Junoser::Display::Set.new($<).transform
       end
 
+      def struct
+        Junoser::Display::Structure.new($<).transform
+      end
+
 
       private
 

@@ -23,6 +23,10 @@ opts = OptionParser.new do |opts|
     command = :display_set
   end
 
+  opts.on '-s', '--structured', 'Translate to structured form' do
+    command = :struct
+  end
+
   opts.on_tail '-h', '--help', 'Show this message' do
     puts opts
     exit
@@ -39,6 +43,8 @@ when :check
   Junoser::Cli.commit_check
 when :display_set
   Junoser::Cli.display_set
+when :struct
+  Junoser::Cli.struct
 else
   puts opts
   abort
