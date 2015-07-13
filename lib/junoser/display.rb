@@ -1,4 +1,5 @@
 require 'junoser/display/set'
+require 'junoser/display/structure'
 
 module Junoser
   module Display

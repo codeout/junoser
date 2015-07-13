@@ -28,16 +28,18 @@ module Junoser
       def to_s
         str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.compact.join("\n")
 
-        case
-        when str.empty? && xml['type']
-          l = label ? "#{label} (" : '('
-          format(l, format(OFFSET + xml['type'].underscore), ')')
-        when str.empty?
-          format(label)
-        else
-          l = label ? "#{label} (" : '('
-          format(l, str, ')')
-        end
+        str = case
+              when str.empty? && xml['type']
+                l = label ? "#{label} (" : '('
+                format(l, format(OFFSET + xml['type'].underscore), ')')
+              when str.empty?
+                format(label)
+              else
+                l = label ? "#{label} (" : '('
+                format(l, str, ')')
+              end
+
+        oneliner? ? "#{str}.as(:oneline)" : str
       end
 
       def content
@@ -71,7 +73,7 @@ module Junoser
         when @argument.name == 'simpleType'
           'arg'
         else
-          arg = Junoser::Xsd::Element.new(@argument).config
+          arg = Junoser::Xsd::Element.new(@argument, depth: @depth+1).config
           raise "ERROR: argument shouldn't consist of multiple elements" if arg.size > 1
           arg.first.to_s.strip
         end

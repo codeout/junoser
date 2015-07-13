@@ -32,16 +32,18 @@ module Junoser
       def to_s
         str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.compact.join("\n")
 
-        case [!argument.nil?, !str.empty?]
-        when [true, true]
-          format("#{argument} (", str, ')')
-        when [true, false]
-          format(argument)
-        when [false, true]
-          str
-        else
-          ''
-        end
+        str = case [!argument.nil?, !str.empty?]
+              when [true, true]
+                format("#{argument} (", str, ')')
+              when [true, false]
+                format(argument)
+              when [false, true]
+                simple_argument?(str) ? "#{str}.as(:arg)" : str
+              else
+                ''
+              end
+
+        oneliner? ? "#{str}.as(:oneline)" : str
       end
 
 
@@ -50,13 +52,22 @@ module Junoser
       def argument
         return unless @argument
 
-        arg = Junoser::Xsd::Element.new(@argument).config
+        arg = Junoser::Xsd::Element.new(@argument, depth: @depth+1).config
         raise "ERROR: argument shouldn't consist of multiple elements" if arg.size > 1
-        arg.first.to_s.strip
+
+        if root?
+          arg.first.to_s.strip + ".as(:arg)"
+        else
+          arg.first.to_s.strip
+        end
       end
 
       def find_name_element
         xml.xpath('./xsd:sequence/xsd:element[@name="name"]').remove.first
+      end
+
+      def simple_argument?(str)
+        root? && str =~ /\A\s*arg\z/
       end
     end
   end

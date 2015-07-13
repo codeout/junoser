@@ -24,12 +24,12 @@ module Junoser
 
       str.gsub!(/("[^"]+")/) { "str(#$1)" }  # "foo" -> str("foo")
 
-      str.gsub!(/^(\s*)arg \($/) { "#{$1}b(arg," }   # arg ( -> b(arg,
-      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+)(,?)$/) { "#{$1}a(#$2, #$3)#$4" }  # str("foo") bar -> a(str("foo"), bar)
+      str.gsub!(/^(\s*)arg(\.as\(:\S+\))? \($/) { "#{$1}b(arg#$2," }  # arg ( -> b(arg,
+      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+)(\.as\(:\S+\))?(,?)$/) { "#{$1}a(#$2, #$3)#$4#$5" }  # str("foo") bar -> a(str("foo"), bar)
       str.gsub!(/^(\s*)(str\(\S+\)) \((.*)\)(,?)$/) { "#{$1}a(#$2, #$3)#$4" }  # str("foo") (a | b) -> a(str("foo"), a | b)
 
       str.gsub!(/^(\s*)(str\(\S+\)) \($/) { "#{$1}b(#$2," }  # str("foo") ( -> b(str("foo"),
-      str.gsub!(/^(\s*)\((.*)\) \($/) { "#{$1}b(#$2," }    # (a | b) ( -> b((a | b),
+      str.gsub!(/^(\s*)(\(.*\))(\.as\(:\S\))? \($/) { "#{$1}b(#$2#$3," }  # (a | b) ( -> b((a | b),
       str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+) \($/) { "#{$1}b(a(#$2, #$3)," }  # str("foo") bar ( -> b(a(str("foo"), bar),
       str.gsub!(/^(\s*)(str\(\S+\)) \((.*)\) \($/) { "#{$1}a(#$2, #$3," }  # str("foo") (a | b) ( -> a(str("foo"), a | b,
 
@@ -123,12 +123,12 @@ module Junoser
   class Parser < Parslet::Parser
     # block with children maybe
     def b(object, *children)
-      children.inject(object) {|rule, child| rule >> (space >> child | eos) }
+      children.inject(object) {|rule, child| rule.as(:label) >> (space >> child.as(:child) | eos) }
     end
 
     # with an argument, and children maybe
     def a(object, arg, *children)
-      b(object >> space >> arg, *children)
+      b(object.as(:statement) >> space >> arg.as(:argument), *children)
     end
 
     # choice
@@ -157,7 +157,7 @@ module Junoser
     rule(:prefix ) { address >> (match('/') >> match('[0-9]').repeat(1)).maybe }
 
     root(:set)
-    rule(:set) { (str('set') | str('deactivate')) >> space >> configuration }
+    rule(:set) { (str('set') | str('deactivate')) >> space >> configuration.as(:config) }
 
       EOS
     end
