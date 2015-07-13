@@ -29,7 +29,7 @@ module Junoser
       str.gsub!(/^(\s*)(str\(\S+\)) \((.*)\)(,?)$/) { "#{$1}a(#$2, #$3)#$4" }  # str("foo") (a | b) -> a(str("foo"), a | b)
 
       str.gsub!(/^(\s*)(str\(\S+\)) \($/) { "#{$1}b(#$2," }  # str("foo") ( -> b(str("foo"),
-      str.gsub!(/^(\s*)\((.*)\) \($/) { "#{$1}b(#$2," }    # (a | b) ( -> b((a | b),
+      str.gsub!(/^(\s*)\((.*)\) \($/) { "#{$1}b(#$2," }  # (a | b) ( -> b((a | b),
       str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+) \($/) { "#{$1}b(a(#$2, #$3)," }  # str("foo") bar ( -> b(a(str("foo"), bar),
       str.gsub!(/^(\s*)(str\(\S+\)) \((.*)\) \($/) { "#{$1}a(#$2, #$3," }  # str("foo") (a | b) ( -> a(str("foo"), a | b,
 
