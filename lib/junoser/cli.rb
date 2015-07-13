@@ -6,8 +6,12 @@ require 'junoser/parser'
 module Junoser
   module Cli
     class << self
-      def commit_check
-        config = $<.read
+      def commit_check(io_or_string)
+        config = if io_or_string.respond_to?(:read)
+                   $<.read
+                 else
+                   io_or_string.to_s
+                 end
 
         if Junoser::Display.display_set?(config)
           commit_check_display_set config
@@ -16,12 +20,12 @@ module Junoser
         end
       end
 
-      def display_set
-        Junoser::Display::Set.new($<).transform
+      def display_set(io_or_string)
+        Junoser::Display::Set.new(io_or_string).transform
       end
 
-      def struct
-        Junoser::Display::Structure.new($<).transform
+      def struct(io_or_string)
+        Junoser::Display::Structure.new(io_or_string).transform
       end
 
 
