@@ -40,11 +40,11 @@ opts.parse!
 
 case command
 when :check
-  Junoser::Cli.commit_check
+  Junoser::Cli.commit_check $<
 when :display_set
-  Junoser::Cli.display_set
+  Junoser::Cli.display_set $<
 when :struct
-  Junoser::Cli.struct
+  Junoser::Cli.struct $<
 else
   puts opts
   abort
