@@ -4,7 +4,7 @@ module Junoser
   class Parser < Parslet::Parser
     # block with children maybe
     def b(object, *children)
-      children.inject(object) {|rule, child| rule >> (space >> child | eos) }
+      children.inject(object) {|rule, child| rule.as(:label) >> (space >> child.as(:child) | eos) }
     end
 
     # with an argument, and children maybe
@@ -275,8 +275,10 @@ module Junoser
               a(str("rcsid"), arg),
               a(str("version"), arg),
               b(str("groups"),
-                  s(
-                    any
+                  sc(
+                    b(arg,
+                      configuration
+                    )
                   )
               ),
               a(str("apply-groups"), arg),
@@ -4818,7 +4820,7 @@ module Junoser
     end
 
     rule(:any_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("interface-specific"),
             b(a(str("term"), arg),
@@ -4880,7 +4882,7 @@ module Junoser
     end
 
     rule(:application_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("application-protocol"), arg),
             a(str("protocol"), arg),
@@ -4911,7 +4913,7 @@ module Junoser
     end
 
     rule(:application_set_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("application"), arg),
@@ -4955,7 +4957,7 @@ module Junoser
     end
 
     rule(:atm_policer_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("logical-interface-policer"),
             a(str("atm-service"), arg),
@@ -4969,7 +4971,7 @@ module Junoser
     end
 
     rule(:authentication_source_type) do
-      b(str("local-authentication-table") | str("unified-access-control") | str("firewall-authentication") | str("active-directory-authentication-table"),
+      b((str("local-authentication-table") | str("unified-access-control") | str("firewall-authentication") | str("active-directory-authentication-table")).as(:arg),
         sc(
             c(
               a(str("priority"), arg)
@@ -5062,7 +5064,7 @@ module Junoser
     end
 
     rule(:bgp_logical_system) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("routing-instances"),
               bgp_routing_instances
@@ -5072,11 +5074,11 @@ module Junoser
     end
 
     rule(:bgp_routing_instances) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:bridge_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             str("interface-specific"),
@@ -5289,7 +5291,7 @@ module Junoser
     end
 
     rule(:category_list_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("value"), arg)
         )
@@ -5297,7 +5299,7 @@ module Junoser
     end
 
     rule(:ccc_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             str("interface-specific"),
@@ -5372,7 +5374,7 @@ module Junoser
     end
 
     rule(:certificate_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("certificate"), arg)
         )
@@ -5686,7 +5688,7 @@ module Junoser
     end
 
     rule(:chassis_fpc_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("sanity-poll"),
             b(str("pic"),
@@ -5721,7 +5723,7 @@ module Junoser
     end
 
     rule(:chassis_pfe_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("tunnel-services")
         )
@@ -5729,7 +5731,7 @@ module Junoser
     end
 
     rule(:chassis_pic_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("tunnel-port"),
               chassis_port_type
@@ -5847,7 +5849,7 @@ module Junoser
     end
 
     rule(:ce1_channel_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(a(str("channel-group"), arg),
                 sc(
@@ -5875,7 +5877,7 @@ module Junoser
     end
 
     rule(:chassis_pic_port_framing) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("framing"), arg),
             a(str("speed"), arg)
@@ -5884,7 +5886,7 @@ module Junoser
     end
 
     rule(:chassis_port_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("tunnel-services")
         )
@@ -5921,7 +5923,7 @@ module Junoser
     end
 
     rule(:chassis_rdd_cfeb_id_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               str("always"),
@@ -5939,7 +5941,7 @@ module Junoser
     end
 
     rule(:chassis_rdd_id_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               str("always"),
@@ -5950,7 +5952,7 @@ module Junoser
     end
 
     rule(:chassis_rdd_re_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               str("master"),
@@ -5962,7 +5964,7 @@ module Junoser
     end
 
     rule(:chassis_rdd_sfm_id_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               str("always"),
@@ -5992,7 +5994,7 @@ module Junoser
     end
 
     rule(:chassis_sfm_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("power"), arg)
         )
@@ -6041,7 +6043,7 @@ module Junoser
     end
 
     rule(:client_address_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("restrict")
         )
@@ -6049,7 +6051,7 @@ module Junoser
     end
 
     rule(:command_list_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("value"), arg)
         )
@@ -6101,7 +6103,7 @@ module Junoser
     end
 
     rule(:cos_policer) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("premium"),
               ethernet_policer
@@ -6142,7 +6144,7 @@ module Junoser
     end
 
     rule(:ct3_port_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("t1"),
               ct3_channel_type
@@ -6152,7 +6154,7 @@ module Junoser
     end
 
     rule(:ct3_channel_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(a(str("channel-group"), arg),
                 sc(
@@ -6164,7 +6166,7 @@ module Junoser
     end
 
     rule(:custom_attack_group_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("group-members"), arg)
         )
@@ -6172,7 +6174,7 @@ module Junoser
     end
 
     rule(:custom_attack_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("recommended-action"), arg),
             a(str("severity"), arg),
@@ -6557,7 +6559,7 @@ module Junoser
     end
 
     rule(:chain_member_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("attack-type"),
                 sc(
@@ -6931,7 +6933,7 @@ module Junoser
     end
 
     rule(:dynamic_attack_group_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("filters"),
                 sc(
@@ -7056,7 +7058,7 @@ module Junoser
     end
 
     rule(:extension_list_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("value"), arg)
         )
@@ -7077,7 +7079,7 @@ module Junoser
     end
 
     rule(:firewall_addr_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("except")
         )
@@ -7085,7 +7087,7 @@ module Junoser
     end
 
     rule(:firewall_hierpolicer) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               str("logical-interface-policer"),
@@ -7104,7 +7106,7 @@ module Junoser
     end
 
     rule(:firewall_load_balance_group) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("next-hop-group"), arg)
         )
@@ -7112,7 +7114,7 @@ module Junoser
     end
 
     rule(:firewall_mac_addr_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("except")
         )
@@ -7120,7 +7122,7 @@ module Junoser
     end
 
     rule(:firewall_policer) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("filter-specific"),
             str("logical-interface-policer"),
@@ -7149,7 +7151,7 @@ module Junoser
     end
 
     rule(:firewall_prefix_list) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("except")
         )
@@ -7157,7 +7159,7 @@ module Junoser
     end
 
     rule(:flow_filter_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("protocol"), arg),
             b(str("source-prefix"),
@@ -7228,7 +7230,7 @@ module Junoser
     end
 
     rule(:idp_policy_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("rulebase-ips"),
                 sc(
@@ -7384,7 +7386,7 @@ module Junoser
     end
 
     rule(:ids_option_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             str("alarm-without-drop"),
@@ -7555,7 +7557,7 @@ module Junoser
     end
 
     rule(:inet6_dialer_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             b(a(str("term"), arg),
@@ -7652,7 +7654,7 @@ module Junoser
     end
 
     rule(:firewall_addr6_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("except")
         )
@@ -7660,7 +7662,7 @@ module Junoser
     end
 
     rule(:inet6_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             str("interface-specific"),
@@ -7863,7 +7865,7 @@ module Junoser
     end
 
     rule(:inet6_fuf) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("interface-specific"),
             b(str("match-order"),
@@ -7942,7 +7944,7 @@ module Junoser
     end
 
     rule(:inet6_service_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(a(str("term"), arg),
                 sc(
@@ -8032,7 +8034,7 @@ module Junoser
     end
 
     rule(:inet_dialer_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             b(a(str("term"), arg),
@@ -8175,7 +8177,7 @@ module Junoser
     end
 
     rule(:inet_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             str("interface-specific"),
@@ -8429,7 +8431,7 @@ module Junoser
     end
 
     rule(:inet_fuf) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("interface-specific"),
             b(str("match-order"),
@@ -8508,7 +8510,7 @@ module Junoser
     end
 
     rule(:inet_service_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(a(str("term"), arg),
                 sc(
@@ -8621,7 +8623,7 @@ module Junoser
     end
 
     rule(:inet_simple_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(a(str("term"), arg),
                 sc(
@@ -8679,7 +8681,7 @@ module Junoser
     end
 
     rule(:interface_set_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("interface-list"), arg)
         )
@@ -8687,7 +8689,7 @@ module Junoser
     end
 
     rule(:interfaces_type) do
-      b(arg | str("interface-name"),
+      b((arg | str("interface-name")).as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("metadata"), arg),
@@ -10462,7 +10464,7 @@ module Junoser
     end
 
     rule(:ip_monitoring_address_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("weight"), arg),
             b(str("interface"),
@@ -10843,7 +10845,7 @@ module Junoser
     end
 
     rule(:access_client_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("no-rfc2486"),
             b(str("chap-secret"),
@@ -10910,7 +10912,7 @@ module Junoser
     end
 
     rule(:access_radius_server_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             a(str("accounting-port"), arg),
@@ -11022,7 +11024,7 @@ module Junoser
     end
 
     rule(:address_pool_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               b(str("address"),
@@ -11218,7 +11220,7 @@ module Junoser
     end
 
     rule(:group_profile_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("ppp"),
                 sc(
@@ -11263,7 +11265,7 @@ module Junoser
     end
 
     rule(:juniper_bridge_domains) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("domain-type"), arg),
@@ -11384,7 +11386,7 @@ module Junoser
     end
 
     rule(:dhcp_group) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("active-server-group"), arg),
             b(str("authentication"),
@@ -11555,7 +11557,7 @@ module Junoser
     end
 
     rule(:dhcpv6_relay_group) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("active-server-group"), arg),
             b(str("authentication"),
@@ -12179,7 +12181,7 @@ module Junoser
     end
 
     rule(:cos_interfaces_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("forwarding-class-set"),
             a(str("congestion-notification-profile"), arg),
@@ -12386,7 +12388,7 @@ module Junoser
     end
 
     rule(:juniper_dynamic_profile_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("variables"),
               juniper_dynamic_variable_object
@@ -15983,7 +15985,7 @@ module Junoser
     end
 
     rule(:base_default_variable_object) do
-      b(str("igmp-enable") | str("igmp-access-group-name") | str("igmp-access-source-group-name") | str("igmp-version") | str("igmp-immediate-leave") | str("mld-access-group-name") | str("mld-access-source-group-name") | str("mld-immediate-leave") | str("input-filter") | str("output-filter") | str("input-ipv6-filter") | str("output-ipv6-filter") | str("adf-rule-v4") | str("adf-rule-v6") | str("cos-scheduler-map") | str("cos-shaping-rate") | str("cos-guaranteed-rate") | str("cos-delay-buffer-rate") | str("cos-traffic-control-profile") | str("cos-shaping-mode") | str("cos-byte-adjust") | str("cos-scheduler") | str("cos-scheduler-pri") | str("cos-scheduler-dropfile-low") | str("cos-scheduler-dropfile-medium-low") | str("cos-scheduler-dropfile-medium-high") | str("cos-scheduler-dropfile-high") | str("cos-scheduler-dropfile-any") | str("cos-scheduler-excess-rate") | str("cos-scheduler-excess-priority") | str("interface-set-name") | str("cos-adjust-minimum") | str("cos-excess-rate-high") | str("cos-excess-rate-low") | str("cos-shaping-rate-burst") | str("cos-guaranteed-rate-burst"),
+      b((str("igmp-enable") | str("igmp-access-group-name") | str("igmp-access-source-group-name") | str("igmp-version") | str("igmp-immediate-leave") | str("mld-access-group-name") | str("mld-access-source-group-name") | str("mld-immediate-leave") | str("input-filter") | str("output-filter") | str("input-ipv6-filter") | str("output-ipv6-filter") | str("adf-rule-v4") | str("adf-rule-v6") | str("cos-scheduler-map") | str("cos-shaping-rate") | str("cos-guaranteed-rate") | str("cos-delay-buffer-rate") | str("cos-traffic-control-profile") | str("cos-shaping-mode") | str("cos-byte-adjust") | str("cos-scheduler") | str("cos-scheduler-pri") | str("cos-scheduler-dropfile-low") | str("cos-scheduler-dropfile-medium-low") | str("cos-scheduler-dropfile-medium-high") | str("cos-scheduler-dropfile-high") | str("cos-scheduler-dropfile-any") | str("cos-scheduler-excess-rate") | str("cos-scheduler-excess-priority") | str("interface-set-name") | str("cos-adjust-minimum") | str("cos-excess-rate-high") | str("cos-excess-rate-low") | str("cos-shaping-rate-burst") | str("cos-guaranteed-rate-burst")).as(:arg),
         sc(
             a(str("default-value"), arg)
         )
@@ -16022,7 +16024,7 @@ module Junoser
     end
 
     rule(:juniper_dynamic_profile_varset_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("junos-mep-id"), arg),
             a(str("junos-md-level"), arg),
@@ -16035,7 +16037,7 @@ module Junoser
     end
 
     rule(:juniper_dynamic_variable_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("equals"), arg),
             a(str("default-value"), arg),
@@ -16244,7 +16246,7 @@ module Junoser
     end
 
     rule(:analyzer_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("ratio"), arg),
             a(str("loss-priority"), arg),
@@ -16281,7 +16283,7 @@ module Junoser
     end
 
     rule(:analyzer_egress_interface_type) do
-      (str("name") | str("all"))
+      (str("name") | str("all")).as(:arg)
     end
 
     rule(:analyzer_ingress_type) do
@@ -16296,7 +16298,7 @@ module Junoser
     end
 
     rule(:analyzer_ingress_interface_type) do
-      (str("name") | str("all"))
+      (str("name") | str("all")).as(:arg)
     end
 
     rule(:analyzer_output_type) do
@@ -16311,7 +16313,7 @@ module Junoser
     end
 
     rule(:analyzer_vlan_type) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:dhcp_option82_type) do
@@ -16340,7 +16342,7 @@ module Junoser
     end
 
     rule(:esw_interface_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("no-mac-learning")
         )
@@ -16737,7 +16739,7 @@ module Junoser
     end
 
     rule(:juniper_ip_mac_static) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("vlan"), arg),
             b(str("mac"),
@@ -16748,7 +16750,7 @@ module Junoser
     end
 
     rule(:juniper_logical_system) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("interfaces"),
                 sc(
@@ -18330,7 +18332,7 @@ module Junoser
     end
 
     rule(:cflowd_sampling_inet_lr_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             a(str("autonomous-system-type"), arg),
@@ -18370,7 +18372,7 @@ module Junoser
     end
 
     rule(:cflowd_sampling_mpls_lr_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             a(str("autonomous-system-type"), arg),
@@ -18418,7 +18420,7 @@ module Junoser
     end
 
     rule(:dhcp_local_server_group) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("authentication"),
               authentication_type
@@ -18481,7 +18483,7 @@ module Junoser
     end
 
     rule(:dhcpv6_local_server_group) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("authentication"),
               dhcpv6_authentication_type
@@ -18600,7 +18602,7 @@ module Junoser
     end
 
     rule(:jsscd_group_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("access-profile"),
               jsscd_access_profile_type
@@ -18624,7 +18626,7 @@ module Junoser
     end
 
     rule(:juniper_monitoring_options) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("family"),
                 sc(
@@ -18646,7 +18648,7 @@ module Junoser
     end
 
     rule(:juniper_next_hop_group_options) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("group-type"), arg),
             b(str("interface"),
@@ -18660,7 +18662,7 @@ module Junoser
     end
 
     rule(:juniper_next_hop_subgroup_options) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("interface"),
               next_hop_subgroup_intf_type
@@ -18670,7 +18672,7 @@ module Junoser
     end
 
     rule(:juniper_packet_accounting_options) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("output"),
               packet_accounting_output_type
@@ -19519,7 +19521,7 @@ module Junoser
     end
 
     rule(:application_map_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(a(str("application"), arg),
                 sc(
@@ -19531,7 +19533,7 @@ module Junoser
     end
 
     rule(:community_count_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               str("equal"),
@@ -19801,7 +19803,7 @@ module Junoser
     end
 
     rule(:control_prefix_list_type) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:control_route_filter_type) do
@@ -20397,7 +20399,7 @@ module Junoser
     end
 
     rule(:inet6_pm_intf_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("next-hop"),
               inet6_next_hop_type
@@ -20407,7 +20409,7 @@ module Junoser
     end
 
     rule(:inet6_next_hop_type) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:inet_pm_family_output_type) do
@@ -20423,7 +20425,7 @@ module Junoser
     end
 
     rule(:inet_pm_intf_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("next-hop"),
               inet_next_hop_type
@@ -20433,7 +20435,7 @@ module Junoser
     end
 
     rule(:inet_next_hop_type) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:juniper_protocols) do
@@ -26397,7 +26399,7 @@ module Junoser
     end
 
     rule(:juniper_protocols_protection_group_eaps_profile) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("protocol"), arg),
             a(str("revert-time"), arg),
@@ -26408,7 +26410,7 @@ module Junoser
     end
 
     rule(:juniper_protocols_protection_group_ethernet_ring) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("node-id"),
               mac_unicaset
@@ -26870,7 +26872,7 @@ module Junoser
     end
 
     rule(:juniper_routing_instance) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("vlan-model"), arg),
@@ -28470,7 +28472,7 @@ module Junoser
     end
 
     rule(:juniper_routing_instance_service_groups) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("service-type"), arg),
             b(str("pbb-service-options"),
@@ -29724,7 +29726,7 @@ module Junoser
     end
 
     rule(:dynamic_tunnel_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("source-address"),
               ipaddr
@@ -29781,7 +29783,7 @@ module Junoser
     end
 
     rule(:fate_sharing_links) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("to"),
               ipv4addr
@@ -31446,7 +31448,7 @@ module Junoser
     end
 
     rule(:arp_interface_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("aging-timer"), arg)
         )
@@ -31528,7 +31530,7 @@ module Junoser
     end
 
     rule(:daemon_process) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               str("disable")
@@ -31755,11 +31757,11 @@ module Junoser
     end
 
     rule(:counter_object) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:dest_class_name_object) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:keepalives_type) do
@@ -31783,7 +31785,7 @@ module Junoser
     end
 
     rule(:ldap_server_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             b(str("source-address"),
@@ -31853,7 +31855,7 @@ module Junoser
     end
 
     rule(:lmp_control_channel_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("remote-address"),
               ipaddr
@@ -31886,7 +31888,7 @@ module Junoser
     end
 
     rule(:login_class_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("allowed-days"), arg),
             b(str("access-start"),
@@ -31921,7 +31923,7 @@ module Junoser
     end
 
     rule(:login_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("password"),
               unreadable
@@ -31931,7 +31933,7 @@ module Junoser
     end
 
     rule(:login_user_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("full-name"), arg),
             a(str("uid"), arg),
@@ -31944,7 +31946,7 @@ module Junoser
     end
 
     rule(:lr_interfaces_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("unit"), arg | arg | str("interface-unit-number"),
                 sc(
@@ -32841,7 +32843,7 @@ module Junoser
     end
 
     rule(:lsp_nh_obj) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("preference"), arg),
             a(str("metric"), arg)
@@ -32859,7 +32861,7 @@ module Junoser
     end
 
     rule(:mac_list) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("policer"),
                 sc(
@@ -32901,15 +32903,15 @@ module Junoser
     end
 
     rule(:match_interface_object) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:match_interface_object_oam) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:match_interface_set_object) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:match_simple_dscp_value) do
@@ -33065,11 +33067,11 @@ module Junoser
     end
 
     rule(:mib_variable_name_object) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:mime_list_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("value"), arg)
         )
@@ -33137,7 +33139,7 @@ module Junoser
     end
 
     rule(:mirror_filter_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("protocol"), arg),
             b(str("source-prefix"),
@@ -33182,7 +33184,7 @@ module Junoser
     end
 
     rule(:cflowd_monitoring_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg)
         )
@@ -33190,7 +33192,7 @@ module Junoser
     end
 
     rule(:monitor_export_intf_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("engine-id"), arg),
             a(str("engine-type"), arg),
@@ -33204,7 +33206,7 @@ module Junoser
     end
 
     rule(:mpls_dialer_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             b(a(str("term"), arg),
@@ -33235,7 +33237,7 @@ module Junoser
     end
 
     rule(:mpls_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             str("interface-specific"),
@@ -33313,7 +33315,7 @@ module Junoser
     end
 
     rule(:multi_chassis_protection_group) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("interface"), arg)
         )
@@ -33321,7 +33323,7 @@ module Junoser
     end
 
     rule(:multicast_interface_options_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("maximum-bandwidth"),
                 sc(
@@ -33340,7 +33342,7 @@ module Junoser
     end
 
     rule(:named_address_book_type) do
-      b(str("global") | arg,
+      b((str("global") | arg).as(:arg),
         sc(
             a(str("description"), quote | arg),
             b(str("address"),
@@ -33359,7 +33361,7 @@ module Junoser
     end
 
     rule(:address_set_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("address"), arg),
@@ -33369,7 +33371,7 @@ module Junoser
     end
 
     rule(:address_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             c(
@@ -33391,7 +33393,7 @@ module Junoser
     end
 
     rule(:dns_name_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("ipv4-only"),
             str("ipv6-only")
@@ -33400,15 +33402,15 @@ module Junoser
     end
 
     rule(:nameserver_object) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:network_type) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:next_hop_group_intf_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("next-hop"),
               inet_next_hop_type
@@ -33418,7 +33420,7 @@ module Junoser
     end
 
     rule(:next_hop_subgroup_intf_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("next-hop"),
               inet_next_hop_type
@@ -33845,7 +33847,7 @@ module Junoser
     end
 
     rule(:cflowd_packet_accounting_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             a(str("version"), arg),
@@ -33858,7 +33860,7 @@ module Junoser
     end
 
     rule(:packet_export_intf_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("engine-id"), arg),
             a(str("engine-type"), arg),
@@ -33870,7 +33872,7 @@ module Junoser
     end
 
     rule(:peer_group) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("local-ip-addr"),
               ipv4addr
@@ -33976,7 +33978,7 @@ module Junoser
     end
 
     rule(:pim_dense_group_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               str("reject"),
@@ -33996,7 +33998,7 @@ module Junoser
     end
 
     rule(:pim_rp_group_range_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("nexthop-hold-time"), arg)
         )
@@ -34032,7 +34034,7 @@ module Junoser
     end
 
     rule(:policy_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             b(str("match"),
@@ -34204,7 +34206,7 @@ module Junoser
     end
 
     rule(:port_range) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("maximum-port"), arg)
         )
@@ -34330,7 +34332,7 @@ module Junoser
     end
 
     rule(:prefix_action) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("policer"), arg),
             str("count"),
@@ -34345,11 +34347,11 @@ module Junoser
     end
 
     rule(:prefix_list_items) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:profile_radius_server_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             a(str("accounting-port"), arg),
@@ -34368,7 +34370,7 @@ module Junoser
     end
 
     rule(:profile_setting) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("anti-virus"),
                 sc(
@@ -34423,7 +34425,7 @@ module Junoser
     end
 
     rule(:proto_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("tunable-name"),
               tunable_object
@@ -34444,7 +34446,7 @@ module Junoser
     end
 
     rule(:qualified_nh_obj) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("preference"), arg),
             a(str("metric"), arg),
@@ -34516,7 +34518,7 @@ module Junoser
     end
 
     rule(:radius_disconnect_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("secret"),
               unreadable
@@ -34526,7 +34528,7 @@ module Junoser
     end
 
     rule(:radius_server_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             a(str("accounting-port"), arg),
@@ -34544,7 +34546,7 @@ module Junoser
     end
 
     rule(:range_address_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("to"),
                 sc(
@@ -34885,7 +34887,7 @@ module Junoser
     end
 
     rule(:rpd_rib_group_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("export-rib"), arg),
             a(str("import-rib"), arg),
@@ -34915,7 +34917,7 @@ module Junoser
     end
 
     rule(:cflowd_sampling_inet6_sampling_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             a(str("autonomous-system-type"), arg),
@@ -34991,7 +34993,7 @@ module Junoser
     end
 
     rule(:cflowd_sampling_inet_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             a(str("autonomous-system-type"), arg),
@@ -35079,7 +35081,7 @@ module Junoser
     end
 
     rule(:scheduler_object_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             b(str("start-date"),
@@ -35173,7 +35175,7 @@ module Junoser
     end
 
     rule(:commit_scripts_file_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("optional"),
             a(str("source"), arg),
@@ -35191,7 +35193,7 @@ module Junoser
     end
 
     rule(:op_scripts_file_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("command"), arg),
             a(str("description"), quote | arg),
@@ -35231,7 +35233,7 @@ module Junoser
     end
 
     rule(:securid_server_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("configuration-file"), arg)
         )
@@ -35310,7 +35312,7 @@ module Junoser
     end
 
     rule(:gvpn_member_ike_policy) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("mode"), arg),
             a(str("description"), quote | arg),
@@ -35339,7 +35341,7 @@ module Junoser
     end
 
     rule(:gvpn_member_ike_proposal) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("authentication-method"), arg),
@@ -35377,7 +35379,7 @@ module Junoser
     end
 
     rule(:gvpn_server_group_template) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("group-id"), arg),
@@ -35403,7 +35405,7 @@ module Junoser
     end
 
     rule(:gvpn_server_group_ipsecsa) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("proposal"), arg),
             b(str("match-policy"),
@@ -35414,7 +35416,7 @@ module Junoser
     end
 
     rule(:gvpn_server_group_ipsecsa_match) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("source"),
               ipv4prefix_mandatory
@@ -35490,11 +35492,11 @@ module Junoser
     end
 
     rule(:gvpn_server_ike_gateway) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:gvpn_server_ike_proposal) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("authentication-method"), arg),
@@ -35514,7 +35516,7 @@ module Junoser
     end
 
     rule(:gvpn_server_ipsec_proposal) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("authentication-algorithm"), arg),
@@ -35544,7 +35546,7 @@ module Junoser
     end
 
     rule(:gvpn_server_multicast_interface) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:gvpn_server_traceoptions) do
@@ -35567,7 +35569,7 @@ module Junoser
     end
 
     rule(:ike_policy) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("mode"), arg),
             a(str("description"), quote | arg),
@@ -35596,7 +35598,7 @@ module Junoser
     end
 
     rule(:ipsec_gvpn_member_template) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("ike-gateway"), arg),
             b(str("group-vpn-external-interface"),
@@ -35751,7 +35753,7 @@ module Junoser
     end
 
     rule(:ike_proposal) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("authentication-method"), arg),
@@ -35818,7 +35820,7 @@ module Junoser
     end
 
     rule(:ipsec_policy) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             b(str("perfect-forward-secrecy"),
@@ -35833,7 +35835,7 @@ module Junoser
     end
 
     rule(:ipsec_proposal) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("protocol"), arg),
@@ -35846,7 +35848,7 @@ module Junoser
     end
 
     rule(:ipsec_sa) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             a(str("mode"), arg),
@@ -35873,7 +35875,7 @@ module Junoser
     end
 
     rule(:ipsec_vpn_template) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("bind-interface"),
               interface_name
@@ -36027,7 +36029,7 @@ module Junoser
     end
 
     rule(:security_model_access) do
-      b(str("any") | str("usm") | str("v1") | str("v2c"),
+      b((str("any") | str("usm") | str("v1") | str("v2c")).as(:arg),
         sc(
             a(str("security-level"), str("none") | str("authentication") | str("privacy"),
                 sc(
@@ -36176,7 +36178,7 @@ module Junoser
     end
 
     rule(:security_zone_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             str("tcp-rst"),
@@ -36217,7 +36219,7 @@ module Junoser
     end
 
     rule(:service_device_pool_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("interface"), arg)
         )
@@ -36225,7 +36227,7 @@ module Junoser
     end
 
     rule(:service_interface_pool_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("interface"), arg)
         )
@@ -36341,7 +36343,7 @@ module Junoser
     end
 
     rule(:softwire_option_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("softwire-concentrator"),
               ipv6addr
@@ -36609,11 +36611,11 @@ module Junoser
     end
 
     rule(:source_class_name_object) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:spi_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("entity-type"),
               peer_entity_type
@@ -36752,7 +36754,7 @@ module Junoser
     end
 
     rule(:dest_nat_rule_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             b(str("dest-nat-rule-match"),
@@ -36829,7 +36831,7 @@ module Junoser
     end
 
     rule(:ssg_interface_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(a(str("address"), arg),
                 sc(
@@ -36855,7 +36857,7 @@ module Junoser
     end
 
     rule(:ssg_proxy_ndp_interface_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(a(str("address"), arg),
                 sc(
@@ -37082,7 +37084,7 @@ module Junoser
     end
 
     rule(:src_nat_rule_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             b(str("src-nat-rule-match"),
@@ -37196,7 +37198,7 @@ module Junoser
     end
 
     rule(:static_nat_rule_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             b(str("static-nat-rule-match"),
@@ -37317,7 +37319,7 @@ module Junoser
     end
 
     rule(:syslog_object) do
-      b(str("any") | str("authorization") | str("daemon") | str("ftp") | str("ntp") | str("security") | str("kernel") | str("user") | str("dfc") | str("external") | str("firewall") | str("pfe") | str("conflict-log") | str("change-log") | str("interactive-commands"),
+      b((str("any") | str("authorization") | str("daemon") | str("ftp") | str("ntp") | str("security") | str("kernel") | str("user") | str("dfc") | str("external") | str("firewall") | str("pfe") | str("conflict-log") | str("change-log") | str("interactive-commands")).as(:arg),
         sc(
             c(
               str("any"),
@@ -37335,7 +37337,7 @@ module Junoser
     end
 
     rule(:tacplus_server_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("port"), arg),
             b(str("secret"),
@@ -37358,7 +37360,7 @@ module Junoser
     end
 
     rule(:term_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("alg"), arg),
             a(str("protocol"), arg),
@@ -37376,7 +37378,7 @@ module Junoser
     end
 
     rule(:three_color_policer_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             str("filter-specific"),
             str("logical-interface-policer"),
@@ -37419,7 +37421,7 @@ module Junoser
     end
 
     rule(:three_color_policer_action) do
-      b(str("high"),
+      b((str("high")).as(:arg),
         sc(
             b(str("then"),
                 sc(
@@ -37452,7 +37454,7 @@ module Junoser
     end
 
     rule(:tunable_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("tunable-value"), arg)
         )
@@ -37470,7 +37472,7 @@ module Junoser
     end
 
     rule(:url_list_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("value"), arg)
         )
@@ -37519,7 +37521,7 @@ module Junoser
     end
 
     rule(:v3_user_config) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               b(str("authentication-md5"),
@@ -37585,7 +37587,7 @@ module Junoser
     end
 
     rule(:version9_template) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("flow-active-timeout"), arg),
             a(str("flow-inactive-timeout"), arg),
@@ -37621,7 +37623,7 @@ module Junoser
     end
 
     rule(:vlan_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("description"), quote | arg),
             c(
@@ -37691,7 +37693,7 @@ module Junoser
     end
 
     rule(:l2pt_proto_entry) do
-      b(str("all") | str("802.1x") | str("802.3ah") | str("cdp") | str("udld") | str("e-lmi") | str("gvrp") | str("lacp") | str("lldp") | str("mmrp") | str("mvrp") | str("stp") | str("vstp") | str("vtp"),
+      b((str("all") | str("802.1x") | str("802.3ah") | str("cdp") | str("udld") | str("e-lmi") | str("gvrp") | str("lacp") | str("lldp") | str("mmrp") | str("mvrp") | str("stp") | str("vstp") | str("vtp")).as(:arg),
         sc(
             a(str("drop-threshold"), arg),
             a(str("shutdown-threshold"), arg)
@@ -37700,7 +37702,7 @@ module Junoser
     end
 
     rule(:vlan_mapping_type) do
-      b(str("native") | str("tag"),
+      b((str("native") | str("tag")).as(:arg),
         sc(
             c(
               str("push"),
@@ -37730,7 +37732,7 @@ module Junoser
     end
 
     rule(:vpls_filter) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("accounting-profile"), arg),
             str("interface-specific"),
@@ -37931,7 +37933,7 @@ module Junoser
     end
 
     rule(:vrrp_group) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             c(
               b(str("virtual-address"),
@@ -38069,7 +38071,7 @@ module Junoser
     end
 
     rule(:juniper_enhanced_category_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("action"), arg),
             b(str("reputation-action"),
@@ -38146,7 +38148,7 @@ module Junoser
     end
 
     rule(:surf_control_integrated_category_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             a(str("action"), arg)
         )
@@ -38202,11 +38204,11 @@ module Junoser
     end
 
     rule(:wildcard_address_type) do
-      arg
+      arg.as(:arg)
     end
 
     rule(:zone_interface_list_type) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
             b(str("host-inbound-traffic"),
               interface_host_inbound_traffic_t
@@ -38227,7 +38229,7 @@ module Junoser
     end
 
     rule(:host_inbound_protocols_object_type) do
-      b(str("all") | str("bfd") | str("bgp") | str("dvmrp") | str("igmp") | str("ldp") | str("msdp") | str("nhrp") | str("ospf") | str("ospf3") | str("pgm") | str("pim") | str("rip") | str("ripng") | str("router-discovery") | str("rsvp") | str("sap") | str("vrrp"),
+      b((str("all") | str("bfd") | str("bgp") | str("dvmrp") | str("igmp") | str("ldp") | str("msdp") | str("nhrp") | str("ospf") | str("ospf3") | str("pgm") | str("pim") | str("rip") | str("ripng") | str("router-discovery") | str("rsvp") | str("sap") | str("vrrp")).as(:arg),
         sc(
             str("except")
         )
@@ -38235,7 +38237,7 @@ module Junoser
     end
 
     rule(:interface_system_services_object_type) do
-      b(str("all") | str("bootp") | str("dhcp") | str("dhcpv6") | str("dns") | str("finger") | str("ftp") | str("ident-reset") | str("https") | str("http") | str("ike") | str("netconf") | str("ping") | str("rlogin") | str("reverse-telnet") | str("reverse-ssh") | str("rpm") | str("rsh") | str("snmp") | str("snmp-trap") | str("ssh") | str("telnet") | str("traceroute") | str("xnm-ssl") | str("xnm-clear-text") | str("tftp") | str("lsping") | str("ntp") | str("sip") | str("r2cp") | str("any-service"),
+      b((str("all") | str("bootp") | str("dhcp") | str("dhcpv6") | str("dns") | str("finger") | str("ftp") | str("ident-reset") | str("https") | str("http") | str("ike") | str("netconf") | str("ping") | str("rlogin") | str("reverse-telnet") | str("reverse-ssh") | str("rpm") | str("rsh") | str("snmp") | str("snmp-trap") | str("ssh") | str("telnet") | str("traceroute") | str("xnm-ssl") | str("xnm-clear-text") | str("tftp") | str("lsping") | str("ntp") | str("sip") | str("r2cp") | str("any-service")).as(:arg),
         sc(
             str("except")
         )
@@ -38254,7 +38256,7 @@ module Junoser
     end
 
     rule(:zone_system_services_object_type) do
-      b(str("all") | str("dns") | str("finger") | str("ftp") | str("ident-reset") | str("https") | str("http") | str("ike") | str("netconf") | str("ping") | str("rlogin") | str("reverse-telnet") | str("reverse-ssh") | str("rpm") | str("rsh") | str("snmp") | str("snmp-trap") | str("ssh") | str("telnet") | str("traceroute") | str("xnm-ssl") | str("xnm-clear-text") | str("tftp") | str("lsping") | str("ntp") | str("sip") | str("r2cp") | str("any-service"),
+      b((str("all") | str("dns") | str("finger") | str("ftp") | str("ident-reset") | str("https") | str("http") | str("ike") | str("netconf") | str("ping") | str("rlogin") | str("reverse-telnet") | str("reverse-ssh") | str("rpm") | str("rsh") | str("snmp") | str("snmp-trap") | str("ssh") | str("telnet") | str("traceroute") | str("xnm-ssl") | str("xnm-clear-text") | str("tftp") | str("lsping") | str("ntp") | str("sip") | str("r2cp") | str("any-service")).as(:arg),
         sc(
             str("except")
         )
@@ -38262,7 +38264,7 @@ module Junoser
     end
 
     rule(:service_set_object) do
-      b(arg,
+      b(arg.as(:arg),
         sc(
           str("allow-multicast"),
           b(a(str("extension-service"), arg),
