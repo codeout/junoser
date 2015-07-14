@@ -14,7 +14,7 @@ module Junoser
 
       def commit_check(&block)
         parser = Junoser::Parser.new
-        failed = false
+        passed = true
 
         process do |current_stack, str|
           config = transform_line(current_stack, str)
@@ -23,11 +23,15 @@ module Junoser
             parser.parse config
           rescue Parslet::ParseFailed
             $stderr.puts "Invalid syntax:  #{config}"
-            failed = true
+            passed = false
           end
         end
 
-        abort if failed
+      rescue
+        $stderr.puts $!
+        passed = false
+      ensure
+        passed
       end
 
 
