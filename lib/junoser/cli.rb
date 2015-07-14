@@ -8,7 +8,7 @@ module Junoser
     class << self
       def commit_check(io_or_string)
         config = if io_or_string.respond_to?(:read)
-                   $<.read
+                   io_or_string.read
                  else
                    io_or_string.to_s
                  end
