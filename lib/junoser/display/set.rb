@@ -22,7 +22,7 @@ module Junoser
           begin
             parser.parse config
           rescue Parslet::ParseFailed
-            $stderr.puts "Invalid syntax:\n#{struct(current_stack.dup, str)}"
+            $stderr.puts "Invalid syntax:  #{config}"
             failed = true
           end
         end
