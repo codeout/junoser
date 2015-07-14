@@ -1,3 +1,4 @@
+require 'parslet'
 require 'junoser/display/base'
 
 module Junoser
