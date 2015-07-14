@@ -31,7 +31,7 @@ module Junoser
         $stderr.puts $!
         passed = false
       ensure
-        passed
+        return passed
       end
 
 
