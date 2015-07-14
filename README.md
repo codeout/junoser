@@ -1,39 +1,69 @@
 # Junoser
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/junoser`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Description
 
-TODO: Delete this and the text above, and describe your gem
+Junoser is a JUNOS configuration PEG parser which can be automatically generated from Juniper's netconf.xsd. (XML Schema Definition for NETCONF)
 
-## Installation
+## Features
 
-Add this line to your application's Gemfile:
+* Configuration Validation
+  * Structured "show configuration" format
+  * One-liner "| display set" format
 
-```ruby
-gem 'junoser'
+* Configuration Translation
+  * Inter-translation between structured form and display-set form
+
+**NOTE**
+
+Inter-translation from display-set form into structured form is experimental feature in this release.
+
+
+## Getting Started
+
+```zsh
+$ gem install junoser
 ```
 
-And then execute:
+### Usage
 
-    $ bundle
+To verify configurations syntax:
 
-Or install it yourself as:
+```zsh
+$ junoser -c config.txt
+$ cat config.txt | junoser -c
+```
 
-    $ gem install junoser
+or
 
-## Usage
+```zsh
+$ cat config.txt | junoser -c
+```
 
-TODO: Write usage instructions here
+To translate configuration into "display set" form:
 
-## Development
+```zsh
+$ /exe/junoser -d config.txt
+set protocols bgp group ebgp-peers neighbor 192.0.2.2
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+or
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```zsh
+$ cat config.txt | junoser -d
+set protocols bgp group ebgp-peers neighbor 192.0.2.2
+```
+
+Use ```junoser -s``` to translate into structured form.
+
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/junoser/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+Please report issues or enhancement requests to [GitHub issues](https://github.com/codeout/junoser/issues).
+For questions or feedbacks write to my twitter @codeout.
+
+Or send a pull request to fix.
+
+
+## Copyright and License
+
+Copyright (c) 2015 Shintaro Kojima. Code released under the [MIT license](LICENSE.txt).
