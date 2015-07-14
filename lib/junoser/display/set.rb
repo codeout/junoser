@@ -48,7 +48,7 @@ module Junoser
           when /(.*);/
             yield stack, $1
           else
-            raise "ERROR* unknown statement:  #{line}"
+            raise "ERROR: unknown statement:  #{line}"
           end
         end
       end
