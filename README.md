@@ -30,7 +30,6 @@ To verify configurations syntax:
 
 ```zsh
 $ junoser -c config.txt
-$ cat config.txt | junoser -c
 ```
 
 or
