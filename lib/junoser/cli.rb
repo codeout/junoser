@@ -1,5 +1,6 @@
 require 'parslet'
 require 'junoser/display'
+require 'junoser/input'
 require 'junoser/parser'
 
 
@@ -7,11 +8,7 @@ module Junoser
   module Cli
     class << self
       def commit_check(io_or_string)
-        config = if io_or_string.respond_to?(:read)
-                   io_or_string.read
-                 else
-                   io_or_string.to_s
-                 end
+        config = Junoser::Input.new(io_or_string).read
 
         if Junoser::Display.display_set?(config)
           commit_check_display_set config
