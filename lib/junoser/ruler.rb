@@ -39,6 +39,7 @@ module Junoser
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
       str.gsub! '"as-number" arg', 'arg'
+      str.gsub! '"confederation-as" arg', 'arg'
       str.gsub! '"equal-literal"', '"="'
       str.gsub! '"plus-literal"', '"+"'
       str.gsub! '"minus-literal"', '"-"'
