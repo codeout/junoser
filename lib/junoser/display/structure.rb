@@ -1,3 +1,4 @@
+require 'junoser/input'
 require 'junoser/display/config_store'
 require 'junoser/parser'
 require 'junoser/transformer'
@@ -5,10 +6,11 @@ require 'junoser/transformer'
 module Junoser
   module Display
     class Structure
-      include Base
+      attr_accessor :output
 
       def initialize(io_or_string)
-        super
+        @input = io_or_string
+        @output = $stdout
         @config = Junoser::Display::ConfigStore.new
       end
 
@@ -16,7 +18,7 @@ module Junoser
         parser = Junoser::Parser.new
         transform = Junoser::Transformer.new
 
-        read_io_or_string.split("\n").each do |line|
+        Junoser::Input.new(@input).read.split("\n").each do |line|
           transformed = transform.apply(parser.parse(line))
           raise "ERROR: parse failed" unless transformed.is_a?(String)
           @config << transformed

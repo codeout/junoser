@@ -1,10 +1,15 @@
 require 'parslet'
-require 'junoser/display/base'
+require 'junoser/input'
 
 module Junoser
   module Display
     class Set
-      include Base
+      attr_accessor :output
+
+      def initialize(io_or_string)
+        @input = io_or_string
+        @output = $stdout
+      end
 
       def transform
         process do |current_stack, str|
@@ -40,7 +45,7 @@ module Junoser
       def process(&block)
         stack = []
 
-        read_io_or_string.split("\n").each do |line|
+        Junoser::Input.new(@input).read.split("\n").each do |line|
           case line
           when /(.*){/
             stack.push $1.strip
