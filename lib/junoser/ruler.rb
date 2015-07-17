@@ -80,6 +80,12 @@ module Junoser
                 '  )'], $1)
       end
 
+      str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
+        "rule(:regular_expression) do
+  (quote | arg).as(:arg)
+end"
+      end
+
       %w[metric metric2 metric3 metric4 tag tag2 preference preference2 color color2 local-preference].each do |key|
         str.gsub!(/^(\s*"#{key}" \(\s*sc\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
       end
