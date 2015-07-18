@@ -86,6 +86,8 @@ module Junoser
 end"
       end
 
+      str.gsub!(/("next-hop" \(\s*sc\(\s*c\(\s*[^)]*)"address" \(\s*ipaddr\s*\)/) { "#{$1}ipaddr" }
+
       %w[metric metric2 metric3 metric4 tag tag2 preference preference2 color color2 local-preference].each do |key|
         str.gsub!(/^(\s*"#{key}" \(\s*sc\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
       end
