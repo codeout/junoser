@@ -135,7 +135,7 @@ module Junoser
     end
 
     rule(:regular_expression) do
-          arg.as(:arg)
+      (quote | arg).as(:arg)
     end
 
     rule(:group_glob) do
@@ -19028,9 +19028,7 @@ module Junoser
                                             c(
                                               str("self"),
                                               str("peer-address"),
-                                              b(str("address"),
-                                                ipaddr
-                                              ),
+                                              ipaddr,
                                               str("reject"),
                                               str("discard"),
                                               a(str("next-table"), arg)
@@ -19391,9 +19389,7 @@ module Junoser
                                     c(
                                       str("self"),
                                       str("peer-address"),
-                                      b(str("address"),
-                                        ipaddr
-                                      ),
+                                      ipaddr,
                                       str("reject"),
                                       str("discard"),
                                       a(str("next-table"), arg)
@@ -19727,9 +19723,7 @@ module Junoser
                     c(
                       str("self"),
                       str("peer-address"),
-                      b(str("address"),
-                        ipaddr
-                      ),
+                      ipaddr,
                       str("reject"),
                       str("discard"),
                       a(str("next-table"), arg)
@@ -19999,9 +19993,7 @@ module Junoser
                     c(
                       str("self"),
                       str("peer-address"),
-                      b(str("address"),
-                        ipaddr
-                      ),
+                      ipaddr,
                       str("reject"),
                       str("discard"),
                       a(str("next-table"), arg)
@@ -20264,9 +20256,7 @@ module Junoser
                     c(
                       str("self"),
                       str("peer-address"),
-                      b(str("address"),
-                        ipaddr
-                      ),
+                      ipaddr,
                       str("reject"),
                       str("discard"),
                       a(str("next-table"), arg)
@@ -29463,7 +29453,7 @@ module Junoser
             ).as(:oneline),
             b(str("confederation"),
                 sc(
-                    a(str("confederation-as"), arg),
+                    arg,
                     a(str("members"), arg)
                 )
             ).as(:oneline),
