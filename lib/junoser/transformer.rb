@@ -35,7 +35,7 @@ module Junoser
     end
 
     rule(oneline: simple(:str)) do
-      str.gsub "\n", ' '
+      str.to_s.gsub "\n", ' '
     end
   end
 end
