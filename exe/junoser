@@ -5,7 +5,7 @@ require 'pathname'
 
 $: << File.expand_path('../../lib', Pathname.new(__FILE__).realpath)
 
-require 'junoser/cli'
+require 'junoser'
 
 
 command = nil
@@ -34,6 +34,7 @@ opts = OptionParser.new do |opts|
 
   opts.on_tail '-v', '--version', 'Show version' do
     puts Junoser::VERSION
+    exit
   end
 end
 opts.parse!
