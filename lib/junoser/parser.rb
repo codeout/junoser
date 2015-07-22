@@ -416,7 +416,7 @@ module Junoser
                                               a(str("threshold"), arg),
                                               a(str("sample-period"), arg)
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       c(
                                         a(str("jitter-buffer-packets"), arg),
                                         a(str("jitter-buffer-latency"), arg),
@@ -424,9 +424,9 @@ module Junoser
                                       ),
                                       a(str("bit-rate"), arg)
                                   )
-                              ).as(:oneline),
-                              str("ima-group-options").as(:oneline),
-                              str("ima-link-options").as(:oneline),
+                              ),
+                              str("ima-group-options"),
+                              str("ima-link-options"),
                               b(str("multi-chassis-protection"),
                                 multi_chassis_protection_group
                               ),
@@ -888,7 +888,7 @@ module Junoser
                                                 interface_device
                                               )
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       b(str("802.3ad"),
                                         sc(
                                           arg,
@@ -907,7 +907,7 @@ module Junoser
                                                 str("backup")
                                               )
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       b(str("ethernet-switch-profile"),
                                           sc(
                                               a(str("tag-protocol-id"), arg),
@@ -977,7 +977,7 @@ module Junoser
                                                 interface_device
                                               )
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       b(str("802.3ad"),
                                         sc(
                                           arg,
@@ -995,7 +995,7 @@ module Junoser
                                                 str("backup")
                                               )
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       b(str("mpls"),
                                         mpls_ifd_options
                                       ),
@@ -1193,12 +1193,12 @@ module Junoser
                                                 interface_unit
                                               )
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       b(str("interface-shared-with"),
                                           sc(
                                               a(str("psd-name"), arg)
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       c(
                                         str("disable")
                                       ),
@@ -1206,7 +1206,7 @@ module Junoser
                                       str("per-session-scheduler"),
                                       str("clear-dont-fragment-bit"),
                                       str("reassemble-packets"),
-                                      str("rpm").as(:oneline),
+                                      str("rpm"),
                                       a(str("description"), quote | arg),
                                       a(str("metadata"), arg),
                                       str("dial-options"),
@@ -1271,10 +1271,10 @@ module Junoser
                                       ),
                                       b(str("input-vlan-map"),
                                         vlan_map
-                                      ).as(:oneline),
+                                      ),
                                       b(str("output-vlan-map"),
                                         vlan_map
-                                      ).as(:oneline),
+                                      ),
                                       str("swap-by-poppush"),
                                       a(str("receive-lsp"), arg),
                                       a(str("transmit-lsp"), arg),
@@ -1466,7 +1466,7 @@ module Junoser
                                                                   )
                                                               ).as(:oneline)
                                                           )
-                                                      ).as(:oneline),
+                                                      ),
                                                       a(str("mtu"), arg),
                                                       str("no-redirects"),
                                                       str("no-neighbor-learn"),
@@ -1474,8 +1474,8 @@ module Junoser
                                                       str("multicast-only"),
                                                       str("primary"),
                                                       a(str("ipsec-sa"), arg),
-                                                      str("demux-source").as(:oneline),
-                                                      str("demux-destination").as(:oneline),
+                                                      str("demux-source"),
+                                                      str("demux-destination"),
                                                       b(str("filter"),
                                                           sc(
                                                               c(
@@ -1531,7 +1531,7 @@ module Junoser
                                                           sc(
                                                               a(str("ipsec-vpn"), arg)
                                                           )
-                                                      ).as(:oneline),
+                                                      ),
                                                       b(a(str("address"), arg),
                                                           sc(
                                                               b(str("destination"),
@@ -1575,7 +1575,7 @@ module Junoser
                                                                         epd_threshold_config
                                                                       ).as(:oneline)
                                                                   )
-                                                              ).as(:oneline),
+                                                              ),
                                                               b(a(str("arp"), arg),
                                                                   sc(
                                                                       b(str("l2-interface"),
@@ -1598,7 +1598,7 @@ module Junoser
                                                                       str("https"),
                                                                       str("redirect-to-https")
                                                                   )
-                                                              ).as(:oneline),
+                                                              ),
                                                               b(str("vrrp-group"),
                                                                 vrrp_group
                                                               )
@@ -1660,7 +1660,7 @@ module Junoser
                                                                   )
                                                               ).as(:oneline)
                                                           )
-                                                      ).as(:oneline),
+                                                      ),
                                                       b(str("accounting"),
                                                           sc(
                                                               b(str("source-class-usage"),
@@ -1754,11 +1754,11 @@ module Junoser
                                                                       str("https"),
                                                                       str("redirect-to-https")
                                                                   )
-                                                              ).as(:oneline)
+                                                              )
                                                           )
                                                       ),
-                                                      str("demux-source").as(:oneline),
-                                                      str("demux-destination").as(:oneline),
+                                                      str("demux-source"),
+                                                      str("demux-destination"),
                                                       b(str("unnumbered-address"),
                                                           sc(
                                                               b(str("source"),
@@ -1993,7 +1993,7 @@ module Junoser
                                                                   )
                                                               ).as(:oneline)
                                                           )
-                                                      ).as(:oneline),
+                                                      ),
                                                       c(
                                                         a(str("isid-list"), arg)
                                                       )
@@ -2149,7 +2149,7 @@ module Junoser
                                           )
                                       ).as(:oneline)
                                   )
-                              ).as(:oneline),
+                              ),
                               b(str("attributes-match"),
                                   s(
                                     b(str("from-event-attribute"),
@@ -2231,7 +2231,7 @@ module Junoser
                                                           )
                                                       ).as(:oneline)
                                                   )
-                                              ).as(:oneline),
+                                              ),
                                               a(str("output-format"), arg)
                                           )
                                       ),
@@ -2254,7 +2254,7 @@ module Junoser
                                                           )
                                                       ).as(:oneline)
                                                   )
-                                              ).as(:oneline),
+                                              ),
                                               a(str("output-format"), arg)
                                           )
                                       ),
@@ -2291,7 +2291,7 @@ module Junoser
                                               a(str("sha1"), arg),
                                               a(str("sha-256"), arg)
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       b(a(str("remote-execution"), arg),
                                           sc(
                                               a(str("username"), arg),
@@ -2561,7 +2561,7 @@ module Junoser
                                         )
                                       )
                                   )
-                              ).as(:oneline),
+                              ),
                               str("enterprise-oid"),
                               b(a(str("routing-instance"), arg),
                                   sc(
@@ -2574,7 +2574,7 @@ module Junoser
                                                 )
                                               )
                                           )
-                                      ).as(:oneline)
+                                      )
                                   )
                               ),
                               b(a(str("logical-system"), arg),
@@ -2590,7 +2590,7 @@ module Junoser
                                                         )
                                                       )
                                                   )
-                                              ).as(:oneline)
+                                              )
                                           )
                                       )
                                   )
@@ -3253,7 +3253,7 @@ module Junoser
                                           )
                                       )
                                   )
-                              ).as(:oneline),
+                              ),
                               b(str("ftp"),
                                   sc(
                                       str("disable"),
@@ -3316,7 +3316,7 @@ module Junoser
                                           )
                                       )
                                   )
-                              ).as(:oneline),
+                              ),
                               b(str("mgcp"),
                                   sc(
                                       str("disable"),
@@ -3360,7 +3360,7 @@ module Junoser
                                           )
                                       )
                                   )
-                              ).as(:oneline),
+                              ),
                               b(str("msrpc"),
                                   sc(
                                       str("disable"),
@@ -3461,7 +3461,7 @@ module Junoser
                                           )
                                       )
                                   )
-                              ).as(:oneline),
+                              ),
                               b(str("sip"),
                                   sc(
                                       str("disable"),
@@ -3513,7 +3513,7 @@ module Junoser
                                           )
                                       )
                                   )
-                              ).as(:oneline),
+                              ),
                               b(str("sql"),
                                   sc(
                                       str("disable"),
@@ -4874,7 +4874,7 @@ module Junoser
                               a(str("next"), arg)
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -4909,7 +4909,7 @@ module Junoser
               term_object
             )
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:application_set_object) do
@@ -4989,7 +4989,7 @@ module Junoser
                             b(str("accept"),
                                   (str("inet") | str("inet6") | str("pppoe") | str("dhcp-v4") | str("dhcp-v6") | str("any"))
                             ),
-                            a(str("ranges"), arg).as(:oneline)
+                            a(str("ranges"), arg)
                         )
                     ),
                     b(str("override"),
@@ -5019,7 +5019,7 @@ module Junoser
                             b(str("accept"),
                                   (str("inet") | str("inet6") | str("pppoe") | str("dhcp-v4") | str("dhcp-v6") | str("any"))
                             ),
-                            a(str("ranges"), arg).as(:oneline)
+                            a(str("ranges"), arg)
                         )
                     ),
                     b(str("override"),
@@ -5028,7 +5028,7 @@ module Junoser
                                 sc(
                                     a(str("dynamic-profile"), arg)
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(str("authentication"),
@@ -5283,7 +5283,7 @@ module Junoser
                             str("port-mirror"),
                             a(str("next-hop-group"), arg)
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -5366,7 +5366,7 @@ module Junoser
                               a(str("next"), arg)
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -5465,7 +5465,7 @@ module Junoser
                 )
             ),
             str("member"),
-            str("fabric").as(:oneline),
+            str("fabric"),
             str("synchronization"),
             str("lcd-menu"),
             a(str("fru-poweron-sequence"), arg),
@@ -5746,8 +5746,8 @@ module Junoser
             ),
             str("no-mcast-replication"),
             a(str("framing"), arg),
-            str("synchronization").as(:oneline),
-            str("recovered-clock").as(:oneline),
+            str("synchronization"),
+            str("recovered-clock"),
             a(str("vtmapping"), arg),
             str("no-concatenate"),
             str("no-multi-rate"),
@@ -5838,7 +5838,7 @@ module Junoser
             ),
             b(str("fibre-channel"),
               chassis_fibre_channel_type
-            ).as(:oneline),
+            ),
             str("sfpplus"),
             str("hash-key"),
             a(str("ingress-policer-overhead"), arg),
@@ -5873,7 +5873,7 @@ module Junoser
                   )
                 )
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:chassis_pic_port_framing) do
@@ -5937,7 +5937,7 @@ module Junoser
         sc(
             str("on-loss-of-keepalives"),
             str("on-disk-failure")
-        ).as(:oneline)
+        )
     end
 
     rule(:chassis_rdd_id_type) do
@@ -6998,8 +6998,8 @@ module Junoser
                 sc(
                     a(str("interval"), arg)
                 )
-            ).as(:oneline)
-        ).as(:oneline)
+            )
+        )
     end
 
     rule(:epd_threshold_config) do
@@ -7145,7 +7145,7 @@ module Junoser
                     a(str("forwarding-class"), arg),
                     str("out-of-profile")
                 )
-            ).as(:oneline)
+            )
         )
       )
     end
@@ -7646,7 +7646,7 @@ module Junoser
                               str("ignore")
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -7857,7 +7857,7 @@ module Junoser
                               ).as(:oneline)
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -7878,29 +7878,29 @@ module Junoser
                         sc(
                             b(str("source-address"),
                               firewall_addr6_simple_object
-                            ).as(:oneline),
+                            ),
                             b(str("destination-address"),
                               firewall_addr6_simple_object
-                            ).as(:oneline),
+                            ),
                             c(
                               b(str("source-port"),
                                 match_simple_port_value
-                              ).as(:oneline)
+                              )
                             ),
                             c(
                               b(str("destination-port"),
                                 match_simple_port_value
-                              ).as(:oneline)
+                              )
                             ),
                             c(
                               b(str("next-header"),
                                 match_simple_protocol_value
-                              ).as(:oneline)
+                              )
                             ),
                             c(
                               b(str("traffic-class"),
                                 match_simple_dscp_value
-                              ).as(:oneline)
+                              )
                             ),
                             a(str("match-terms"), arg)
                         )
@@ -7928,7 +7928,7 @@ module Junoser
                               ).as(:oneline)
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -7940,7 +7940,7 @@ module Junoser
             b(str("address"),
               ipv6prefix
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:inet6_service_filter) do
@@ -8026,7 +8026,7 @@ module Junoser
                               str("skip")
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -8169,7 +8169,7 @@ module Junoser
                               str("ignore")
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -8368,7 +8368,7 @@ module Junoser
                                   sc(
                                       a(str("accounting"), arg)
                                   )
-                              ).as(:oneline),
+                              ),
                               a(str("next"), arg),
                               b(str("logical-system"),
                                   s(
@@ -8423,7 +8423,7 @@ module Junoser
                             a(str("dscp"), arg),
                             a(str("prefix-action"), arg)
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -8444,29 +8444,29 @@ module Junoser
                         sc(
                             b(str("source-address"),
                               firewall_addr_simple_object
-                            ).as(:oneline),
+                            ),
                             b(str("destination-address"),
                               firewall_addr_simple_object
-                            ).as(:oneline),
+                            ),
                             c(
                               b(str("source-port"),
                                 match_simple_port_value
-                              ).as(:oneline)
+                              )
                             ),
                             c(
                               b(str("destination-port"),
                                 match_simple_port_value
-                              ).as(:oneline)
+                              )
                             ),
                             c(
                               b(str("protocol"),
                                 match_simple_protocol_value
-                              ).as(:oneline)
+                              )
                             ),
                             c(
                               b(str("dscp"),
                                 match_simple_dscp_value
-                              ).as(:oneline)
+                              )
                             ),
                             a(str("match-terms"), arg)
                         )
@@ -8494,7 +8494,7 @@ module Junoser
                               ).as(:oneline)
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -8506,7 +8506,7 @@ module Junoser
             b(str("address"),
               ipv4prefix
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:inet_service_filter) do
@@ -8615,7 +8615,7 @@ module Junoser
                               str("skip")
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -8673,7 +8673,7 @@ module Junoser
                             str("discard"),
                             str("accept")
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -8768,7 +8768,7 @@ module Junoser
                             a(str("threshold"), arg),
                             a(str("sample-period"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     c(
                       a(str("jitter-buffer-packets"), arg),
                       a(str("jitter-buffer-latency"), arg),
@@ -8776,9 +8776,9 @@ module Junoser
                     ),
                     a(str("bit-rate"), arg)
                 )
-            ).as(:oneline),
-            str("ima-group-options").as(:oneline),
-            str("ima-link-options").as(:oneline),
+            ),
+            str("ima-group-options"),
+            str("ima-link-options"),
             b(str("multi-chassis-protection"),
               multi_chassis_protection_group
             ),
@@ -9240,7 +9240,7 @@ module Junoser
                               interface_device
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("802.3ad"),
                       sc(
                         arg,
@@ -9259,7 +9259,7 @@ module Junoser
                               str("backup")
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("ethernet-switch-profile"),
                         sc(
                             a(str("tag-protocol-id"), arg),
@@ -9329,7 +9329,7 @@ module Junoser
                               interface_device
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("802.3ad"),
                       sc(
                         arg,
@@ -9347,7 +9347,7 @@ module Junoser
                               str("backup")
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("mpls"),
                       mpls_ifd_options
                     ),
@@ -9545,12 +9545,12 @@ module Junoser
                               interface_unit
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("interface-shared-with"),
                         sc(
                             a(str("psd-name"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     c(
                       str("disable")
                     ),
@@ -9558,7 +9558,7 @@ module Junoser
                     str("per-session-scheduler"),
                     str("clear-dont-fragment-bit"),
                     str("reassemble-packets"),
-                    str("rpm").as(:oneline),
+                    str("rpm"),
                     a(str("description"), quote | arg),
                     a(str("metadata"), arg),
                     str("dial-options"),
@@ -9623,10 +9623,10 @@ module Junoser
                     ),
                     b(str("input-vlan-map"),
                       vlan_map
-                    ).as(:oneline),
+                    ),
                     b(str("output-vlan-map"),
                       vlan_map
-                    ).as(:oneline),
+                    ),
                     str("swap-by-poppush"),
                     a(str("receive-lsp"), arg),
                     a(str("transmit-lsp"), arg),
@@ -9818,7 +9818,7 @@ module Junoser
                                                 )
                                             ).as(:oneline)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     a(str("mtu"), arg),
                                     str("no-redirects"),
                                     str("no-neighbor-learn"),
@@ -9826,8 +9826,8 @@ module Junoser
                                     str("multicast-only"),
                                     str("primary"),
                                     a(str("ipsec-sa"), arg),
-                                    str("demux-source").as(:oneline),
-                                    str("demux-destination").as(:oneline),
+                                    str("demux-source"),
+                                    str("demux-destination"),
                                     b(str("filter"),
                                         sc(
                                             c(
@@ -9883,7 +9883,7 @@ module Junoser
                                         sc(
                                             a(str("ipsec-vpn"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(a(str("address"), arg),
                                         sc(
                                             b(str("destination"),
@@ -9927,7 +9927,7 @@ module Junoser
                                                       epd_threshold_config
                                                     ).as(:oneline)
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(a(str("arp"), arg),
                                                 sc(
                                                     b(str("l2-interface"),
@@ -9950,7 +9950,7 @@ module Junoser
                                                     str("https"),
                                                     str("redirect-to-https")
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(str("vrrp-group"),
                                               vrrp_group
                                             )
@@ -10012,7 +10012,7 @@ module Junoser
                                                 )
                                             ).as(:oneline)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("accounting"),
                                         sc(
                                             b(str("source-class-usage"),
@@ -10106,11 +10106,11 @@ module Junoser
                                                     str("https"),
                                                     str("redirect-to-https")
                                                 )
-                                            ).as(:oneline)
+                                            )
                                         )
                                     ),
-                                    str("demux-source").as(:oneline),
-                                    str("demux-destination").as(:oneline),
+                                    str("demux-source"),
+                                    str("demux-destination"),
                                     b(str("unnumbered-address"),
                                         sc(
                                             b(str("source"),
@@ -10345,7 +10345,7 @@ module Junoser
                                                 )
                                             ).as(:oneline)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     c(
                                       a(str("isid-list"), arg)
                                     )
@@ -10478,7 +10478,7 @@ module Junoser
                 )
             )
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:jsrc_partition_definition) do
@@ -10841,7 +10841,7 @@ module Junoser
             a(str("domain-name"), arg),
             a(str("separator"), arg),
             a(str("count"), arg)
-        ).as(:oneline)
+        )
     end
 
     rule(:access_client_object) do
@@ -10874,7 +10874,7 @@ module Junoser
                 )
             )
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:access_ldap_options) do
@@ -10927,7 +10927,7 @@ module Junoser
             ),
             a(str("routing-instance"), arg)
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:address_assignment_type) do
@@ -11008,7 +11008,7 @@ module Junoser
                                               ),
                                               a(str("prefix-length"), arg)
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       b(str("dhcp-attributes"),
                                         dhcp_attribute_type
                                       )
@@ -11089,9 +11089,9 @@ module Junoser
                                 )
                             ).as(:oneline)
                         )
-                    ).as(:oneline)
+                    )
                 )
-            ).as(:oneline),
+            ),
             a(str("maximum-lease-time"), arg),
             b(str("next-server"),
               ipv4addr
@@ -11178,7 +11178,7 @@ module Junoser
                           sc(
                               a(str("aaa-routing-instance"), arg)
                           )
-                      ).as(:oneline)
+                      )
                     ),
                     a(str("access-profile"), arg),
                     a(str("address-pool"), arg),
@@ -11197,7 +11197,7 @@ module Junoser
                           sc(
                               a(str("target-routing-instance"), arg)
                           )
-                      ).as(:oneline)
+                      )
                     ),
                     str("strip-domain"),
                     a(str("tunnel-profile"), arg)
@@ -11591,7 +11591,7 @@ module Junoser
                     ).as(:oneline),
                     a(str("service-profile"), arg)
                 )
-            ).as(:oneline)
+            )
         )
       )
     end
@@ -12110,7 +12110,7 @@ module Junoser
                               str("rate-limit")
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     str("excess-rate").as(:oneline),
                     b(str("shaping-rate"),
                         sc(
@@ -12136,7 +12136,7 @@ module Junoser
                               str("exact")
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     a(str("priority"), arg),
                     a(str("excess-priority"), arg),
                     b(str("drop-profile-map"),
@@ -12344,7 +12344,7 @@ module Junoser
                                     a(str("rewrite-rule-name"), arg),
                                     a(str("vlan-tag"), arg)
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     str("loss-priority-rewrites"),
@@ -12400,37 +12400,37 @@ module Junoser
                             a(str("proportion"), arg),
                             a(str("percent"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("cos-excess-rate-high"),
                         sc(
                             a(str("proportion"), arg),
                             a(str("percent"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("cos-excess-rate-low"),
                         sc(
                             a(str("proportion"), arg),
                             a(str("percent"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("cos-scheduler-tx"),
                         sc(
                             a(str("rate"), arg),
                             a(str("percent"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("cos-scheduler-bs"),
                         sc(
                             a(str("percent"), arg),
                             a(str("temporal"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("cos-scheduler-shaping-rate"),
                         sc(
                             a(str("rate"), arg),
                             a(str("percent"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("other-variables"),
                       base_default_variable_object
                     )
@@ -12642,7 +12642,7 @@ module Junoser
                                                                 )
                                                             )
                                                         )
-                                                    ).as(:oneline),
+                                                    ),
                                                     b(a(str("iso-route"), arg),
                                                         sc(
                                                             c(
@@ -12765,7 +12765,7 @@ module Junoser
                                                                 )
                                                             )
                                                         )
-                                                    ).as(:oneline)
+                                                    )
                                                 )
                                             ),
                                             b(str("martians"),
@@ -12808,7 +12808,7 @@ module Junoser
                                                     ).as(:oneline),
                                                     str("as-path-compare")
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(str("label"),
                                                 sc(
                                                     b(str("allocation"),
@@ -12818,7 +12818,7 @@ module Junoser
                                                       policy_algebra
                                                     )
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(str("access"),
                                                 sc(
                                                     b(a(str("route"), arg),
@@ -12833,7 +12833,7 @@ module Junoser
                                                             a(str("preference"), arg),
                                                             a(str("tag"), arg)
                                                         )
-                                                    ).as(:oneline)
+                                                    )
                                                 )
                                             ),
                                             b(str("access-internal"),
@@ -12847,7 +12847,7 @@ module Junoser
                                                               qualified_nh_obj
                                                             )
                                                         )
-                                                    ).as(:oneline)
+                                                    )
                                                 )
                                             )
                                         )
@@ -12866,7 +12866,7 @@ module Junoser
                                                     a(str("preference"), arg),
                                                     a(str("tag"), arg)
                                                 )
-                                            ).as(:oneline)
+                                            )
                                         )
                                     ),
                                     b(str("access-internal"),
@@ -12880,7 +12880,7 @@ module Junoser
                                                       qualified_nh_obj
                                                     )
                                                 )
-                                            ).as(:oneline)
+                                            )
                                         )
                                     ),
                                     b(str("multicast"),
@@ -13127,7 +13127,7 @@ module Junoser
                                             a(str("threshold"), arg),
                                             a(str("sample-period"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     c(
                                       a(str("jitter-buffer-packets"), arg),
                                       a(str("jitter-buffer-latency"), arg),
@@ -13135,9 +13135,9 @@ module Junoser
                                     ),
                                     a(str("bit-rate"), arg)
                                 )
-                            ).as(:oneline),
-                            str("ima-group-options").as(:oneline),
-                            str("ima-link-options").as(:oneline),
+                            ),
+                            str("ima-group-options"),
+                            str("ima-link-options"),
                             b(str("multi-chassis-protection"),
                               multi_chassis_protection_group
                             ),
@@ -13599,7 +13599,7 @@ module Junoser
                                               interface_device
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("802.3ad"),
                                       sc(
                                         arg,
@@ -13618,7 +13618,7 @@ module Junoser
                                               str("backup")
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("ethernet-switch-profile"),
                                         sc(
                                             a(str("tag-protocol-id"), arg),
@@ -13688,7 +13688,7 @@ module Junoser
                                               interface_device
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("802.3ad"),
                                       sc(
                                         arg,
@@ -13706,7 +13706,7 @@ module Junoser
                                               str("backup")
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("mpls"),
                                       mpls_ifd_options
                                     ),
@@ -13904,12 +13904,12 @@ module Junoser
                                               interface_unit
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("interface-shared-with"),
                                         sc(
                                             a(str("psd-name"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     c(
                                       str("disable")
                                     ),
@@ -13917,7 +13917,7 @@ module Junoser
                                     str("per-session-scheduler"),
                                     str("clear-dont-fragment-bit"),
                                     str("reassemble-packets"),
-                                    str("rpm").as(:oneline),
+                                    str("rpm"),
                                     a(str("description"), quote | arg),
                                     a(str("metadata"), arg),
                                     str("dial-options"),
@@ -13982,10 +13982,10 @@ module Junoser
                                     ),
                                     b(str("input-vlan-map"),
                                       vlan_map
-                                    ).as(:oneline),
+                                    ),
                                     b(str("output-vlan-map"),
                                       vlan_map
-                                    ).as(:oneline),
+                                    ),
                                     str("swap-by-poppush"),
                                     a(str("receive-lsp"), arg),
                                     a(str("transmit-lsp"), arg),
@@ -14177,7 +14177,7 @@ module Junoser
                                                                 )
                                                             ).as(:oneline)
                                                         )
-                                                    ).as(:oneline),
+                                                    ),
                                                     a(str("mtu"), arg),
                                                     str("no-redirects"),
                                                     str("no-neighbor-learn"),
@@ -14185,8 +14185,8 @@ module Junoser
                                                     str("multicast-only"),
                                                     str("primary"),
                                                     a(str("ipsec-sa"), arg),
-                                                    str("demux-source").as(:oneline),
-                                                    str("demux-destination").as(:oneline),
+                                                    str("demux-source"),
+                                                    str("demux-destination"),
                                                     b(str("filter"),
                                                         sc(
                                                             c(
@@ -14242,7 +14242,7 @@ module Junoser
                                                         sc(
                                                             a(str("ipsec-vpn"), arg)
                                                         )
-                                                    ).as(:oneline),
+                                                    ),
                                                     b(a(str("address"), arg),
                                                         sc(
                                                             b(str("destination"),
@@ -14286,7 +14286,7 @@ module Junoser
                                                                       epd_threshold_config
                                                                     ).as(:oneline)
                                                                 )
-                                                            ).as(:oneline),
+                                                            ),
                                                             b(a(str("arp"), arg),
                                                                 sc(
                                                                     b(str("l2-interface"),
@@ -14309,7 +14309,7 @@ module Junoser
                                                                     str("https"),
                                                                     str("redirect-to-https")
                                                                 )
-                                                            ).as(:oneline),
+                                                            ),
                                                             b(str("vrrp-group"),
                                                               vrrp_group
                                                             )
@@ -14371,7 +14371,7 @@ module Junoser
                                                                 )
                                                             ).as(:oneline)
                                                         )
-                                                    ).as(:oneline),
+                                                    ),
                                                     b(str("accounting"),
                                                         sc(
                                                             b(str("source-class-usage"),
@@ -14465,11 +14465,11 @@ module Junoser
                                                                     str("https"),
                                                                     str("redirect-to-https")
                                                                 )
-                                                            ).as(:oneline)
+                                                            )
                                                         )
                                                     ),
-                                                    str("demux-source").as(:oneline),
-                                                    str("demux-destination").as(:oneline),
+                                                    str("demux-source"),
+                                                    str("demux-destination"),
                                                     b(str("unnumbered-address"),
                                                         sc(
                                                             b(str("source"),
@@ -14704,7 +14704,7 @@ module Junoser
                                                                 )
                                                             ).as(:oneline)
                                                         )
-                                                    ).as(:oneline),
+                                                    ),
                                                     c(
                                                       a(str("isid-list"), arg)
                                                     )
@@ -15502,7 +15502,7 @@ module Junoser
                                                 )
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(a(str("iso-route"), arg),
                                         sc(
                                             c(
@@ -15625,7 +15625,7 @@ module Junoser
                                                 )
                                             )
                                         )
-                                    ).as(:oneline)
+                                    )
                                 )
                             ),
                             b(str("martians"),
@@ -15668,7 +15668,7 @@ module Junoser
                                     ).as(:oneline),
                                     str("as-path-compare")
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("label"),
                                 sc(
                                     b(str("allocation"),
@@ -15678,7 +15678,7 @@ module Junoser
                                       policy_algebra
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("access"),
                                 sc(
                                     b(a(str("route"), arg),
@@ -15693,7 +15693,7 @@ module Junoser
                                             a(str("preference"), arg),
                                             a(str("tag"), arg)
                                         )
-                                    ).as(:oneline)
+                                    )
                                 )
                             ),
                             b(str("access-internal"),
@@ -15707,7 +15707,7 @@ module Junoser
                                               qualified_nh_obj
                                             )
                                         )
-                                    ).as(:oneline)
+                                    )
                                 )
                             )
                         )
@@ -15726,7 +15726,7 @@ module Junoser
                                     a(str("preference"), arg),
                                     a(str("tag"), arg)
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(str("access-internal"),
@@ -15740,7 +15740,7 @@ module Junoser
                                       qualified_nh_obj
                                     )
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(str("multicast"),
@@ -15989,7 +15989,7 @@ module Junoser
         sc(
             a(str("default-value"), arg)
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:cfm_traceoptions) do
@@ -16045,7 +16045,7 @@ module Junoser
             str("uid-reference"),
             str("uid")
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:juniper_ethernet_options) do
@@ -16582,7 +16582,7 @@ module Junoser
                                     ).as(:oneline),
                                     a(str("routing-instance"), arg)
                                 )
-                            ).as(:oneline),
+                            ),
                             a(str("maximum-hop-count"), arg),
                             a(str("minimum-wait-time"), arg),
                             a(str("client-response-ttl"), arg),
@@ -16602,7 +16602,7 @@ module Junoser
                                             ).as(:oneline),
                                             a(str("routing-instance"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     a(str("maximum-hop-count"), arg),
                                     a(str("minimum-wait-time"), arg),
                                     a(str("client-response-ttl"), arg),
@@ -16806,7 +16806,7 @@ module Junoser
                                     )
                                 )
                             ),
-                            str("instance").as(:oneline)
+                            str("instance")
                         )
                     )
                 )
@@ -17499,7 +17499,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("ftp"),
                                 sc(
                                     str("disable"),
@@ -17562,7 +17562,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("mgcp"),
                                 sc(
                                     str("disable"),
@@ -17606,7 +17606,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("msrpc"),
                                 sc(
                                     str("disable"),
@@ -17707,7 +17707,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("sip"),
                                 sc(
                                     str("disable"),
@@ -17759,7 +17759,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("sql"),
                                 sc(
                                     str("disable"),
@@ -18817,7 +18817,7 @@ module Junoser
                                       community_count_type
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("to"),
                                 sc(
                                     a(str("instance"), arg),
@@ -18859,7 +18859,7 @@ module Junoser
                                       policy_algebra
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("then"),
                                 sc(
                                     b(str("metric"),
@@ -18880,10 +18880,10 @@ module Junoser
                                               ).as(:oneline),
                                               b(str("expression"),
                                                 metric_expression_type
-                                              ).as(:oneline)
+                                              )
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("metric2"),
                                         sc(
                                             c(
@@ -18892,7 +18892,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("metric3"),
                                         sc(
                                             c(
@@ -18901,7 +18901,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("metric4"),
                                         sc(
                                             c(
@@ -18910,7 +18910,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("tag"),
                                         sc(
                                             c(
@@ -18919,7 +18919,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("tag2"),
                                         sc(
                                             c(
@@ -18928,7 +18928,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("preference"),
                                         sc(
                                             c(
@@ -18937,7 +18937,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("preference2"),
                                         sc(
                                             c(
@@ -18946,7 +18946,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("color"),
                                         sc(
                                             c(
@@ -18955,7 +18955,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("color2"),
                                         sc(
                                             c(
@@ -18964,7 +18964,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("local-preference"),
                                         sc(
                                             c(
@@ -18973,7 +18973,7 @@ module Junoser
                                               a(str("subtract"), arg)
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     a(str("priority"), arg),
                                     a(str("label-allocation"), arg),
                                     a(str("origin"), arg),
@@ -19098,7 +19098,7 @@ module Junoser
                                       str("reject")
                                     )
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(str("from"),
@@ -19178,7 +19178,7 @@ module Junoser
                               community_count_type
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("to"),
                         sc(
                             a(str("instance"), arg),
@@ -19220,7 +19220,7 @@ module Junoser
                               policy_algebra
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("then"),
                         sc(
                             b(str("metric"),
@@ -19241,10 +19241,10 @@ module Junoser
                                       ).as(:oneline),
                                       b(str("expression"),
                                         metric_expression_type
-                                      ).as(:oneline)
+                                      )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("metric2"),
                                 sc(
                                     c(
@@ -19253,7 +19253,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("metric3"),
                                 sc(
                                     c(
@@ -19262,7 +19262,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("metric4"),
                                 sc(
                                     c(
@@ -19271,7 +19271,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("tag"),
                                 sc(
                                     c(
@@ -19280,7 +19280,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("tag2"),
                                 sc(
                                     c(
@@ -19289,7 +19289,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("preference"),
                                 sc(
                                     c(
@@ -19298,7 +19298,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("preference2"),
                                 sc(
                                     c(
@@ -19307,7 +19307,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("color"),
                                 sc(
                                     c(
@@ -19316,7 +19316,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("color2"),
                                 sc(
                                     c(
@@ -19325,7 +19325,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("local-preference"),
                                 sc(
                                     c(
@@ -19334,7 +19334,7 @@ module Junoser
                                       a(str("subtract"), arg)
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             a(str("priority"), arg),
                             a(str("label-allocation"), arg),
                             a(str("origin"), arg),
@@ -19459,7 +19459,7 @@ module Junoser
                               str("reject")
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             ),
             b(a(str("community"), arg),
@@ -19467,13 +19467,13 @@ module Junoser
                     str("invert-match"),
                     a(str("members"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(a(str("as-path"), arg),
               sc(
                 quote,
                 arg
               )
-            ).as(:oneline),
+            ),
             b(a(str("as-path-group"), arg),
                 sc(
                     b(a(str("as-path"), arg),
@@ -19509,7 +19509,7 @@ module Junoser
                       )
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("application-maps"),
               application_map_object
             )
@@ -19575,10 +19575,10 @@ module Junoser
                       ).as(:oneline),
                       b(str("expression"),
                         metric_expression_type
-                      ).as(:oneline)
+                      )
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric2"),
                 sc(
                     c(
@@ -19587,7 +19587,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric3"),
                 sc(
                     c(
@@ -19596,7 +19596,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric4"),
                 sc(
                     c(
@@ -19605,7 +19605,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("tag"),
                 sc(
                     c(
@@ -19614,7 +19614,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("tag2"),
                 sc(
                     c(
@@ -19623,7 +19623,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("preference"),
                 sc(
                     c(
@@ -19632,7 +19632,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("preference2"),
                 sc(
                     c(
@@ -19641,7 +19641,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("color"),
                 sc(
                     c(
@@ -19650,7 +19650,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("color2"),
                 sc(
                     c(
@@ -19659,7 +19659,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("local-preference"),
                 sc(
                     c(
@@ -19668,7 +19668,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             a(str("priority"), arg),
             a(str("label-allocation"), arg),
             a(str("origin"), arg),
@@ -19793,7 +19793,7 @@ module Junoser
               str("reject")
             )
           )
-        ).as(:oneline)
+        )
     end
 
     rule(:control_prefix_list_type) do
@@ -19845,10 +19845,10 @@ module Junoser
                       ).as(:oneline),
                       b(str("expression"),
                         metric_expression_type
-                      ).as(:oneline)
+                      )
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric2"),
                 sc(
                     c(
@@ -19857,7 +19857,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric3"),
                 sc(
                     c(
@@ -19866,7 +19866,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric4"),
                 sc(
                     c(
@@ -19875,7 +19875,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("tag"),
                 sc(
                     c(
@@ -19884,7 +19884,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("tag2"),
                 sc(
                     c(
@@ -19893,7 +19893,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("preference"),
                 sc(
                     c(
@@ -19902,7 +19902,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("preference2"),
                 sc(
                     c(
@@ -19911,7 +19911,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("color"),
                 sc(
                     c(
@@ -19920,7 +19920,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("color2"),
                 sc(
                     c(
@@ -19929,7 +19929,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("local-preference"),
                 sc(
                     c(
@@ -19938,7 +19938,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             a(str("priority"), arg),
             a(str("label-allocation"), arg),
             a(str("origin"), arg),
@@ -20063,7 +20063,7 @@ module Junoser
               str("reject")
             )
           )
-        ).as(:oneline)
+        )
     end
 
     rule(:control_source_address_filter_type) do
@@ -20108,10 +20108,10 @@ module Junoser
                       ).as(:oneline),
                       b(str("expression"),
                         metric_expression_type
-                      ).as(:oneline)
+                      )
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric2"),
                 sc(
                     c(
@@ -20120,7 +20120,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric3"),
                 sc(
                     c(
@@ -20129,7 +20129,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("metric4"),
                 sc(
                     c(
@@ -20138,7 +20138,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("tag"),
                 sc(
                     c(
@@ -20147,7 +20147,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("tag2"),
                 sc(
                     c(
@@ -20156,7 +20156,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("preference"),
                 sc(
                     c(
@@ -20165,7 +20165,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("preference2"),
                 sc(
                     c(
@@ -20174,7 +20174,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("color"),
                 sc(
                     c(
@@ -20183,7 +20183,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("color2"),
                 sc(
                     c(
@@ -20192,7 +20192,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("local-preference"),
                 sc(
                     c(
@@ -20201,7 +20201,7 @@ module Junoser
                       a(str("subtract"), arg)
                     )
                 )
-            ).as(:oneline),
+            ),
             a(str("priority"), arg),
             a(str("label-allocation"), arg),
             a(str("origin"), arg),
@@ -20326,7 +20326,7 @@ module Junoser
               str("reject")
             )
           )
-        ).as(:oneline)
+        )
     end
 
     rule(:juniper_port_mirror_options) do
@@ -20373,7 +20373,7 @@ module Junoser
                     )
                 )
             ),
-            str("instance").as(:oneline)
+            str("instance")
         )
     end
 
@@ -20671,7 +20671,7 @@ module Junoser
                             a(str("maximum-helper-restart-time"), arg),
                             a(str("maximum-helper-recovery-time"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("tunnel-services"),
                         sc(
                             b(str("devices"),
@@ -20693,12 +20693,12 @@ module Junoser
                         sc(
                             a(str("optimize-timer"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("load-balance"),
                         sc(
                             str("bandwidth")
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("traceoptions"),
                         sc(
                             b(str("file"),
@@ -20729,9 +20729,9 @@ module Junoser
                                 sc(
                                     a(str("cleanup-timer"), arg)
                                 )
-                            ).as(:oneline)
+                            )
                         )
-                    ).as(:oneline),
+                    ),
                     b(a(str("interface"), arg),
                         sc(
                             c(
@@ -20747,7 +20747,7 @@ module Junoser
                             a(str("hello-interval"), arg),
                             b(str("subscription"),
                               subscription_type
-                            ).as(:oneline),
+                            ),
                             a(str("bandwidth"), arg),
                             a(str("update-threshold"), arg),
                             b(str("link-protection"),
@@ -20757,7 +20757,7 @@ module Junoser
                                     ),
                                     b(str("bandwidth"),
                                       bandwidth_type
-                                    ).as(:oneline),
+                                    ),
                                     a(str("max-bypasses"), arg),
                                     a(str("subscription"), arg),
                                     str("no-node-protection"),
@@ -20782,7 +20782,7 @@ module Junoser
                                     ).as(:oneline),
                                     b(str("admin-group"),
                                       admin_group_include_exclude
-                                    ).as(:oneline),
+                                    ),
                                     b(a(str("bypass"), arg),
                                         sc(
                                             b(str("to"),
@@ -20790,7 +20790,7 @@ module Junoser
                                             ),
                                             b(str("bandwidth"),
                                               bandwidth_type
-                                            ).as(:oneline),
+                                            ),
                                             a(str("description"), quote | arg),
                                             b(str("priority"),
                                                 sc(
@@ -20812,7 +20812,7 @@ module Junoser
                                             ).as(:oneline),
                                             b(str("admin-group"),
                                               admin_group_include_exclude
-                                            ).as(:oneline)
+                                            )
                                         )
                                     )
                                 )
@@ -20841,7 +20841,7 @@ module Junoser
                             ),
                             b(str("match-criteria"),
                               lsp_set_match_type
-                            ).as(:oneline),
+                            ),
                             b(str("traceoptions"),
                                 sc(
                                     b(str("file"),
@@ -20873,7 +20873,7 @@ module Junoser
                                 sc(
                                     str("mtu-signaling")
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(str("diffserv-te"),
@@ -20919,7 +20919,7 @@ module Junoser
                                       str("loss-priority-low")
                                     )
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(str("statistics"),
@@ -20962,7 +20962,7 @@ module Junoser
                         sc(
                             a(str("group-value"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     a(str("advertisement-hold-time"), arg),
                     a(str("rsvp-error-hold-time"), arg),
                     str("optimize-aggressive"),
@@ -20978,7 +20978,7 @@ module Junoser
                     str("mib-mpls-show-p2mp"),
                     b(str("bandwidth"),
                       bandwidth_type
-                    ).as(:oneline),
+                    ),
                     a(str("class-of-service"), arg),
                     str("no-decrement-ttl"),
                     a(str("hop-limit"), arg),
@@ -20998,13 +20998,13 @@ module Junoser
                     str("exclude-srlg"),
                     b(str("admin-group"),
                       admin_group_include_exclude
-                    ).as(:oneline),
+                    ),
                     b(str("admin-group-extended"),
                       admin_group_include_exclude
-                    ).as(:oneline),
+                    ),
                     b(str("oam"),
                       periodic_oam
-                    ).as(:oneline),
+                    ),
                     b(a(str("label-switched-path"), arg),
                         sc(
                             c(
@@ -21051,7 +21051,7 @@ module Junoser
                             a(str("optimize-hold-dead-delay"), arg),
                             b(str("bandwidth"),
                               bandwidth_type
-                            ).as(:oneline),
+                            ),
                             a(str("class-of-service"), arg),
                             str("no-decrement-ttl"),
                             a(str("hop-limit"), arg),
@@ -21071,13 +21071,13 @@ module Junoser
                             str("exclude-srlg"),
                             b(str("admin-group"),
                               admin_group_include_exclude
-                            ).as(:oneline),
+                            ),
                             b(str("admin-group-extended"),
                               admin_group_include_exclude
-                            ).as(:oneline),
+                            ),
                             b(str("oam"),
                               periodic_oam
-                            ).as(:oneline),
+                            ),
                             c(
                               str("random"),
                               str("least-fill"),
@@ -21138,7 +21138,7 @@ module Junoser
                                 sc(
                                     b(str("bandwidth"),
                                       bandwidth_type
-                                    ).as(:oneline),
+                                    ),
                                     a(str("class-of-service"), arg),
                                     str("no-decrement-ttl"),
                                     a(str("hop-limit"), arg),
@@ -21158,13 +21158,13 @@ module Junoser
                                     str("exclude-srlg"),
                                     b(str("admin-group"),
                                       admin_group_include_exclude
-                                    ).as(:oneline),
+                                    ),
                                     b(str("admin-group-extended"),
                                       admin_group_include_exclude
-                                    ).as(:oneline),
+                                    ),
                                     b(str("oam"),
                                       periodic_oam
-                                    ).as(:oneline),
+                                    ),
                                     str("adaptive"),
                                     a(str("select"), arg)
                                 )
@@ -21173,7 +21173,7 @@ module Junoser
                                 sc(
                                     b(str("bandwidth"),
                                       bandwidth_type
-                                    ).as(:oneline),
+                                    ),
                                     a(str("class-of-service"), arg),
                                     str("no-decrement-ttl"),
                                     a(str("hop-limit"), arg),
@@ -21193,13 +21193,13 @@ module Junoser
                                     str("exclude-srlg"),
                                     b(str("admin-group"),
                                       admin_group_include_exclude
-                                    ).as(:oneline),
+                                    ),
                                     b(str("admin-group-extended"),
                                       admin_group_include_exclude
-                                    ).as(:oneline),
+                                    ),
                                     b(str("oam"),
                                       periodic_oam
-                                    ).as(:oneline),
+                                    ),
                                     str("adaptive"),
                                     a(str("select"), arg)
                                 )
@@ -21453,10 +21453,10 @@ module Junoser
                                             str("no-install"),
                                             str("downstream-paths-only")
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     a(str("prefix-export-limit"), arg)
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("spf-options"),
                                 sc(
                                     a(str("delay"), arg),
@@ -21471,14 +21471,14 @@ module Junoser
                                     str("no-install"),
                                     str("downstream-paths-only")
                                 )
-                            ).as(:oneline),
+                            ),
                             a(str("prefix-export-limit"), arg),
                             a(str("rib-group"), arg),
                             b(str("overload"),
                                 sc(
                                     a(str("timeout"), arg)
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("database-protection"),
                                 sc(
                                     a(str("maximum-lsa"), arg),
@@ -21488,7 +21488,7 @@ module Junoser
                                     a(str("ignore-time"), arg),
                                     a(str("reset-time"), arg)
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("graceful-restart"),
                                 sc(
                                     c(
@@ -21507,7 +21507,7 @@ module Junoser
                                     ),
                                     str("no-strict-lsa-checking")
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("traffic-engineering"),
                                 sc(
                                     str("no-topology"),
@@ -21517,11 +21517,11 @@ module Junoser
                                         sc(
                                             str("lsp-metric-into-summary")
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     str("advertise-unnumbered-interfaces"),
                                     str("credibility-protocol-preference")
                                 )
-                            ).as(:oneline),
+                            ),
                             a(str("route-type-community"), arg),
                             b(str("domain-id"),
                                 sc(
@@ -21554,7 +21554,7 @@ module Junoser
                                       ipaddr
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(a(str("area"), arg),
                                 sc(
                                     c(
@@ -21573,7 +21573,7 @@ module Junoser
                                                       a(str("metric-type"), arg),
                                                       str("type-7")
                                                   )
-                                              ).as(:oneline),
+                                              ),
                                               str("summaries"),
                                               str("no-summaries"),
                                               b(a(str("area-range"), arg),
@@ -21585,11 +21585,11 @@ module Junoser
                                                               a(str("metric"), arg),
                                                               a(str("metric-type"), arg)
                                                           )
-                                                      ).as(:oneline)
+                                                      )
                                                   )
-                                              ).as(:oneline)
+                                              )
                                           )
-                                      ).as(:oneline)
+                                      )
                                     ),
                                     b(a(str("area-range"), arg),
                                         sc(
@@ -21597,7 +21597,7 @@ module Junoser
                                             str("exact"),
                                             a(str("override-metric"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("network-summary-export"),
                                       policy_algebra
                                     ),
@@ -21649,7 +21649,7 @@ module Junoser
                                                         )
                                                     )
                                                 )
-                                            ).as(:oneline)
+                                            )
                                           )
                                         )
                                     ),
@@ -21673,9 +21673,9 @@ module Junoser
                                                         )
                                                     )
                                                 )
-                                            ).as(:oneline)
+                                            )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(a(str("interface"), arg),
                                         sc(
                                             c(
@@ -21742,7 +21742,7 @@ module Junoser
                                                         )
                                                     )
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(str("bfd-liveness-detection"),
                                                 sc(
                                                     a(str("version"), arg),
@@ -21805,7 +21805,7 @@ module Junoser
                                                         )
                                                     )
                                                 )
-                                            ).as(:oneline)
+                                            )
                                         )
                                     ),
                                     b(a(str("peer-interface"), arg),
@@ -21869,10 +21869,10 @@ module Junoser
                                     str("no-install"),
                                     str("downstream-paths-only")
                                 )
-                            ).as(:oneline),
+                            ),
                             a(str("prefix-export-limit"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("spf-options"),
                         sc(
                             a(str("delay"), arg),
@@ -21887,14 +21887,14 @@ module Junoser
                             str("no-install"),
                             str("downstream-paths-only")
                         )
-                    ).as(:oneline),
+                    ),
                     a(str("prefix-export-limit"), arg),
                     a(str("rib-group"), arg),
                     b(str("overload"),
                         sc(
                             a(str("timeout"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("database-protection"),
                         sc(
                             a(str("maximum-lsa"), arg),
@@ -21904,7 +21904,7 @@ module Junoser
                             a(str("ignore-time"), arg),
                             a(str("reset-time"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("graceful-restart"),
                         sc(
                             c(
@@ -21923,7 +21923,7 @@ module Junoser
                             ),
                             str("no-strict-lsa-checking")
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("traffic-engineering"),
                         sc(
                             str("no-topology"),
@@ -21933,11 +21933,11 @@ module Junoser
                                 sc(
                                     str("lsp-metric-into-summary")
                                 )
-                            ).as(:oneline),
+                            ),
                             str("advertise-unnumbered-interfaces"),
                             str("credibility-protocol-preference")
                         )
-                    ).as(:oneline),
+                    ),
                     a(str("route-type-community"), arg),
                     b(str("domain-id"),
                         sc(
@@ -21970,7 +21970,7 @@ module Junoser
                               ipaddr
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(a(str("area"), arg),
                         sc(
                             c(
@@ -21989,7 +21989,7 @@ module Junoser
                                               a(str("metric-type"), arg),
                                               str("type-7")
                                           )
-                                      ).as(:oneline),
+                                      ),
                                       str("summaries"),
                                       str("no-summaries"),
                                       b(a(str("area-range"), arg),
@@ -22001,11 +22001,11 @@ module Junoser
                                                       a(str("metric"), arg),
                                                       a(str("metric-type"), arg)
                                                   )
-                                              ).as(:oneline)
+                                              )
                                           )
-                                      ).as(:oneline)
+                                      )
                                   )
-                              ).as(:oneline)
+                              )
                             ),
                             b(a(str("area-range"), arg),
                                 sc(
@@ -22013,7 +22013,7 @@ module Junoser
                                     str("exact"),
                                     a(str("override-metric"), arg)
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("network-summary-export"),
                               policy_algebra
                             ),
@@ -22065,7 +22065,7 @@ module Junoser
                                                 )
                                             )
                                         )
-                                    ).as(:oneline)
+                                    )
                                   )
                                 )
                             ),
@@ -22089,9 +22089,9 @@ module Junoser
                                                 )
                                             )
                                         )
-                                    ).as(:oneline)
+                                    )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(a(str("interface"), arg),
                                 sc(
                                     c(
@@ -22158,7 +22158,7 @@ module Junoser
                                                 )
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("bfd-liveness-detection"),
                                         sc(
                                             a(str("version"), arg),
@@ -22221,7 +22221,7 @@ module Junoser
                                                 )
                                             )
                                         )
-                                    ).as(:oneline)
+                                    )
                                 )
                             ),
                             b(a(str("peer-interface"), arg),
@@ -22374,7 +22374,7 @@ module Junoser
                                     str("no-revert"),
                                     b(str("bandwidth"),
                                       bandwidth_type
-                                    ).as(:oneline),
+                                    ),
                                     str("pseudowire-status-tlv"),
                                     a(str("switchover-delay"), arg),
                                     a(str("revert-time"), arg),
@@ -23129,7 +23129,7 @@ module Junoser
             c(
               a(str("exclude"), arg)
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:bandwidth_type) do
@@ -23139,7 +23139,7 @@ module Junoser
             a(str("ct1"), arg),
             a(str("ct2"), arg),
             a(str("ct3"), arg)
-        ).as(:oneline)
+        )
     end
 
     rule(:civic_address_elements) do
@@ -23284,7 +23284,7 @@ module Junoser
                     str("external-router-id"),
                     str("as-path-ignore")
                 )
-            ).as(:oneline),
+            ),
             b(str("traceoptions"),
                 sc(
                     b(str("file"),
@@ -23544,7 +23544,7 @@ module Junoser
                         )
                     )
                 )
-            ).as(:oneline),
+            ),
             a(str("tcp-mss"), arg),
             b(str("bfd-liveness-detection"),
                 sc(
@@ -23839,7 +23839,7 @@ module Junoser
                                 )
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     a(str("tcp-mss"), arg),
                     b(str("bfd-liveness-detection"),
                         sc(
@@ -24143,7 +24143,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             a(str("tcp-mss"), arg),
                             b(str("bfd-liveness-detection"),
                                 sc(
@@ -24728,21 +24728,21 @@ module Junoser
                     a(str("holddown"), arg),
                     a(str("rapid-runs"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("topologies"),
                 sc(
                     str("ipv4-multicast"),
                     str("ipv6-unicast"),
                     str("ipv6-multicast")
                 )
-            ).as(:oneline),
+            ),
             b(str("overload"),
                 sc(
                     a(str("timeout"), arg),
                     str("advertise-high-metrics"),
                     str("allow-route-leaking")
                 )
-            ).as(:oneline),
+            ),
             b(str("traffic-engineering"),
                 sc(
                     c(
@@ -24765,7 +24765,7 @@ module Junoser
                         )
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("graceful-restart"),
                 sc(
                     c(
@@ -24793,7 +24793,7 @@ module Junoser
                     a(str("external-preference"), arg),
                     a(str("prefix-export-limit"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(a(str("interface"), arg),
                 sc(
                     c(
@@ -24882,7 +24882,7 @@ module Junoser
                             a(str("priority"), arg),
                             str("passive")
                         )
-                    ).as(:oneline)
+                    )
                 )
             ),
             b(a(str("label-switched-path"), arg),
@@ -24894,7 +24894,7 @@ module Junoser
                             ),
                             a(str("metric"), arg)
                         )
-                    ).as(:oneline)
+                    )
                 )
             ),
             b(a(str("context-identifier"), arg),
@@ -24905,7 +24905,7 @@ module Junoser
                               str("disable")
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -24951,7 +24951,7 @@ module Junoser
                     a(str("reconnect-time"), arg),
                     a(str("maximum-neighbor-reconnect-time"), arg)
                 )
-            ).as(:oneline),
+            ),
             a(str("preference"), arg),
             str("no-forwarding"),
             str("l2-smart-policy"),
@@ -25022,7 +25022,7 @@ module Junoser
                 sc(
                     a(str("holddown-interval"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("log-updown"),
                 sc(
                     b(str("trap"),
@@ -25578,10 +25578,10 @@ module Junoser
                             str("no-install"),
                             str("downstream-paths-only")
                         )
-                    ).as(:oneline),
+                    ),
                     a(str("prefix-export-limit"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("spf-options"),
                 sc(
                     a(str("delay"), arg),
@@ -25596,14 +25596,14 @@ module Junoser
                     str("no-install"),
                     str("downstream-paths-only")
                 )
-            ).as(:oneline),
+            ),
             a(str("prefix-export-limit"), arg),
             a(str("rib-group"), arg),
             b(str("overload"),
                 sc(
                     a(str("timeout"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("database-protection"),
                 sc(
                     a(str("maximum-lsa"), arg),
@@ -25613,7 +25613,7 @@ module Junoser
                     a(str("ignore-time"), arg),
                     a(str("reset-time"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("graceful-restart"),
                 sc(
                     c(
@@ -25632,7 +25632,7 @@ module Junoser
                     ),
                     str("no-strict-lsa-checking")
                 )
-            ).as(:oneline),
+            ),
             b(str("traffic-engineering"),
                 sc(
                     str("no-topology"),
@@ -25642,11 +25642,11 @@ module Junoser
                         sc(
                             str("lsp-metric-into-summary")
                         )
-                    ).as(:oneline),
+                    ),
                     str("advertise-unnumbered-interfaces"),
                     str("credibility-protocol-preference")
                 )
-            ).as(:oneline),
+            ),
             a(str("route-type-community"), arg),
             b(str("domain-id"),
                 sc(
@@ -25679,7 +25679,7 @@ module Junoser
                       ipaddr
                     )
                 )
-            ).as(:oneline),
+            ),
             b(a(str("area"), arg),
                 sc(
                     c(
@@ -25698,7 +25698,7 @@ module Junoser
                                       a(str("metric-type"), arg),
                                       str("type-7")
                                   )
-                              ).as(:oneline),
+                              ),
                               str("summaries"),
                               str("no-summaries"),
                               b(a(str("area-range"), arg),
@@ -25710,11 +25710,11 @@ module Junoser
                                               a(str("metric"), arg),
                                               a(str("metric-type"), arg)
                                           )
-                                      ).as(:oneline)
+                                      )
                                   )
-                              ).as(:oneline)
+                              )
                           )
-                      ).as(:oneline)
+                      )
                     ),
                     b(a(str("area-range"), arg),
                         sc(
@@ -25722,7 +25722,7 @@ module Junoser
                             str("exact"),
                             a(str("override-metric"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("network-summary-export"),
                       policy_algebra
                     ),
@@ -25774,7 +25774,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline)
+                            )
                           )
                         )
                     ),
@@ -25798,9 +25798,9 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline)
+                            )
                         )
-                    ).as(:oneline),
+                    ),
                     b(a(str("interface"), arg),
                         sc(
                             c(
@@ -25867,7 +25867,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("bfd-liveness-detection"),
                                 sc(
                                     a(str("version"), arg),
@@ -25930,7 +25930,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(a(str("peer-interface"), arg),
@@ -26164,7 +26164,7 @@ module Junoser
                                                                 sc(
                                                                     str("forward-msdp-sa")
                                                                 )
-                                                            ).as(:oneline)
+                                                            )
                                                         )
                                                     ),
                                                     b(str("local-address"),
@@ -26222,7 +26222,7 @@ module Junoser
                             str("mapping-agent-election"),
                             str("no-mapping-agent-election")
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("static"),
                         sc(
                             b(a(str("address"), arg),
@@ -26745,7 +26745,7 @@ module Junoser
                     str("ineligible"),
                     a(str("priority"), arg)
                 )
-            ).as(:oneline)
+            )
         )
     end
 
@@ -26939,7 +26939,7 @@ module Junoser
                 sc(
                     a(str("community"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("provider-tunnel"),
                 sc(
                     c(
@@ -27232,7 +27232,7 @@ module Junoser
                     a(str("import"), arg),
                     a(str("export"), arg)
                 )
-            ).as(:oneline),
+            ),
             str("no-vrf-advertise"),
             b(str("vrf-advertise-selective"),
                 sc(
@@ -27311,10 +27311,10 @@ module Junoser
                                                     str("no-install"),
                                                     str("downstream-paths-only")
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             a(str("prefix-export-limit"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("spf-options"),
                                         sc(
                                             a(str("delay"), arg),
@@ -27329,14 +27329,14 @@ module Junoser
                                             str("no-install"),
                                             str("downstream-paths-only")
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     a(str("prefix-export-limit"), arg),
                                     a(str("rib-group"), arg),
                                     b(str("overload"),
                                         sc(
                                             a(str("timeout"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("database-protection"),
                                         sc(
                                             a(str("maximum-lsa"), arg),
@@ -27346,7 +27346,7 @@ module Junoser
                                             a(str("ignore-time"), arg),
                                             a(str("reset-time"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("graceful-restart"),
                                         sc(
                                             c(
@@ -27365,7 +27365,7 @@ module Junoser
                                             ),
                                             str("no-strict-lsa-checking")
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("traffic-engineering"),
                                         sc(
                                             str("no-topology"),
@@ -27375,11 +27375,11 @@ module Junoser
                                                 sc(
                                                     str("lsp-metric-into-summary")
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             str("advertise-unnumbered-interfaces"),
                                             str("credibility-protocol-preference")
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     a(str("route-type-community"), arg),
                                     b(str("domain-id"),
                                         sc(
@@ -27412,7 +27412,7 @@ module Junoser
                                               ipaddr
                                             )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(a(str("area"), arg),
                                         sc(
                                             c(
@@ -27431,7 +27431,7 @@ module Junoser
                                                               a(str("metric-type"), arg),
                                                               str("type-7")
                                                           )
-                                                      ).as(:oneline),
+                                                      ),
                                                       str("summaries"),
                                                       str("no-summaries"),
                                                       b(a(str("area-range"), arg),
@@ -27443,11 +27443,11 @@ module Junoser
                                                                       a(str("metric"), arg),
                                                                       a(str("metric-type"), arg)
                                                                   )
-                                                              ).as(:oneline)
+                                                              )
                                                           )
-                                                      ).as(:oneline)
+                                                      )
                                                   )
-                                              ).as(:oneline)
+                                              )
                                             ),
                                             b(a(str("area-range"), arg),
                                                 sc(
@@ -27455,7 +27455,7 @@ module Junoser
                                                     str("exact"),
                                                     a(str("override-metric"), arg)
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(str("network-summary-export"),
                                               policy_algebra
                                             ),
@@ -27507,7 +27507,7 @@ module Junoser
                                                                 )
                                                             )
                                                         )
-                                                    ).as(:oneline)
+                                                    )
                                                   )
                                                 )
                                             ),
@@ -27531,9 +27531,9 @@ module Junoser
                                                                 )
                                                             )
                                                         )
-                                                    ).as(:oneline)
+                                                    )
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(a(str("interface"), arg),
                                                 sc(
                                                     c(
@@ -27600,7 +27600,7 @@ module Junoser
                                                                 )
                                                             )
                                                         )
-                                                    ).as(:oneline),
+                                                    ),
                                                     b(str("bfd-liveness-detection"),
                                                         sc(
                                                             a(str("version"), arg),
@@ -27663,7 +27663,7 @@ module Junoser
                                                                 )
                                                             )
                                                         )
-                                                    ).as(:oneline)
+                                                    )
                                                 )
                                             ),
                                             b(a(str("peer-interface"), arg),
@@ -27727,10 +27727,10 @@ module Junoser
                                             str("no-install"),
                                             str("downstream-paths-only")
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     a(str("prefix-export-limit"), arg)
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("spf-options"),
                                 sc(
                                     a(str("delay"), arg),
@@ -27745,14 +27745,14 @@ module Junoser
                                     str("no-install"),
                                     str("downstream-paths-only")
                                 )
-                            ).as(:oneline),
+                            ),
                             a(str("prefix-export-limit"), arg),
                             a(str("rib-group"), arg),
                             b(str("overload"),
                                 sc(
                                     a(str("timeout"), arg)
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("database-protection"),
                                 sc(
                                     a(str("maximum-lsa"), arg),
@@ -27762,7 +27762,7 @@ module Junoser
                                     a(str("ignore-time"), arg),
                                     a(str("reset-time"), arg)
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("graceful-restart"),
                                 sc(
                                     c(
@@ -27781,7 +27781,7 @@ module Junoser
                                     ),
                                     str("no-strict-lsa-checking")
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("traffic-engineering"),
                                 sc(
                                     str("no-topology"),
@@ -27791,11 +27791,11 @@ module Junoser
                                         sc(
                                             str("lsp-metric-into-summary")
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     str("advertise-unnumbered-interfaces"),
                                     str("credibility-protocol-preference")
                                 )
-                            ).as(:oneline),
+                            ),
                             a(str("route-type-community"), arg),
                             b(str("domain-id"),
                                 sc(
@@ -27828,7 +27828,7 @@ module Junoser
                                       ipaddr
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(a(str("area"), arg),
                                 sc(
                                     c(
@@ -27847,7 +27847,7 @@ module Junoser
                                                       a(str("metric-type"), arg),
                                                       str("type-7")
                                                   )
-                                              ).as(:oneline),
+                                              ),
                                               str("summaries"),
                                               str("no-summaries"),
                                               b(a(str("area-range"), arg),
@@ -27859,11 +27859,11 @@ module Junoser
                                                               a(str("metric"), arg),
                                                               a(str("metric-type"), arg)
                                                           )
-                                                      ).as(:oneline)
+                                                      )
                                                   )
-                                              ).as(:oneline)
+                                              )
                                           )
-                                      ).as(:oneline)
+                                      )
                                     ),
                                     b(a(str("area-range"), arg),
                                         sc(
@@ -27871,7 +27871,7 @@ module Junoser
                                             str("exact"),
                                             a(str("override-metric"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("network-summary-export"),
                                       policy_algebra
                                     ),
@@ -27923,7 +27923,7 @@ module Junoser
                                                         )
                                                     )
                                                 )
-                                            ).as(:oneline)
+                                            )
                                           )
                                         )
                                     ),
@@ -27947,9 +27947,9 @@ module Junoser
                                                         )
                                                     )
                                                 )
-                                            ).as(:oneline)
+                                            )
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(a(str("interface"), arg),
                                         sc(
                                             c(
@@ -28016,7 +28016,7 @@ module Junoser
                                                         )
                                                     )
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(str("bfd-liveness-detection"),
                                                 sc(
                                                     a(str("version"), arg),
@@ -28079,7 +28079,7 @@ module Junoser
                                                         )
                                                     )
                                                 )
-                                            ).as(:oneline)
+                                            )
                                         )
                                     ),
                                     b(a(str("peer-interface"), arg),
@@ -28253,7 +28253,7 @@ module Junoser
                                   )
                               ).as(:oneline)
                           )
-                      ).as(:oneline)
+                      )
                     ),
                     str("multi-homing"),
                     a(str("site-preference"), arg),
@@ -28310,7 +28310,7 @@ module Junoser
                             a(str("outgoing-label"), arg)
                         )
                     ),
-                    str("associate-profile").as(:oneline),
+                    str("associate-profile"),
                     b(str("psn-tunnel-endpoint"),
                       ipv4addr
                     ),
@@ -28339,10 +28339,10 @@ module Junoser
                     str("oam")
                 )
             ),
-            str("associate-profile").as(:oneline),
+            str("associate-profile"),
             b(a(str("mesh-group"), arg),
                 sc(
-                    str("associate-profile").as(:oneline),
+                    str("associate-profile"),
                     c(
                       b(str("peer-as"),
                           sc(
@@ -28353,7 +28353,7 @@ module Junoser
                     a(str("vpls-id"), arg),
                     str("vrf-import"),
                     str("vrf-export"),
-                    str("vrf-target").as(:oneline),
+                    str("vrf-target"),
                     str("mac-flush"),
                     str("local-switching"),
                     str("neighbor"),
@@ -28556,7 +28556,7 @@ module Junoser
                     a(str("srlg-value"), arg),
                     a(str("srlg-cost"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("admin-groups-extended-range"),
                 sc(
                     a(str("minimum"), arg),
@@ -28567,7 +28567,7 @@ module Junoser
                 sc(
                     a(str("group-value"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("traceoptions"),
                 sc(
                     b(str("file"),
@@ -28822,7 +28822,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(a(str("iso-route"), arg),
                                 sc(
                                     c(
@@ -28945,7 +28945,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(str("martians"),
@@ -28988,7 +28988,7 @@ module Junoser
                             ).as(:oneline),
                             str("as-path-compare")
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("label"),
                         sc(
                             b(str("allocation"),
@@ -28998,7 +28998,7 @@ module Junoser
                               policy_algebra
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("access"),
                         sc(
                             b(a(str("route"), arg),
@@ -29013,7 +29013,7 @@ module Junoser
                                     a(str("preference"), arg),
                                     a(str("tag"), arg)
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     b(str("access-internal"),
@@ -29027,7 +29027,7 @@ module Junoser
                                       qualified_nh_obj
                                     )
                                 )
-                            ).as(:oneline)
+                            )
                         )
                     )
                 )
@@ -29221,7 +29221,7 @@ module Junoser
                                 )
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(a(str("iso-route"), arg),
                         sc(
                             c(
@@ -29344,7 +29344,7 @@ module Junoser
                                 )
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             ),
             b(str("martians"),
@@ -29387,7 +29387,7 @@ module Junoser
                     ).as(:oneline),
                     str("as-path-compare")
                 )
-            ).as(:oneline),
+            ),
             b(str("label"),
                 sc(
                     b(str("allocation"),
@@ -29397,7 +29397,7 @@ module Junoser
                       policy_algebra
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("access"),
                 sc(
                     b(a(str("route"), arg),
@@ -29412,7 +29412,7 @@ module Junoser
                             a(str("preference"), arg),
                             a(str("tag"), arg)
                         )
-                    ).as(:oneline)
+                    )
                 )
             ),
             b(str("access-internal"),
@@ -29426,7 +29426,7 @@ module Junoser
                               qualified_nh_obj
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             ),
             b(str("rib-groups"),
@@ -29682,10 +29682,10 @@ module Junoser
                         sc(
                             b(str("match"),
                               flow_route_qualifier
-                            ).as(:oneline),
+                            ),
                             b(str("then"),
                               flow_route_op
-                            ).as(:oneline)
+                            )
                         )
                     ),
                     a(str("term-order"), arg)
@@ -29734,14 +29734,14 @@ module Junoser
                       ),
                       b(str("destination-networks"),
                         network_type
-                      ).as(:oneline)
+                      )
                   )
               ),
               str("gre")
             ),
             b(str("destination-networks"),
               network_type
-            ).as(:oneline)
+            )
         )
       )
     end
@@ -29817,7 +29817,7 @@ module Junoser
             a(str("routing-instance"), arg),
             str("sample"),
             str("next-term")
-        ).as(:oneline)
+        )
     end
 
     rule(:flow_route_qualifier) do
@@ -29842,7 +29842,7 @@ module Junoser
               policy_algebra
             ),
             a(str("fragment"), arg)
-        ).as(:oneline)
+        )
     end
 
     rule(:forwarding_table_type) do
@@ -29897,7 +29897,7 @@ module Junoser
                     str("mpls")
                 )
             ),
-            str("instance").as(:oneline)
+            str("instance")
         )
     end
 
@@ -30068,7 +30068,7 @@ module Junoser
             a(str("authentication-order"), arg),
             b(str("location"),
               location_type
-            ).as(:oneline),
+            ),
             b(str("ports"),
                 sc(
                     b(str("console"),
@@ -30163,7 +30163,7 @@ module Junoser
                                 )
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             ),
             str("allow-v4mapped-packets"),
@@ -30222,7 +30222,7 @@ module Junoser
                     ),
                     a(str("alias"), arg)
                 )
-            ).as(:oneline),
+            ),
             b(str("services"),
                 sc(
                     b(str("finger"),
@@ -30433,7 +30433,7 @@ module Junoser
                                         )
                                     )
                                 )
-                            ).as(:oneline),
+                            ),
                             b(str("traceoptions"),
                                 sc(
                                     str("no-remote-trace"),
@@ -30494,7 +30494,7 @@ module Junoser
                                             a(str("retry"), arg),
                                             a(str("timeout"), arg)
                                         )
-                                    ).as(:oneline)
+                                    )
                                 )
                             )
                         )
@@ -30547,7 +30547,7 @@ module Junoser
                                 )
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     str("packet-triggered-subscribers"),
                     b(str("static-subscribers"),
                       jsscd_static_subscribers_type
@@ -30913,7 +30913,7 @@ module Junoser
                                 )
                             ).as(:oneline)
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("resource-limits"),
                         sc(
                             b(a(str("process"), arg),
@@ -30968,7 +30968,7 @@ module Junoser
                         )
                     )
                 )
-            ).as(:oneline),
+            ),
             b(str("fips"),
                 sc(
                     a(str("level"), arg),
@@ -31047,7 +31047,7 @@ module Junoser
                               pmond_traceoptions_type
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("resource-cleanup"),
                         sc(
                             c(
@@ -31057,7 +31057,7 @@ module Junoser
                               res_cleanupd_traceoptions_type
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("routing-socket-proxy"),
                         sc(
                             c(
@@ -31136,7 +31136,7 @@ module Junoser
                             str("traceoptions")
                         )
                     ),
-                    str("mac-validation").as(:oneline),
+                    str("mac-validation"),
                     b(str("sbc-configuration-process"),
                         sc(
                             c(
@@ -31157,7 +31157,7 @@ module Junoser
                               ssd_traceoptions_type
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("datapath-trace-service"),
                         sc(
                             c(
@@ -31167,7 +31167,7 @@ module Junoser
                               datapath_traced_traceoptions_type
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("send"),
                         sc(
                             c(
@@ -31785,7 +31785,7 @@ module Junoser
             a(str("retry"), arg),
             a(str("timeout"), arg)
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:ldp_sync_obj) do
@@ -31874,7 +31874,7 @@ module Junoser
                     a(str("rack"), arg)
                 )
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:login_class_object) do
@@ -31951,12 +31951,12 @@ module Junoser
                               interface_unit
                             )
                         )
-                    ).as(:oneline),
+                    ),
                     b(str("interface-shared-with"),
                         sc(
                             a(str("psd-name"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     c(
                       str("disable")
                     ),
@@ -31964,7 +31964,7 @@ module Junoser
                     str("per-session-scheduler"),
                     str("clear-dont-fragment-bit"),
                     str("reassemble-packets"),
-                    str("rpm").as(:oneline),
+                    str("rpm"),
                     a(str("description"), quote | arg),
                     a(str("metadata"), arg),
                     str("dial-options"),
@@ -32029,10 +32029,10 @@ module Junoser
                     ),
                     b(str("input-vlan-map"),
                       vlan_map
-                    ).as(:oneline),
+                    ),
                     b(str("output-vlan-map"),
                       vlan_map
-                    ).as(:oneline),
+                    ),
                     str("swap-by-poppush"),
                     a(str("receive-lsp"), arg),
                     a(str("transmit-lsp"), arg),
@@ -32224,7 +32224,7 @@ module Junoser
                                                 )
                                             ).as(:oneline)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     a(str("mtu"), arg),
                                     str("no-redirects"),
                                     str("no-neighbor-learn"),
@@ -32232,8 +32232,8 @@ module Junoser
                                     str("multicast-only"),
                                     str("primary"),
                                     a(str("ipsec-sa"), arg),
-                                    str("demux-source").as(:oneline),
-                                    str("demux-destination").as(:oneline),
+                                    str("demux-source"),
+                                    str("demux-destination"),
                                     b(str("filter"),
                                         sc(
                                             c(
@@ -32289,7 +32289,7 @@ module Junoser
                                         sc(
                                             a(str("ipsec-vpn"), arg)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(a(str("address"), arg),
                                         sc(
                                             b(str("destination"),
@@ -32333,7 +32333,7 @@ module Junoser
                                                       epd_threshold_config
                                                     ).as(:oneline)
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(a(str("arp"), arg),
                                                 sc(
                                                     b(str("l2-interface"),
@@ -32356,7 +32356,7 @@ module Junoser
                                                     str("https"),
                                                     str("redirect-to-https")
                                                 )
-                                            ).as(:oneline),
+                                            ),
                                             b(str("vrrp-group"),
                                               vrrp_group
                                             )
@@ -32418,7 +32418,7 @@ module Junoser
                                                 )
                                             ).as(:oneline)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     b(str("accounting"),
                                         sc(
                                             b(str("source-class-usage"),
@@ -32512,11 +32512,11 @@ module Junoser
                                                     str("https"),
                                                     str("redirect-to-https")
                                                 )
-                                            ).as(:oneline)
+                                            )
                                         )
                                     ),
-                                    str("demux-source").as(:oneline),
-                                    str("demux-destination").as(:oneline),
+                                    str("demux-source"),
+                                    str("demux-destination"),
                                     b(str("unnumbered-address"),
                                         sc(
                                             b(str("source"),
@@ -32751,7 +32751,7 @@ module Junoser
                                                 )
                                             ).as(:oneline)
                                         )
-                                    ).as(:oneline),
+                                    ),
                                     c(
                                       a(str("isid-list"), arg)
                                     )
@@ -32829,7 +32829,7 @@ module Junoser
               str("ingress"),
               str("transit")
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:lsp_nh_obj) do
@@ -32847,7 +32847,7 @@ module Junoser
               a(str("time"), arg),
               str("unlimited")
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:mac_list) do
@@ -32931,7 +32931,7 @@ module Junoser
               str("be"),
               str("range")
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:match_simple_port_value) do
@@ -33003,7 +33003,7 @@ module Junoser
               str("cvspserver"),
               str("range")
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:match_simple_protocol_value) do
@@ -33032,7 +33032,7 @@ module Junoser
               str("vrrp"),
               str("range")
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:metric_expression_type) do
@@ -33053,7 +33053,7 @@ module Junoser
                     a(str("offset"), arg)
                 )
             ).as(:oneline)
-        ).as(:oneline)
+        )
     end
 
     rule(:mib_variable_name_object) do
@@ -33178,7 +33178,7 @@ module Junoser
         sc(
             a(str("port"), arg)
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:monitor_export_intf_type) do
@@ -33219,7 +33219,7 @@ module Junoser
                               str("ignore")
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -33287,7 +33287,7 @@ module Junoser
                               a(str("next"), arg)
                             )
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )
@@ -33300,7 +33300,7 @@ module Junoser
                 sc(
                     a(str("required-depth"), arg)
                 )
-            ).as(:oneline)
+            )
         )
     end
 
@@ -33328,7 +33328,7 @@ module Junoser
             a(str("subscriber-leave-timer"), arg),
             str("no-qos-adjust")
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:named_address_book_type) do
@@ -33337,10 +33337,10 @@ module Junoser
             a(str("description"), quote | arg),
             b(str("address"),
               address_type
-            ).as(:oneline),
+            ),
             b(str("address-set"),
               address_set_type
-            ).as(:oneline),
+            ),
             b(str("attach"),
                 sc(
                     a(str("zone"), arg)
@@ -33357,7 +33357,7 @@ module Junoser
             a(str("address"), arg),
             a(str("address-set"), arg)
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:address_type) do
@@ -33376,10 +33376,10 @@ module Junoser
               ),
               b(str("range-address"),
                 range_address_type
-              ).as(:oneline)
+              )
             )
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:dns_name_type) do
@@ -33396,7 +33396,7 @@ module Junoser
     end
 
     rule(:network_type) do
-      arg.as(:arg).as(:oneline)
+      arg.as(:arg)
     end
 
     rule(:next_hop_group_intf_type) do
@@ -33952,7 +33952,7 @@ module Junoser
                     a(str("flag"), str("configuration") | str("pipe") | str("rpc-packet-details") | str("database") | str("network") | str("traceroute") | str("all")).as(:oneline)
                 )
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:pim_bootstrap_options_type) do
@@ -34356,7 +34356,7 @@ module Junoser
             ),
             a(str("routing-instance"), arg)
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:profile_setting) do
@@ -34514,7 +34514,7 @@ module Junoser
               unreadable
             )
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:radius_server_object) do
@@ -34532,7 +34532,7 @@ module Junoser
               ipaddr
             )
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:range_address_type) do
@@ -34546,7 +34546,7 @@ module Junoser
                 )
             )
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:reconfigure_trigger_type) do
@@ -34843,7 +34843,7 @@ module Junoser
                       str("passive")
                     )
                 )
-            ).as(:oneline)
+            )
         )
     end
 
@@ -34857,7 +34857,7 @@ module Junoser
         sc(
             a(str("inet"), arg),
             a(str("inet6"), arg)
-        ).as(:oneline)
+        )
     end
 
     rule(:rib_static_metric_type) do
@@ -35128,7 +35128,7 @@ module Junoser
               str("exclude"),
               str("all-day")
             )
-        ).as(:oneline)
+        )
     end
 
     rule(:scripts_type) do
@@ -35177,7 +35177,7 @@ module Junoser
                     a(str("sha1"), arg),
                     a(str("sha-256"), arg)
                 )
-            ).as(:oneline)
+            )
         )
       )
     end
@@ -35201,7 +35201,7 @@ module Junoser
                     a(str("sha1"), arg),
                     a(str("sha-256"), arg)
                 )
-            ).as(:oneline)
+            )
         )
       )
     end
@@ -35227,7 +35227,7 @@ module Junoser
         sc(
             a(str("configuration-file"), arg)
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:security_group_vpn) do
@@ -35450,7 +35450,7 @@ module Junoser
                                 a(str("user-at-hostname"), arg)
                               )
                           )
-                      ).as(:oneline)
+                      )
                     ),
                     b(str("local-identity"),
                         sc(
@@ -35642,7 +35642,7 @@ module Junoser
                               a(str("connections-limit"), arg),
                               a(str("ike-user-type"), arg)
                           )
-                      ).as(:oneline)
+                      )
                     ),
                     b(str("dead-peer-detection"),
                         sc(
@@ -35654,7 +35654,7 @@ module Junoser
                             a(str("interval"), arg),
                             a(str("threshold"), arg)
                         )
-                    ).as(:oneline),
+                    ),
                     str("no-nat-traversal"),
                     a(str("nat-keepalive"), arg),
                     b(str("local-identity"),
@@ -36191,10 +36191,10 @@ module Junoser
         sc(
             b(str("address"),
               address_type
-            ).as(:oneline),
+            ),
             b(str("address-set"),
               address_set_type
-            ).as(:oneline)
+            )
         )
     end
 
@@ -36202,9 +36202,9 @@ module Junoser
         sc(
             b(a(str("server-group"), arg),
                 sc(
-                    a(str("address"), arg).as(:oneline)
+                    a(str("address"), arg)
                 )
-            ).as(:oneline)
+            )
         )
     end
 
@@ -36260,7 +36260,7 @@ module Junoser
                             str("nat-logs"),
                             str("ids-logs")
                         )
-                    ).as(:oneline)
+                    )
                 )
             ),
             a(str("message-rate-limit"), arg)
@@ -37305,7 +37305,7 @@ module Junoser
             a(str("ct1"), arg),
             a(str("ct2"), arg),
             a(str("ct3"), arg)
-        ).as(:oneline)
+        )
     end
 
     rule(:syslog_object) do
@@ -37339,7 +37339,7 @@ module Junoser
               ipv4addr
             )
         )
-      ).as(:oneline)
+      )
     end
 
     rule(:te_class_object) do
@@ -37417,7 +37417,7 @@ module Junoser
                 sc(
                     str("discard")
                 )
-            ).as(:oneline)
+            )
         )
       ).as(:oneline)
     end
@@ -37440,7 +37440,7 @@ module Junoser
             str("insecure"),
             a(str("type"), arg),
             str("silent-with-modem")
-        ).as(:oneline)
+        )
     end
 
     rule(:tunable_object) do
@@ -37570,9 +37570,9 @@ module Junoser
         sc(
             b(a(str("server-group"), arg),
                 sc(
-                    a(str("address"), arg).as(:oneline)
+                    a(str("address"), arg)
                 )
-            ).as(:oneline)
+            )
         )
     end
 
@@ -37718,7 +37718,7 @@ module Junoser
             a(str("inner-tag-protocol-id"), arg),
             a(str("vlan-id"), arg),
             a(str("inner-vlan-id"), arg)
-        ).as(:oneline)
+        )
     end
 
     rule(:vpls_filter) do
@@ -37915,7 +37915,7 @@ module Junoser
                             str("port-mirror"),
                             a(str("next-hop-group"), arg)
                         )
-                    ).as(:oneline)
+                    )
                 )
             )
         )

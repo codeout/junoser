@@ -374,7 +374,7 @@ rule(:configuration) do
                                           "threshold" arg,
                                           "sample-period" arg
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   c(
                                     "jitter-buffer-packets" arg,
                                     "jitter-buffer-latency" arg,
@@ -382,9 +382,9 @@ rule(:configuration) do
                                   ),
                                   "bit-rate" arg
                               )
-                          ).as(:oneline),
-                          "ima-group-options".as(:oneline),
-                          "ima-link-options".as(:oneline),
+                          ),
+                          "ima-group-options",
+                          "ima-link-options",
                           "multi-chassis-protection" (
                             multi_chassis_protection_group
                           ),
@@ -846,7 +846,7 @@ rule(:configuration) do
                                             interface_device
                                           )
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   "ieee-802.3ad" (
                                       sc(
                                           "lacp" (
@@ -863,7 +863,7 @@ rule(:configuration) do
                                             "backup"
                                           )
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   "ethernet-switch-profile" (
                                       sc(
                                           "tag-protocol-id" arg,
@@ -933,7 +933,7 @@ rule(:configuration) do
                                             interface_device
                                           )
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   "ieee-802.3ad" (
                                       sc(
                                           "lacp" (
@@ -949,7 +949,7 @@ rule(:configuration) do
                                             "backup"
                                           )
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   "mpls" (
                                     mpls_ifd_options
                                   ),
@@ -1147,12 +1147,12 @@ rule(:configuration) do
                                             interface_unit
                                           )
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   "interface-shared-with" (
                                       sc(
                                           "psd-name" arg
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   c(
                                     "disable"
                                   ),
@@ -1160,7 +1160,7 @@ rule(:configuration) do
                                   "per-session-scheduler",
                                   "clear-dont-fragment-bit",
                                   "reassemble-packets",
-                                  "rpm".as(:oneline),
+                                  "rpm",
                                   "description" arg,
                                   "metadata" arg,
                                   "dial-options",
@@ -1225,10 +1225,10 @@ rule(:configuration) do
                                   ),
                                   "input-vlan-map" (
                                     vlan_map
-                                  ).as(:oneline),
+                                  ),
                                   "output-vlan-map" (
                                     vlan_map
-                                  ).as(:oneline),
+                                  ),
                                   "swap-by-poppush",
                                   "receive-lsp" arg,
                                   "transmit-lsp" arg,
@@ -1420,7 +1420,7 @@ rule(:configuration) do
                                                               )
                                                           ).as(:oneline)
                                                       )
-                                                  ).as(:oneline),
+                                                  ),
                                                   "mtu" arg,
                                                   "no-redirects",
                                                   "no-neighbor-learn",
@@ -1428,8 +1428,8 @@ rule(:configuration) do
                                                   "multicast-only",
                                                   "primary",
                                                   "ipsec-sa" arg,
-                                                  "demux-source".as(:oneline),
-                                                  "demux-destination".as(:oneline),
+                                                  "demux-source",
+                                                  "demux-destination",
                                                   "filter" (
                                                       sc(
                                                           c(
@@ -1485,7 +1485,7 @@ rule(:configuration) do
                                                       sc(
                                                           "ipsec-vpn" arg
                                                       )
-                                                  ).as(:oneline),
+                                                  ),
                                                   "address" arg (
                                                       sc(
                                                           "destination" (
@@ -1529,7 +1529,7 @@ rule(:configuration) do
                                                                     epd_threshold_config
                                                                   ).as(:oneline)
                                                               )
-                                                          ).as(:oneline),
+                                                          ),
                                                           "arp" arg (
                                                               sc(
                                                                   "l2-interface" (
@@ -1552,7 +1552,7 @@ rule(:configuration) do
                                                                   "https",
                                                                   "redirect-to-https"
                                                               )
-                                                          ).as(:oneline),
+                                                          ),
                                                           "vrrp-group" (
                                                             vrrp_group
                                                           )
@@ -1614,7 +1614,7 @@ rule(:configuration) do
                                                               )
                                                           ).as(:oneline)
                                                       )
-                                                  ).as(:oneline),
+                                                  ),
                                                   "accounting" (
                                                       sc(
                                                           "source-class-usage" (
@@ -1708,11 +1708,11 @@ rule(:configuration) do
                                                                   "https",
                                                                   "redirect-to-https"
                                                               )
-                                                          ).as(:oneline)
+                                                          )
                                                       )
                                                   ),
-                                                  "demux-source".as(:oneline),
-                                                  "demux-destination".as(:oneline),
+                                                  "demux-source",
+                                                  "demux-destination",
                                                   "unnumbered-address" (
                                                       sc(
                                                           "source" (
@@ -1947,7 +1947,7 @@ rule(:configuration) do
                                                               )
                                                           ).as(:oneline)
                                                       )
-                                                  ).as(:oneline),
+                                                  ),
                                                   c(
                                                     "isid-list" arg
                                                   )
@@ -2105,7 +2105,7 @@ rule(:configuration) do
                                       )
                                   ).as(:oneline)
                               )
-                          ).as(:oneline),
+                          ),
                           "attributes-match" (
                               s(
                                 "from-event-attribute" (
@@ -2187,7 +2187,7 @@ rule(:configuration) do
                                                       )
                                                   ).as(:oneline)
                                               )
-                                          ).as(:oneline),
+                                          ),
                                           "output-format" arg
                                       )
                                   ),
@@ -2210,7 +2210,7 @@ rule(:configuration) do
                                                       )
                                                   ).as(:oneline)
                                               )
-                                          ).as(:oneline),
+                                          ),
                                           "output-format" arg
                                       )
                                   ),
@@ -2247,7 +2247,7 @@ rule(:configuration) do
                                           "sha1" arg,
                                           "sha-256" arg
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   "remote-execution" arg (
                                       sc(
                                           "username" arg,
@@ -2519,7 +2519,7 @@ rule(:configuration) do
                                     )
                                   )
                               )
-                          ).as(:oneline),
+                          ),
                           "enterprise-oid",
                           "routing-instance" arg (
                               sc(
@@ -2532,7 +2532,7 @@ rule(:configuration) do
                                             )
                                           )
                                       )
-                                  ).as(:oneline)
+                                  )
                               )
                           ),
                           "logical-system" arg (
@@ -2548,7 +2548,7 @@ rule(:configuration) do
                                                     )
                                                   )
                                               )
-                                          ).as(:oneline)
+                                          )
                                       )
                                   )
                               )
@@ -3211,7 +3211,7 @@ rule(:configuration) do
                                       )
                                   )
                               )
-                          ).as(:oneline),
+                          ),
                           "ftp" (
                               sc(
                                   "disable",
@@ -3274,7 +3274,7 @@ rule(:configuration) do
                                       )
                                   )
                               )
-                          ).as(:oneline),
+                          ),
                           "mgcp" (
                               sc(
                                   "disable",
@@ -3318,7 +3318,7 @@ rule(:configuration) do
                                       )
                                   )
                               )
-                          ).as(:oneline),
+                          ),
                           "msrpc" (
                               sc(
                                   "disable",
@@ -3419,7 +3419,7 @@ rule(:configuration) do
                                       )
                                   )
                               )
-                          ).as(:oneline),
+                          ),
                           "sip" (
                               sc(
                                   "disable",
@@ -3471,7 +3471,7 @@ rule(:configuration) do
                                       )
                                   )
                               )
-                          ).as(:oneline),
+                          ),
                           "sql" (
                               sc(
                                   "disable",
@@ -4836,7 +4836,7 @@ rule(:any_filter) do
                           "next" arg
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -4871,7 +4871,7 @@ rule(:application_object) do
           term_object
         )
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:application_set_object) do
@@ -4951,7 +4951,7 @@ rule(:auto_configure_vlan_type) do
                         "accept" (
                               ("inet" | "inet6" | "pppoe" | "dhcp-v4" | "dhcp-v6" | "any")
                         ),
-                        "ranges" arg.as(:oneline)
+                        "ranges" arg
                     )
                 ),
                 "override" (
@@ -4981,7 +4981,7 @@ rule(:auto_configure_vlan_type) do
                         "accept" (
                               ("inet" | "inet6" | "pppoe" | "dhcp-v4" | "dhcp-v6" | "any")
                         ),
-                        "ranges" arg.as(:oneline)
+                        "ranges" arg
                     )
                 ),
                 "override" (
@@ -4990,7 +4990,7 @@ rule(:auto_configure_vlan_type) do
                             sc(
                                 "dynamic-profile" arg
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "authentication" (
@@ -5245,7 +5245,7 @@ rule(:bridge_filter) do
                         "port-mirror",
                         "next-hop-group" arg
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -5328,7 +5328,7 @@ rule(:ccc_filter) do
                           "next" arg
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -5427,7 +5427,7 @@ rule(:chassis_type) do
             )
         ),
         "member",
-        "fabric".as(:oneline),
+        "fabric",
         "synchronization",
         "lcd-menu",
         "fru-poweron-sequence" arg,
@@ -5704,8 +5704,8 @@ rule(:chassis_pic_type) do
         ),
         "no-mcast-replication",
         "framing" arg,
-        "synchronization".as(:oneline),
-        "recovered-clock".as(:oneline),
+        "synchronization",
+        "recovered-clock",
         "vtmapping" arg,
         "no-concatenate",
         "no-multi-rate",
@@ -5796,7 +5796,7 @@ rule(:chassis_pic_type) do
         ),
         "fibre-channel" (
           chassis_fibre_channel_type
-        ).as(:oneline),
+        ),
         "sfpplus",
         "hash-key",
         "ingress-policer-overhead" arg,
@@ -5831,7 +5831,7 @@ rule(:chassis_fibre_channel_type) do
               )
             )
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:chassis_pic_port_framing) do
@@ -5895,7 +5895,7 @@ rule(:chassis_rdd_failover_type) do
     sc(
         "on-loss-of-keepalives",
         "on-disk-failure"
-    ).as(:oneline)
+    )
 end
 
 rule(:chassis_rdd_id_type) do
@@ -6956,8 +6956,8 @@ rule(:dynamic_ifbw_parms_type) do
             sc(
                 "interval" arg
             )
-        ).as(:oneline)
-    ).as(:oneline)
+        )
+    )
 end
 
 rule(:epd_threshold_config) do
@@ -7103,7 +7103,7 @@ rule(:firewall_policer) do
                 "forwarding-class" arg,
                 "out-of-profile"
             )
-        ).as(:oneline)
+        )
     )
   )
 end
@@ -7604,7 +7604,7 @@ rule(:inet6_dialer_filter) do
                           "ignore"
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -7815,7 +7815,7 @@ rule(:inet6_filter) do
                           ).as(:oneline)
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -7836,29 +7836,29 @@ rule(:inet6_fuf) do
                     sc(
                         "source-address" (
                           firewall_addr6_simple_object
-                        ).as(:oneline),
+                        ),
                         "destination-address" (
                           firewall_addr6_simple_object
-                        ).as(:oneline),
+                        ),
                         c(
                           "source-port" (
                             match_simple_port_value
-                          ).as(:oneline)
+                          )
                         ),
                         c(
                           "destination-port" (
                             match_simple_port_value
-                          ).as(:oneline)
+                          )
                         ),
                         c(
                           "next-header" (
                             match_simple_protocol_value
-                          ).as(:oneline)
+                          )
                         ),
                         c(
                           "traffic-class" (
                             match_simple_dscp_value
-                          ).as(:oneline)
+                          )
                         ),
                         "match-terms" arg
                     )
@@ -7886,7 +7886,7 @@ rule(:inet6_fuf) do
                           ).as(:oneline)
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -7898,7 +7898,7 @@ rule(:firewall_addr6_simple_object) do
         "address" (
           ipv6prefix
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:inet6_service_filter) do
@@ -7984,7 +7984,7 @@ rule(:inet6_service_filter) do
                           "skip"
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -8127,7 +8127,7 @@ rule(:inet_dialer_filter) do
                           "ignore"
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -8326,7 +8326,7 @@ rule(:inet_filter) do
                               sc(
                                   "accounting" arg
                               )
-                          ).as(:oneline),
+                          ),
                           "next" arg,
                           "logical-system" (
                               s(
@@ -8381,7 +8381,7 @@ rule(:inet_filter) do
                         "dscp" arg,
                         "prefix-action" arg
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -8402,29 +8402,29 @@ rule(:inet_fuf) do
                     sc(
                         "source-address" (
                           firewall_addr_simple_object
-                        ).as(:oneline),
+                        ),
                         "destination-address" (
                           firewall_addr_simple_object
-                        ).as(:oneline),
+                        ),
                         c(
                           "source-port" (
                             match_simple_port_value
-                          ).as(:oneline)
+                          )
                         ),
                         c(
                           "destination-port" (
                             match_simple_port_value
-                          ).as(:oneline)
+                          )
                         ),
                         c(
                           "protocol" (
                             match_simple_protocol_value
-                          ).as(:oneline)
+                          )
                         ),
                         c(
                           "dscp" (
                             match_simple_dscp_value
-                          ).as(:oneline)
+                          )
                         ),
                         "match-terms" arg
                     )
@@ -8452,7 +8452,7 @@ rule(:inet_fuf) do
                           ).as(:oneline)
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -8464,7 +8464,7 @@ rule(:firewall_addr_simple_object) do
         "address" (
           ipv4prefix
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:inet_service_filter) do
@@ -8573,7 +8573,7 @@ rule(:inet_service_filter) do
                           "skip"
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -8631,7 +8631,7 @@ rule(:inet_simple_filter) do
                         "discard",
                         "accept"
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -8726,7 +8726,7 @@ rule(:interfaces_type) do
                         "threshold" arg,
                         "sample-period" arg
                     )
-                ).as(:oneline),
+                ),
                 c(
                   "jitter-buffer-packets" arg,
                   "jitter-buffer-latency" arg,
@@ -8734,9 +8734,9 @@ rule(:interfaces_type) do
                 ),
                 "bit-rate" arg
             )
-        ).as(:oneline),
-        "ima-group-options".as(:oneline),
-        "ima-link-options".as(:oneline),
+        ),
+        "ima-group-options",
+        "ima-link-options",
         "multi-chassis-protection" (
           multi_chassis_protection_group
         ),
@@ -9198,7 +9198,7 @@ rule(:interfaces_type) do
                           interface_device
                         )
                     )
-                ).as(:oneline),
+                ),
                 "ieee-802.3ad" (
                     sc(
                         "lacp" (
@@ -9215,7 +9215,7 @@ rule(:interfaces_type) do
                           "backup"
                         )
                     )
-                ).as(:oneline),
+                ),
                 "ethernet-switch-profile" (
                     sc(
                         "tag-protocol-id" arg,
@@ -9285,7 +9285,7 @@ rule(:interfaces_type) do
                           interface_device
                         )
                     )
-                ).as(:oneline),
+                ),
                 "ieee-802.3ad" (
                     sc(
                         "lacp" (
@@ -9301,7 +9301,7 @@ rule(:interfaces_type) do
                           "backup"
                         )
                     )
-                ).as(:oneline),
+                ),
                 "mpls" (
                   mpls_ifd_options
                 ),
@@ -9499,12 +9499,12 @@ rule(:interfaces_type) do
                           interface_unit
                         )
                     )
-                ).as(:oneline),
+                ),
                 "interface-shared-with" (
                     sc(
                         "psd-name" arg
                     )
-                ).as(:oneline),
+                ),
                 c(
                   "disable"
                 ),
@@ -9512,7 +9512,7 @@ rule(:interfaces_type) do
                 "per-session-scheduler",
                 "clear-dont-fragment-bit",
                 "reassemble-packets",
-                "rpm".as(:oneline),
+                "rpm",
                 "description" arg,
                 "metadata" arg,
                 "dial-options",
@@ -9577,10 +9577,10 @@ rule(:interfaces_type) do
                 ),
                 "input-vlan-map" (
                   vlan_map
-                ).as(:oneline),
+                ),
                 "output-vlan-map" (
                   vlan_map
-                ).as(:oneline),
+                ),
                 "swap-by-poppush",
                 "receive-lsp" arg,
                 "transmit-lsp" arg,
@@ -9772,7 +9772,7 @@ rule(:interfaces_type) do
                                             )
                                         ).as(:oneline)
                                     )
-                                ).as(:oneline),
+                                ),
                                 "mtu" arg,
                                 "no-redirects",
                                 "no-neighbor-learn",
@@ -9780,8 +9780,8 @@ rule(:interfaces_type) do
                                 "multicast-only",
                                 "primary",
                                 "ipsec-sa" arg,
-                                "demux-source".as(:oneline),
-                                "demux-destination".as(:oneline),
+                                "demux-source",
+                                "demux-destination",
                                 "filter" (
                                     sc(
                                         c(
@@ -9837,7 +9837,7 @@ rule(:interfaces_type) do
                                     sc(
                                         "ipsec-vpn" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 "address" arg (
                                     sc(
                                         "destination" (
@@ -9881,7 +9881,7 @@ rule(:interfaces_type) do
                                                   epd_threshold_config
                                                 ).as(:oneline)
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "arp" arg (
                                             sc(
                                                 "l2-interface" (
@@ -9904,7 +9904,7 @@ rule(:interfaces_type) do
                                                 "https",
                                                 "redirect-to-https"
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "vrrp-group" (
                                           vrrp_group
                                         )
@@ -9966,7 +9966,7 @@ rule(:interfaces_type) do
                                             )
                                         ).as(:oneline)
                                     )
-                                ).as(:oneline),
+                                ),
                                 "accounting" (
                                     sc(
                                         "source-class-usage" (
@@ -10060,11 +10060,11 @@ rule(:interfaces_type) do
                                                 "https",
                                                 "redirect-to-https"
                                             )
-                                        ).as(:oneline)
+                                        )
                                     )
                                 ),
-                                "demux-source".as(:oneline),
-                                "demux-destination".as(:oneline),
+                                "demux-source",
+                                "demux-destination",
                                 "unnumbered-address" (
                                     sc(
                                         "source" (
@@ -10299,7 +10299,7 @@ rule(:interfaces_type) do
                                             )
                                         ).as(:oneline)
                                     )
-                                ).as(:oneline),
+                                ),
                                 c(
                                   "isid-list" arg
                                 )
@@ -10432,7 +10432,7 @@ rule(:ip_monitoring_address_type) do
             )
         )
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:jsrc_partition_definition) do
@@ -10795,7 +10795,7 @@ rule(:access_client_name_filter_object) do
         "domain-name" arg,
         "separator" arg,
         "count" arg
-    ).as(:oneline)
+    )
 end
 
 rule(:access_client_object) do
@@ -10828,7 +10828,7 @@ rule(:access_client_object) do
             )
         )
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:access_ldap_options) do
@@ -10881,7 +10881,7 @@ rule(:access_radius_server_object) do
         ),
         "routing-instance" arg
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:address_assignment_type) do
@@ -10962,7 +10962,7 @@ rule(:address_assignment_type) do
                                           ),
                                           "prefix-length" arg
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   "dhcp-attributes" (
                                     dhcp_attribute_type
                                   )
@@ -11043,9 +11043,9 @@ rule(:dhcp_attribute_type) do
                             )
                         ).as(:oneline)
                     )
-                ).as(:oneline)
+                )
             )
-        ).as(:oneline),
+        ),
         "maximum-lease-time" arg,
         "next-server" (
           ipv4addr
@@ -11132,7 +11132,7 @@ rule(:domain_map_type) do
                       sc(
                           "aaa-routing-instance" arg
                       )
-                  ).as(:oneline)
+                  )
                 ),
                 "access-profile" arg,
                 "address-pool" arg,
@@ -11151,7 +11151,7 @@ rule(:domain_map_type) do
                       sc(
                           "target-routing-instance" arg
                       )
-                  ).as(:oneline)
+                  )
                 ),
                 "strip-domain",
                 "tunnel-profile" arg
@@ -11545,7 +11545,7 @@ rule(:dhcpv6_relay_group) do
                 ).as(:oneline),
                 "service-profile" arg
             )
-        ).as(:oneline)
+        )
     )
   )
 end
@@ -12066,7 +12066,7 @@ rule(:juniper_class_of_service_options) do
                           "rate-limit"
                         )
                     )
-                ).as(:oneline),
+                ),
                 "excess-rate".as(:oneline),
                 "shaping-rate" (
                     sc(
@@ -12092,7 +12092,7 @@ rule(:juniper_class_of_service_options) do
                           "exact"
                         )
                     )
-                ).as(:oneline),
+                ),
                 "priority" arg,
                 "excess-priority" arg,
                 "drop-profile-map" (
@@ -12300,7 +12300,7 @@ rule(:cos_interfaces_type) do
                                 "rewrite-rule-name" arg,
                                 "vlan-tag" arg
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "loss-priority-rewrites",
@@ -12356,37 +12356,37 @@ rule(:juniper_dynamic_profile_object) do
                         "proportion" arg,
                         "percent" arg
                     )
-                ).as(:oneline),
+                ),
                 "cos-excess-rate-high" (
                     sc(
                         "proportion" arg,
                         "percent" arg
                     )
-                ).as(:oneline),
+                ),
                 "cos-excess-rate-low" (
                     sc(
                         "proportion" arg,
                         "percent" arg
                     )
-                ).as(:oneline),
+                ),
                 "cos-scheduler-tx" (
                     sc(
                         "rate" arg,
                         "percent" arg
                     )
-                ).as(:oneline),
+                ),
                 "cos-scheduler-bs" (
                     sc(
                         "percent" arg,
                         "temporal" arg
                     )
-                ).as(:oneline),
+                ),
                 "cos-scheduler-shaping-rate" (
                     sc(
                         "rate" arg,
                         "percent" arg
                     )
-                ).as(:oneline),
+                ),
                 "other-variables" (
                   base_default_variable_object
                 )
@@ -12598,7 +12598,7 @@ rule(:juniper_dynamic_profile_object) do
                                                             )
                                                         )
                                                     )
-                                                ).as(:oneline),
+                                                ),
                                                 "iso-route" arg (
                                                     sc(
                                                         c(
@@ -12721,7 +12721,7 @@ rule(:juniper_dynamic_profile_object) do
                                                             )
                                                         )
                                                     )
-                                                ).as(:oneline)
+                                                )
                                             )
                                         ),
                                         "martians" (
@@ -12764,7 +12764,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 ).as(:oneline),
                                                 "as-path-compare"
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "label" (
                                             sc(
                                                 "allocation" (
@@ -12774,7 +12774,7 @@ rule(:juniper_dynamic_profile_object) do
                                                   policy_algebra
                                                 )
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "access" (
                                             sc(
                                                 "route" arg (
@@ -12789,7 +12789,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         "preference" arg,
                                                         "tag" arg
                                                     )
-                                                ).as(:oneline)
+                                                )
                                             )
                                         ),
                                         "access-internal" (
@@ -12803,7 +12803,7 @@ rule(:juniper_dynamic_profile_object) do
                                                           qualified_nh_obj
                                                         )
                                                     )
-                                                ).as(:oneline)
+                                                )
                                             )
                                         )
                                     )
@@ -12822,7 +12822,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 "preference" arg,
                                                 "tag" arg
                                             )
-                                        ).as(:oneline)
+                                        )
                                     )
                                 ),
                                 "access-internal" (
@@ -12836,7 +12836,7 @@ rule(:juniper_dynamic_profile_object) do
                                                   qualified_nh_obj
                                                 )
                                             )
-                                        ).as(:oneline)
+                                        )
                                     )
                                 ),
                                 "multicast" (
@@ -13083,7 +13083,7 @@ rule(:juniper_dynamic_profile_object) do
                                         "threshold" arg,
                                         "sample-period" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 c(
                                   "jitter-buffer-packets" arg,
                                   "jitter-buffer-latency" arg,
@@ -13091,9 +13091,9 @@ rule(:juniper_dynamic_profile_object) do
                                 ),
                                 "bit-rate" arg
                             )
-                        ).as(:oneline),
-                        "ima-group-options".as(:oneline),
-                        "ima-link-options".as(:oneline),
+                        ),
+                        "ima-group-options",
+                        "ima-link-options",
                         "multi-chassis-protection" (
                           multi_chassis_protection_group
                         ),
@@ -13555,7 +13555,7 @@ rule(:juniper_dynamic_profile_object) do
                                           interface_device
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "ieee-802.3ad" (
                                     sc(
                                         "lacp" (
@@ -13572,7 +13572,7 @@ rule(:juniper_dynamic_profile_object) do
                                           "backup"
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "ethernet-switch-profile" (
                                     sc(
                                         "tag-protocol-id" arg,
@@ -13642,7 +13642,7 @@ rule(:juniper_dynamic_profile_object) do
                                           interface_device
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "ieee-802.3ad" (
                                     sc(
                                         "lacp" (
@@ -13658,7 +13658,7 @@ rule(:juniper_dynamic_profile_object) do
                                           "backup"
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "mpls" (
                                   mpls_ifd_options
                                 ),
@@ -13856,12 +13856,12 @@ rule(:juniper_dynamic_profile_object) do
                                           interface_unit
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "interface-shared-with" (
                                     sc(
                                         "psd-name" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 c(
                                   "disable"
                                 ),
@@ -13869,7 +13869,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "per-session-scheduler",
                                 "clear-dont-fragment-bit",
                                 "reassemble-packets",
-                                "rpm".as(:oneline),
+                                "rpm",
                                 "description" arg,
                                 "metadata" arg,
                                 "dial-options",
@@ -13934,10 +13934,10 @@ rule(:juniper_dynamic_profile_object) do
                                 ),
                                 "input-vlan-map" (
                                   vlan_map
-                                ).as(:oneline),
+                                ),
                                 "output-vlan-map" (
                                   vlan_map
-                                ).as(:oneline),
+                                ),
                                 "swap-by-poppush",
                                 "receive-lsp" arg,
                                 "transmit-lsp" arg,
@@ -14129,7 +14129,7 @@ rule(:juniper_dynamic_profile_object) do
                                                             )
                                                         ).as(:oneline)
                                                     )
-                                                ).as(:oneline),
+                                                ),
                                                 "mtu" arg,
                                                 "no-redirects",
                                                 "no-neighbor-learn",
@@ -14137,8 +14137,8 @@ rule(:juniper_dynamic_profile_object) do
                                                 "multicast-only",
                                                 "primary",
                                                 "ipsec-sa" arg,
-                                                "demux-source".as(:oneline),
-                                                "demux-destination".as(:oneline),
+                                                "demux-source",
+                                                "demux-destination",
                                                 "filter" (
                                                     sc(
                                                         c(
@@ -14194,7 +14194,7 @@ rule(:juniper_dynamic_profile_object) do
                                                     sc(
                                                         "ipsec-vpn" arg
                                                     )
-                                                ).as(:oneline),
+                                                ),
                                                 "address" arg (
                                                     sc(
                                                         "destination" (
@@ -14238,7 +14238,7 @@ rule(:juniper_dynamic_profile_object) do
                                                                   epd_threshold_config
                                                                 ).as(:oneline)
                                                             )
-                                                        ).as(:oneline),
+                                                        ),
                                                         "arp" arg (
                                                             sc(
                                                                 "l2-interface" (
@@ -14261,7 +14261,7 @@ rule(:juniper_dynamic_profile_object) do
                                                                 "https",
                                                                 "redirect-to-https"
                                                             )
-                                                        ).as(:oneline),
+                                                        ),
                                                         "vrrp-group" (
                                                           vrrp_group
                                                         )
@@ -14323,7 +14323,7 @@ rule(:juniper_dynamic_profile_object) do
                                                             )
                                                         ).as(:oneline)
                                                     )
-                                                ).as(:oneline),
+                                                ),
                                                 "accounting" (
                                                     sc(
                                                         "source-class-usage" (
@@ -14417,11 +14417,11 @@ rule(:juniper_dynamic_profile_object) do
                                                                 "https",
                                                                 "redirect-to-https"
                                                             )
-                                                        ).as(:oneline)
+                                                        )
                                                     )
                                                 ),
-                                                "demux-source".as(:oneline),
-                                                "demux-destination".as(:oneline),
+                                                "demux-source",
+                                                "demux-destination",
                                                 "unnumbered-address" (
                                                     sc(
                                                         "source" (
@@ -14656,7 +14656,7 @@ rule(:juniper_dynamic_profile_object) do
                                                             )
                                                         ).as(:oneline)
                                                     )
-                                                ).as(:oneline),
+                                                ),
                                                 c(
                                                   "isid-list" arg
                                                 )
@@ -15456,7 +15456,7 @@ rule(:juniper_dynamic_profile_object) do
                                             )
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "iso-route" arg (
                                     sc(
                                         c(
@@ -15579,7 +15579,7 @@ rule(:juniper_dynamic_profile_object) do
                                             )
                                         )
                                     )
-                                ).as(:oneline)
+                                )
                             )
                         ),
                         "martians" (
@@ -15622,7 +15622,7 @@ rule(:juniper_dynamic_profile_object) do
                                 ).as(:oneline),
                                 "as-path-compare"
                             )
-                        ).as(:oneline),
+                        ),
                         "label" (
                             sc(
                                 "allocation" (
@@ -15632,7 +15632,7 @@ rule(:juniper_dynamic_profile_object) do
                                   policy_algebra
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "access" (
                             sc(
                                 "route" arg (
@@ -15647,7 +15647,7 @@ rule(:juniper_dynamic_profile_object) do
                                         "preference" arg,
                                         "tag" arg
                                     )
-                                ).as(:oneline)
+                                )
                             )
                         ),
                         "access-internal" (
@@ -15661,7 +15661,7 @@ rule(:juniper_dynamic_profile_object) do
                                           qualified_nh_obj
                                         )
                                     )
-                                ).as(:oneline)
+                                )
                             )
                         )
                     )
@@ -15680,7 +15680,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "preference" arg,
                                 "tag" arg
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "access-internal" (
@@ -15694,7 +15694,7 @@ rule(:juniper_dynamic_profile_object) do
                                   qualified_nh_obj
                                 )
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "multicast" (
@@ -15945,7 +15945,7 @@ rule(:base_default_variable_object) do
     sc(
         "default-value" arg
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:cfm_traceoptions) do
@@ -16001,7 +16001,7 @@ rule(:juniper_dynamic_variable_object) do
         "uid-reference",
         "uid"
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:juniper_ethernet_options) do
@@ -16538,7 +16538,7 @@ rule(:juniper_forwarding_options) do
                                 ).as(:oneline),
                                 "routing-instance" arg
                             )
-                        ).as(:oneline),
+                        ),
                         "maximum-hop-count" arg,
                         "minimum-wait-time" arg,
                         "client-response-ttl" arg,
@@ -16558,7 +16558,7 @@ rule(:juniper_forwarding_options) do
                                         ).as(:oneline),
                                         "routing-instance" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 "maximum-hop-count" arg,
                                 "minimum-wait-time" arg,
                                 "client-response-ttl" arg,
@@ -16764,7 +16764,7 @@ rule(:juniper_logical_system) do
                                 )
                             )
                         ),
-                        "instance".as(:oneline)
+                        "instance"
                     )
                 )
             )
@@ -17457,7 +17457,7 @@ rule(:juniper_logical_system) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "ftp" (
                             sc(
                                 "disable",
@@ -17520,7 +17520,7 @@ rule(:juniper_logical_system) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "mgcp" (
                             sc(
                                 "disable",
@@ -17564,7 +17564,7 @@ rule(:juniper_logical_system) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "msrpc" (
                             sc(
                                 "disable",
@@ -17665,7 +17665,7 @@ rule(:juniper_logical_system) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "sip" (
                             sc(
                                 "disable",
@@ -17717,7 +17717,7 @@ rule(:juniper_logical_system) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "sql" (
                             sc(
                                 "disable",
@@ -18777,7 +18777,7 @@ rule(:juniper_policy_options) do
                                   community_count_type
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "to" (
                             sc(
                                 "instance" arg,
@@ -18819,7 +18819,7 @@ rule(:juniper_policy_options) do
                                   policy_algebra
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "then" (
                             sc(
                                 "metric" (
@@ -18840,10 +18840,10 @@ rule(:juniper_policy_options) do
                                           ).as(:oneline),
                                           "expression" (
                                             metric_expression_type
-                                          ).as(:oneline)
+                                          )
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "metric2" (
                                     sc(
                                         c(
@@ -18852,7 +18852,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "metric3" (
                                     sc(
                                         c(
@@ -18861,7 +18861,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "metric4" (
                                     sc(
                                         c(
@@ -18870,7 +18870,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "tag" (
                                     sc(
                                         c(
@@ -18879,7 +18879,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "tag2" (
                                     sc(
                                         c(
@@ -18888,7 +18888,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "preference" (
                                     sc(
                                         c(
@@ -18897,7 +18897,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "preference2" (
                                     sc(
                                         c(
@@ -18906,7 +18906,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "color" (
                                     sc(
                                         c(
@@ -18915,7 +18915,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "color2" (
                                     sc(
                                         c(
@@ -18924,7 +18924,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "local-preference" (
                                     sc(
                                         c(
@@ -18933,7 +18933,7 @@ rule(:juniper_policy_options) do
                                           "subtract" arg
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "priority" arg,
                                 "label-allocation" arg,
                                 "origin" arg,
@@ -19060,7 +19060,7 @@ rule(:juniper_policy_options) do
                                   "reject"
                                 )
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "from" (
@@ -19140,7 +19140,7 @@ rule(:juniper_policy_options) do
                           community_count_type
                         )
                     )
-                ).as(:oneline),
+                ),
                 "to" (
                     sc(
                         "instance" arg,
@@ -19182,7 +19182,7 @@ rule(:juniper_policy_options) do
                           policy_algebra
                         )
                     )
-                ).as(:oneline),
+                ),
                 "then" (
                     sc(
                         "metric" (
@@ -19203,10 +19203,10 @@ rule(:juniper_policy_options) do
                                   ).as(:oneline),
                                   "expression" (
                                     metric_expression_type
-                                  ).as(:oneline)
+                                  )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "metric2" (
                             sc(
                                 c(
@@ -19215,7 +19215,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "metric3" (
                             sc(
                                 c(
@@ -19224,7 +19224,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "metric4" (
                             sc(
                                 c(
@@ -19233,7 +19233,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "tag" (
                             sc(
                                 c(
@@ -19242,7 +19242,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "tag2" (
                             sc(
                                 c(
@@ -19251,7 +19251,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "preference" (
                             sc(
                                 c(
@@ -19260,7 +19260,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "preference2" (
                             sc(
                                 c(
@@ -19269,7 +19269,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "color" (
                             sc(
                                 c(
@@ -19278,7 +19278,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "color2" (
                             sc(
                                 c(
@@ -19287,7 +19287,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "local-preference" (
                             sc(
                                 c(
@@ -19296,7 +19296,7 @@ rule(:juniper_policy_options) do
                                   "subtract" arg
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "priority" arg,
                         "label-allocation" arg,
                         "origin" arg,
@@ -19423,7 +19423,7 @@ rule(:juniper_policy_options) do
                           "reject"
                         )
                     )
-                ).as(:oneline)
+                )
             )
         ),
         "community" arg (
@@ -19431,12 +19431,12 @@ rule(:juniper_policy_options) do
                 "invert-match",
                 "members" arg
             )
-        ).as(:oneline),
+        ),
         "as-path" arg (
             sc(
                 "path" arg
             )
-        ).as(:oneline),
+        ),
         "as-path-group" arg (
             sc(
                 "as-path" arg (
@@ -19471,7 +19471,7 @@ rule(:juniper_policy_options) do
                   )
                 )
             )
-        ).as(:oneline),
+        ),
         "application-maps" (
           application_map_object
         )
@@ -19537,10 +19537,10 @@ rule(:control_prefix_list_filter_type) do
                   ).as(:oneline),
                   "expression" (
                     metric_expression_type
-                  ).as(:oneline)
+                  )
                 )
             )
-        ).as(:oneline),
+        ),
         "metric2" (
             sc(
                 c(
@@ -19549,7 +19549,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "metric3" (
             sc(
                 c(
@@ -19558,7 +19558,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "metric4" (
             sc(
                 c(
@@ -19567,7 +19567,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "tag" (
             sc(
                 c(
@@ -19576,7 +19576,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "tag2" (
             sc(
                 c(
@@ -19585,7 +19585,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "preference" (
             sc(
                 c(
@@ -19594,7 +19594,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "preference2" (
             sc(
                 c(
@@ -19603,7 +19603,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "color" (
             sc(
                 c(
@@ -19612,7 +19612,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "color2" (
             sc(
                 c(
@@ -19621,7 +19621,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "local-preference" (
             sc(
                 c(
@@ -19630,7 +19630,7 @@ rule(:control_prefix_list_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "priority" arg,
         "label-allocation" arg,
         "origin" arg,
@@ -19757,7 +19757,7 @@ rule(:control_prefix_list_filter_type) do
           "reject"
         )
       )
-    ).as(:oneline)
+    )
 end
 
 rule(:control_prefix_list_type) do
@@ -19811,10 +19811,10 @@ rule(:control_route_filter_type) do
                   ).as(:oneline),
                   "expression" (
                     metric_expression_type
-                  ).as(:oneline)
+                  )
                 )
             )
-        ).as(:oneline),
+        ),
         "metric2" (
             sc(
                 c(
@@ -19823,7 +19823,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "metric3" (
             sc(
                 c(
@@ -19832,7 +19832,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "metric4" (
             sc(
                 c(
@@ -19841,7 +19841,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "tag" (
             sc(
                 c(
@@ -19850,7 +19850,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "tag2" (
             sc(
                 c(
@@ -19859,7 +19859,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "preference" (
             sc(
                 c(
@@ -19868,7 +19868,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "preference2" (
             sc(
                 c(
@@ -19877,7 +19877,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "color" (
             sc(
                 c(
@@ -19886,7 +19886,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "color2" (
             sc(
                 c(
@@ -19895,7 +19895,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "local-preference" (
             sc(
                 c(
@@ -19904,7 +19904,7 @@ rule(:control_route_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "priority" arg,
         "label-allocation" arg,
         "origin" arg,
@@ -20031,7 +20031,7 @@ rule(:control_route_filter_type) do
           "reject"
         )
       )
-    ).as(:oneline)
+    )
 end
 
 rule(:control_source_address_filter_type) do
@@ -20078,10 +20078,10 @@ rule(:control_source_address_filter_type) do
                   ).as(:oneline),
                   "expression" (
                     metric_expression_type
-                  ).as(:oneline)
+                  )
                 )
             )
-        ).as(:oneline),
+        ),
         "metric2" (
             sc(
                 c(
@@ -20090,7 +20090,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "metric3" (
             sc(
                 c(
@@ -20099,7 +20099,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "metric4" (
             sc(
                 c(
@@ -20108,7 +20108,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "tag" (
             sc(
                 c(
@@ -20117,7 +20117,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "tag2" (
             sc(
                 c(
@@ -20126,7 +20126,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "preference" (
             sc(
                 c(
@@ -20135,7 +20135,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "preference2" (
             sc(
                 c(
@@ -20144,7 +20144,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "color" (
             sc(
                 c(
@@ -20153,7 +20153,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "color2" (
             sc(
                 c(
@@ -20162,7 +20162,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "local-preference" (
             sc(
                 c(
@@ -20171,7 +20171,7 @@ rule(:control_source_address_filter_type) do
                   "subtract" arg
                 )
             )
-        ).as(:oneline),
+        ),
         "priority" arg,
         "label-allocation" arg,
         "origin" arg,
@@ -20298,7 +20298,7 @@ rule(:control_source_address_filter_type) do
           "reject"
         )
       )
-    ).as(:oneline)
+    )
 end
 
 rule(:juniper_port_mirror_options) do
@@ -20345,7 +20345,7 @@ rule(:juniper_port_mirror_options) do
                 )
             )
         ),
-        "instance".as(:oneline)
+        "instance"
     )
 end
 
@@ -20643,7 +20643,7 @@ rule(:juniper_protocols) do
                         "maximum-helper-restart-time" arg,
                         "maximum-helper-recovery-time" arg
                     )
-                ).as(:oneline),
+                ),
                 "tunnel-services" (
                     sc(
                         "devices" (
@@ -20665,12 +20665,12 @@ rule(:juniper_protocols) do
                     sc(
                         "optimize-timer" arg
                     )
-                ).as(:oneline),
+                ),
                 "load-balance" (
                     sc(
                         "bandwidth"
                     )
-                ).as(:oneline),
+                ),
                 "traceoptions" (
                     sc(
                         "file" (
@@ -20701,9 +20701,9 @@ rule(:juniper_protocols) do
                             sc(
                                 "cleanup-timer" arg
                             )
-                        ).as(:oneline)
+                        )
                     )
-                ).as(:oneline),
+                ),
                 "interface" arg (
                     sc(
                         c(
@@ -20719,7 +20719,7 @@ rule(:juniper_protocols) do
                         "hello-interval" arg,
                         "subscription" (
                           subscription_type
-                        ).as(:oneline),
+                        ),
                         "bandwidth" arg,
                         "update-threshold" arg,
                         "link-protection" (
@@ -20729,7 +20729,7 @@ rule(:juniper_protocols) do
                                 ),
                                 "bandwidth" (
                                   bandwidth_type
-                                ).as(:oneline),
+                                ),
                                 "max-bypasses" arg,
                                 "subscription" arg,
                                 "no-node-protection",
@@ -20754,7 +20754,7 @@ rule(:juniper_protocols) do
                                 ).as(:oneline),
                                 "admin-group" (
                                   admin_group_include_exclude
-                                ).as(:oneline),
+                                ),
                                 "bypass" arg (
                                     sc(
                                         "to" (
@@ -20762,7 +20762,7 @@ rule(:juniper_protocols) do
                                         ),
                                         "bandwidth" (
                                           bandwidth_type
-                                        ).as(:oneline),
+                                        ),
                                         "description" arg,
                                         "priority" (
                                             sc(
@@ -20784,7 +20784,7 @@ rule(:juniper_protocols) do
                                         ).as(:oneline),
                                         "admin-group" (
                                           admin_group_include_exclude
-                                        ).as(:oneline)
+                                        )
                                     )
                                 )
                             )
@@ -20813,7 +20813,7 @@ rule(:juniper_protocols) do
                         ),
                         "match-criteria" (
                           lsp_set_match_type
-                        ).as(:oneline),
+                        ),
                         "traceoptions" (
                             sc(
                                 "file" (
@@ -20845,7 +20845,7 @@ rule(:juniper_protocols) do
                             sc(
                                 "mtu-signaling"
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "diffserv-te" (
@@ -20891,7 +20891,7 @@ rule(:juniper_protocols) do
                                   "loss-priority-low"
                                 )
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "statistics" (
@@ -20934,7 +20934,7 @@ rule(:juniper_protocols) do
                     sc(
                         "group-value" arg
                     )
-                ).as(:oneline),
+                ),
                 "advertisement-hold-time" arg,
                 "rsvp-error-hold-time" arg,
                 "optimize-aggressive",
@@ -20950,7 +20950,7 @@ rule(:juniper_protocols) do
                 "mib-mpls-show-p2mp",
                 "bandwidth" (
                   bandwidth_type
-                ).as(:oneline),
+                ),
                 "class-of-service" arg,
                 "no-decrement-ttl",
                 "hop-limit" arg,
@@ -20970,13 +20970,13 @@ rule(:juniper_protocols) do
                 "exclude-srlg",
                 "admin-group" (
                   admin_group_include_exclude
-                ).as(:oneline),
+                ),
                 "admin-group-extended" (
                   admin_group_include_exclude
-                ).as(:oneline),
+                ),
                 "oam" (
                   periodic_oam
-                ).as(:oneline),
+                ),
                 "label-switched-path" arg (
                     sc(
                         c(
@@ -21023,7 +21023,7 @@ rule(:juniper_protocols) do
                         "optimize-hold-dead-delay" arg,
                         "bandwidth" (
                           bandwidth_type
-                        ).as(:oneline),
+                        ),
                         "class-of-service" arg,
                         "no-decrement-ttl",
                         "hop-limit" arg,
@@ -21043,13 +21043,13 @@ rule(:juniper_protocols) do
                         "exclude-srlg",
                         "admin-group" (
                           admin_group_include_exclude
-                        ).as(:oneline),
+                        ),
                         "admin-group-extended" (
                           admin_group_include_exclude
-                        ).as(:oneline),
+                        ),
                         "oam" (
                           periodic_oam
-                        ).as(:oneline),
+                        ),
                         c(
                           "random",
                           "least-fill",
@@ -21110,7 +21110,7 @@ rule(:juniper_protocols) do
                             sc(
                                 "bandwidth" (
                                   bandwidth_type
-                                ).as(:oneline),
+                                ),
                                 "class-of-service" arg,
                                 "no-decrement-ttl",
                                 "hop-limit" arg,
@@ -21130,13 +21130,13 @@ rule(:juniper_protocols) do
                                 "exclude-srlg",
                                 "admin-group" (
                                   admin_group_include_exclude
-                                ).as(:oneline),
+                                ),
                                 "admin-group-extended" (
                                   admin_group_include_exclude
-                                ).as(:oneline),
+                                ),
                                 "oam" (
                                   periodic_oam
-                                ).as(:oneline),
+                                ),
                                 "adaptive",
                                 "select" arg
                             )
@@ -21145,7 +21145,7 @@ rule(:juniper_protocols) do
                             sc(
                                 "bandwidth" (
                                   bandwidth_type
-                                ).as(:oneline),
+                                ),
                                 "class-of-service" arg,
                                 "no-decrement-ttl",
                                 "hop-limit" arg,
@@ -21165,13 +21165,13 @@ rule(:juniper_protocols) do
                                 "exclude-srlg",
                                 "admin-group" (
                                   admin_group_include_exclude
-                                ).as(:oneline),
+                                ),
                                 "admin-group-extended" (
                                   admin_group_include_exclude
-                                ).as(:oneline),
+                                ),
                                 "oam" (
                                   periodic_oam
-                                ).as(:oneline),
+                                ),
                                 "adaptive",
                                 "select" arg
                             )
@@ -21425,10 +21425,10 @@ rule(:juniper_protocols) do
                                         "no-install",
                                         "downstream-paths-only"
                                     )
-                                ).as(:oneline),
+                                ),
                                 "prefix-export-limit" arg
                             )
-                        ).as(:oneline),
+                        ),
                         "spf-options" (
                             sc(
                                 "delay" arg,
@@ -21443,14 +21443,14 @@ rule(:juniper_protocols) do
                                 "no-install",
                                 "downstream-paths-only"
                             )
-                        ).as(:oneline),
+                        ),
                         "prefix-export-limit" arg,
                         "rib-group" arg,
                         "overload" (
                             sc(
                                 "timeout" arg
                             )
-                        ).as(:oneline),
+                        ),
                         "database-protection" (
                             sc(
                                 "maximum-lsa" arg,
@@ -21460,7 +21460,7 @@ rule(:juniper_protocols) do
                                 "ignore-time" arg,
                                 "reset-time" arg
                             )
-                        ).as(:oneline),
+                        ),
                         "graceful-restart" (
                             sc(
                                 c(
@@ -21479,7 +21479,7 @@ rule(:juniper_protocols) do
                                 ),
                                 "no-strict-lsa-checking"
                             )
-                        ).as(:oneline),
+                        ),
                         "traffic-engineering" (
                             sc(
                                 "no-topology",
@@ -21489,11 +21489,11 @@ rule(:juniper_protocols) do
                                     sc(
                                         "lsp-metric-into-summary"
                                     )
-                                ).as(:oneline),
+                                ),
                                 "advertise-unnumbered-interfaces",
                                 "credibility-protocol-preference"
                             )
-                        ).as(:oneline),
+                        ),
                         "route-type-community" arg,
                         "domain-id" (
                             sc(
@@ -21526,7 +21526,7 @@ rule(:juniper_protocols) do
                                   ipaddr
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "area" arg (
                             sc(
                                 c(
@@ -21545,7 +21545,7 @@ rule(:juniper_protocols) do
                                                   "metric-type" arg,
                                                   "type-7"
                                               )
-                                          ).as(:oneline),
+                                          ),
                                           "summaries",
                                           "no-summaries",
                                           "area-range" arg (
@@ -21557,11 +21557,11 @@ rule(:juniper_protocols) do
                                                           "metric" arg,
                                                           "metric-type" arg
                                                       )
-                                                  ).as(:oneline)
+                                                  )
                                               )
-                                          ).as(:oneline)
+                                          )
                                       )
-                                  ).as(:oneline)
+                                  )
                                 ),
                                 "area-range" arg (
                                     sc(
@@ -21569,7 +21569,7 @@ rule(:juniper_protocols) do
                                         "exact",
                                         "override-metric" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 "network-summary-export" (
                                   policy_algebra
                                 ),
@@ -21621,7 +21621,7 @@ rule(:juniper_protocols) do
                                                     )
                                                 )
                                             )
-                                        ).as(:oneline)
+                                        )
                                       )
                                     )
                                 ),
@@ -21645,9 +21645,9 @@ rule(:juniper_protocols) do
                                                     )
                                                 )
                                             )
-                                        ).as(:oneline)
+                                        )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "interface" arg (
                                     sc(
                                         c(
@@ -21714,7 +21714,7 @@ rule(:juniper_protocols) do
                                                     )
                                                 )
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "bfd-liveness-detection" (
                                             sc(
                                                 "version" arg,
@@ -21777,7 +21777,7 @@ rule(:juniper_protocols) do
                                                     )
                                                 )
                                             )
-                                        ).as(:oneline)
+                                        )
                                     )
                                 ),
                                 "peer-interface" arg (
@@ -21841,10 +21841,10 @@ rule(:juniper_protocols) do
                                 "no-install",
                                 "downstream-paths-only"
                             )
-                        ).as(:oneline),
+                        ),
                         "prefix-export-limit" arg
                     )
-                ).as(:oneline),
+                ),
                 "spf-options" (
                     sc(
                         "delay" arg,
@@ -21859,14 +21859,14 @@ rule(:juniper_protocols) do
                         "no-install",
                         "downstream-paths-only"
                     )
-                ).as(:oneline),
+                ),
                 "prefix-export-limit" arg,
                 "rib-group" arg,
                 "overload" (
                     sc(
                         "timeout" arg
                     )
-                ).as(:oneline),
+                ),
                 "database-protection" (
                     sc(
                         "maximum-lsa" arg,
@@ -21876,7 +21876,7 @@ rule(:juniper_protocols) do
                         "ignore-time" arg,
                         "reset-time" arg
                     )
-                ).as(:oneline),
+                ),
                 "graceful-restart" (
                     sc(
                         c(
@@ -21895,7 +21895,7 @@ rule(:juniper_protocols) do
                         ),
                         "no-strict-lsa-checking"
                     )
-                ).as(:oneline),
+                ),
                 "traffic-engineering" (
                     sc(
                         "no-topology",
@@ -21905,11 +21905,11 @@ rule(:juniper_protocols) do
                             sc(
                                 "lsp-metric-into-summary"
                             )
-                        ).as(:oneline),
+                        ),
                         "advertise-unnumbered-interfaces",
                         "credibility-protocol-preference"
                     )
-                ).as(:oneline),
+                ),
                 "route-type-community" arg,
                 "domain-id" (
                     sc(
@@ -21942,7 +21942,7 @@ rule(:juniper_protocols) do
                           ipaddr
                         )
                     )
-                ).as(:oneline),
+                ),
                 "area" arg (
                     sc(
                         c(
@@ -21961,7 +21961,7 @@ rule(:juniper_protocols) do
                                           "metric-type" arg,
                                           "type-7"
                                       )
-                                  ).as(:oneline),
+                                  ),
                                   "summaries",
                                   "no-summaries",
                                   "area-range" arg (
@@ -21973,11 +21973,11 @@ rule(:juniper_protocols) do
                                                   "metric" arg,
                                                   "metric-type" arg
                                               )
-                                          ).as(:oneline)
+                                          )
                                       )
-                                  ).as(:oneline)
+                                  )
                               )
-                          ).as(:oneline)
+                          )
                         ),
                         "area-range" arg (
                             sc(
@@ -21985,7 +21985,7 @@ rule(:juniper_protocols) do
                                 "exact",
                                 "override-metric" arg
                             )
-                        ).as(:oneline),
+                        ),
                         "network-summary-export" (
                           policy_algebra
                         ),
@@ -22037,7 +22037,7 @@ rule(:juniper_protocols) do
                                             )
                                         )
                                     )
-                                ).as(:oneline)
+                                )
                               )
                             )
                         ),
@@ -22061,9 +22061,9 @@ rule(:juniper_protocols) do
                                             )
                                         )
                                     )
-                                ).as(:oneline)
+                                )
                             )
-                        ).as(:oneline),
+                        ),
                         "interface" arg (
                             sc(
                                 c(
@@ -22130,7 +22130,7 @@ rule(:juniper_protocols) do
                                             )
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "bfd-liveness-detection" (
                                     sc(
                                         "version" arg,
@@ -22193,7 +22193,7 @@ rule(:juniper_protocols) do
                                             )
                                         )
                                     )
-                                ).as(:oneline)
+                                )
                             )
                         ),
                         "peer-interface" arg (
@@ -22346,7 +22346,7 @@ rule(:juniper_protocols) do
                                 "no-revert",
                                 "bandwidth" (
                                   bandwidth_type
-                                ).as(:oneline),
+                                ),
                                 "pseudowire-status-tlv",
                                 "switchover-delay" arg,
                                 "revert-time" arg,
@@ -23101,7 +23101,7 @@ rule(:admin_group_include_exclude) do
         c(
           "exclude" arg
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:bandwidth_type) do
@@ -23111,7 +23111,7 @@ rule(:bandwidth_type) do
         "ct1" arg,
         "ct2" arg,
         "ct3" arg
-    ).as(:oneline)
+    )
 end
 
 rule(:civic_address_elements) do
@@ -23256,7 +23256,7 @@ rule(:juniper_protocols_bgp) do
                 "external-router-id",
                 "as-path-ignore"
             )
-        ).as(:oneline),
+        ),
         "traceoptions" (
             sc(
                 "file" (
@@ -23516,7 +23516,7 @@ rule(:juniper_protocols_bgp) do
                     )
                 )
             )
-        ).as(:oneline),
+        ),
         "tcp-mss" arg,
         "bfd-liveness-detection" (
             sc(
@@ -23811,7 +23811,7 @@ rule(:juniper_protocols_bgp) do
                             )
                         )
                     )
-                ).as(:oneline),
+                ),
                 "tcp-mss" arg,
                 "bfd-liveness-detection" (
                     sc(
@@ -24115,7 +24115,7 @@ rule(:juniper_protocols_bgp) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "tcp-mss" arg,
                         "bfd-liveness-detection" (
                             sc(
@@ -24700,21 +24700,21 @@ rule(:juniper_protocols_isis) do
                 "holddown" arg,
                 "rapid-runs" arg
             )
-        ).as(:oneline),
+        ),
         "topologies" (
             sc(
                 "ipv4-multicast",
                 "ipv6-unicast",
                 "ipv6-multicast"
             )
-        ).as(:oneline),
+        ),
         "overload" (
             sc(
                 "timeout" arg,
                 "advertise-high-metrics",
                 "allow-route-leaking"
             )
-        ).as(:oneline),
+        ),
         "traffic-engineering" (
             sc(
                 c(
@@ -24737,7 +24737,7 @@ rule(:juniper_protocols_isis) do
                     )
                 )
             )
-        ).as(:oneline),
+        ),
         "graceful-restart" (
             sc(
                 c(
@@ -24765,7 +24765,7 @@ rule(:juniper_protocols_isis) do
                 "external-preference" arg,
                 "prefix-export-limit" arg
             )
-        ).as(:oneline),
+        ),
         "interface" arg (
             sc(
                 c(
@@ -24854,7 +24854,7 @@ rule(:juniper_protocols_isis) do
                         "priority" arg,
                         "passive"
                     )
-                ).as(:oneline)
+                )
             )
         ),
         "label-switched-path" arg (
@@ -24866,7 +24866,7 @@ rule(:juniper_protocols_isis) do
                         ),
                         "metric" arg
                     )
-                ).as(:oneline)
+                )
             )
         ),
         "context-identifier" arg (
@@ -24877,7 +24877,7 @@ rule(:juniper_protocols_isis) do
                           "disable"
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -24923,7 +24923,7 @@ rule(:juniper_protocols_ldp) do
                 "reconnect-time" arg,
                 "maximum-neighbor-reconnect-time" arg
             )
-        ).as(:oneline),
+        ),
         "preference" arg,
         "no-forwarding",
         "l2-smart-policy",
@@ -24994,7 +24994,7 @@ rule(:juniper_protocols_ldp) do
             sc(
                 "holddown-interval" arg
             )
-        ).as(:oneline),
+        ),
         "log-updown" (
             sc(
                 "trap" (
@@ -25550,10 +25550,10 @@ rule(:juniper_protocols_ospf) do
                         "no-install",
                         "downstream-paths-only"
                     )
-                ).as(:oneline),
+                ),
                 "prefix-export-limit" arg
             )
-        ).as(:oneline),
+        ),
         "spf-options" (
             sc(
                 "delay" arg,
@@ -25568,14 +25568,14 @@ rule(:juniper_protocols_ospf) do
                 "no-install",
                 "downstream-paths-only"
             )
-        ).as(:oneline),
+        ),
         "prefix-export-limit" arg,
         "rib-group" arg,
         "overload" (
             sc(
                 "timeout" arg
             )
-        ).as(:oneline),
+        ),
         "database-protection" (
             sc(
                 "maximum-lsa" arg,
@@ -25585,7 +25585,7 @@ rule(:juniper_protocols_ospf) do
                 "ignore-time" arg,
                 "reset-time" arg
             )
-        ).as(:oneline),
+        ),
         "graceful-restart" (
             sc(
                 c(
@@ -25604,7 +25604,7 @@ rule(:juniper_protocols_ospf) do
                 ),
                 "no-strict-lsa-checking"
             )
-        ).as(:oneline),
+        ),
         "traffic-engineering" (
             sc(
                 "no-topology",
@@ -25614,11 +25614,11 @@ rule(:juniper_protocols_ospf) do
                     sc(
                         "lsp-metric-into-summary"
                     )
-                ).as(:oneline),
+                ),
                 "advertise-unnumbered-interfaces",
                 "credibility-protocol-preference"
             )
-        ).as(:oneline),
+        ),
         "route-type-community" arg,
         "domain-id" (
             sc(
@@ -25651,7 +25651,7 @@ rule(:juniper_protocols_ospf) do
                   ipaddr
                 )
             )
-        ).as(:oneline),
+        ),
         "area" arg (
             sc(
                 c(
@@ -25670,7 +25670,7 @@ rule(:juniper_protocols_ospf) do
                                   "metric-type" arg,
                                   "type-7"
                               )
-                          ).as(:oneline),
+                          ),
                           "summaries",
                           "no-summaries",
                           "area-range" arg (
@@ -25682,11 +25682,11 @@ rule(:juniper_protocols_ospf) do
                                           "metric" arg,
                                           "metric-type" arg
                                       )
-                                  ).as(:oneline)
+                                  )
                               )
-                          ).as(:oneline)
+                          )
                       )
-                  ).as(:oneline)
+                  )
                 ),
                 "area-range" arg (
                     sc(
@@ -25694,7 +25694,7 @@ rule(:juniper_protocols_ospf) do
                         "exact",
                         "override-metric" arg
                     )
-                ).as(:oneline),
+                ),
                 "network-summary-export" (
                   policy_algebra
                 ),
@@ -25746,7 +25746,7 @@ rule(:juniper_protocols_ospf) do
                                     )
                                 )
                             )
-                        ).as(:oneline)
+                        )
                       )
                     )
                 ),
@@ -25770,9 +25770,9 @@ rule(:juniper_protocols_ospf) do
                                     )
                                 )
                             )
-                        ).as(:oneline)
+                        )
                     )
-                ).as(:oneline),
+                ),
                 "interface" arg (
                     sc(
                         c(
@@ -25839,7 +25839,7 @@ rule(:juniper_protocols_ospf) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "bfd-liveness-detection" (
                             sc(
                                 "version" arg,
@@ -25902,7 +25902,7 @@ rule(:juniper_protocols_ospf) do
                                     )
                                 )
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "peer-interface" arg (
@@ -26136,7 +26136,7 @@ rule(:juniper_protocols_pim) do
                                                             sc(
                                                                 "forward-msdp-sa"
                                                             )
-                                                        ).as(:oneline)
+                                                        )
                                                     )
                                                 ),
                                                 "local-address" (
@@ -26194,7 +26194,7 @@ rule(:juniper_protocols_pim) do
                         "mapping-agent-election",
                         "no-mapping-agent-election"
                     )
-                ).as(:oneline),
+                ),
                 "static" (
                     sc(
                         "address" arg (
@@ -26717,7 +26717,7 @@ rule(:juniper_protocols_router_discovery) do
                 "ineligible",
                 "priority" arg
             )
-        ).as(:oneline)
+        )
     )
 end
 
@@ -26911,7 +26911,7 @@ rule(:juniper_routing_instance) do
             sc(
                 "community" arg
             )
-        ).as(:oneline),
+        ),
         "provider-tunnel" (
             sc(
                 c(
@@ -27204,7 +27204,7 @@ rule(:juniper_routing_instance) do
                 "import" arg,
                 "export" arg
             )
-        ).as(:oneline),
+        ),
         "no-vrf-advertise",
         "vrf-advertise-selective" (
             sc(
@@ -27283,10 +27283,10 @@ rule(:juniper_routing_instance) do
                                                 "no-install",
                                                 "downstream-paths-only"
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "prefix-export-limit" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 "spf-options" (
                                     sc(
                                         "delay" arg,
@@ -27301,14 +27301,14 @@ rule(:juniper_routing_instance) do
                                         "no-install",
                                         "downstream-paths-only"
                                     )
-                                ).as(:oneline),
+                                ),
                                 "prefix-export-limit" arg,
                                 "rib-group" arg,
                                 "overload" (
                                     sc(
                                         "timeout" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 "database-protection" (
                                     sc(
                                         "maximum-lsa" arg,
@@ -27318,7 +27318,7 @@ rule(:juniper_routing_instance) do
                                         "ignore-time" arg,
                                         "reset-time" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 "graceful-restart" (
                                     sc(
                                         c(
@@ -27337,7 +27337,7 @@ rule(:juniper_routing_instance) do
                                         ),
                                         "no-strict-lsa-checking"
                                     )
-                                ).as(:oneline),
+                                ),
                                 "traffic-engineering" (
                                     sc(
                                         "no-topology",
@@ -27347,11 +27347,11 @@ rule(:juniper_routing_instance) do
                                             sc(
                                                 "lsp-metric-into-summary"
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "advertise-unnumbered-interfaces",
                                         "credibility-protocol-preference"
                                     )
-                                ).as(:oneline),
+                                ),
                                 "route-type-community" arg,
                                 "domain-id" (
                                     sc(
@@ -27384,7 +27384,7 @@ rule(:juniper_routing_instance) do
                                           ipaddr
                                         )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "area" arg (
                                     sc(
                                         c(
@@ -27403,7 +27403,7 @@ rule(:juniper_routing_instance) do
                                                           "metric-type" arg,
                                                           "type-7"
                                                       )
-                                                  ).as(:oneline),
+                                                  ),
                                                   "summaries",
                                                   "no-summaries",
                                                   "area-range" arg (
@@ -27415,11 +27415,11 @@ rule(:juniper_routing_instance) do
                                                                   "metric" arg,
                                                                   "metric-type" arg
                                                               )
-                                                          ).as(:oneline)
+                                                          )
                                                       )
-                                                  ).as(:oneline)
+                                                  )
                                               )
-                                          ).as(:oneline)
+                                          )
                                         ),
                                         "area-range" arg (
                                             sc(
@@ -27427,7 +27427,7 @@ rule(:juniper_routing_instance) do
                                                 "exact",
                                                 "override-metric" arg
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "network-summary-export" (
                                           policy_algebra
                                         ),
@@ -27479,7 +27479,7 @@ rule(:juniper_routing_instance) do
                                                             )
                                                         )
                                                     )
-                                                ).as(:oneline)
+                                                )
                                               )
                                             )
                                         ),
@@ -27503,9 +27503,9 @@ rule(:juniper_routing_instance) do
                                                             )
                                                         )
                                                     )
-                                                ).as(:oneline)
+                                                )
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "interface" arg (
                                             sc(
                                                 c(
@@ -27572,7 +27572,7 @@ rule(:juniper_routing_instance) do
                                                             )
                                                         )
                                                     )
-                                                ).as(:oneline),
+                                                ),
                                                 "bfd-liveness-detection" (
                                                     sc(
                                                         "version" arg,
@@ -27635,7 +27635,7 @@ rule(:juniper_routing_instance) do
                                                             )
                                                         )
                                                     )
-                                                ).as(:oneline)
+                                                )
                                             )
                                         ),
                                         "peer-interface" arg (
@@ -27699,10 +27699,10 @@ rule(:juniper_routing_instance) do
                                         "no-install",
                                         "downstream-paths-only"
                                     )
-                                ).as(:oneline),
+                                ),
                                 "prefix-export-limit" arg
                             )
-                        ).as(:oneline),
+                        ),
                         "spf-options" (
                             sc(
                                 "delay" arg,
@@ -27717,14 +27717,14 @@ rule(:juniper_routing_instance) do
                                 "no-install",
                                 "downstream-paths-only"
                             )
-                        ).as(:oneline),
+                        ),
                         "prefix-export-limit" arg,
                         "rib-group" arg,
                         "overload" (
                             sc(
                                 "timeout" arg
                             )
-                        ).as(:oneline),
+                        ),
                         "database-protection" (
                             sc(
                                 "maximum-lsa" arg,
@@ -27734,7 +27734,7 @@ rule(:juniper_routing_instance) do
                                 "ignore-time" arg,
                                 "reset-time" arg
                             )
-                        ).as(:oneline),
+                        ),
                         "graceful-restart" (
                             sc(
                                 c(
@@ -27753,7 +27753,7 @@ rule(:juniper_routing_instance) do
                                 ),
                                 "no-strict-lsa-checking"
                             )
-                        ).as(:oneline),
+                        ),
                         "traffic-engineering" (
                             sc(
                                 "no-topology",
@@ -27763,11 +27763,11 @@ rule(:juniper_routing_instance) do
                                     sc(
                                         "lsp-metric-into-summary"
                                     )
-                                ).as(:oneline),
+                                ),
                                 "advertise-unnumbered-interfaces",
                                 "credibility-protocol-preference"
                             )
-                        ).as(:oneline),
+                        ),
                         "route-type-community" arg,
                         "domain-id" (
                             sc(
@@ -27800,7 +27800,7 @@ rule(:juniper_routing_instance) do
                                   ipaddr
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "area" arg (
                             sc(
                                 c(
@@ -27819,7 +27819,7 @@ rule(:juniper_routing_instance) do
                                                   "metric-type" arg,
                                                   "type-7"
                                               )
-                                          ).as(:oneline),
+                                          ),
                                           "summaries",
                                           "no-summaries",
                                           "area-range" arg (
@@ -27831,11 +27831,11 @@ rule(:juniper_routing_instance) do
                                                           "metric" arg,
                                                           "metric-type" arg
                                                       )
-                                                  ).as(:oneline)
+                                                  )
                                               )
-                                          ).as(:oneline)
+                                          )
                                       )
-                                  ).as(:oneline)
+                                  )
                                 ),
                                 "area-range" arg (
                                     sc(
@@ -27843,7 +27843,7 @@ rule(:juniper_routing_instance) do
                                         "exact",
                                         "override-metric" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 "network-summary-export" (
                                   policy_algebra
                                 ),
@@ -27895,7 +27895,7 @@ rule(:juniper_routing_instance) do
                                                     )
                                                 )
                                             )
-                                        ).as(:oneline)
+                                        )
                                       )
                                     )
                                 ),
@@ -27919,9 +27919,9 @@ rule(:juniper_routing_instance) do
                                                     )
                                                 )
                                             )
-                                        ).as(:oneline)
+                                        )
                                     )
-                                ).as(:oneline),
+                                ),
                                 "interface" arg (
                                     sc(
                                         c(
@@ -27988,7 +27988,7 @@ rule(:juniper_routing_instance) do
                                                     )
                                                 )
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "bfd-liveness-detection" (
                                             sc(
                                                 "version" arg,
@@ -28051,7 +28051,7 @@ rule(:juniper_routing_instance) do
                                                     )
                                                 )
                                             )
-                                        ).as(:oneline)
+                                        )
                                     )
                                 ),
                                 "peer-interface" arg (
@@ -28225,7 +28225,7 @@ rule(:juniper_protocols_l2vpn) do
                               )
                           ).as(:oneline)
                       )
-                  ).as(:oneline)
+                  )
                 ),
                 "multi-homing",
                 "site-preference" arg,
@@ -28282,7 +28282,7 @@ rule(:juniper_protocols_l2vpn) do
                         "outgoing-label" arg
                     )
                 ),
-                "associate-profile".as(:oneline),
+                "associate-profile",
                 "psn-tunnel-endpoint" (
                   ipv4addr
                 ),
@@ -28311,10 +28311,10 @@ rule(:juniper_protocols_l2vpn) do
                 "oam"
             )
         ),
-        "associate-profile".as(:oneline),
+        "associate-profile",
         "mesh-group" arg (
             sc(
-                "associate-profile".as(:oneline),
+                "associate-profile",
                 c(
                   "peer-as" (
                       sc(
@@ -28325,7 +28325,7 @@ rule(:juniper_protocols_l2vpn) do
                 "vpls-id" arg,
                 "vrf-import",
                 "vrf-export",
-                "vrf-target".as(:oneline),
+                "vrf-target",
                 "mac-flush",
                 "local-switching",
                 "neighbor",
@@ -28528,7 +28528,7 @@ rule(:juniper_routing_options) do
                 "srlg-value" arg,
                 "srlg-cost" arg
             )
-        ).as(:oneline),
+        ),
         "admin-groups-extended-range" (
             sc(
                 "minimum" arg,
@@ -28539,7 +28539,7 @@ rule(:juniper_routing_options) do
             sc(
                 "group-value" arg
             )
-        ).as(:oneline),
+        ),
         "traceoptions" (
             sc(
                 "file" (
@@ -28794,7 +28794,7 @@ rule(:juniper_routing_options) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "iso-route" arg (
                             sc(
                                 c(
@@ -28917,7 +28917,7 @@ rule(:juniper_routing_options) do
                                     )
                                 )
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "martians" (
@@ -28960,7 +28960,7 @@ rule(:juniper_routing_options) do
                         ).as(:oneline),
                         "as-path-compare"
                     )
-                ).as(:oneline),
+                ),
                 "label" (
                     sc(
                         "allocation" (
@@ -28970,7 +28970,7 @@ rule(:juniper_routing_options) do
                           policy_algebra
                         )
                     )
-                ).as(:oneline),
+                ),
                 "access" (
                     sc(
                         "route" arg (
@@ -28985,7 +28985,7 @@ rule(:juniper_routing_options) do
                                 "preference" arg,
                                 "tag" arg
                             )
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "access-internal" (
@@ -28999,7 +28999,7 @@ rule(:juniper_routing_options) do
                                   qualified_nh_obj
                                 )
                             )
-                        ).as(:oneline)
+                        )
                     )
                 )
             )
@@ -29193,7 +29193,7 @@ rule(:juniper_routing_options) do
                             )
                         )
                     )
-                ).as(:oneline),
+                ),
                 "iso-route" arg (
                     sc(
                         c(
@@ -29316,7 +29316,7 @@ rule(:juniper_routing_options) do
                             )
                         )
                     )
-                ).as(:oneline)
+                )
             )
         ),
         "martians" (
@@ -29359,7 +29359,7 @@ rule(:juniper_routing_options) do
                 ).as(:oneline),
                 "as-path-compare"
             )
-        ).as(:oneline),
+        ),
         "label" (
             sc(
                 "allocation" (
@@ -29369,7 +29369,7 @@ rule(:juniper_routing_options) do
                   policy_algebra
                 )
             )
-        ).as(:oneline),
+        ),
         "access" (
             sc(
                 "route" arg (
@@ -29384,7 +29384,7 @@ rule(:juniper_routing_options) do
                         "preference" arg,
                         "tag" arg
                     )
-                ).as(:oneline)
+                )
             )
         ),
         "access-internal" (
@@ -29398,7 +29398,7 @@ rule(:juniper_routing_options) do
                           qualified_nh_obj
                         )
                     )
-                ).as(:oneline)
+                )
             )
         ),
         "rib-groups" (
@@ -29654,10 +29654,10 @@ rule(:juniper_routing_options) do
                     sc(
                         "match" (
                           flow_route_qualifier
-                        ).as(:oneline),
+                        ),
                         "then" (
                           flow_route_op
-                        ).as(:oneline)
+                        )
                     )
                 ),
                 "term-order" arg
@@ -29706,14 +29706,14 @@ rule(:dynamic_tunnel_type) do
                   ),
                   "destination-networks" (
                     network_type
-                  ).as(:oneline)
+                  )
               )
           ),
           "gre"
         ),
         "destination-networks" (
           network_type
-        ).as(:oneline)
+        )
     )
   )
 end
@@ -29789,7 +29789,7 @@ rule(:flow_route_op) do
         "routing-instance" arg,
         "sample",
         "next-term"
-    ).as(:oneline)
+    )
 end
 
 rule(:flow_route_qualifier) do
@@ -29814,7 +29814,7 @@ rule(:flow_route_qualifier) do
           policy_algebra
         ),
         "fragment" arg
-    ).as(:oneline)
+    )
 end
 
 rule(:forwarding_table_type) do
@@ -29869,7 +29869,7 @@ rule(:juniper_sampling_options) do
                 "mpls"
             )
         ),
-        "instance".as(:oneline)
+        "instance"
     )
 end
 
@@ -30040,7 +30040,7 @@ rule(:juniper_system) do
         "authentication-order" arg,
         "location" (
           location_type
-        ).as(:oneline),
+        ),
         "ports" (
             sc(
                 "console" (
@@ -30135,7 +30135,7 @@ rule(:juniper_system) do
                             )
                         )
                     )
-                ).as(:oneline)
+                )
             )
         ),
         "allow-v4mapped-packets",
@@ -30194,7 +30194,7 @@ rule(:juniper_system) do
                 ),
                 "alias" arg
             )
-        ).as(:oneline),
+        ),
         "services" (
             sc(
                 "finger" (
@@ -30405,7 +30405,7 @@ rule(:juniper_system) do
                                     )
                                 )
                             )
-                        ).as(:oneline),
+                        ),
                         "traceoptions" (
                             sc(
                                 "no-remote-trace",
@@ -30466,7 +30466,7 @@ rule(:juniper_system) do
                                         "retry" arg,
                                         "timeout" arg
                                     )
-                                ).as(:oneline)
+                                )
                             )
                         )
                     )
@@ -30519,7 +30519,7 @@ rule(:juniper_system) do
                             )
                         )
                     )
-                ).as(:oneline),
+                ),
                 "packet-triggered-subscribers",
                 "static-subscribers" (
                   jsscd_static_subscribers_type
@@ -30891,7 +30891,7 @@ rule(:juniper_system) do
                             )
                         ).as(:oneline)
                     )
-                ).as(:oneline),
+                ),
                 "resource-limits" (
                     sc(
                         "process" arg (
@@ -30946,7 +30946,7 @@ rule(:juniper_system) do
                     )
                 )
             )
-        ).as(:oneline),
+        ),
         "fips" (
             sc(
                 "level" arg,
@@ -31025,7 +31025,7 @@ rule(:juniper_system) do
                           pmond_traceoptions_type
                         )
                     )
-                ).as(:oneline),
+                ),
                 "resource-cleanup" (
                     sc(
                         c(
@@ -31035,7 +31035,7 @@ rule(:juniper_system) do
                           res_cleanupd_traceoptions_type
                         )
                     )
-                ).as(:oneline),
+                ),
                 "routing-socket-proxy" (
                     sc(
                         c(
@@ -31114,7 +31114,7 @@ rule(:juniper_system) do
                         "traceoptions"
                     )
                 ),
-                "mac-validation".as(:oneline),
+                "mac-validation",
                 "sbc-configuration-process" (
                     sc(
                         c(
@@ -31135,7 +31135,7 @@ rule(:juniper_system) do
                           ssd_traceoptions_type
                         )
                     )
-                ).as(:oneline),
+                ),
                 "datapath-trace-service" (
                     sc(
                         c(
@@ -31145,7 +31145,7 @@ rule(:juniper_system) do
                           datapath_traced_traceoptions_type
                         )
                     )
-                ).as(:oneline),
+                ),
                 "send" (
                     sc(
                         c(
@@ -31763,7 +31763,7 @@ rule(:ldap_server_object) do
         "retry" arg,
         "timeout" arg
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:ldp_sync_obj) do
@@ -31852,7 +31852,7 @@ rule(:location_type) do
                 "rack" arg
             )
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:login_class_object) do
@@ -31929,12 +31929,12 @@ rule(:lr_interfaces_type) do
                           interface_unit
                         )
                     )
-                ).as(:oneline),
+                ),
                 "interface-shared-with" (
                     sc(
                         "psd-name" arg
                     )
-                ).as(:oneline),
+                ),
                 c(
                   "disable"
                 ),
@@ -31942,7 +31942,7 @@ rule(:lr_interfaces_type) do
                 "per-session-scheduler",
                 "clear-dont-fragment-bit",
                 "reassemble-packets",
-                "rpm".as(:oneline),
+                "rpm",
                 "description" arg,
                 "metadata" arg,
                 "dial-options",
@@ -32007,10 +32007,10 @@ rule(:lr_interfaces_type) do
                 ),
                 "input-vlan-map" (
                   vlan_map
-                ).as(:oneline),
+                ),
                 "output-vlan-map" (
                   vlan_map
-                ).as(:oneline),
+                ),
                 "swap-by-poppush",
                 "receive-lsp" arg,
                 "transmit-lsp" arg,
@@ -32202,7 +32202,7 @@ rule(:lr_interfaces_type) do
                                             )
                                         ).as(:oneline)
                                     )
-                                ).as(:oneline),
+                                ),
                                 "mtu" arg,
                                 "no-redirects",
                                 "no-neighbor-learn",
@@ -32210,8 +32210,8 @@ rule(:lr_interfaces_type) do
                                 "multicast-only",
                                 "primary",
                                 "ipsec-sa" arg,
-                                "demux-source".as(:oneline),
-                                "demux-destination".as(:oneline),
+                                "demux-source",
+                                "demux-destination",
                                 "filter" (
                                     sc(
                                         c(
@@ -32267,7 +32267,7 @@ rule(:lr_interfaces_type) do
                                     sc(
                                         "ipsec-vpn" arg
                                     )
-                                ).as(:oneline),
+                                ),
                                 "address" arg (
                                     sc(
                                         "destination" (
@@ -32311,7 +32311,7 @@ rule(:lr_interfaces_type) do
                                                   epd_threshold_config
                                                 ).as(:oneline)
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "arp" arg (
                                             sc(
                                                 "l2-interface" (
@@ -32334,7 +32334,7 @@ rule(:lr_interfaces_type) do
                                                 "https",
                                                 "redirect-to-https"
                                             )
-                                        ).as(:oneline),
+                                        ),
                                         "vrrp-group" (
                                           vrrp_group
                                         )
@@ -32396,7 +32396,7 @@ rule(:lr_interfaces_type) do
                                             )
                                         ).as(:oneline)
                                     )
-                                ).as(:oneline),
+                                ),
                                 "accounting" (
                                     sc(
                                         "source-class-usage" (
@@ -32490,11 +32490,11 @@ rule(:lr_interfaces_type) do
                                                 "https",
                                                 "redirect-to-https"
                                             )
-                                        ).as(:oneline)
+                                        )
                                     )
                                 ),
-                                "demux-source".as(:oneline),
-                                "demux-destination".as(:oneline),
+                                "demux-source",
+                                "demux-destination",
                                 "unnumbered-address" (
                                     sc(
                                         "source" (
@@ -32729,7 +32729,7 @@ rule(:lr_interfaces_type) do
                                             )
                                         ).as(:oneline)
                                     )
-                                ).as(:oneline),
+                                ),
                                 c(
                                   "isid-list" arg
                                 )
@@ -32807,7 +32807,7 @@ rule(:lsp_set_match_type) do
           "ingress",
           "transit"
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:lsp_nh_obj) do
@@ -32825,7 +32825,7 @@ rule(:mac_aging_time_config) do
           "time" arg,
           "unlimited"
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:mac_list) do
@@ -32911,7 +32911,7 @@ rule(:match_simple_dscp_value) do
           "be",
           "range"
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:match_simple_port_value) do
@@ -32983,7 +32983,7 @@ rule(:match_simple_port_value) do
           "cvspserver",
           "range"
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:match_simple_protocol_value) do
@@ -33012,7 +33012,7 @@ rule(:match_simple_protocol_value) do
           "vrrp",
           "range"
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:metric_expression_type) do
@@ -33033,7 +33033,7 @@ rule(:metric_expression_type) do
                 "offset" arg
             )
         ).as(:oneline)
-    ).as(:oneline)
+    )
 end
 
 rule(:mib_variable_name_object) do
@@ -33158,7 +33158,7 @@ rule(:cflowd_monitoring_type) do
     sc(
         "port" arg
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:monitor_export_intf_type) do
@@ -33199,7 +33199,7 @@ rule(:mpls_dialer_filter) do
                           "ignore"
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -33267,7 +33267,7 @@ rule(:mpls_filter) do
                           "next" arg
                         )
                     )
-                ).as(:oneline)
+                )
             )
         )
     )
@@ -33280,7 +33280,7 @@ rule(:mpls_ifd_options) do
             sc(
                 "required-depth" arg
             )
-        ).as(:oneline)
+        )
     )
 end
 
@@ -33308,7 +33308,7 @@ rule(:multicast_interface_options_type) do
         "subscriber-leave-timer" arg,
         "no-qos-adjust"
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:named_address_book_type) do
@@ -33317,10 +33317,10 @@ rule(:named_address_book_type) do
         "description" arg,
         "address" (
           address_type
-        ).as(:oneline),
+        ),
         "address-set" (
           address_set_type
-        ).as(:oneline),
+        ),
         "attach" (
             sc(
                 "zone" arg
@@ -33337,7 +33337,7 @@ rule(:address_set_type) do
         "address" arg,
         "address-set" arg
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:address_type) do
@@ -33356,10 +33356,10 @@ rule(:address_type) do
           ),
           "range-address" (
             range_address_type
-          ).as(:oneline)
+          )
         )
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:dns_name_type) do
@@ -33376,7 +33376,7 @@ rule(:nameserver_object) do
 end
 
 rule(:network_type) do
-  arg.as(:arg).as(:oneline)
+  arg.as(:arg)
 end
 
 rule(:next_hop_group_intf_type) do
@@ -33932,7 +33932,7 @@ rule(:periodic_oam) do
                 "flag" ("configuration" | "pipe" | "rpc-packet-details" | "database" | "network" | "traceroute" | "all").as(:oneline)
             )
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:pim_bootstrap_options_type) do
@@ -34336,7 +34336,7 @@ rule(:profile_radius_server_object) do
         ),
         "routing-instance" arg
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:profile_setting) do
@@ -34494,7 +34494,7 @@ rule(:radius_disconnect_object) do
           unreadable
         )
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:radius_server_object) do
@@ -34512,7 +34512,7 @@ rule(:radius_server_object) do
           ipaddr
         )
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:range_address_type) do
@@ -34526,7 +34526,7 @@ rule(:range_address_type) do
             )
         )
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:reconfigure_trigger_type) do
@@ -34823,7 +34823,7 @@ rule(:rib_aggregate_type) do
                   "passive"
                 )
             )
-        ).as(:oneline)
+        )
     )
 end
 
@@ -34837,7 +34837,7 @@ rule(:rib_group_type) do
     sc(
         "inet" arg,
         "inet6" arg
-    ).as(:oneline)
+    )
 end
 
 rule(:rib_static_metric_type) do
@@ -35108,7 +35108,7 @@ rule(:daily_object) do
           "exclude",
           "all-day"
         )
-    ).as(:oneline)
+    )
 end
 
 rule(:scripts_type) do
@@ -35157,7 +35157,7 @@ rule(:commit_scripts_file_type) do
                 "sha1" arg,
                 "sha-256" arg
             )
-        ).as(:oneline)
+        )
     )
   )
 end
@@ -35181,7 +35181,7 @@ rule(:op_scripts_file_type) do
                 "sha1" arg,
                 "sha-256" arg
             )
-        ).as(:oneline)
+        )
     )
   )
 end
@@ -35207,7 +35207,7 @@ rule(:securid_server_object) do
     sc(
         "configuration-file" arg
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:security_group_vpn) do
@@ -35430,7 +35430,7 @@ rule(:gvpn_server_ike) do
                             "user-at-hostname" arg
                           )
                       )
-                  ).as(:oneline)
+                  )
                 ),
                 "local-identity" (
                     sc(
@@ -35622,7 +35622,7 @@ rule(:security_ike) do
                           "connections-limit" arg,
                           "ike-user-type" arg
                       )
-                  ).as(:oneline)
+                  )
                 ),
                 "dead-peer-detection" (
                     sc(
@@ -35634,7 +35634,7 @@ rule(:security_ike) do
                         "interval" arg,
                         "threshold" arg
                     )
-                ).as(:oneline),
+                ),
                 "no-nat-traversal",
                 "nat-keepalive" arg,
                 "local-identity" (
@@ -36171,10 +36171,10 @@ rule(:address_book_type) do
     sc(
         "address" (
           address_type
-        ).as(:oneline),
+        ),
         "address-set" (
           address_set_type
-        ).as(:oneline)
+        )
     )
 end
 
@@ -36182,9 +36182,9 @@ rule(:server_group_type) do
     sc(
         "server-group" arg (
             sc(
-                "address" arg.as(:oneline)
+                "address" arg
             )
-        ).as(:oneline)
+        )
     )
 end
 
@@ -36240,7 +36240,7 @@ rule(:service_set_syslog_object) do
                         "nat-logs",
                         "ids-logs"
                     )
-                ).as(:oneline)
+                )
             )
         ),
         "message-rate-limit" arg
@@ -37285,7 +37285,7 @@ rule(:subscription_type) do
         "ct1" arg,
         "ct2" arg,
         "ct3" arg
-    ).as(:oneline)
+    )
 end
 
 rule(:syslog_object) do
@@ -37319,7 +37319,7 @@ rule(:tacplus_server_object) do
           ipv4addr
         )
     )
-  ).as(:oneline)
+  )
 end
 
 rule(:te_class_object) do
@@ -37397,7 +37397,7 @@ rule(:three_color_policer_action) do
             sc(
                 "discard"
             )
-        ).as(:oneline)
+        )
     )
   ).as(:oneline)
 end
@@ -37420,7 +37420,7 @@ rule(:tty_port_object) do
         "insecure",
         "type" arg,
         "silent-with-modem"
-    ).as(:oneline)
+    )
 end
 
 rule(:tunable_object) do
@@ -37550,9 +37550,9 @@ rule(:v6_server_group_type) do
     sc(
         "server-group" arg (
             sc(
-                "address" arg.as(:oneline)
+                "address" arg
             )
-        ).as(:oneline)
+        )
     )
 end
 
@@ -37698,7 +37698,7 @@ rule(:vlan_map) do
         "inner-tag-protocol-id" arg,
         "vlan-id" arg,
         "inner-vlan-id" arg
-    ).as(:oneline)
+    )
 end
 
 rule(:vpls_filter) do
@@ -37895,7 +37895,7 @@ rule(:vpls_filter) do
                         "port-mirror",
                         "next-hop-group" arg
                     )
-                ).as(:oneline)
+                )
             )
         )
     )

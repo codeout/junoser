@@ -36,7 +36,7 @@ module Junoser
       private
 
       def oneliner?
-        @oneliner ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[contains(text(), "oneliner")]').empty?
+        @oneliner ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="oneliner"]').empty?
       end
 
       def has_single_child_of?(klass)
