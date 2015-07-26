@@ -5683,7 +5683,9 @@ module Junoser
 
     rule(:chassis_feb_type) do
         sc(
-            str("slot")
+            b(a(str("slot"), arg),
+              a(str("sampling-instance"), arg)
+            )
         )
     end
 
@@ -5706,7 +5708,7 @@ module Junoser
             str("offline"),
             str("offline-on-fabric-bandwidth-reduction"),
             str("port-mirror-instance"),
-            str("sampling-instance"),
+            a(str("sampling-instance"), arg),
             b(str("inline-services"),
               a(str("bandwidth"), str("1g") | str("10g"))
             ),
@@ -29897,7 +29899,66 @@ module Junoser
                     str("mpls")
                 )
             ),
-            str("instance")
+            b(a(str("instance"), arg),
+              sc(
+                str("disable"),
+                b(str("input"),
+                  sc(
+                    a(str("rate"), arg),
+                    a(str("run-length"), arg),
+                    a(str("max-packets-per-second"), arg),
+                    a(str("maximum-packet-length"), arg)
+                  )
+                ),
+                a(str("family"), str("mpls") | str("inet6") | str("inet") ,
+                  sc(
+                    str("disable"),
+                    b(str("output"),
+                      sc(
+                        a(str("aggregate-export-interval"), arg),
+                        a(str("flow-active-timeout"), arg),
+                        a(str("flow-inactive-timeout"), arg),
+                        a(str("extension-service"), arg),
+                        b(a(str("flow-server"), arg),
+                          sc(
+                            b(str("aggregation"),
+                              sc(
+                                str("autonomous-system"),
+                                str("destination-prefix"),
+                                str("protocol-port"),
+                                b(str("source-destination-prefix"),
+                                  str("caida-compliant")
+                                ),
+                                str("source-prefix")
+                              )
+                            ),
+                            a(str("autonomous-system-type"), str("origin") | str("peer")),
+                            (str("local-dump") | str("no-local-dump")),
+                            a(str("port"), arg),
+                            a(str("source-address"), ipaddr),
+                            a(str("version"), arg),
+                            b(str("version9"),
+                              a(str("template"), arg)
+                            )
+                          )
+                        ),
+                        b(a(str("interface"), arg),
+                          sc(
+                            a(str("engine-id"), arg),
+                            a(str("engine-type"), arg),
+                            a(str("source-address"), ipaddr)
+                          )
+                        ),
+                        b(str("inline-jflow"),
+                          a(str("source-address"), ipaddr),
+                          a(str("flow-export-rate"), arg)
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
         )
     end
 
