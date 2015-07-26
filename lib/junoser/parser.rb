@@ -5546,6 +5546,12 @@ module Junoser
                         )
                     )
                 )
+            ),
+            b(str("forwarding-options"),
+              sc(
+                a(str("num-65-127-prefix"), arg),
+                str("lpm-profile prefix-65-127-disable")
+              )
             )
         )
     end

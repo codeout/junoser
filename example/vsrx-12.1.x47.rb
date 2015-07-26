@@ -5508,6 +5508,12 @@ rule(:chassis_type) do
                     )
                 )
             )
+        ),
+        "forwarding-options" (
+          sc(
+            "num-65-127-prefix" arg,
+            "lpm-profile prefix-65-127-disable"
+          )
         )
     )
 end
