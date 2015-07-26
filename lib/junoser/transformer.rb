@@ -23,6 +23,7 @@ module Junoser
     end
 
     rule(label: simple(:label), child: sequence(:children)) do
+      Junoser::Transformer.remove_slash_asterisk children
       %[#{label}\n#{children.join("\n")}]
     end
 
@@ -31,11 +32,24 @@ module Junoser
     end
 
     rule(statement: simple(:statement), argument: sequence(:arguments)) do
+      Junoser::Transformer.remove_slash_asterisk arguments
       %[#{statement}\n#{arguments.join("\n")}]
     end
 
     rule(oneline: simple(:str)) do
       str.to_s.gsub("\n", ' ')
+    end
+
+
+    def self.remove_slash_asterisk(array)
+      open = array.index("arg(/*)\n")
+      close = array.index("arg(*/)")
+
+      if open && close
+        (open..close).reverse_each do |i|
+          array.delete_at i
+        end
+      end
     end
   end
 end
