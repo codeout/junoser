@@ -6,11 +6,8 @@ require 'junoser/transformer'
 module Junoser
   module Display
     class Structure
-      attr_accessor :output
-
       def initialize(io_or_string)
         @input = io_or_string
-        @output = $stdout
         @config = Junoser::Display::ConfigStore.new
       end
 
@@ -24,7 +21,7 @@ module Junoser
           @config << transformed
         end
 
-        @output.puts @config.to_s
+        @config.to_s
       end
     end
   end

@@ -4,17 +4,18 @@ require 'junoser/input'
 module Junoser
   module Display
     class Set
-      attr_accessor :output
-
       def initialize(io_or_string)
         @input = io_or_string
-        @output = $stdout
       end
 
       def transform
+        result = ''
+
         process do |current_stack, str|
-          @output.puts transform_line(current_stack, str)
+          result << transform_line(current_stack, str) << "\n"
         end
+
+        result
       end
 
       def commit_check(&block)

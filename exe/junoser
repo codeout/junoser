@@ -43,9 +43,9 @@ case command
 when :check
   abort unless Junoser::Cli.commit_check($<)
 when :display_set
-  Junoser::Cli.display_set $<
+  puts Junoser::Cli.display_set($<)
 when :struct
-  Junoser::Cli.struct $<
+  puts Junoser::Cli.struct($<)
 else
   puts opts
   abort
