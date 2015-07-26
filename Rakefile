@@ -2,6 +2,7 @@ require 'bundler/gem_tasks'
 require 'junoser/development'
 require 'nokogiri'
 require 'pathname'
+require 'rake/testtask'
 
 xsd_path = File.expand_path('../tmp/junos-system.xsd', Pathname.new(__FILE__).realpath)
 rule_path = File.expand_path('../tmp/rule.rb', Pathname.new(__FILE__).realpath)
@@ -35,3 +36,11 @@ namespace :build do
     end
   end
 end
+
+
+Rake::TestTask.new do |t|
+  t.verbose = true
+end
+
+desc 'Run tests'
+task default: :test
