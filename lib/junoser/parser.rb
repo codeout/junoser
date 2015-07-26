@@ -32,10 +32,10 @@ module Junoser
     rule(:space)   { match('\s').repeat(1) }
     rule(:any)     { match('.').repeat(1) }
     rule(:eos)     { match('$') }
-    rule(:dotted)  { match('[^. \t\n\r\f]').repeat(1) >> match('.') >> match('[^. \t\n\r\f]').repeat(1) }
-    rule(:quote)   { match('"') >> match('[^"]').repeat(1) >> match('"') }
+    rule(:dotted)  { match('[^. \t\n\r\f]').repeat(1) >> str('.') >> match('[^. \t\n\r\f]').repeat(1) }
+    rule(:quote)   { str('"') >> match('[^"]').repeat(1) >> str('"') }
     rule(:address) { match('[0-9a-fA-F:.]').repeat(1) }
-    rule(:prefix ) { address >> (match('/') >> match('[0-9]').repeat(1)).maybe }
+    rule(:prefix ) { address >> (str('/') >> match('[0-9]').repeat(1)).maybe }
 
     root(:set)
     rule(:set) { (str('set') | str('deactivate')) >> space >> configuration.as(:config) }
