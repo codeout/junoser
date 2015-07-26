@@ -23122,6 +23122,9 @@ module Junoser
             ),
             b(str("mld-snooping"),
               juniper_protocols_mld_snooping
+            ),
+            b(str("layer2-control"),
+              juniper_protocols_layer2_control
             )
         )
     end
@@ -25291,6 +25294,54 @@ module Junoser
                 )
             )
         )
+    end
+
+    rule(:juniper_protocols_layer2_control) do
+      sc(
+        b(str("bpdu-block"),
+          sc(
+            a(str("disable-timeout"), arg),
+            a(str("interface"), any)
+          )
+        ),
+        b(str("mac-rewrite"),
+          b(a(str("interface"), arg),
+            sc(
+              str("enable-all-ifl"),
+              b(str("protocol"),
+                sc(
+                  str("cdp"),
+                  str("stp"),
+                  str("vtp"),
+                  str("pvstp")
+                )
+              )
+            )
+          )
+        ),
+        str("nonstop-bridging"),
+        b(str("traceoptions"),
+          sc(
+            b(str("file"),
+              sc(
+                arg,
+                a(str("size"), arg),
+                a(str("files"), arg),
+                str("world-readable"),
+                str("no-world-readable"),
+                b(str("match"),
+                  regular_expression
+                )
+              )
+            ).as(:oneline),
+            a(str("flag"), str("all") | str("kernel") | str("change-events") | str("kernel-detail") | str("config-states") | str("resource-usage") | str("gres-events") | str("select-events"),
+              sc(
+                str("disable")
+              )
+            ).as(:oneline)
+          )
+        )
+      )
     end
 
     rule(:juniper_protocols_mobile_ipv4) do

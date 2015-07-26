@@ -23094,6 +23094,9 @@ rule(:juniper_protocols) do
         ),
         "mld-snooping" (
           juniper_protocols_mld_snooping
+        ),
+        "layer2-control" (
+          juniper_protocols_layer2_control
         )
     )
 end
@@ -25263,6 +25266,54 @@ rule(:juniper_protocols_mld_snooping) do
             )
         )
     )
+end
+
+rule(:juniper_protocols_layer2_control) do
+  sc(
+    "bpdu-block" (
+      sc(
+        "disable-timeout" arg,
+        "interface" any
+      )
+    ),
+    "mac-rewrite" (
+      "interface" arg (
+        sc(
+          "enable-all-ifl",
+          "protocol" (
+            sc(
+              "cdp",
+              "stp",
+              "vtp",
+              "pvstp"
+            )
+          )
+        )
+      )
+    ),
+    "nonstop-bridging",
+    "traceoptions" (
+      sc(
+        "file" (
+          sc(
+            "filename" arg,
+            "size" arg,
+            "files" arg,
+            "world-readable",
+            "no-world-readable",
+            "match" (
+              regular_expression
+            )
+          )
+        ).as(:oneline),
+        "flag" ("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events") (
+          sc(
+            "disable"
+          )
+        ).as(:oneline)
+      )
+    )
+  )
 end
 
 rule(:juniper_protocols_mobile_ipv4) do
