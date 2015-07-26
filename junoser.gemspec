@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{PEG parser for JUNOS configuration.}
   spec.description   = %q{PEG parser to vefiry and translate into different formats for JUNOS configuration.}
-  spec.homepage      = "https://github.com/codeout/sakura-cli"
+  spec.homepage      = "https://github.com/codeout/junoser"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
