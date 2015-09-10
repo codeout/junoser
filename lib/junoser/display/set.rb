@@ -48,9 +48,9 @@ module Junoser
 
         Junoser::Input.new(@input).read.split("\n").each do |line|
           case line
-          when /(.*){/
+          when /(?!.*})(.*){/
             stack.push $1.strip
-          when '}'
+          when /}\s*$/
             stack.pop
           when /((?!\[).*)\[(.*)\];/
             $2.split("\s").each do |i|
