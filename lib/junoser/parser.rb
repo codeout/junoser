@@ -18712,7 +18712,7 @@ module Junoser
     end
 
     rule(:juniper_policy_options) do
-        sc(
+        c(
             b(a(str("prefix-list"), arg),
                 sc(
                     prefix_list_items,
