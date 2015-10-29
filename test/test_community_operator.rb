@@ -2,8 +2,6 @@ require 'test-unit'
 require 'junoser'
 
 class TestCommunityOperator < Test::Unit::TestCase
-  parser = Junoser::Parser.new
-
   test 'community operator' do
     ['set policy-options policy-statement foo term term-foo then community add comm-foo',
      'set policy-options policy-statement foo then community add comm-foo'].each do |config|

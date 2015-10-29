@@ -2,7 +2,6 @@ require 'test-unit'
 require 'junoser'
 
 class TestCommentLine < Test::Unit::TestCase
-  parser = Junoser::Parser.new
   display_set_config = <<-EOS
  /* a comment */
  # a comment
