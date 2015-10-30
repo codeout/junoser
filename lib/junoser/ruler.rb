@@ -108,6 +108,8 @@ end"
       str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
       str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
 
+      str.gsub!(/(rule\(:juniper_policy_options\) do\s*)sc\(/) { "#{$1}c(" }
+
       str
     end
 
