@@ -18792,12 +18792,12 @@ module Junoser
                                     b(str("policy"),
                                       policy_algebra
                                     ),
-                                    b(str("route-filter"),
+                                    b(a(str("route-filter"), arg),
                                       control_route_filter_type
-                                    ),
-                                    b(str("source-address-filter"),
+                                    ).as(:oneline),
+                                    b(a(str("source-adress-filter"), arg),
                                       control_source_address_filter_type
-                                    ),
+                                    ).as(:oneline),
                                     b(str("prefix-list"),
                                       control_prefix_list_type
                                     ),
@@ -19153,12 +19153,12 @@ module Junoser
                             b(str("policy"),
                               policy_algebra
                             ),
-                            b(str("route-filter"),
+                            b(a(str("route-filter"), arg),
                               control_route_filter_type
-                            ),
-                            b(str("source-address-filter"),
+                            ).as(:oneline),
+                            b(a(str("source-adress-filter"), arg),
                               control_source_address_filter_type
-                            ),
+                            ).as(:oneline),
                             b(str("prefix-list"),
                               control_prefix_list_type
                             ),
@@ -19813,8 +19813,7 @@ module Junoser
     end
 
     rule(:control_route_filter_type) do
-        s(
-          arg,
+        b(
           c(
             b(str("exact"),
                 arg
@@ -20079,8 +20078,7 @@ module Junoser
     end
 
     rule(:control_source_address_filter_type) do
-        s(
-          arg,
+        b(
           c(
             b(str("exact"),
                 arg

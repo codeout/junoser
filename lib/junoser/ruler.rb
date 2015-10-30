@@ -110,6 +110,11 @@ end"
 
       str.gsub!(/(rule\(:juniper_policy_options\) do\s*)sc\(/) { "#{$1}c(" }
 
+      str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
+      str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
+      str.gsub!(/"source-address-filter" (\(\s*control_source_address_filter_type\s*\))/) { %["source-adress-filter" arg #{$1}.as(:oneline)] }
+      str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
+
       str
     end
 
