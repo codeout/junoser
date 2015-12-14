@@ -52,6 +52,7 @@ module Junoser
       str.gsub! '"filename" arg', 'arg'
       str.gsub! '"description" arg', '"description" (quote | arg)'
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
+      str.gsub! '"filter-name" arg', 'arg'
 
 
       str.gsub!(/^(\s*)"inline-services"/) do
