@@ -28,7 +28,7 @@ module Junoser
         when has_single_child_of?(Junoser::Xsd::Choice)
           child = config.first
           str = child.config.map(&:to_s).compact.join(",\n")
-          format('sc(', str, ')') unless str.empty?
+          format('c(', str, ')') unless str.empty?
         else
           str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.compact.join(",\n")
           format('s(', str, ')')

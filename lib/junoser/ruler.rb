@@ -59,22 +59,22 @@ module Junoser
                 '  "bandwidth" ("1g" | "10g")',
                 ')'], $1)
       end
-      str.gsub!(/^(\s*)"ieee-802.3ad" \(\s*sc\(\s*"lacp" \(\s*sc\(/) do
+      str.gsub!(/^(\s*)"ieee-802.3ad" \(\s*c\(\s*"lacp" \(\s*c\(/) do
         format(['"802.3ad" (',
-                '  sc(',
+                '  c(',
                 '    arg,',
                 '    "lacp" (',
-                '      sc(',
+                '      c(',
                 '        "force-up",'], $1)
       end
-      str.gsub!(/^(\s*)"as-path" \(\s*sc\(\s*"path" arg/) do
+      str.gsub!(/^(\s*)"as-path" \(\s*c\(\s*"path" arg/) do
         format(['"as-path" (',
-                '  sc(',
+                '  c(',
                 '    arg'], $1)
       end
-      str.gsub!(/^(\s*)"as-path" arg \(\s*sc\(\s*"path" arg\s*\)/) do
+      str.gsub!(/^(\s*)"as-path" arg \(\s*c\(\s*"path" arg\s*\)/) do
         format(['"as-path" arg (',
-                '  sc(',
+                '  c(',
                 '    quote,',
                 '    arg',
                 '  )'], $1)
@@ -86,14 +86,14 @@ module Junoser
 end"
       end
 
-      str.gsub!(/("next-hop" \(\s*sc\(\s*c\(\s*[^)]*)"address" \(\s*ipaddr\s*\)/) { "#{$1}ipaddr" }
+      str.gsub!(/("next-hop" \(\s*c\(\s*c\(\s*[^)]*)"address" \(\s*ipaddr\s*\)/) { "#{$1}ipaddr" }
 
       %w[metric metric2 metric3 metric4 tag tag2 preference preference2 color color2 local-preference].each do |key|
-        str.gsub!(/^(\s*"#{key}" \(\s*sc\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
+        str.gsub!(/^(\s*"#{key}" \(\s*c\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
       end
 
       str.gsub!(/(s\(\s*)"address" \(\s*arg\s*\)/) { "#{$1}arg" }
-      str.gsub!(/^(\s*"idle-timeout" \(\s*sc\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
+      str.gsub!(/^(\s*"idle-timeout" \(\s*c\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
 
       str = omit_label(str, 'contents', 'syslog_object')
       str = omit_label(str, 'interface', 'cos_interfaces_type')
@@ -108,7 +108,7 @@ end"
       str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
       str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
 
-      str.gsub!(/(rule\(:juniper_policy_options\) do\s*)sc\(/) { "#{$1}c(" }
+      str.gsub!(/(rule\(:juniper_policy_options\) do\s*)c\(/) { "#{$1}c(" }
 
       str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
       str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
