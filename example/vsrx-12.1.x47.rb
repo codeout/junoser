@@ -6993,6 +6993,7 @@ rule(:ethernet_switching_type) do
         ),
         "storm-control" (
             c(
+                "default",
                 "action-shutdown",
                 "interface" ("all" | "name") (
                     c(
