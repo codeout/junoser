@@ -6977,7 +6977,7 @@ end
 rule(:ethernet_switching_type) do
     c(
         "port-mode" ("access" | "trunk"),
-        "interface-mode-mode" ("access" | "trunk"),
+        "interface-mode" ("access" | "trunk"),
         "reflective-relay",
         "vlan" (
             c(
