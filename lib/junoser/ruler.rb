@@ -61,8 +61,7 @@ module Junoser
       end
       str.gsub!(/^(\s*)"ieee-802.3ad" \(\s*c\(\s*"lacp" \(\s*c\(/) do
         format(['"802.3ad" (',
-                '  c(',
-                '    arg,',
+                '  ca(',
                 '    "lacp" (',
                 '      c(',
                 '        "force-up",'], $1)
@@ -150,6 +149,10 @@ module Junoser
     # choice
     def c(*objects)
       objects.inject {|rule, object| rule | object }
+    end
+
+    def ca(*objects)
+      objects.inject {|rule, object| rule | object } | arg
     end
 
     # sequence
