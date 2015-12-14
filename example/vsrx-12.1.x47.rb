@@ -819,9 +819,8 @@ rule(:configuration) do
                           "no-gratuitous-arp-reply",
                           "no-gratuitous-arp-request",
                           "no-no-gratuitous-arp-request",
-                          "ether-options",
                           "fibrechannel-options",
-                          "gigether-options" (
+                          b("ether-options" | "gigether-options",
                               c(
                                   "loopback",
                                   "no-loopback",
@@ -9179,9 +9178,8 @@ rule(:interfaces_type) do
         "no-gratuitous-arp-reply",
         "no-gratuitous-arp-request",
         "no-no-gratuitous-arp-request",
-        "ether-options",
         "fibrechannel-options",
-        "gigether-options" (
+        b("ether-options" | "gigether-options",
             c(
                 "loopback",
                 "no-loopback",
@@ -13536,9 +13534,8 @@ rule(:juniper_dynamic_profile_object) do
                         "no-gratuitous-arp-reply",
                         "no-gratuitous-arp-request",
                         "no-no-gratuitous-arp-request",
-                        "ether-options",
                         "fibrechannel-options",
-                        "gigether-options" (
+                        b("ether-options" | "gigether-options",
                             c(
                                 "loopback",
                                 "no-loopback",
