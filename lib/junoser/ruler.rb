@@ -83,6 +83,10 @@ module Junoser
         format(['"vrf-target" (',
                 '  ca('], $1)
       end
+      str.gsub!(/^(\s*)"teardown" \(\s*c\(/) do
+        format(['"teardown" (',
+                '  sc('], $1)
+      end
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
         "rule(:regular_expression) do
