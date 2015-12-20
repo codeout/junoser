@@ -87,11 +87,19 @@ module Junoser
         format(['"teardown" (',
                 '  sc('], $1)
       end
+      str.gsub!(/^(\s*)"file" \(\s*c\(\s*arg,/) do
+        format(['"file" (',
+                '  sca('], $1)
+      end
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
         "rule(:regular_expression) do
   (quote | arg).as(:arg)
 end"
+      end
+      str.gsub!(/^rule\(:trace_file_type\) do\s*c\(\s*arg,/) do
+        "rule(:trace_file_type) do
+  sca("
       end
 
       str.gsub!(/("next-hop" \(\s*c\(\s*c\(\s*[^)]*)"address" \(\s*ipaddr\s*\)/) { "#{$1}ipaddr" }
@@ -173,6 +181,10 @@ module Junoser
     # sequential choice
     def sc(*objects)
       (c(*objects) >> space.maybe).repeat(0)
+    end
+
+    def sca(*objects)
+      (c(*objects, arg) >> space.maybe).repeat(0)
     end
 
     rule(:arg)     { match('\\S').repeat(1) }
