@@ -79,6 +79,10 @@ module Junoser
                 '    arg',
                 '  )'], $1)
       end
+      str.gsub!(/^(\s*)"vrf-target" \(\s*c\(\s*"community" arg,/) do
+        format(['"vrf-target" (',
+                '  ca('], $1)
+      end
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
         "rule(:regular_expression) do
