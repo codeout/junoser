@@ -54,6 +54,31 @@ module Junoser
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
       str.gsub! '"filter-name" arg', 'arg'
 
+      str.gsub!(/(s\(\s*)"address" \(\s*arg\s*\)/) { "#{$1}arg" }
+      str.gsub!(/^(\s*"idle-timeout" \(\s*c\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
+
+      str = omit_label(str, 'contents', 'syslog_object')
+      str = omit_label(str, 'interface', 'cos_interfaces_type')
+      str = omit_label(str, 'interface', 'ir_interfaces_type')
+      str = omit_label(str, 'interface', 'interfaces_type')
+      str = omit_label(str, 'client-address-list', 'client_address_object')
+      str = omit_label(str, 'prefix-list-item', 'prefix_list_items')
+      str = omit_label(str, 'instance', 'juniper_routing_instance')
+      str = omit_label(str, 'vlan', 'vlan_type')
+
+      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmpv6"#$1"icmp"] }
+      str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
+      str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+      str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
+      str.gsub!(/"source-address-filter" (\(\s*control_source_address_filter_type\s*\))/) { %["source-adress-filter" arg #{$1}.as(:oneline)] }
+      str.gsub!(/("next-hop" \(\s*c\(\s*c\(\s*[^)]*)"address" \(\s*ipaddr\s*\)/) { "#{$1}ipaddr" }
+
+      %w[metric metric2 metric3 metric4 tag tag2 preference preference2 color color2 local-preference].each do |key|
+        str.gsub!(/^(\s*"#{key}" \(\s*c\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
+      end
+      str.gsub!(/^(\s*"vrf-target" \(\s*)c\(\s*"community" arg,/) { "#{$1}ca(" }
+      str.gsub!(/^(\s*"teardown" \(\s*)c\(/) { "#{$1}sc(" }
+      str.gsub!(/^(\s*"file" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
 
       str.gsub!(/^(\s*)"inline-services"/) do
         format(['"inline-services" (',
@@ -79,57 +104,17 @@ module Junoser
                 '    arg',
                 '  )'], $1)
       end
-      str.gsub!(/^(\s*)"vrf-target" \(\s*c\(\s*"community" arg,/) do
-        format(['"vrf-target" (',
-                '  ca('], $1)
-      end
-      str.gsub!(/^(\s*)"teardown" \(\s*c\(/) do
-        format(['"teardown" (',
-                '  sc('], $1)
-      end
-      str.gsub!(/^(\s*)"file" \(\s*c\(\s*arg,/) do
-        format(['"file" (',
-                '  sca('], $1)
-      end
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
         "rule(:regular_expression) do
   (quote | arg).as(:arg)
 end"
       end
-      str.gsub!(/^rule\(:trace_file_type\) do\s*c\(\s*arg,/) do
-        "rule(:trace_file_type) do
-  sca("
-      end
-
-      str.gsub!(/("next-hop" \(\s*c\(\s*c\(\s*[^)]*)"address" \(\s*ipaddr\s*\)/) { "#{$1}ipaddr" }
-
-      %w[metric metric2 metric3 metric4 tag tag2 preference preference2 color color2 local-preference].each do |key|
-        str.gsub!(/^(\s*"#{key}" \(\s*c\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
-      end
-
-      str.gsub!(/(s\(\s*)"address" \(\s*arg\s*\)/) { "#{$1}arg" }
-      str.gsub!(/^(\s*"idle-timeout" \(\s*c\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
-
-      str = omit_label(str, 'contents', 'syslog_object')
-      str = omit_label(str, 'interface', 'cos_interfaces_type')
-      str = omit_label(str, 'interface', 'ir_interfaces_type')
-      str = omit_label(str, 'interface', 'interfaces_type')
-      str = omit_label(str, 'client-address-list', 'client_address_object')
-      str = omit_label(str, 'prefix-list-item', 'prefix_list_items')
-      str = omit_label(str, 'instance', 'juniper_routing_instance')
-      str = omit_label(str, 'vlan', 'vlan_type')
-
-      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmpv6"#$1"icmp"] }
-      str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
-      str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
 
       str.gsub!(/(rule\(:juniper_policy_options\) do\s*)c\(/) { "#{$1}c(" }
-
-      str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
       str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
-      str.gsub!(/"source-address-filter" (\(\s*control_source_address_filter_type\s*\))/) { %["source-adress-filter" arg #{$1}.as(:oneline)] }
       str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
+      str.gsub!(/^(rule\(:trace_file_type\) do\s*)c\(\s*arg,/) { "#{$1}sca(" }
 
       str
     end
