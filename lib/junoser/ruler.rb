@@ -77,6 +77,7 @@ module Junoser
         str.gsub!(/^(\s*"#{key}" \(\s*c\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
       end
       str.gsub!(/^(\s*"vrf-target" \(\s*)c\(\s*"community" arg,/) { "#{$1}ca(" }
+      str.gsub!(/^(\s*)"priority" \(\s*c\(\s*"setup-priority" arg,\s*"reservation-priority" arg\s*\)\s*\)/) { %[#{$1}a("priority", a(arg, arg)).as(:oneline)] }
 
       %w[teardown hold-time stub].each do |key|
         str.gsub!(/^(\s*"#{key}" \(\s*)c\(/) { "#{$1}sc(" }
