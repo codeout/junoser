@@ -106,9 +106,9 @@ module Junoser
       end
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
-        "rule(:regular_expression) do
-  (quote | arg).as(:arg)
-end"
+        format(['rule(:regular_expression) do',
+                '  (quote | arg).as(:arg)',
+                'end'])
       end
 
       str.gsub!(/(rule\(:juniper_policy_options\) do\s*)c\(/) { "#{$1}c(" }
