@@ -110,6 +110,12 @@ module Junoser
                 '  (quote | arg).as(:arg)',
                 'end'])
       end
+      str.gsub!(/^rule\(:login_user_object\) do\s*arg\.as\(:arg\) \(\s*c\(\s*"full-name" arg,/) do
+        format(['rule(:login_user_object) do',
+                '  arg.as(:arg) (',
+                '    sc(',
+                '        "full-name" (quote | arg),'])
+      end
 
       str.gsub!(/(rule\(:juniper_policy_options\) do\s*)c\(/) { "#{$1}c(" }
       str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
