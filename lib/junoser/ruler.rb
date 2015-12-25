@@ -39,7 +39,7 @@ module Junoser
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
 
-      %w[as-number confederation-as metric-value limit-threshold filename filter-name class-name classifier-name].each do |key|
+      %w[as-number confederation-as metric-value limit-threshold filename filter-name class-name classifier-name link-subscription].each do |key|
         str.gsub! %["#{key}" arg], 'arg'
       end
 
