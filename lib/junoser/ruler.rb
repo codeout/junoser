@@ -38,8 +38,11 @@ module Junoser
 
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
-      str.gsub! '"as-number" arg', 'arg'
-      str.gsub! '"confederation-as" arg', 'arg'
+
+      %w[as-number confederation-as metric-value limit-threshold filename filter-name class-name classifier-name].each do |key|
+        str.gsub! %["#{key}" arg], 'arg'
+      end
+
       str.gsub! '"equal-literal"', '"="'
       str.gsub! '"plus-literal"', '"+"'
       str.gsub! '"minus-literal"', '"-"'
@@ -47,14 +50,8 @@ module Junoser
       str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
       str.gsub! '"vlan" ("id-name" | "all")', '"vlan" ("all" | arg)'
       str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }
-      str.gsub! '"metric-value" arg', 'arg'
-      str.gsub! '"limit-threshold" arg', 'arg'
-      str.gsub! '"filename" arg', 'arg'
       str.gsub! '"description" arg', '"description" (quote | arg)'
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
-      str.gsub! '"filter-name" arg', 'arg'
-      str.gsub! '"class-name" arg', 'arg'
-      str.gsub! '"classifier-name" arg', 'arg'
 
       str.gsub!(/(s\(\s*)"address" \(\s*arg\s*\)/) { "#{$1}arg" }
       str.gsub!(/^(\s*"idle-timeout" \(\s*c\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
