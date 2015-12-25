@@ -77,7 +77,7 @@ module Junoser
       end
       str.gsub!(/^(\s*"vrf-target" \(\s*)c\(\s*"community" arg,/) { "#{$1}ca(" }
 
-      %w[teardown hold-time].each do |key|
+      %w[teardown hold-time stub].each do |key|
         str.gsub!(/^(\s*"#{key}" \(\s*)c\(/) { "#{$1}sc(" }
       end
       %w[file confederation].each do |key|
