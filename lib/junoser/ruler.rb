@@ -68,6 +68,7 @@ module Junoser
       str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmpv6"#$1"icmp"] }
       str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
       str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+      str.gsub!(/"cspf"(.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
       str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
       str.gsub!(/"source-address-filter" (\(\s*control_source_address_filter_type\s*\))/) { %["source-adress-filter" arg #{$1}.as(:oneline)] }
       str.gsub!(/("next-hop" \(\s*c\(\s*c\(\s*[^)]*)"address" \(\s*ipaddr\s*\)/) { "#{$1}ipaddr" }
