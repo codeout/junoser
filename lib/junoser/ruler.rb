@@ -79,6 +79,7 @@ module Junoser
       str.gsub!(/^(\s*"vrf-target" \(\s*)c\(\s*"community" arg,/) { "#{$1}ca(" }
       str.gsub!(/^(\s*"teardown" \(\s*)c\(/) { "#{$1}sc(" }
       str.gsub!(/^(\s*"file" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
+      str.gsub!(/^(\s*"confederation" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
 
       str.gsub!(/^(\s*)"inline-services"/) do
         format(['"inline-services" (',
