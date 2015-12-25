@@ -54,6 +54,7 @@ module Junoser
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
       str.gsub! '"filter-name" arg', 'arg'
       str.gsub! '"class-name" arg', 'arg'
+      str.gsub! '"classifier-name" arg', 'arg'
 
       str.gsub!(/(s\(\s*)"address" \(\s*arg\s*\)/) { "#{$1}arg" }
       str.gsub!(/^(\s*"idle-timeout" \(\s*c\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
