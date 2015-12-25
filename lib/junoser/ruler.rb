@@ -76,10 +76,13 @@ module Junoser
         str.gsub!(/^(\s*"#{key}" \(\s*c\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
       end
       str.gsub!(/^(\s*"vrf-target" \(\s*)c\(\s*"community" arg,/) { "#{$1}ca(" }
-      str.gsub!(/^(\s*"teardown" \(\s*)c\(/) { "#{$1}sc(" }
-      str.gsub!(/^(\s*"file" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
-      str.gsub!(/^(\s*"confederation" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
-      str.gsub!(/^(\s*"hold-time" \(\s*)c\(/) { "#{$1}sc(" }
+
+      %w[teardown hold-time].each do |key|
+        str.gsub!(/^(\s*"#{key}" \(\s*)c\(/) { "#{$1}sc(" }
+      end
+      %w[file confederation].each do |key|
+        str.gsub!(/^(\s*"#{key}" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
+      end
 
       str.gsub!(/^(\s*)"inline-services"/) do
         format(['"inline-services" (',
