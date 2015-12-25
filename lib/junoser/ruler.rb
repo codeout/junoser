@@ -92,10 +92,9 @@ module Junoser
                 '      c(',
                 '        "force-up",'], $1)
       end
-      str.gsub!(/^(\s*)"as-path" \(\s*c\(\s*"path" arg/) do
+      str.gsub!(/^(\s*)"as-path" \(\s*c\(\s*"path" arg,/) do
         format(['"as-path" (',
-                '  c(',
-                '    arg'], $1)
+                '  ca('], $1)
       end
       str.gsub!(/^(\s*)"as-path" arg \(\s*c\(\s*"path" arg\s*\)/) do
         format(['"as-path" arg (',
