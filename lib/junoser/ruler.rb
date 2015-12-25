@@ -115,6 +115,7 @@ end"
       str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
       str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
       str.gsub!(/^(rule\(:trace_file_type\) do\s*)c\(\s*arg,/) { "#{$1}sca(" }
+      str.gsub!(/^(rule\(:archive_object\) do\s*)c\(/) { "#{$1}sc(" }
 
       str
     end
