@@ -38458,6 +38458,16 @@ rule(:service_set_object) do
             )
           )
         )
+      ),
+      "jflow-rules" (
+        c(
+          "sampling"
+        )
+      ),
+      "sampling-service" (
+        c(
+          "service-interface" arg
+        )
       )
     )
   )
