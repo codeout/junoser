@@ -109,6 +109,11 @@ module Junoser
                 '    arg',
                 '  )'], $1)
       end
+      str.gsub!(/^(\s*)"ribgroup-name" arg$/) do
+        format(['arg (',
+                '  arg',
+                ')'], $1)
+      end
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
         format(['rule(:regular_expression) do',
