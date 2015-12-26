@@ -1,3 +1,32 @@
+## 0.2.0 / 2015-12-26
+
+* Use "choice" instead of "sequence of choices"
+  * Sequence of choices comes from .xsd for NETCONF.
+    It's required for XML but worthless and time wasting for CLI.
+  * 150% fast!
+
+* Many bug fixes
+  * 802.3ad
+  * ether-options
+  * storm-control default
+  * vrf-target
+  * maximum-prefix teardown
+  * traceoptions
+  * system syslog archive
+  * system login user
+  * routing-options confederation
+  * hold-time
+  * protocols ospf area x.x.x.x stub default-metric x x
+  * protocols rsvp interface xxx subscription x
+  * traceoptions cspf-link
+  * protocols mpls priority
+  * protocols mpls label-switched-path xxx primary xxx bandwidth xxx
+  * protocols xxx rib-group xxx xxx
+  * protocols mpls path xxx xxx
+
+* Newly supported syntax
+  * Minimal configuration of MS-PIC/MIC based flow sampling
+
 ## 0.1.6 / 2015-10-31
 
 * Bug fix
