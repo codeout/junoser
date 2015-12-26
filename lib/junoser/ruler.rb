@@ -52,6 +52,7 @@ module Junoser
       str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }
       str.gsub! '"description" arg', '"description" (quote | arg)'
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
+      str.gsub! '"path-list" arg (', 'b(ipaddr,'
 
       str.gsub!(/(s\(\s*)"address" \(\s*arg\s*\)/) { "#{$1}arg" }
       str.gsub!(/^(\s*"idle-timeout" \(\s*c\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
