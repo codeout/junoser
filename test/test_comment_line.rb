@@ -8,11 +8,11 @@ class TestCommentLine < Test::Unit::TestCase
  /*
   * a comment
   */
-set system  /* a comment */
-set system  # a comment
+set system host-name foo  /* a comment */
+set system host-name foo  # a comment
 set interfaces lo0 description "/*"  /* a comment */
 set system root-authentication encrypted-password "#"  # a comment
- /* a comment */ set system
+ /* a comment */ set system host-name foo
     EOS
 
   structured_config = <<-EOS
@@ -40,7 +40,7 @@ interfaces {  /* a comment */
   end
 
   test 'transform into structured style' do
-    assert_match /system {\s*root-authentication {\s*encrypted-password "#";\s*}\s*}\s*interfaces lo0 {\s*description "\/\*";\s*}/,
+    assert_match /system {\s*host-name foo;\s*root-authentication {\s*encrypted-password "#";\s*}\s*}\s*interfaces lo0 {\s*description "\/\*";\s*}/,
                  Junoser::Cli.struct(display_set_config)
   end
 
