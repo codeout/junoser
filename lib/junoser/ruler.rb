@@ -86,6 +86,9 @@ module Junoser
       %w[file confederation].each do |key|
         str.gsub!(/^(\s*"#{key}" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
       end
+      %w[exact longer orlonger].each do |key|
+        str.gsub!(/^(\s*"#{key}") \(\s*arg\s*\)/) { "#{$1}" }
+      end
 
       str.gsub!(/^(\s*)"inline-services"/) do
         format(['"inline-services" (',
