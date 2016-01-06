@@ -18281,7 +18281,7 @@ module Junoser
                 c(
                     b(str("template"),
                         c(
-                            a(str("template-name"), arg)
+                            arg
                         )
                     )
                 )
@@ -26811,8 +26811,7 @@ module Junoser
                                 a(str("static-lsp"), arg),
                                 b(str("label-switched-path-template"),
                                     c(
-                                        c(
-                                          a(str("template-name"), arg),
+                                        ca(
                                           str("default-template")
                                         )
                                     )
@@ -26828,8 +26827,7 @@ module Junoser
                                   c(
                                       b(str("label-switched-path-template"),
                                           c(
-                                              c(
-                                                a(str("template-name"), arg),
+                                              ca(
                                                 str("default-template")
                                               )
                                           )
@@ -26869,8 +26867,7 @@ module Junoser
                                                           c(
                                                               b(str("label-switched-path-template"),
                                                                   c(
-                                                                      c(
-                                                                        a(str("template-name"), arg),
+                                                                      ca(
                                                                         str("default-template")
                                                                       )
                                                                   )
@@ -26885,8 +26882,7 @@ module Junoser
                                                         a(str("static-lsp"), arg),
                                                         b(str("label-switched-path-template"),
                                                             c(
-                                                                c(
-                                                                  a(str("template-name"), arg),
+                                                                ca(
                                                                   str("default-template")
                                                                 )
                                                             )
@@ -26920,8 +26916,7 @@ module Junoser
                                                           c(
                                                               b(str("label-switched-path-template"),
                                                                   c(
-                                                                      c(
-                                                                        a(str("template-name"), arg),
+                                                                      ca(
                                                                         str("default-template")
                                                                       )
                                                                   )
@@ -26936,8 +26931,7 @@ module Junoser
                                                         a(str("static-lsp"), arg),
                                                         b(str("label-switched-path-template"),
                                                             c(
-                                                                c(
-                                                                  a(str("template-name"), arg),
+                                                                ca(
                                                                   str("default-template")
                                                                 )
                                                             )
@@ -26971,8 +26965,7 @@ module Junoser
                                                           c(
                                                               b(str("label-switched-path-template"),
                                                                   c(
-                                                                      c(
-                                                                        a(str("template-name"), arg),
+                                                                      ca(
                                                                         str("default-template")
                                                                       )
                                                                   )
@@ -26987,8 +26980,7 @@ module Junoser
                                                         a(str("static-lsp"), arg),
                                                         b(str("label-switched-path-template"),
                                                             c(
-                                                                c(
-                                                                  a(str("template-name"), arg),
+                                                                ca(
                                                                   str("default-template")
                                                                 )
                                                             )
@@ -27017,8 +27009,7 @@ module Junoser
                                                           c(
                                                               b(str("label-switched-path-template"),
                                                                   c(
-                                                                      c(
-                                                                        a(str("template-name"), arg),
+                                                                      ca(
                                                                         str("default-template")
                                                                       )
                                                                   )
@@ -27033,8 +27024,7 @@ module Junoser
                                                         a(str("static-lsp"), arg),
                                                         b(str("label-switched-path-template"),
                                                             c(
-                                                                c(
-                                                                  a(str("template-name"), arg),
+                                                                ca(
                                                                   str("default-template")
                                                                 )
                                                             )
@@ -29573,8 +29563,7 @@ module Junoser
                   c(
                       b(str("label-switched-path-template"),
                           c(
-                              c(
-                                a(str("template-name"), arg),
+                              ca(
                                 str("default-template")
                               )
                           )
@@ -34787,7 +34776,7 @@ module Junoser
                 c(
                     b(str("template"),
                         c(
-                            a(str("template-name"), arg)
+                            arg
                         )
                     )
                 )
@@ -34863,7 +34852,7 @@ module Junoser
                 c(
                     b(str("template"),
                         c(
-                            a(str("template-name"), arg)
+                            arg
                         )
                     )
                 )
@@ -37447,8 +37436,12 @@ module Junoser
                 )
             ),
             c(
-              str("mpls-ipv4-template"),
-              str("mpls-template"),
+              b(str("mpls-ipv4-template"),
+                a(str("label-position"), any)
+              ),
+              b(str("mpls-template"),
+                a(str("label-position"), any)
+              ),
               b(str("ipv6-template"),
                   c(
                       str("nexthop-options")
@@ -37457,7 +37450,11 @@ module Junoser
               str("peer-as-billing-template"),
               b(str("ipv4-template"),
                   c(
-                      str("nexthop-options")
+                      b(str("nexthop-options"),
+                        b(str("mpls"),
+                          a(str("label-position"), any)
+                        )
+                      )
                   )
               )
             )
