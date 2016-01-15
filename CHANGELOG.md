@@ -1,3 +1,11 @@
+## 0.2.1 / 2016-01-15
+
+* Newly supported syntax
+  services flow-monitoring version9 template
+* Bug fix
+  * template-name
+* Start CI
+
 ## 0.2.0 / 2015-12-26
 
 * Use "choice" instead of "sequence of choices"
