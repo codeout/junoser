@@ -1,6 +1,8 @@
 # Junoser
 
-## Description
+[![Build Status](https://travis-ci.org/codeout/junoser.svg)](https://travis-ci.org/codeout/junoser)
+[![Code Climate](https://codeclimate.com/github/codeout/junoser.png)](https://codeclimate.com/github/codeout/junoser)
+[![Inline docs](http://inch-ci.org/github/codeout/junoser.svg)](http://inch-ci.org/github/codeout/junoser)
 
 Junoser is a JUNOS configuration PEG parser which can be automatically generated from Juniper's netconf.xsd. (XML Schema Definition for NETCONF)
 
