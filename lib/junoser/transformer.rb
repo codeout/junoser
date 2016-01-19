@@ -40,6 +40,10 @@ module Junoser
       str.to_s.gsub("\n", ' ')
     end
 
+    rule(oneline: sequence(:strs)) do
+      strs.join(' ')
+    end
+
 
     def self.remove_slash_asterisk(array)
       open = array.index("arg(/*)\n")
