@@ -30136,7 +30136,9 @@ module Junoser
                             a(str("root-login"), arg),
                             c(
                               str("tcp-forwarding"),
-                              str("no-tcp-forwarding")
+                              str("no-tcp-forwarding"),
+                              str("no-passwords"),
+                              str("no-public-keys")
                             ),
                             a(str("protocol-version"), arg),
                             a(str("max-sessions-per-connection"), arg),
@@ -30166,7 +30168,8 @@ module Junoser
                                 )
                             ),
                             a(str("connection-limit"), arg),
-                            a(str("rate-limit"), arg)
+                            a(str("rate-limit"), arg),
+                            a(str("authentication-order"), any)
                         )
                     ),
                     b(str("telnet"),

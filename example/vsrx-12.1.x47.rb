@@ -30330,7 +30330,9 @@ rule(:juniper_system) do
                         "root-login" arg,
                         c(
                           "tcp-forwarding",
-                          "no-tcp-forwarding"
+                          "no-tcp-forwarding",
+                          "no-passwords",
+                          "no-public-keys"
                         ),
                         "protocol-version" arg,
                         "max-sessions-per-connection" arg,
@@ -30360,7 +30362,8 @@ rule(:juniper_system) do
                             )
                         ),
                         "connection-limit" arg,
-                        "rate-limit" arg
+                        "rate-limit" arg,
+                        "authentication-order" any
                     )
                 ),
                 "telnet" (
