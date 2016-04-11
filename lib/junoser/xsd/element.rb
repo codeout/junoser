@@ -26,33 +26,25 @@ module Junoser
       end
 
       def to_s
-        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.join("\n")
-
-        str = case
-              when str.empty? && xml['type']
-                l = label ? "#{label} (" : '('
-                format(l, format(OFFSET + xml['type'].underscore), ')')
-              when str.empty?
+        str = if content.empty?
                 format(label)
               else
-                l = label ? "#{label} (" : '('
-                format(l, str, ')')
+                if label
+                  format("#{label} (", content, ')')
+                else
+                  format('(', content, ')')
+                end
               end
 
         oneliner? ? "#{str}.as(:oneline)" : str
       end
 
       def content
-        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.join("\n")
-
-        case
-        when str.empty? && xml['type']
-          format(OFFSET + xml['type'].underscore)
-        when str.empty?
-          ''
-        else
-          str
-        end
+        @content ||= if config.empty?
+                     xml['type'] ? format(OFFSET + xml['type'].underscore) : ''
+                   else
+                     config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.join("\n")
+                   end
       end
 
 
