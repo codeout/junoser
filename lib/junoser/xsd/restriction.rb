@@ -20,13 +20,13 @@ module Junoser
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }.compact
+        }
       end
 
       def to_s
         return format('arg') if config.empty?
 
-        str = '(' + config.map {|c| c.to_s.strip }.compact.join(' | ') + ')'
+        str = '(' + config.map {|c| c.to_s.strip }.join(' | ') + ')'
         format(str)
       end
     end

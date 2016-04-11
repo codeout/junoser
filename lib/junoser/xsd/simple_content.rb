@@ -16,7 +16,7 @@ module Junoser
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }.compact
+        }
       end
 
       def to_s

@@ -22,11 +22,11 @@ module Junoser
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }.compact
+        }
       end
 
       def to_s
-        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.compact.join("\n")
+        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.join("\n")
 
         str = case
               when str.empty? && xml['type']
@@ -43,7 +43,7 @@ module Junoser
       end
 
       def content
-        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.compact.join("\n")
+        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.join("\n")
 
         case
         when str.empty? && xml['type']

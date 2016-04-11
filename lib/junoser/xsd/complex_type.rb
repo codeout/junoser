@@ -26,11 +26,11 @@ module Junoser
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }.compact
+        }
       end
 
       def to_s
-        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.compact.join("\n")
+        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.join("\n")
 
         str = case [!argument.nil?, !str.empty?]
               when [true, true]

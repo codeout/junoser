@@ -19,7 +19,7 @@ module Junoser
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }.compact
+        }
       end
 
       def to_s
@@ -27,10 +27,10 @@ module Junoser
         when config.empty?
         when has_single_child_of?(Junoser::Xsd::Choice)
           child = config.first
-          str = child.config.map(&:to_s).compact.join(",\n")
+          str = child.config.map(&:to_s).reject(&:empty?).join(",\n")
           format('c(', str, ')') unless str.empty?
         else
-          str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.compact.join(",\n")
+          str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.reject(&:empty?).join(",\n")
           format('s(', str, ')')
         end
       end
