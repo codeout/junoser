@@ -12,11 +12,11 @@ module Junoser
       def config
         raise "ERROR: unknown Enumeration format" if children.size > 1
 
-        has_match? ? 'arg' : %["#{xml['value']}"]
+        has_match? ? ['arg'] : [%["#{xml['value']}"]]
       end
 
       def to_s
-        format(OFFSET + config)
+        format(OFFSET + config.first)
       end
 
 
