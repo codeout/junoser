@@ -2151,15 +2151,11 @@ module Junoser
                               ),
                               b(str("attributes-match"),
                                   s(
-                                    b(str("from-event-attribute"),
-                                          arg
-                                    ),
+                                    a(str("from-event-attribute"), arg),
                                     b(str("condition"),
                                           (str("equals") | str("starts-with") | str("matches"))
                                     ),
-                                    b(str("to-event-attribute-value"),
-                                          arg
-                                    )
+                                    a(str("to-event-attribute-value"), arg)
                                   )
                               ).as(:oneline),
                               b(str("then"),
@@ -2176,9 +2172,7 @@ module Junoser
                                             b(str("filename"),
                                                   arg
                                             ),
-                                            b(str("destination"),
-                                                  arg
-                                            ),
+                                            a(str("destination"), arg),
                                             c(
                                               a(str("user-name"), arg),
                                               a(str("transfer-delay"), arg),
@@ -3925,12 +3919,8 @@ module Junoser
                               ),
                               b(str("policy"),
                                   s(
-                                    b(str("from-zone-name"),
-                                          arg
-                                    ),
-                                    b(str("to-zone-name"),
-                                          arg
-                                    ),
+                                    a(str("from-zone-name"), arg),
+                                    a(str("to-zone-name"), arg),
                                     c(
                                       b(str("policy"),
                                         policy_type
@@ -5856,12 +5846,8 @@ module Junoser
             str("port"),
             b(str("port-range"),
                 s(
-                  b(str("port-range-low"),
-                        arg
-                  ),
-                  b(str("port-range-high"),
-                        arg
-                  )
+                  a(str("port-range-low"), arg),
+                  a(str("port-range-high"), arg)
                 )
             )
         )
@@ -7812,9 +7798,7 @@ module Junoser
                               a(str("next"), arg),
                               b(str("logical-system"),
                                   s(
-                                    b(str("logical-system-name"),
-                                          arg
-                                    ),
+                                    a(str("logical-system-name"), arg),
                                     c(
                                       b(str("routing-instance"),
                                           c(
@@ -8363,9 +8347,7 @@ module Junoser
                               a(str("next"), arg),
                               b(str("logical-system"),
                                   s(
-                                    b(str("logical-system-name"),
-                                          arg
-                                    ),
+                                    a(str("logical-system-name"), arg),
                                     c(
                                       b(str("routing-instance"),
                                           c(
@@ -10448,12 +10430,8 @@ module Junoser
             a(str("weight"), arg),
             b(str("interface"),
                 s(
-                  b(str("logical-interface-name"),
-                        arg
-                  ),
-                  b(str("secondary-ip-address"),
-                        arg
-                  )
+                  a(str("logical-interface-name"), arg),
+                  a(str("secondary-ip-address"), arg)
                 )
             )
         )
@@ -18117,12 +18095,8 @@ module Junoser
                             ),
                             b(str("policy"),
                                 s(
-                                  b(str("from-zone-name"),
-                                        arg
-                                  ),
-                                  b(str("to-zone-name"),
-                                        arg
-                                  ),
+                                  a(str("from-zone-name"), arg),
+                                  a(str("to-zone-name"), arg),
                                   c(
                                     b(str("policy"),
                                       policy_type
@@ -18645,18 +18619,10 @@ module Junoser
                         c(
                             b(str("vsi-manager"),
                                 s(
-                                  b(str("vsi-manager-id"),
-                                        arg
-                                  ),
-                                  b(str("vsi-type"),
-                                        arg
-                                  ),
-                                  b(str("vsi-version"),
-                                        arg
-                                  ),
-                                  b(str("vsi-instance"),
-                                        arg
-                                  )
+                                  a(str("vsi-manager-id"), arg),
+                                  a(str("vsi-type"), arg),
+                                  a(str("vsi-version"), arg),
+                                  a(str("vsi-instance"), arg)
                                 )
                             )
                         )
@@ -18906,28 +18872,14 @@ module Junoser
                                     b(str("community"),
                                         s(
                                           c(
-                                            b(str("="),
-                                                arg
-                                            ),
-                                            b(str("set"),
-                                                arg
-                                            ),
-                                            b(str("+"),
-                                                arg
-                                            ),
-                                            b(str("add"),
-                                                arg
-                                            ),
-                                            b(str("-"),
-                                                arg
-                                            ),
-                                            b(str("delete"),
-                                                arg
-                                            )
+                                            a(str("="), arg),
+                                            a(str("set"), arg),
+                                            a(str("+"), arg),
+                                            a(str("add"), arg),
+                                            a(str("-"), arg),
+                                            a(str("delete"), arg)
                                           ),
-                                          b(str("community-name"),
-                                                arg
-                                          )
+                                          a(str("community-name"), arg)
                                         )
                                     ).as(:oneline),
                                     a(str("damping"), arg),
@@ -19256,28 +19208,14 @@ module Junoser
                             b(str("community"),
                                 s(
                                   c(
-                                    b(str("="),
-                                        arg
-                                    ),
-                                    b(str("set"),
-                                        arg
-                                    ),
-                                    b(str("+"),
-                                        arg
-                                    ),
-                                    b(str("add"),
-                                        arg
-                                    ),
-                                    b(str("-"),
-                                        arg
-                                    ),
-                                    b(str("delete"),
-                                        arg
-                                    )
+                                    a(str("="), arg),
+                                    a(str("set"), arg),
+                                    a(str("+"), arg),
+                                    a(str("add"), arg),
+                                    a(str("-"), arg),
+                                    a(str("delete"), arg)
                                   ),
-                                  b(str("community-name"),
-                                        arg
-                                  )
+                                  a(str("community-name"), arg)
                                 )
                             ).as(:oneline),
                             a(str("damping"), arg),
@@ -19452,9 +19390,7 @@ module Junoser
 
     rule(:control_prefix_list_filter_type) do
         s(
-          b(str("list_name"),
-                arg
-          ),
+          a(str("list_name"), arg),
           c(
             str("exact"),
             str("longer"),
@@ -19573,28 +19509,14 @@ module Junoser
             b(str("community"),
                 s(
                   c(
-                    b(str("="),
-                        arg
-                    ),
-                    b(str("set"),
-                        arg
-                    ),
-                    b(str("+"),
-                        arg
-                    ),
-                    b(str("add"),
-                        arg
-                    ),
-                    b(str("-"),
-                        arg
-                    ),
-                    b(str("delete"),
-                        arg
-                    )
+                    a(str("="), arg),
+                    a(str("set"), arg),
+                    a(str("+"), arg),
+                    a(str("add"), arg),
+                    a(str("-"), arg),
+                    a(str("delete"), arg)
                   ),
-                  b(str("community-name"),
-                        arg
-                  )
+                  a(str("community-name"), arg)
                 )
             ).as(:oneline),
             a(str("damping"), arg),
@@ -19699,18 +19621,10 @@ module Junoser
             str("exact"),
             str("longer"),
             str("orlonger"),
-            b(str("upto"),
-                  arg
-            ),
-            b(str("through"),
-                  arg
-            ),
-            b(str("prefix-length-range"),
-                  arg
-            ),
-            b(str("address-mask"),
-                  arg
-            )
+            a(str("upto"), arg),
+            a(str("through"), arg),
+            a(str("prefix-length-range"), arg),
+            a(str("address-mask"), arg)
           ),
           c(
             b(str("metric"),
@@ -19825,28 +19739,14 @@ module Junoser
             b(str("community"),
                 s(
                   c(
-                    b(str("="),
-                        arg
-                    ),
-                    b(str("set"),
-                        arg
-                    ),
-                    b(str("+"),
-                        arg
-                    ),
-                    b(str("add"),
-                        arg
-                    ),
-                    b(str("-"),
-                        arg
-                    ),
-                    b(str("delete"),
-                        arg
-                    )
+                    a(str("="), arg),
+                    a(str("set"), arg),
+                    a(str("+"), arg),
+                    a(str("add"), arg),
+                    a(str("-"), arg),
+                    a(str("delete"), arg)
                   ),
-                  b(str("community-name"),
-                        arg
-                  )
+                  a(str("community-name"), arg)
                 )
             ).as(:oneline),
             a(str("damping"), arg),
@@ -19947,15 +19847,9 @@ module Junoser
             str("exact"),
             str("longer"),
             str("orlonger"),
-            b(str("upto"),
-                  arg
-            ),
-            b(str("through"),
-                  arg
-            ),
-            b(str("prefix-length-range"),
-                  arg
-            )
+            a(str("upto"), arg),
+            a(str("through"), arg),
+            a(str("prefix-length-range"), arg)
           ),
           c(
             b(str("metric"),
@@ -20070,28 +19964,14 @@ module Junoser
             b(str("community"),
                 s(
                   c(
-                    b(str("="),
-                        arg
-                    ),
-                    b(str("set"),
-                        arg
-                    ),
-                    b(str("+"),
-                        arg
-                    ),
-                    b(str("add"),
-                        arg
-                    ),
-                    b(str("-"),
-                        arg
-                    ),
-                    b(str("delete"),
-                        arg
-                    )
+                    a(str("="), arg),
+                    a(str("set"), arg),
+                    a(str("+"), arg),
+                    a(str("add"), arg),
+                    a(str("-"), arg),
+                    a(str("delete"), arg)
                   ),
-                  b(str("community-name"),
-                        arg
-                  )
+                  a(str("community-name"), arg)
                 )
             ).as(:oneline),
             a(str("damping"), arg),
@@ -21439,12 +21319,8 @@ module Junoser
                                     ),
                                     b(str("virtual-link"),
                                         s(
-                                          b(str("neighbor-id"),
-                                                arg
-                                          ),
-                                          b(str("transit-area"),
-                                                arg
-                                          ),
+                                          a(str("neighbor-id"), arg),
+                                          a(str("transit-area"), arg),
                                           c(
                                             c(
                                               str("disable")
@@ -21855,12 +21731,8 @@ module Junoser
                             ),
                             b(str("virtual-link"),
                                 s(
-                                  b(str("neighbor-id"),
-                                        arg
-                                  ),
-                                  b(str("transit-area"),
-                                        arg
-                                  ),
+                                  a(str("neighbor-id"), arg),
+                                  a(str("transit-area"), arg),
                                   c(
                                     c(
                                       str("disable")
@@ -25599,12 +25471,8 @@ module Junoser
                     ),
                     b(str("virtual-link"),
                         s(
-                          b(str("neighbor-id"),
-                                arg
-                          ),
-                          b(str("transit-area"),
-                                arg
-                          ),
+                          a(str("neighbor-id"), arg),
+                          a(str("transit-area"), arg),
                           c(
                             c(
                               str("disable")
@@ -27321,12 +27189,8 @@ module Junoser
                                             ),
                                             b(str("virtual-link"),
                                                 s(
-                                                  b(str("neighbor-id"),
-                                                        arg
-                                                  ),
-                                                  b(str("transit-area"),
-                                                        arg
-                                                  ),
+                                                  a(str("neighbor-id"), arg),
+                                                  a(str("transit-area"), arg),
                                                   c(
                                                     c(
                                                       str("disable")
@@ -27737,12 +27601,8 @@ module Junoser
                                     ),
                                     b(str("virtual-link"),
                                         s(
-                                          b(str("neighbor-id"),
-                                                arg
-                                          ),
-                                          b(str("transit-area"),
-                                                arg
-                                          ),
+                                          a(str("neighbor-id"), arg),
+                                          a(str("transit-area"), arg),
                                           c(
                                             c(
                                               str("disable")
@@ -30267,12 +30127,8 @@ module Junoser
                                     ),
                                     b(str("dlv"),
                                         s(
-                                          b(str("domain"),
-                                                arg
-                                          ),
-                                          b(str("trusted-anchor"),
-                                                arg
-                                          )
+                                          a(str("domain"), arg),
+                                          a(str("trusted-anchor"), arg)
                                         )
                                     ).as(:oneline),
                                     a(str("secure-domains"), arg)
@@ -32741,15 +32597,9 @@ module Junoser
             str("exact"),
             str("longer"),
             str("orlonger"),
-            b(str("upto"),
-                  arg
-            ),
-            b(str("through"),
-                  arg
-            ),
-            b(str("prefix-length-range"),
-                  arg
-            )
+            a(str("upto"), arg),
+            a(str("through"), arg),
+            a(str("prefix-length-range"), arg)
           ),
           c(
             str("allow")
@@ -34930,12 +34780,8 @@ module Junoser
             a(str("description"), quote | arg),
             b(str("start-date"),
                 s(
-                  b(str("start-date"),
-                        arg
-                  ),
-                  b(str("stop-date"),
-                        arg
-                  )
+                  a(str("start-date"), arg),
+                  a(str("stop-date"), arg)
                 )
             ),
             b(str("daily"),
@@ -34971,12 +34817,8 @@ module Junoser
             c(
               b(str("start-time"),
                   s(
-                    b(str("start-time-value"),
-                          arg
-                    ),
-                    b(str("stop-time"),
-                          arg
-                    )
+                    a(str("start-time-value"), arg),
+                    a(str("stop-time"), arg)
                   )
               ),
               str("exclude"),
@@ -37826,12 +37668,8 @@ module Junoser
                     ),
                     b(str("route"),
                         s(
-                          b(str("route_address"),
-                                arg
-                          ),
-                          b(str("routing-instance"),
-                                arg
-                          ),
+                          a(str("route_address"), arg),
+                          a(str("routing-instance"), arg),
                           c(
                             a(str("priority-cost"), arg)
                           )

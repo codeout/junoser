@@ -2107,15 +2107,11 @@ rule(:configuration) do
                           ),
                           "attributes-match" (
                               s(
-                                "from-event-attribute" (
-                                      arg
-                                ),
+                                "from-event-attribute" arg,
                                 "condition" (
                                       ("equals" | "starts-with" | "matches")
                                 ),
-                                "to-event-attribute-value" (
-                                      arg
-                                )
+                                "to-event-attribute-value" arg
                               )
                           ).as(:oneline),
                           "then" (
@@ -2132,9 +2128,7 @@ rule(:configuration) do
                                         "filename" (
                                               arg
                                         ),
-                                        "destination" (
-                                              arg
-                                        ),
+                                        "destination" arg,
                                         c(
                                           "user-name" arg,
                                           "transfer-delay" arg,
@@ -3893,12 +3887,8 @@ rule(:configuration) do
                           ),
                           "policy" (
                               s(
-                                "from-zone-name" (
-                                      arg
-                                ),
-                                "to-zone-name" (
-                                      arg
-                                ),
+                                "from-zone-name" arg,
+                                "to-zone-name" arg,
                                 c(
                                   "policy" (
                                     policy_type
@@ -5830,12 +5820,8 @@ rule(:chassis_fibre_channel_type) do
         "port",
         "port-range" (
             s(
-              "port-range-low" (
-                    arg
-              ),
-              "port-range-high" (
-                    arg
-              )
+              "port-range-low" arg,
+              "port-range-high" arg
             )
         )
     )
@@ -7787,9 +7773,7 @@ rule(:inet6_filter) do
                           "next" arg,
                           "logical-system" (
                               s(
-                                "logical-system-name" (
-                                      arg
-                                ),
+                                "logical-system-name" arg,
                                 c(
                                   "routing-instance" (
                                       c(
@@ -8338,9 +8322,7 @@ rule(:inet_filter) do
                           "next" arg,
                           "logical-system" (
                               s(
-                                "logical-system-name" (
-                                      arg
-                                ),
+                                "logical-system-name" arg,
                                 c(
                                   "routing-instance" (
                                       c(
@@ -10430,12 +10412,8 @@ rule(:ip_monitoring_address_type) do
         "weight" arg,
         "interface" (
             s(
-              "logical-interface-name" (
-                    arg
-              ),
-              "secondary-ip-address" (
-                    arg
-              )
+              "logical-interface-name" arg,
+              "secondary-ip-address" arg
             )
         )
     )
@@ -18146,12 +18124,8 @@ rule(:juniper_logical_system) do
                         ),
                         "policy" (
                             s(
-                              "from-zone-name" (
-                                    arg
-                              ),
-                              "to-zone-name" (
-                                    arg
-                              ),
+                              "from-zone-name" arg,
+                              "to-zone-name" arg,
                               c(
                                 "policy" (
                                   policy_type
@@ -18679,18 +18653,10 @@ rule(:juniper_policy_options) do
                     c(
                         "vsi-manager" (
                             s(
-                              "vsi-manager-id" (
-                                    arg
-                              ),
-                              "vsi-type" (
-                                    arg
-                              ),
-                              "vsi-version" (
-                                    arg
-                              ),
-                              "vsi-instance" (
-                                    arg
-                              )
+                              "vsi-manager-id" arg,
+                              "vsi-type" arg,
+                              "vsi-version" arg,
+                              "vsi-instance" arg
                             )
                         )
                     )
@@ -18951,28 +18917,14 @@ rule(:juniper_policy_options) do
                                 "community" (
                                     s(
                                       c(
-                                        "equal-literal" (
-                                            arg
-                                        ),
-                                        "set" (
-                                            arg
-                                        ),
-                                        "plus-literal" (
-                                            arg
-                                        ),
-                                        "add" (
-                                            arg
-                                        ),
-                                        "minus-literal" (
-                                            arg
-                                        ),
-                                        "delete" (
-                                            arg
-                                        )
+                                        "equal-literal" arg,
+                                        "set" arg,
+                                        "plus-literal" arg,
+                                        "add" arg,
+                                        "minus-literal" arg,
+                                        "delete" arg
                                       ),
-                                      "community-name" (
-                                            arg
-                                      )
+                                      "community-name" arg
                                     )
                                 ).as(:oneline),
                                 "damping" arg,
@@ -19314,28 +19266,14 @@ rule(:juniper_policy_options) do
                         "community" (
                             s(
                               c(
-                                "equal-literal" (
-                                    arg
-                                ),
-                                "set" (
-                                    arg
-                                ),
-                                "plus-literal" (
-                                    arg
-                                ),
-                                "add" (
-                                    arg
-                                ),
-                                "minus-literal" (
-                                    arg
-                                ),
-                                "delete" (
-                                    arg
-                                )
+                                "equal-literal" arg,
+                                "set" arg,
+                                "plus-literal" arg,
+                                "add" arg,
+                                "minus-literal" arg,
+                                "delete" arg
                               ),
-                              "community-name" (
-                                    arg
-                              )
+                              "community-name" arg
                             )
                         ).as(:oneline),
                         "damping" arg,
@@ -19510,19 +19448,11 @@ end
 
 rule(:control_prefix_list_filter_type) do
     s(
-      "list_name" (
-            arg
-      ),
+      "list_name" arg,
       c(
-        "exact" (
-            arg
-        ),
-        "longer" (
-            arg
-        ),
-        "orlonger" (
-            arg
-        )
+        "exact" arg,
+        "longer" arg,
+        "orlonger" arg
       ),
       c(
         "metric" (
@@ -19648,28 +19578,14 @@ rule(:control_prefix_list_filter_type) do
         "community" (
             s(
               c(
-                "equal-literal" (
-                    arg
-                ),
-                "set" (
-                    arg
-                ),
-                "plus-literal" (
-                    arg
-                ),
-                "add" (
-                    arg
-                ),
-                "minus-literal" (
-                    arg
-                ),
-                "delete" (
-                    arg
-                )
+                "equal-literal" arg,
+                "set" arg,
+                "plus-literal" arg,
+                "add" arg,
+                "minus-literal" arg,
+                "delete" arg
               ),
-              "community-name" (
-                    arg
-              )
+              "community-name" arg
             )
         ).as(:oneline),
         "damping" arg,
@@ -19772,31 +19688,15 @@ end
 
 rule(:control_route_filter_type) do
     s(
-      "address" (
-            arg
-      ),
+      "address" arg,
       c(
-        "exact" (
-            arg
-        ),
-        "longer" (
-            arg
-        ),
-        "orlonger" (
-            arg
-        ),
-        "upto" (
-              arg
-        ),
-        "through" (
-              arg
-        ),
-        "prefix-length-range" (
-              arg
-        ),
-        "address-mask" (
-              arg
-        )
+        "exact" arg,
+        "longer" arg,
+        "orlonger" arg,
+        "upto" arg,
+        "through" arg,
+        "prefix-length-range" arg,
+        "address-mask" arg
       ),
       c(
         "metric" (
@@ -19922,28 +19822,14 @@ rule(:control_route_filter_type) do
         "community" (
             s(
               c(
-                "equal-literal" (
-                    arg
-                ),
-                "set" (
-                    arg
-                ),
-                "plus-literal" (
-                    arg
-                ),
-                "add" (
-                    arg
-                ),
-                "minus-literal" (
-                    arg
-                ),
-                "delete" (
-                    arg
-                )
+                "equal-literal" arg,
+                "set" arg,
+                "plus-literal" arg,
+                "add" arg,
+                "minus-literal" arg,
+                "delete" arg
               ),
-              "community-name" (
-                    arg
-              )
+              "community-name" arg
             )
         ).as(:oneline),
         "damping" arg,
@@ -20042,28 +19928,14 @@ end
 
 rule(:control_source_address_filter_type) do
     s(
-      "address" (
-            arg
-      ),
+      "address" arg,
       c(
-        "exact" (
-            arg
-        ),
-        "longer" (
-            arg
-        ),
-        "orlonger" (
-            arg
-        ),
-        "upto" (
-              arg
-        ),
-        "through" (
-              arg
-        ),
-        "prefix-length-range" (
-              arg
-        )
+        "exact" arg,
+        "longer" arg,
+        "orlonger" arg,
+        "upto" arg,
+        "through" arg,
+        "prefix-length-range" arg
       ),
       c(
         "metric" (
@@ -20189,28 +20061,14 @@ rule(:control_source_address_filter_type) do
         "community" (
             s(
               c(
-                "equal-literal" (
-                    arg
-                ),
-                "set" (
-                    arg
-                ),
-                "plus-literal" (
-                    arg
-                ),
-                "add" (
-                    arg
-                ),
-                "minus-literal" (
-                    arg
-                ),
-                "delete" (
-                    arg
-                )
+                "equal-literal" arg,
+                "set" arg,
+                "plus-literal" arg,
+                "add" arg,
+                "minus-literal" arg,
+                "delete" arg
               ),
-              "community-name" (
-                    arg
-              )
+              "community-name" arg
             )
         ).as(:oneline),
         "damping" arg,
@@ -21590,12 +21448,8 @@ rule(:juniper_protocols) do
                                 ),
                                 "virtual-link" (
                                     s(
-                                      "neighbor-id" (
-                                            arg
-                                      ),
-                                      "transit-area" (
-                                            arg
-                                      ),
+                                      "neighbor-id" arg,
+                                      "transit-area" arg,
                                       c(
                                         c(
                                           "disable"
@@ -22006,12 +21860,8 @@ rule(:juniper_protocols) do
                         ),
                         "virtual-link" (
                             s(
-                              "neighbor-id" (
-                                    arg
-                              ),
-                              "transit-area" (
-                                    arg
-                              ),
+                              "neighbor-id" arg,
+                              "transit-area" arg,
                               c(
                                 c(
                                   "disable"
@@ -25766,12 +25616,8 @@ rule(:juniper_protocols_ospf) do
                 ),
                 "virtual-link" (
                     s(
-                      "neighbor-id" (
-                            arg
-                      ),
-                      "transit-area" (
-                            arg
-                      ),
+                      "neighbor-id" arg,
+                      "transit-area" arg,
                       c(
                         c(
                           "disable"
@@ -27499,12 +27345,8 @@ rule(:juniper_routing_instance) do
                                         ),
                                         "virtual-link" (
                                             s(
-                                              "neighbor-id" (
-                                                    arg
-                                              ),
-                                              "transit-area" (
-                                                    arg
-                                              ),
+                                              "neighbor-id" arg,
+                                              "transit-area" arg,
                                               c(
                                                 c(
                                                   "disable"
@@ -27915,12 +27757,8 @@ rule(:juniper_routing_instance) do
                                 ),
                                 "virtual-link" (
                                     s(
-                                      "neighbor-id" (
-                                            arg
-                                      ),
-                                      "transit-area" (
-                                            arg
-                                      ),
+                                      "neighbor-id" arg,
+                                      "transit-area" arg,
                                       c(
                                         c(
                                           "disable"
@@ -30463,12 +30301,8 @@ rule(:juniper_system) do
                                 ),
                                 "dlv" (
                                     s(
-                                      "domain" (
-                                            arg
-                                      ),
-                                      "trusted-anchor" (
-                                            arg
-                                      )
+                                      "domain" arg,
+                                      "trusted-anchor" arg
                                     )
                                 ).as(:oneline),
                                 "secure-domains" arg
@@ -32962,28 +32796,14 @@ end
 
 rule(:martian_type) do
     s(
-      "address" (
-            arg
-      ),
+      "address" arg,
       c(
-        "exact" (
-            arg
-        ),
-        "longer" (
-            arg
-        ),
-        "orlonger" (
-            arg
-        ),
-        "upto" (
-              arg
-        ),
-        "through" (
-              arg
-        ),
-        "prefix-length-range" (
-              arg
-        )
+        "exact" arg,
+        "longer" arg,
+        "orlonger" arg,
+        "upto" arg,
+        "through" arg,
+        "prefix-length-range" arg
       ),
       c(
         "allow"
@@ -35175,12 +34995,8 @@ rule(:scheduler_object_type) do
         "description" arg,
         "start-date" (
             s(
-              "start-date" (
-                    arg
-              ),
-              "stop-date" (
-                    arg
-              )
+              "start-date" arg,
+              "stop-date" arg
             )
         ),
         "daily" (
@@ -35216,12 +35032,8 @@ rule(:daily_object) do
         c(
           "start-time" (
               s(
-                "start-time-value" (
-                      arg
-                ),
-                "stop-time" (
-                      arg
-                )
+                "start-time-value" arg,
+                "stop-time" arg
               )
           ),
           "exclude",
@@ -38080,12 +37892,8 @@ rule(:vrrp_group) do
                 ),
                 "route" (
                     s(
-                      "route_address" (
-                            arg
-                      ),
-                      "routing-instance" (
-                            arg
-                      ),
+                      "route_address" arg,
+                      "routing-instance" arg,
                       c(
                         "priority-cost" arg
                       )

@@ -54,7 +54,7 @@ module Junoser
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
       str.gsub! '"path-list" arg (', 'b(ipaddr,'
 
-      str.gsub!(/(s\(\s*)"address" \(\s*arg\s*\)/) { "#{$1}arg" }
+      str.gsub!(/(s\(\s*)"address" arg/) { "#{$1}arg" }
       str.gsub!(/^(\s*"idle-timeout" \(\s*c\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
 
       str = omit_label(str, 'contents', 'syslog_object')
@@ -87,7 +87,7 @@ module Junoser
         str.gsub!(/^(\s*"#{key}" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
       end
       %w[exact longer orlonger].each do |key|
-        str.gsub!(/^(\s*"#{key}") \(\s*arg\s*\)/) { "#{$1}" }
+        str.gsub!(/^(\s*"#{key}") arg/) { "#{$1}" }
       end
 
       str.gsub!(/^(\s*)"inline-services"/) do

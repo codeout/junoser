@@ -9,7 +9,7 @@ module Junoser
 
       def initialize(xml, options={})
         super
-        @argument = find_name_element || find_single_simple_type || find_simple_type_attribute
+        @argument = find_name_element || find_type_attribute
       end
 
       def config
@@ -26,14 +26,15 @@ module Junoser
       end
 
       def to_s
-        str = if content.empty?
+        str = case
+              when content.empty?
                 format(label)
+              when content =~ /^ *arg$/
+                format("#{label} arg")
+              when label
+                format("#{label} (", content, ')')
               else
-                if label
-                  format("#{label} (", content, ')')
-                else
-                  format('(', content, ')')
-                end
+                format('(', content, ')')
               end
 
         oneliner? ? "#{str}.as(:oneline)" : str
@@ -75,13 +76,7 @@ module Junoser
         xml.xpath('./xsd:complexType/xsd:sequence/xsd:element[@name="name"]').remove.first
       end
 
-      def find_single_simple_type
-        simples = xml.xpath('./xsd:simpleType').remove
-        raise "ERROR: Element shouldn't have simpleType child and another" if simples.size > 1
-        simples.first
-      end
-
-      def find_simple_type_attribute
+      def find_type_attribute
         if xml['type'] =~ /^xsd:.*/
           xml.remove_attribute 'type'
           'arg'
