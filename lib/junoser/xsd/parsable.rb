@@ -22,7 +22,7 @@ module Junoser
 
       def remove_unused
         xpath('/xsd:schema/*[self::xsd:import]').remove
-        xpath('//xsd:element[@ref="undocumented" or @ref="junos:comment"]').remove
+        xpath('//xsd:element[@ref="undocumented" or @ref="junos:comment" or @name="apply-advanced"]').remove
         self
       end
     end

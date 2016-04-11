@@ -1,5 +1,6 @@
 require 'junoser/xsd/base'
 require 'junoser/xsd/complex_type'
+require 'junoser/xsd/simple_type'
 
 module Junoser
   module Xsd
@@ -17,7 +18,7 @@ module Junoser
           when 'complexType'
             Junoser::Xsd::ComplexType.new(child, depth: @depth+1)
           when 'simpleType'
-            'arg'
+            Junoser::Xsd::SimpleType.new(child, depth: @depth+1)
           else
             raise "ERROR: unknown element: #{child.name}"
           end
