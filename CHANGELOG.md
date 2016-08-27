@@ -1,3 +1,9 @@
+## 0.2.3 / 2016-08-28
+
+* Newly supported syntax
+  * chassis fpc N error
+  * forwarding-options sampling family mpls
+
 ## 0.2.2 / 2016-02-15
 
 * Newly supported syntax
