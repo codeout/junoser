@@ -5671,6 +5671,12 @@ module Junoser
     rule(:chassis_fpc_type) do
       b(arg.as(:arg),
         c(
+            a(str("error"), str("fatal") | str("major") | str("minor"),
+              c(
+                a(str("threshold"), arg),
+                a(str("action"), str("alarm") | str("disable-pfe") | str("offline-pic") | str("log") | str("get-state") | str("offline") | str("reset"))
+              )
+            ),
             str("sanity-poll"),
             b(str("pic"),
               chassis_pic_type

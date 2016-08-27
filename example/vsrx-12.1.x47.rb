@@ -5649,6 +5649,12 @@ end
 rule(:chassis_fpc_type) do
   arg.as(:arg) (
     c(
+        "error" ("fatal" | "major" | "minor") (
+          c(
+            "threshold" arg,
+            "action" ("alarm" | "disable-pfe" | "offline-pic" | "log" | "get-state" | "offline" | "reset")
+          )
+        ),
         "sanity-poll",
         "pic" (
           chassis_pic_type
