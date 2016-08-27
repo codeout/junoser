@@ -1,4 +1,3 @@
-require 'active_support/inflector'
 require 'junoser/xsd/complex_type'
 require 'junoser/xsd/element'
 require 'nokogiri'

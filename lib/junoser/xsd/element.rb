@@ -1,4 +1,3 @@
-require 'active_support/inflector'
 require 'junoser/xsd/base'
 require 'junoser/xsd/complex_type'
 
