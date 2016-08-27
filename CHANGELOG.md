@@ -1,7 +1,14 @@
+## 0.2.2 / 2016-02-15
+
+* Newly supported syntax
+  * system services ssh
+* Bug fix
+  * choice syntax
+
 ## 0.2.1 / 2016-01-15
 
 * Newly supported syntax
-  services flow-monitoring version9 template
+  * services flow-monitoring version9 template
 * Bug fix
   * template-name
 * Start CI
