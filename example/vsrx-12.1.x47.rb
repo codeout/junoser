@@ -29747,7 +29747,7 @@ rule(:juniper_sampling_options) do
         ),
         "family" (
             c(
-                "inet" (
+                ("inet" | "mpls") (
                     c(
                         c(
                           "disable"
@@ -29766,8 +29766,7 @@ rule(:juniper_sampling_options) do
                           sampling_family_inet6_output_type
                         )
                     )
-                ),
-                "mpls"
+                )
             )
         ),
         "instance" arg (

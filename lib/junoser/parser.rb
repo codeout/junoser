@@ -29576,7 +29576,7 @@ module Junoser
             ),
             b(str("family"),
                 c(
-                    b(str("inet"),
+                    b((str("inet") | str("mpls")),
                         c(
                             c(
                               str("disable")
@@ -29595,8 +29595,7 @@ module Junoser
                               sampling_family_inet6_output_type
                             )
                         )
-                    ),
-                    str("mpls")
+                    )
                 )
             ),
             b(a(str("instance"), arg),
