@@ -30858,7 +30858,7 @@ module Junoser
                             )
                         )
                     ),
-                    b(str("dhcp-service"),
+                    b((str("dhcp-service") | str("dhcp")),
                         c(
                             c(
                               str("disable")
