@@ -31071,6 +31071,28 @@ module Junoser
                               str("disable")
                             )
                         )
+                    ),
+                    b(str("app-engine-virtual-machine-management-service"),
+                      c(
+                        b(str("traceoptions"),
+                          c(
+                            str("no-remote-trace"),
+                            b(str("file"),
+                              sca(
+                                a(str("size"), arg),
+                                a(str("files"), arg),
+                                str("world-readable"),
+                                str("no-world-readable"),
+                                b(str("match"),
+                                  regular_expression
+                                )
+                              )
+                            ).as(:oneline),
+                            a(str("level"), arg),
+                            a(str("flag"), str("active-directory-authentication") | str("configuration") | str("db") | str("ip-user-mapping") | str("ip-user-probe") | str("ipc") | str("user-group-mapping") | str("wmic") | str("all")).as(:oneline)
+                          )
+                        )
+                      )
                     )
                 )
             ),
