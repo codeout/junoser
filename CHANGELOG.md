@@ -1,3 +1,12 @@
+## 0.2.4 / 2017-02-18
+
+* Newly supported syntax
+  * system processes app-engine-virtual-machine-management-service traceoptions
+  * Some platforms expect "system processes dhcp", not "system processes dhcp-service"
+  * "storm-control" under family bridge
+* Bug fix
+  * Appropriately extract "vlan <vlan-name>"
+
 ## 0.2.3 / 2016-08-28
 
 * Newly supported syntax
