@@ -16064,7 +16064,7 @@ module Junoser
                             str("persistent-learning")
                         )
                     ),
-                    a(str("vlan"), str("all") | str("vlan-name"),
+                    a(str("vlan"), str("all") | arg,
                         c(
                             c(
                               b(str("arp-inspection"),
@@ -24320,7 +24320,7 @@ module Junoser
                     ).as(:oneline)
                 )
             ),
-            a(str("vlan"), str("all") | str("vlan-name"),
+            a(str("vlan"), str("all") | arg,
                 c(
                     str("disable"),
                     a(str("version"), arg),
@@ -24946,7 +24946,7 @@ module Junoser
                     ).as(:oneline)
                 )
             ),
-            a(str("vlan"), str("all") | str("vlan-name"),
+            a(str("vlan"), str("all") | arg,
                 c(
                     str("disable"),
                     a(str("version"), arg),

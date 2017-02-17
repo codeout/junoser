@@ -49,6 +49,7 @@ module Junoser
 
       str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
       str.gsub! '"vlan" ("id-name" | "all")', '"vlan" ("all" | arg)'
+      str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
       str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }
       str.gsub! '"description" arg', '"description" (quote | arg)'
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
