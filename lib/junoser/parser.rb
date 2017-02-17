@@ -1995,6 +1995,9 @@ module Junoser
                                                       ),
                                                       c(
                                                         a(str("isid-list"), arg)
+                                                      ),
+                                                      b(str("storm-control"),
+                                                        storm_control
                                                       )
                                                   )
                                               ),
@@ -7010,24 +7013,7 @@ module Junoser
                 )
             ),
             b(str("storm-control"),
-                c(
-                    str("default"),
-                    str("action-shutdown"),
-                    a(str("interface"), str("all") | arg,
-                        c(
-                            a(str("bandwidth"), arg),
-                            str("no-broadcast"),
-                            str("no-unknown-unicast"),
-                            a(str("level"), arg),
-                            c(
-                              str("multicast"),
-                              str("no-multicast"),
-                              str("no-registered-multicast"),
-                              str("no-unregistered-multicast")
-                            )
-                        )
-                    )
-                )
+              storm_control
             )
         )
     end
@@ -10315,6 +10301,9 @@ module Junoser
                                     ),
                                     c(
                                       a(str("isid-list"), arg)
+                                    ),
+                                    b(str("storm-control"),
+                                      storm_control
                                     )
                                 )
                             ),
@@ -14646,6 +14635,9 @@ module Junoser
                                                     ),
                                                     c(
                                                       a(str("isid-list"), arg)
+                                                    ),
+                                                    b(str("storm-control"),
+                                                      storm_control
                                                     )
                                                 )
                                             ),
@@ -32486,6 +32478,9 @@ module Junoser
                                     ),
                                     c(
                                       a(str("isid-list"), arg)
+                                    ),
+                                    b(str("storm-control"),
+                                      storm_control
                                     )
                                 )
                             ),
@@ -38140,6 +38135,27 @@ module Junoser
                 ),
                 str("syslog")
               )
+            )
+          )
+        )
+      )
+    end
+
+    rule(:storm_control) do
+      c(
+        str("default"),
+        str("action-shutdown"),
+        a(str("interface"), str("all") | arg,
+          c(
+            a(str("bandwidth"), arg),
+            str("no-broadcast"),
+            str("no-unknown-unicast"),
+            a(str("level"), arg),
+            c(
+              str("multicast"),
+              str("no-multicast"),
+              str("no-registered-multicast"),
+              str("no-unregistered-multicast")
             )
           )
         )

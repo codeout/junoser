@@ -1949,6 +1949,9 @@ rule(:configuration) do
                                                   ),
                                                   c(
                                                     "isid-list" arg
+                                                  ),
+                                                  "storm-control" (
+                                                    storm_control
                                                   )
                                               )
                                           ),
@@ -6984,24 +6987,7 @@ rule(:ethernet_switching_type) do
             )
         ),
         "storm-control" (
-            c(
-                "default",
-                "action-shutdown",
-                "interface" ("all" | "name") (
-                    c(
-                        "bandwidth" arg,
-                        "no-broadcast",
-                        "no-unknown-unicast",
-                        "level" arg,
-                        c(
-                          "multicast",
-                          "no-multicast",
-                          "no-registered-multicast",
-                          "no-unregistered-multicast"
-                        )
-                    )
-                )
-            )
+          storm_control
         )
     )
 end
@@ -10297,6 +10283,9 @@ rule(:interfaces_type) do
                                 ),
                                 c(
                                   "isid-list" arg
+                                ),
+                                "storm-control" (
+                                  storm_control
                                 )
                             )
                         ),
@@ -14649,6 +14638,9 @@ rule(:juniper_dynamic_profile_object) do
                                                 ),
                                                 c(
                                                   "isid-list" arg
+                                                ),
+                                                "storm-control" (
+                                                  storm_control
                                                 )
                                             )
                                         ),
@@ -32690,6 +32682,9 @@ rule(:lr_interfaces_type) do
                                 ),
                                 c(
                                   "isid-list" arg
+                                ),
+                                "storm-control" (
+                                  storm_control
                                 )
                             )
                         ),
@@ -38364,6 +38359,27 @@ rule(:service_nat_object) do
             ),
             "syslog"
           )
+        )
+      )
+    )
+  )
+end
+
+rule(:storm_control) do
+  c(
+    "default",
+    "action-shutdown",
+    "interface" ("all" | "name") (
+      c(
+        "bandwidth" arg,
+        "no-broadcast",
+        "no-unknown-unicast",
+        "level" arg,
+        c(
+          "multicast",
+          "no-multicast",
+          "no-registered-multicast",
+          "no-unregistered-multicast"
         )
       )
     )
