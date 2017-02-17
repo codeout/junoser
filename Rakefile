@@ -40,6 +40,7 @@ end
 
 Rake::TestTask.new do |t|
   t.verbose = true
+  t.warning = false
 end
 
 desc 'Run tests'
