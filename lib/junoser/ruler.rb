@@ -163,6 +163,21 @@ require 'parslet'
 
 module Junoser
   class Parser < Parslet::Parser
+    def parse_lines(lines)
+      passed = true
+
+      lines.split("\\n").each do |line|
+        begin
+          parse line
+        rescue Parslet::ParseFailed
+          $stderr.puts "Invalid syntax:  \#{line}"
+          passed = false
+        end
+      end
+
+      passed
+    end
+
     # block with children maybe
     def b(object, *children)
       children.inject(object) {|rule, child| rule.as(:label) >> (space >> child.as(:child) | eos) }

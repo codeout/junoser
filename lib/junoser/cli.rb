@@ -34,18 +34,7 @@ module Junoser
 
       def commit_check_display_set(config)
         parser = Junoser::Parser.new
-        passed = true
-
-        config.split("\n").each do |line|
-          begin
-            parser.parse line
-          rescue Parslet::ParseFailed
-            $stderr.puts "Invalid syntax:  #{line}"
-            passed = false
-          end
-        end
-
-        passed
+        parser.parse_lines(config)
       end
     end
   end
