@@ -164,18 +164,15 @@ require 'parslet'
 module Junoser
   class Parser < Parslet::Parser
     def parse_lines(lines)
-      passed = true
-
-      lines.split("\\n").each do |line|
+      lines.split("\\n").inject(true) do |passed, line|
         begin
           parse line
+          passed
         rescue Parslet::ParseFailed
           $stderr.puts "Invalid syntax:  \#{line}"
-          passed = false
+          false
         end
       end
-
-      passed
     end
 
     # block with children maybe
