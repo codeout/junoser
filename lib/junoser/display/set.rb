@@ -55,17 +55,22 @@ module Junoser
       end
 
       def transform_line(current_stack, str)
-        statement = if current_stack.empty?
-                      str
-                    else
-                      statement = "#{current_stack.join(' ')} #{str}"
-                    end
+        statements = []
+        current_statement = ''
 
-        if statement.gsub!('inactive: ', '')
-          "deactivate #{statement}"
-        else
-          "set #{statement}"
+        current_stack.each do |stack|
+          if stack.gsub!('inactive: ', '')
+            statements << "deactivate #{current_statement}#{stack}"
+          end
+          current_statement << "#{stack} "
         end
+
+        if str.gsub!('inactive: ', '')
+          statements << "deactivate #{current_statement}#{str}"
+        end
+
+        statements.unshift "set #{current_statement}#{str}"
+        statements.join("\n")
       end
 
       def struct(stack, statement, offset=2)
