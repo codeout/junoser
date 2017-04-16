@@ -2,8 +2,19 @@ require 'parslet'
 
 module Junoser
   class Parser < Parslet::Parser
-    def parse_lines(lines)
-      lines.split("\n").inject(true) do |passed, line|
+    def parse_lines(config)
+      lines = config.split("\n")
+      lines_without_deactivate = lines.reject {|l| l =~ /^deactivate/ }
+
+      lines.inject(true) do |passed, line|
+        if line =~ /^deactivate/
+          if lines_without_deactivate.grep(/^#{line.sub(/^deactivate/, 'set')}/).empty?
+            next false
+          else
+            next passed
+          end
+        end
+
         begin
           parse line
           passed
@@ -58,7 +69,7 @@ module Junoser
     rule(:prefix ) { address >> (str('/') >> match('[0-9]').repeat(1)).maybe }
 
     root(:set)
-    rule(:set) { (str('set') | str('deactivate')) >> space >> configuration.as(:config) >> comment.maybe }
+    rule(:set) { str('set') >> space >> configuration.as(:config) >> comment.maybe }
 
     rule(:comment) { space.maybe >> (hash_comment | slash_asterisk) }
     rule(:hash_comment) { str('#') >> any.maybe }
