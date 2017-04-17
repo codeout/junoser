@@ -1,3 +1,8 @@
+## 0.2.5 / 2017-04-18
+
+* Bug fix
+  * "deactivate", "inactive: " statement processing
+
 ## 0.2.4 / 2017-02-18
 
 * Newly supported syntax
