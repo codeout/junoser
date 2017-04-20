@@ -5840,7 +5840,8 @@ rule(:chassis_pic_port_framing) do
   arg.as(:arg) (
     c(
         "framing" arg,
-        "speed" arg
+        "speed" arg,
+        "channel-speed" ("10g" | "25g" | "50g" | "100g" | "disable-auto-speed-detection")
     )
   )
 end

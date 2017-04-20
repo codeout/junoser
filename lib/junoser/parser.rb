@@ -5889,7 +5889,8 @@ module Junoser
       b(arg.as(:arg),
         c(
             a(str("framing"), arg),
-            a(str("speed"), arg)
+            a(str("speed"), arg),
+            a(str("channel-speed"), str("10g") | str("25g") | str("50g") | str("100g") | str("disable-auto-speed-detection"))
         )
       )
     end
