@@ -1,3 +1,8 @@
+## 0.2.6 / 2017-04-21
+
+* Newly supported syntax
+  * chassis fpc ? pic ? port ? channel-speed ?
+
 ## 0.2.5 / 2017-04-18
 
 * Bug fix
