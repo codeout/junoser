@@ -31261,29 +31261,11 @@ rule(:juniper_system) do
                         )
                     )
                 ),
+                "app-engine-management-service" (
+                  app_engine_management_service
+                ),
                 "app-engine-virtual-machine-management-service" (
-                  c(
-                    "disable",
-                    "traceoptions" (
-                      c(
-                        "no-remote-trace",
-                        "file" (
-                          c(
-                            "filename" arg,
-                            "size" arg,
-                            "files" arg,
-                            "world-readable",
-                            "no-world-readable",
-                            "match" (
-                              regular_expression
-                            )
-                          )
-                        ).as(:oneline),
-                        "level" arg,
-                        "flag" ("active-directory-authentication" | "configuration" | "db" | "ip-user-mapping" | "ip-user-probe" | "ipc" | "user-group-mapping" | "wmic" | "all").as(:oneline)
-                      )
-                    )
-                  )
+                  app_engine_management_service
                 )
             )
         ),
@@ -38406,6 +38388,31 @@ rule(:storm_control) do
           "no-registered-multicast",
           "no-unregistered-multicast"
         )
+      )
+    )
+  )
+end
+
+rule(:app_engine_management_service) do
+  c(
+    "disable",
+    "traceoptions" (
+      c(
+        "no-remote-trace",
+        "file" (
+          c(
+            "filename" arg,
+            "size" arg,
+            "files" arg,
+            "world-readable",
+            "no-world-readable",
+            "match" (
+              regular_expression
+            )
+          )
+        ).as(:oneline),
+        "level" arg,
+        "flag" ("active-directory-authentication" | "configuration" | "db" | "ip-user-mapping" | "ip-user-probe" | "ipc" | "user-group-mapping" | "wmic" | "all").as(:oneline)
       )
     )
   )

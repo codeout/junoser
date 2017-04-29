@@ -31096,28 +31096,11 @@ module Junoser
                             )
                         )
                     ),
+                    b(str("app-engine-management-service"),
+                      app_engine_management_service
+                    ),
                     b(str("app-engine-virtual-machine-management-service"),
-                      c(
-                        str("disable"),
-                        b(str("traceoptions"),
-                          c(
-                            str("no-remote-trace"),
-                            b(str("file"),
-                              sca(
-                                a(str("size"), arg),
-                                a(str("files"), arg),
-                                str("world-readable"),
-                                str("no-world-readable"),
-                                b(str("match"),
-                                  regular_expression
-                                )
-                              )
-                            ).as(:oneline),
-                            a(str("level"), arg),
-                            a(str("flag"), str("active-directory-authentication") | str("configuration") | str("db") | str("ip-user-mapping") | str("ip-user-probe") | str("ipc") | str("user-group-mapping") | str("wmic") | str("all")).as(:oneline)
-                          )
-                        )
-                      )
+                      app_engine_management_service
                     )
                 )
             ),
@@ -38204,6 +38187,30 @@ module Junoser
               str("no-registered-multicast"),
               str("no-unregistered-multicast")
             )
+          )
+        )
+      )
+    end
+
+    rule(:app_engine_management_service) do
+      c(
+        str("disable"),
+        b(str("traceoptions"),
+          c(
+            str("no-remote-trace"),
+            b(str("file"),
+              sca(
+                a(str("size"), arg),
+                a(str("files"), arg),
+                str("world-readable"),
+                str("no-world-readable"),
+                b(str("match"),
+                  regular_expression
+                )
+              )
+            ).as(:oneline),
+            a(str("level"), arg),
+            a(str("flag"), str("active-directory-authentication") | str("configuration") | str("db") | str("ip-user-mapping") | str("ip-user-probe") | str("ipc") | str("user-group-mapping") | str("wmic") | str("all")).as(:oneline)
           )
         )
       )
