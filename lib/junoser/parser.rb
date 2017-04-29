@@ -31098,6 +31098,7 @@ module Junoser
                     ),
                     b(str("app-engine-virtual-machine-management-service"),
                       c(
+                        str("disable"),
                         b(str("traceoptions"),
                           c(
                             str("no-remote-trace"),

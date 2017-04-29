@@ -31263,6 +31263,7 @@ rule(:juniper_system) do
                 ),
                 "app-engine-virtual-machine-management-service" (
                   c(
+                    "disable",
                     "traceoptions" (
                       c(
                         "no-remote-trace",
