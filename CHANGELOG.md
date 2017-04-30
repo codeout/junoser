@@ -1,3 +1,10 @@
+## 0.2.7 / 2017-05-01
+
+* Newly supported syntax
+  * system processes app-engine-virtual-machine-management-service
+  * system processes app-engine-management-service
+  * chassis fpc ? pic ? tunnel-services
+
 ## 0.2.6 / 2017-04-21
 
 * Newly supported syntax
