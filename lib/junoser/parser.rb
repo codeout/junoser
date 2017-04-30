@@ -5749,7 +5749,12 @@ module Junoser
             b(str("tunnel-port"),
               chassis_port_type
             ),
-            str("tunnel-services"),
+            b(str("tunnel-services"),
+              c(
+                a(str("bandwidth"), str("1g") | str("10g") | str("20g") | str("40g")).as(:oneline),
+                str("tunnel-only")
+              )
+            ),
             b(str("inline-services"),
               a(str("bandwidth"), str("1g") | str("10g"))
             ),

@@ -5702,7 +5702,12 @@ rule(:chassis_pic_type) do
         "tunnel-port" (
           chassis_port_type
         ),
-        "tunnel-services",
+        "tunnel-services" (
+          c(
+            "bandwidth" ("1g" | "10g" | "20g" | "40g").as(:oneline),
+            "tunnel-only"
+          )
+        ),
         "inline-services",
         c(
           "adaptive-services",
