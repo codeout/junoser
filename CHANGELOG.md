@@ -1,3 +1,8 @@
+## 0.2.8 / 2017-05-17
+
+* Bug fix
+  * "chassis forwarding-options"
+
 ## 0.2.7 / 2017-05-01
 
 * Newly supported syntax
