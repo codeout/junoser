@@ -5548,8 +5548,17 @@ module Junoser
             ),
             b(str("forwarding-options"),
               c(
-                a(str("num-65-127-prefix"), arg),
-                str("lpm-profile prefix-65-127-disable")
+                b((str("l2-profile-one") | str("l2-profile-two") | str("l2-profile-three") | str("l3-profile")),
+                  c(
+                    a(str("num-65-127-prefix"), arg),
+                  )
+                ),
+                b(str("lpm-profile"),
+                  c(
+                    str("prefix-65-127-disable"),
+                    str("unicast-in-lpm")
+                  )
+                )
               )
             )
         )

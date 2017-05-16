@@ -5503,8 +5503,17 @@ rule(:chassis_type) do
         ),
         "forwarding-options" (
           c(
-            "num-65-127-prefix" arg,
-            "lpm-profile prefix-65-127-disable"
+            ("l2-profile-one" | "l2-profile-two" | "l2-profile-three" | "l3-profile") (
+              c(
+                "num-65-127-prefix" arg,
+              )
+            ),
+            "lpm-profile" (
+              c(
+                "prefix-65-127-disable",
+                "unicast-in-lpm"
+              )
+            )
           )
         )
     )
