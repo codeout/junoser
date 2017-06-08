@@ -1,3 +1,8 @@
+## 0.2.8 / 2017-06-09
+
+* Newly supported syntax
+  * protocols sflow
+
 ## 0.2.8 / 2017-05-17
 
 * Bug fix
