@@ -22958,6 +22958,9 @@ rule(:juniper_protocols) do
         ),
         "layer2-control" (
           juniper_protocols_layer2_control
+        ),
+        "sflow" (
+          juniper_protocols_sflow
         )
     )
 end
@@ -38427,6 +38430,52 @@ rule(:app_engine_management_service) do
         ).as(:oneline),
         "level" arg,
         "flag" ("active-directory-authentication" | "configuration" | "db" | "ip-user-mapping" | "ip-user-probe" | "ipc" | "user-group-mapping" | "wmic" | "all").as(:oneline)
+      )
+    )
+  )
+end
+
+rule(:juniper_protocols_sflow) do
+  c(
+    "agent-id" ipaddr,
+    "collector" ipaddr (
+      "udp-port" arg
+    ),
+    "interfaces" arg (
+      c(
+        "polling-interval" arg,
+        "sample-rate" (
+          c(
+            "egress" arg,
+            "ingress" arg,
+          )
+        )
+      )
+    ),
+    "polling-interval" arg,
+    "sample-rate" (
+      c(
+        "egress" arg,
+        "ingress" arg
+      )
+    ),
+    "source-ip" ipaddr,
+    "disable-sw-rate-limiter",
+    "traceoptions" (
+      c(
+        "file" (
+          c(
+            "filename" arg,
+            "files" arg,
+            "no-stamp",
+            "replace",
+            "size" arg,
+            "world-readable",
+            "no-world-readable",
+            arg
+          )
+        ),
+        "flag" ("all" | "client-server" | "configuration" | "interface" | "rtsock").as(:oneline)
       )
     )
   )

@@ -22844,6 +22844,9 @@ module Junoser
             ),
             b(str("layer2-control"),
               juniper_protocols_layer2_control
+            ),
+            b(str("sflow"),
+              juniper_protocols_sflow
             )
         )
     end
@@ -38225,6 +38228,51 @@ module Junoser
             ).as(:oneline),
             a(str("level"), arg),
             a(str("flag"), str("active-directory-authentication") | str("configuration") | str("db") | str("ip-user-mapping") | str("ip-user-probe") | str("ipc") | str("user-group-mapping") | str("wmic") | str("all")).as(:oneline)
+          )
+        )
+      )
+    end
+
+    rule(:juniper_protocols_sflow) do
+      c(
+        a(str("agent-id"), ipaddr),
+        b(a(str("collector"), ipaddr),
+          a(str("udp-port"), arg)
+        ),
+        b(a(str("interfaces"), arg),
+          c(
+            a(str("polling-interval"), arg),
+            b(str("sample-rate"),
+              c(
+                a(str("egress"), arg),
+                a(str("ingress"), arg),
+              )
+            )
+          )
+        ),
+        a(str("polling-interval"), arg),
+        b(str("sample-rate"),
+          c(
+            a(str("egress"), arg),
+            a(str("ingress"), arg)
+          )
+        ),
+        a(str("source-ip"), ipaddr),
+        str("disable-sw-rate-limiter"),
+        b(str("traceoptions"),
+          c(
+            b(str("file"),
+              sca(
+                a(str("files"), arg),
+                str("no-stamp"),
+                str("replace"),
+                a(str("size"), arg),
+                str("world-readable"),
+                str("no-world-readable"),
+                arg
+              )
+            ),
+            a(str("flag"), str("all") | str("client-server") | str("configuration") | str("interface") | str("rtsock")).as(:oneline)
           )
         )
       )
