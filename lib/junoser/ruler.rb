@@ -67,6 +67,7 @@ module Junoser
       str = omit_label(str, 'prefix-list-item', 'prefix_list_items')
       str = omit_label(str, 'instance', 'juniper_routing_instance')
       str = omit_label(str, 'vlan', 'vlan_type')
+      str = omit_label(str, 'dynamic-tunnel', 'dynamic_tunnel_type')
 
       str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmpv6"#$1"icmp"] }
       str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }

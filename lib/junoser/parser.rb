@@ -29400,9 +29400,7 @@ module Junoser
                             ).as(:oneline)
                         )
                     ),
-                    b(str("dynamic-tunnel"),
-                      dynamic_tunnel_type
-                    )
+                    dynamic_tunnel_type
                 )
             ),
             b(str("flow"),
