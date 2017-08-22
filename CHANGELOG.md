@@ -1,4 +1,9 @@
-## 0.2.8 / 2017-06-09
+## 0.2.10 / 2017-08-22
+
+* Bug fix
+  * routing-options dynamic-tunnels
+
+## 0.2.9 / 2017-06-09
 
 * Newly supported syntax
   * protocols sflow
