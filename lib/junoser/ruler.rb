@@ -48,6 +48,7 @@ module Junoser
       str.gsub! '"minus-literal"', '"-"'
 
       str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
+      str.gsub!(/\("name" \| (.*)\)/) { "(arg | #$1)" }
       str.gsub! '"vlan" ("id-name" | "all")', '"vlan" ("all" | arg)'
       str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
       str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }

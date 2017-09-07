@@ -16023,7 +16023,7 @@ module Junoser
             ),
             b(str("voip"),
                 c(
-                    a(str("interface"), str("name") | str("access-ports"),
+                    a(str("interface"), arg | str("access-ports"),
                         c(
                             a(str("vlan"), arg),
                             a(str("forwarding-class"), arg)
@@ -16242,7 +16242,7 @@ module Junoser
     end
 
     rule(:analyzer_egress_interface_type) do
-      (str("name") | str("all")).as(:arg)
+      (arg | str("all")).as(:arg)
     end
 
     rule(:analyzer_ingress_type) do
@@ -16257,7 +16257,7 @@ module Junoser
     end
 
     rule(:analyzer_ingress_interface_type) do
-      (str("name") | str("all")).as(:arg)
+      (arg | str("all")).as(:arg)
     end
 
     rule(:analyzer_output_type) do
@@ -16323,6 +16323,9 @@ module Junoser
             ),
             b(str("accounting"),
               juniper_packet_accounting_options
+            ),
+            b(str("analyzer"),
+              smpl_analyzer_type
             ),
             b(str("port-mirroring"),
               juniper_port_mirror_options
@@ -22719,7 +22722,7 @@ module Junoser
                     a(str("ptopo-configuration-maximum-hold-time"), arg),
                     a(str("lldp-configuration-notification-interval"), arg),
                     str("netbios-snooping"),
-                    a(str("interface"), str("name") | str("all"),
+                    a(str("interface"), arg | str("all"),
                         c(
                             c(
                               str("disable")
@@ -22734,7 +22737,7 @@ module Junoser
                       str("disable")
                     ),
                     a(str("fast-start"), arg),
-                    a(str("interface"), str("name") | str("all"),
+                    a(str("interface"), arg | str("all"),
                         c(
                             c(
                               str("disable")
@@ -38272,6 +38275,167 @@ module Junoser
             ),
             a(str("flag"), str("all") | str("client-server") | str("configuration") | str("interface") | str("rtsock")).as(:oneline)
           )
+        )
+      )
+    end
+
+    rule(:smpl_analyzer_type) do
+      b(arg.as(:arg),
+        c(
+            b(str("input"),
+              smpl_analyzer_input_type
+            ),
+            b(str("output"),
+              smpl_analyzer_output_type
+            )
+        )
+      )
+    end
+
+    rule(:smpl_analyzer_input_type) do
+        c(
+            a(str("rate"), arg),
+            a(str("maximum-packet-length"), arg),
+            b(str("ingress"),
+              smpl_analyzer_ingress_type
+            ),
+            b(str("egress"),
+              smpl_analyzer_egress_type
+            )
+        )
+    end
+
+    rule(:smpl_analyzer_egress_type) do
+        c(
+            b(str("interface"),
+              analyzer_egress_interface_type
+            ),
+            b(str("routing-instance"),
+              analyzer_egress_routing_instance_type
+            ),
+            b(str("vlan"),
+              analyzer_egress_vlan_type
+            ),
+            b(str("bridge-domain"),
+              analyzer_egress_bridge_domain_type
+            )
+        )
+    end
+
+    rule(:analyzer_egress_bridge_domain_type) do
+      arg.as(:arg)
+    end
+
+    rule(:analyzer_egress_interface_type) do
+      (arg | str("all")).as(:arg)
+    end
+
+    rule(:analyzer_egress_routing_instance_type) do
+      b(arg.as(:arg),
+        c(
+            b(str("vlan"),
+              analyzer_egress_vlan_type
+            ),
+            b(str("bridge-domain"),
+              analyzer_egress_bridge_domain_type
+            )
+        )
+      )
+    end
+
+    rule(:analyzer_egress_vlan_type) do
+      arg.as(:arg)
+    end
+
+    rule(:smpl_analyzer_ingress_type) do
+        c(
+            b(str("interface"),
+              analyzer_ingress_interface_type
+            ),
+            b(str("routing-instance"),
+              analyzer_ingress_routing_instance_type
+            ),
+            b(str("vlan"),
+              analyzer_ingress_vlan_type
+            ),
+            b(str("bridge-domain"),
+              analyzer_ingress_bridge_domain_type
+            )
+        )
+    end
+
+    rule(:analyzer_ingress_bridge_domain_type) do
+      arg.as(:arg)
+    end
+
+    rule(:analyzer_ingress_interface_type) do
+      (arg | str("all")).as(:arg)
+    end
+
+    rule(:analyzer_ingress_routing_instance_type) do
+      b(arg.as(:arg),
+        c(
+            b(str("vlan"),
+              analyzer_ingress_vlan_type
+            ),
+            b(str("bridge-domain"),
+              analyzer_ingress_bridge_domain_type
+            )
+        )
+      )
+    end
+
+    rule(:analyzer_ingress_vlan_type) do
+      arg.as(:arg)
+    end
+
+    rule(:smpl_analyzer_output_type) do
+        c(
+            c(
+              b(str("interface"),
+                interface_name
+              ),
+              b(str("ip-address"),
+                ipv4addr
+              ),
+              a(str("next-hop-group"), arg),
+              b(str("routing-instance"),
+                output_routing_instance_type
+              ),
+              b(str("vlan"),
+                pm_rspan_vlan
+              ),
+              b(str("bridge-domain"),
+                pm_rspan_bridge_domain
+              )
+            )
+        )
+    end
+
+    rule(:output_routing_instance_type) do
+      b(arg.as(:arg),
+        c(
+            b(str("ip-address"),
+              ipv4addr
+            ),
+            b(str("vlan"),
+              pm_rspan_vlan
+            ),
+            b(str("bridge-domain"),
+              pm_rspan_bridge_domain
+            )
+        )
+      )
+    end
+
+    rule(:pm_rspan_bridge_domain) do
+      arg.as(:arg)
+    end
+
+    rule(:pm_rspan_vlan) do
+      b(arg.as(:arg),
+        c(
+            str("no-tag")
         )
       )
     end
