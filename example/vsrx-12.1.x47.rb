@@ -29623,7 +29623,8 @@ rule(:dynamic_tunnel_type) do
                   )
               )
           ),
-          "gre"
+          "gre",
+          "udp",
         ),
         "destination-networks" (
           network_type

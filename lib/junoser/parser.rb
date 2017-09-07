@@ -29473,7 +29473,8 @@ module Junoser
                       )
                   )
               ),
-              str("gre")
+              str("gre"),
+              str("udp"),
             ),
             b(str("destination-networks"),
               network_type
