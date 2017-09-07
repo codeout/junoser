@@ -1,3 +1,9 @@
+## 0.2.11 / 2017-09-07
+
+* Newly supported syntax
+  * forwarding-options analyzer
+  * routing-options dynamic-tunnels <name> udp
+
 ## 0.2.10 / 2017-08-22
 
 * Bug fix
