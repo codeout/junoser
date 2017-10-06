@@ -1,3 +1,8 @@
+## 0.2.12 / 2017-10-06
+
+* Newly supported syntax
+  * class-of-service shared-buffer
+
 ## 0.2.11 / 2017-09-07
 
 * Newly supported syntax
