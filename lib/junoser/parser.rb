@@ -11854,7 +11854,26 @@ module Junoser
             ),
             str("copy-plp-all"),
             str("tri-color"),
-            str("shared-buffer").as(:oneline),
+            b(str("shared-buffer"),
+                c(
+                    b(str("egress"),
+                        c(
+                            a(str("buffer-partition"), str("lossless") | str("lossy") | str("multicast"),
+                                a(str("percent"), arg)
+                            ),
+                            a(str("percent"), arg)
+                        )
+                    ),
+                    b(str("ingress"),
+                        c(
+                            a(str("buffer-partition"), str("lossless-headroom") | str("lossless") | str("lossy"),
+                                a(str("percent"), arg)
+                            ),
+                            a(str("percent"), arg)
+                        )
+                    )
+                )
+            ),
             b(str("forwarding-classes"),
                 c(
                     str("class").as(:oneline),

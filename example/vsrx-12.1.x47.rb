@@ -11814,7 +11814,26 @@ rule(:juniper_class_of_service_options) do
         ),
         "copy-plp-all",
         "tri-color",
-        "shared-buffer".as(:oneline),
+        "shared-buffer" (
+            c(
+                "egress" (
+                    c(
+                        "buffer-partition" ("lossless" | "lossy" | "multicast") (
+                            "percent" arg
+                        ),
+                        "percent" arg
+                    )
+                ),
+                "ingress" (
+                    c(
+                        "buffer-partition" ("lossless-headroom" | "lossless" | "lossy") (
+                            "percent" arg
+                        ),
+                        "percent" arg
+                    )
+                )
+            )
+        ),
         "forwarding-classes" (
             c(
                 "class".as(:oneline),
