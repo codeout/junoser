@@ -20647,475 +20647,7 @@ module Junoser
                 )
             ),
             b(str("mpls"),
-                c(
-                    c(
-                      str("disable")
-                    ),
-                    b(str("path-mtu"),
-                        c(
-                            str("allow-fragmentation"),
-                            b(str("rsvp"),
-                                c(
-                                    str("mtu-signaling")
-                                )
-                            )
-                        )
-                    ),
-                    b(str("diffserv-te"),
-                        c(
-                            a(str("bandwidth-model"), arg),
-                            b(str("te-class-matrix"),
-                                c(
-                                    b(str("te0"),
-                                      te_class_object
-                                    ).as(:oneline),
-                                    b(str("te1"),
-                                      te_class_object
-                                    ).as(:oneline),
-                                    b(str("te2"),
-                                      te_class_object
-                                    ).as(:oneline),
-                                    b(str("te3"),
-                                      te_class_object
-                                    ).as(:oneline),
-                                    b(str("te4"),
-                                      te_class_object
-                                    ).as(:oneline),
-                                    b(str("te5"),
-                                      te_class_object
-                                    ).as(:oneline),
-                                    b(str("te6"),
-                                      te_class_object
-                                    ).as(:oneline),
-                                    b(str("te7"),
-                                      te_class_object
-                                    ).as(:oneline)
-                                )
-                            )
-                        )
-                    ),
-                    b(str("auto-policing"),
-                        c(
-                            a(str("class"), str("all") | str("ct0") | str("ct1") | str("ct2") | str("ct3"),
-                                c(
-                                    c(
-                                      str("drop"),
-                                      str("loss-priority-high"),
-                                      str("loss-priority-low")
-                                    )
-                                )
-                            )
-                        )
-                    ),
-                    b(str("statistics"),
-                        c(
-                            b(str("file"),
-                              trace_file_type
-                            ),
-                            a(str("interval"), arg),
-                            str("auto-bandwidth"),
-                            str("no-transit-statistics")
-                        )
-                    ),
-                    b(str("log-updown"),
-                        c(
-                            str("syslog"),
-                            str("no-syslog"),
-                            c(
-                              str("trap"),
-                              b(str("no-trap"),
-                                  c(
-                                      str("mpls-lsp-traps"),
-                                      str("rfc3812-traps")
-                                  )
-                              )
-                            ),
-                            str("trap-path-down"),
-                            str("trap-path-up")
-                        )
-                    ),
-                    a(str("traffic-engineering"), arg),
-                    b(str("traceoptions"),
-                        c(
-                            b(str("file"),
-                              trace_file_type
-                            ),
-                            a(str("flag"), str("connection") | str("connection-detail") | str("cspf-link") | str("cspf-node") | str("cspf") | str("state") | str("error") | str("lsping") | str("graceful-restart") | str("nsr-synchronization") | str("nsr-synchronization-detail") | str("static") | str("egress-protection") | str("all")).as(:oneline)
-                        )
-                    ),
-                    b(a(str("admin-groups"), arg),
-                        c(
-                            a(str("group-value"), arg)
-                        )
-                    ),
-                    a(str("advertisement-hold-time"), arg),
-                    a(str("rsvp-error-hold-time"), arg),
-                    str("optimize-aggressive"),
-                    a(str("smart-optimize-timer"), arg),
-                    a(str("optimize-switchover-delay"), arg),
-                    str("no-propagate-ttl"),
-                    str("explicit-null"),
-                    str("ipv6-tunneling"),
-                    str("icmp-tunneling"),
-                    a(str("revert-timer"), arg),
-                    a(str("optimize-hold-dead-delay"), arg),
-                    str("expand-loose-hop"),
-                    str("mib-mpls-show-p2mp"),
-                    b(str("bandwidth"),
-                      bandwidth_type
-                    ),
-                    a(str("class-of-service"), arg),
-                    str("no-decrement-ttl"),
-                    a(str("hop-limit"), arg),
-                    str("no-cspf"),
-                    str("admin-down"),
-                    a(str("optimize-timer"), arg),
-                    a(str("preference"), arg),
-                    a(str("priority"), a(arg, arg)).as(:oneline),
-                    str("record"),
-                    str("no-record"),
-                    str("standby"),
-                    str("exclude-srlg"),
-                    b(str("admin-group"),
-                      admin_group_include_exclude
-                    ),
-                    b(str("admin-group-extended"),
-                      admin_group_include_exclude
-                    ),
-                    b(str("oam"),
-                      periodic_oam
-                    ),
-                    b(a(str("label-switched-path"), arg),
-                        c(
-                            c(
-                              str("disable")
-                            ),
-                            b(str("traceoptions"),
-                                c(
-                                    b(str("file"),
-                                      trace_file_type
-                                    ),
-                                    a(str("flag"), str("cspf-link") | str("cspf-node") | str("cspf") | str("state") | str("all")).as(:oneline)
-                                )
-                            ),
-                            str("no-install-to-address"),
-                            str("backup"),
-                            b(str("from"),
-                              ipv4addr
-                            ),
-                            c(
-                              b(str("to"),
-                                ipv4addr
-                              ),
-                              str("template")
-                            ),
-                            a(str("metric"), arg),
-                            str("ldp-tunneling"),
-                            str("soft-preemption"),
-                            b(a(str("install"), arg),
-                                c(
-                                    str("active")
-                                )
-                            ).as(:oneline),
-                            a(str("retry-timer"), arg),
-                            a(str("retry-limit"), arg),
-                            b(str("lsp-attributes"),
-                                c(
-                                    a(str("signal-bandwidth"), arg),
-                                    a(str("switching-type"), arg),
-                                    a(str("encoding-type"), arg),
-                                    a(str("gpid"), arg)
-                                )
-                            ),
-                            a(str("revert-timer"), arg),
-                            a(str("optimize-hold-dead-delay"), arg),
-                            b(str("bandwidth"),
-                              bandwidth_type
-                            ),
-                            a(str("class-of-service"), arg),
-                            str("no-decrement-ttl"),
-                            a(str("hop-limit"), arg),
-                            str("no-cspf"),
-                            str("admin-down"),
-                            a(str("optimize-timer"), arg),
-                            a(str("preference"), arg),
-                            a(str("priority"), a(arg, arg)).as(:oneline),
-                            str("record"),
-                            str("no-record"),
-                            str("standby"),
-                            str("exclude-srlg"),
-                            b(str("admin-group"),
-                              admin_group_include_exclude
-                            ),
-                            b(str("admin-group-extended"),
-                              admin_group_include_exclude
-                            ),
-                            b(str("oam"),
-                              periodic_oam
-                            ),
-                            c(
-                              str("random"),
-                              str("least-fill"),
-                              str("most-fill")
-                            ),
-                            a(str("description"), quote | arg),
-                            c(
-                              str("link-protection"),
-                              str("node-link-protection")
-                            ),
-                            str("inter-domain"),
-                            str("adaptive"),
-                            b(str("fast-reroute"),
-                                c(
-                                    a(str("hop-limit"), arg),
-                                    c(
-                                      a(str("bandwidth"), arg),
-                                      a(str("bandwidth-percent"), arg)
-                                    ),
-                                    c(
-                                      str("no-include-any"),
-                                      a(str("include-any"), arg)
-                                    ),
-                                    c(
-                                      str("no-include-all"),
-                                      a(str("include-all"), arg)
-                                    ),
-                                    c(
-                                      str("no-exclude"),
-                                      a(str("exclude"), arg)
-                                    )
-                                )
-                            ),
-                            b(str("p2mp"),
-                                c(
-                                    a(str("path_name"), arg)
-                                )
-                            ).as(:oneline),
-                            b(str("auto-bandwidth"),
-                                c(
-                                    a(str("adjust-interval"), arg),
-                                    a(str("adjust-threshold"), arg),
-                                    a(str("minimum-bandwidth"), arg),
-                                    a(str("maximum-bandwidth"), arg),
-                                    str("monitor-bandwidth"),
-                                    a(str("adjust-threshold-overflow-limit"), arg),
-                                    a(str("adjust-threshold-underflow-limit"), arg)
-                                )
-                            ),
-                            b(a(str("associate-lsp"), arg),
-                                c(
-                                    b(str("from"),
-                                      ipv4addr
-                                    )
-                                )
-                            ),
-                            b(a(str("primary"), arg),
-                                c(
-                                    b(str("bandwidth"),
-                                      bandwidth_type
-                                    ),
-                                    a(str("class-of-service"), arg),
-                                    str("no-decrement-ttl"),
-                                    a(str("hop-limit"), arg),
-                                    str("no-cspf"),
-                                    str("admin-down"),
-                                    a(str("optimize-timer"), arg),
-                                    a(str("preference"), arg),
-                                    a(str("priority"), a(arg, arg)).as(:oneline),
-                                    str("record"),
-                                    str("no-record"),
-                                    str("standby"),
-                                    str("exclude-srlg"),
-                                    b(str("admin-group"),
-                                      admin_group_include_exclude
-                                    ),
-                                    b(str("admin-group-extended"),
-                                      admin_group_include_exclude
-                                    ),
-                                    b(str("oam"),
-                                      periodic_oam
-                                    ),
-                                    str("adaptive"),
-                                    a(str("select"), arg)
-                                )
-                            ),
-                            b(a(str("secondary"), arg),
-                                c(
-                                    b(str("bandwidth"),
-                                      bandwidth_type
-                                    ),
-                                    a(str("class-of-service"), arg),
-                                    str("no-decrement-ttl"),
-                                    a(str("hop-limit"), arg),
-                                    str("no-cspf"),
-                                    str("admin-down"),
-                                    a(str("optimize-timer"), arg),
-                                    a(str("preference"), arg),
-                                    a(str("priority"), a(arg, arg)).as(:oneline),
-                                    str("record"),
-                                    str("no-record"),
-                                    str("standby"),
-                                    str("exclude-srlg"),
-                                    b(str("admin-group"),
-                                      admin_group_include_exclude
-                                    ),
-                                    b(str("admin-group-extended"),
-                                      admin_group_include_exclude
-                                    ),
-                                    b(str("oam"),
-                                      periodic_oam
-                                    ),
-                                    str("adaptive"),
-                                    a(str("select"), arg)
-                                )
-                            ),
-                            b(str("policing"),
-                                c(
-                                    a(str("filter"), arg),
-                                    str("no-auto-policing")
-                                )
-                            ).as(:oneline),
-                            str("associate-backup-pe-groups"),
-                            str("egress-protection")
-                        )
-                    ),
-                    b(a(str("transit-lsp-association"), arg),
-                        c(
-                            a(str("lsp-name-1"), arg),
-                            b(str("from-1"),
-                              ipv4addr
-                            ),
-                            a(str("lsp-name-2"), arg),
-                            b(str("from-2"),
-                              ipv4addr
-                            )
-                        )
-                    ),
-                    b(a(str("path"), arg),
-                        c(
-                            b(ipaddr,
-                                c(
-                                    c(
-                                      str("loose"),
-                                      str("strict")
-                                    )
-                                )
-                            ).as(:oneline)
-                        )
-                    ),
-                    b(a(str("static-label-switched-path"), arg),
-                        c(
-                            c(
-                              b(str("bypass"),
-                                  c(
-                                      a(str("bandwidth"), arg),
-                                      a(str("description"), quote | arg),
-                                      b(str("next-hop"),
-                                        ipv4addr_or_interface
-                                      ),
-                                      a(str("push"), arg),
-                                      b(str("to"),
-                                        ipv4addr
-                                      )
-                                  )
-                              ),
-                              b(a(str("transit"), arg),
-                                  c(
-                                      a(str("bandwidth"), arg),
-                                      a(str("description"), quote | arg),
-                                      b(str("link-protection"),
-                                          c(
-                                              a(str("bypass-name"), arg)
-                                          )
-                                      ).as(:oneline),
-                                      b(str("next-hop"),
-                                        ipv4addr_or_interface
-                                      ),
-                                      b(str("node-protection"),
-                                          c(
-                                              a(str("bypass-name"), arg),
-                                              a(str("next-next-label"), arg)
-                                          )
-                                      ).as(:oneline),
-                                      c(
-                                        a(str("swap"), arg),
-                                        str("pop")
-                                      )
-                                  )
-                              ),
-                              b(str("ingress"),
-                                  c(
-                                      a(str("bandwidth"), arg),
-                                      a(str("class-of-service"), arg),
-                                      a(str("description"), quote | arg),
-                                      b(a(str("install"), arg),
-                                          c(
-                                              str("active")
-                                          )
-                                      ).as(:oneline),
-                                      a(str("metric"), arg),
-                                      b(str("next-hop"),
-                                        ipv4addr_or_interface
-                                      ),
-                                      b(str("link-protection"),
-                                          c(
-                                              a(str("bypass-name"), arg)
-                                          )
-                                      ).as(:oneline),
-                                      b(str("node-protection"),
-                                          c(
-                                              a(str("bypass-name"), arg),
-                                              a(str("next-next-label"), arg)
-                                          )
-                                      ).as(:oneline),
-                                      str("no-install-to-address"),
-                                      b(str("policing"),
-                                          c(
-                                              a(str("filter"), arg),
-                                              str("no-auto-policing")
-                                          )
-                                      ).as(:oneline),
-                                      a(str("preference"), arg),
-                                      b(str("to"),
-                                        ipv4addr
-                                      ),
-                                      a(str("push"), arg)
-                                  )
-                              )
-                            )
-                        )
-                    ),
-                    b(a(str("interface"), arg),
-                        c(
-                            c(
-                              str("disable")
-                            ),
-                            a(str("srlg"), arg),
-                            str("always-mark-connection-protection-tlv"),
-                            str("switch-away-lsps"),
-                            a(str("admin-group"), arg),
-                            a(str("admin-group-extended"), arg),
-                            b(str("static"),
-                                c(
-                                    a(str("protection-revert-time"), arg)
-                                )
-                            )
-                        )
-                    ),
-                    b(str("egress-protection"),
-                        c(
-                            b(a(str("context-identifier"), arg),
-                                c(
-                                    c(
-                                      str("primary"),
-                                      str("protector")
-                                    ),
-                                    a(str("metric"), arg)
-                                )
-                            )
-                        )
-                    )
-                )
+              juniper_protocols_mpls
             ),
             b(str("bgp"),
               juniper_protocols_bgp
@@ -27917,7 +27449,10 @@ module Junoser
                     ),
                     b(str("igmp-snooping"),
                       juniper_protocols_igmp_snooping
-                    )
+                    ),
+                    b(str("mpls"),
+                      juniper_protocols_mpls
+                    ),
                 )
             ),
             b(str("bridge-domains"),
@@ -38456,6 +37991,478 @@ module Junoser
       b(arg.as(:arg),
         c(
             str("no-tag")
+        )
+      )
+    end
+
+    rule(:juniper_protocols_mpls) do
+      c(
+        c(
+          str("disable")
+        ),
+        b(str("path-mtu"),
+          c(
+            str("allow-fragmentation"),
+            b(str("rsvp"),
+              c(
+                str("mtu-signaling")
+              )
+            )
+          )
+        ),
+        b(str("diffserv-te"),
+          c(
+            a(str("bandwidth-model"), arg),
+            b(str("te-class-matrix"),
+              c(
+                b(str("te0"),
+                  te_class_object
+                ).as(:oneline),
+                b(str("te1"),
+                  te_class_object
+                ).as(:oneline),
+                b(str("te2"),
+                  te_class_object
+                ).as(:oneline),
+                b(str("te3"),
+                  te_class_object
+                ).as(:oneline),
+                b(str("te4"),
+                  te_class_object
+                ).as(:oneline),
+                b(str("te5"),
+                  te_class_object
+                ).as(:oneline),
+                b(str("te6"),
+                  te_class_object
+                ).as(:oneline),
+                b(str("te7"),
+                  te_class_object
+                ).as(:oneline)
+              )
+            )
+          )
+        ),
+        b(str("auto-policing"),
+          c(
+            a(str("class"), str("all") | str("ct0") | str("ct1") | str("ct2") | str("ct3"),
+              c(
+                c(
+                  str("drop"),
+                  str("loss-priority-high"),
+                  str("loss-priority-low")
+                )
+              )
+            )
+          )
+        ),
+        b(str("statistics"),
+          c(
+            b(str("file"),
+              trace_file_type
+            ),
+            a(str("interval"), arg),
+            str("auto-bandwidth"),
+            str("no-transit-statistics")
+          )
+        ),
+        b(str("log-updown"),
+          c(
+            str("syslog"),
+            str("no-syslog"),
+            c(
+              str("trap"),
+              b(str("no-trap"),
+                c(
+                  str("mpls-lsp-traps"),
+                  str("rfc3812-traps")
+                )
+              )
+            ),
+            str("trap-path-down"),
+            str("trap-path-up")
+          )
+        ),
+        a(str("traffic-engineering"), arg),
+        b(str("traceoptions"),
+          c(
+            b(str("file"),
+              trace_file_type
+            ),
+            a(str("flag"), str("connection") | str("connection-detail") | str("cspf-link") | str("cspf-node") | str("cspf") | str("state") | str("error") | str("lsping") | str("graceful-restart") | str("nsr-synchronization") | str("nsr-synchronization-detail") | str("static") | str("egress-protection") | str("all")).as(:oneline)
+          )
+        ),
+        b(a(str("admin-groups"), arg),
+          c(
+            a(str("group-value"), arg)
+          )
+        ),
+        a(str("advertisement-hold-time"), arg),
+        a(str("rsvp-error-hold-time"), arg),
+        str("optimize-aggressive"),
+        a(str("smart-optimize-timer"), arg),
+        a(str("optimize-switchover-delay"), arg),
+        str("no-propagate-ttl"),
+        str("explicit-null"),
+        str("ipv6-tunneling"),
+        str("icmp-tunneling"),
+        a(str("revert-timer"), arg),
+        a(str("optimize-hold-dead-delay"), arg),
+        str("expand-loose-hop"),
+        str("mib-mpls-show-p2mp"),
+        b(str("bandwidth"),
+          bandwidth_type
+        ),
+        a(str("class-of-service"), arg),
+        str("no-decrement-ttl"),
+        a(str("hop-limit"), arg),
+        str("no-cspf"),
+        str("admin-down"),
+        a(str("optimize-timer"), arg),
+        a(str("preference"), arg),
+        a(str("priority"), a(arg, arg)).as(:oneline),
+        str("record"),
+        str("no-record"),
+        str("standby"),
+        str("exclude-srlg"),
+        b(str("admin-group"),
+          admin_group_include_exclude
+        ),
+        b(str("admin-group-extended"),
+          admin_group_include_exclude
+        ),
+        b(str("oam"),
+          periodic_oam
+        ),
+        b(a(str("label-switched-path"), arg),
+          c(
+            c(
+              str("disable")
+            ),
+            b(str("traceoptions"),
+              c(
+                b(str("file"),
+                  trace_file_type
+                ),
+                a(str("flag"), str("cspf-link") | str("cspf-node") | str("cspf") | str("state") | str("all")).as(:oneline)
+              )
+            ),
+            str("no-install-to-address"),
+            str("backup"),
+            b(str("from"),
+              ipv4addr
+            ),
+            c(
+              b(str("to"),
+                ipv4addr
+              ),
+              str("template")
+            ),
+            a(str("metric"), arg),
+            str("ldp-tunneling"),
+            str("soft-preemption"),
+            b(a(str("install"), arg),
+              c(
+                str("active")
+              )
+            ).as(:oneline),
+            a(str("retry-timer"), arg),
+            a(str("retry-limit"), arg),
+            b(str("lsp-attributes"),
+              c(
+                a(str("signal-bandwidth"), arg),
+                a(str("switching-type"), arg),
+                a(str("encoding-type"), arg),
+                a(str("gpid"), arg)
+              )
+            ),
+            a(str("revert-timer"), arg),
+            a(str("optimize-hold-dead-delay"), arg),
+            b(str("bandwidth"),
+              bandwidth_type
+            ),
+            a(str("class-of-service"), arg),
+            str("no-decrement-ttl"),
+            a(str("hop-limit"), arg),
+            str("no-cspf"),
+            str("admin-down"),
+            a(str("optimize-timer"), arg),
+            a(str("preference"), arg),
+            a(str("priority"), a(arg, arg)).as(:oneline),
+            str("record"),
+            str("no-record"),
+            str("standby"),
+            str("exclude-srlg"),
+            b(str("admin-group"),
+              admin_group_include_exclude
+            ),
+            b(str("admin-group-extended"),
+              admin_group_include_exclude
+            ),
+            b(str("oam"),
+              periodic_oam
+            ),
+            c(
+              str("random"),
+              str("least-fill"),
+              str("most-fill")
+            ),
+            a(str("description"), quote | arg),
+            c(
+              str("link-protection"),
+              str("node-link-protection")
+            ),
+            str("inter-domain"),
+            str("adaptive"),
+            b(str("fast-reroute"),
+              c(
+                a(str("hop-limit"), arg),
+                c(
+                  a(str("bandwidth"), arg),
+                  a(str("bandwidth-percent"), arg)
+                ),
+                c(
+                  str("no-include-any"),
+                  a(str("include-any"), arg)
+                ),
+                c(
+                  str("no-include-all"),
+                  a(str("include-all"), arg)
+                ),
+                c(
+                  str("no-exclude"),
+                  a(str("exclude"), arg)
+                )
+              )
+            ),
+            b(str("p2mp"),
+              c(
+                a(str("path_name"), arg)
+              )
+            ).as(:oneline),
+            b(str("auto-bandwidth"),
+              c(
+                a(str("adjust-interval"), arg),
+                a(str("adjust-threshold"), arg),
+                a(str("minimum-bandwidth"), arg),
+                a(str("maximum-bandwidth"), arg),
+                str("monitor-bandwidth"),
+                a(str("adjust-threshold-overflow-limit"), arg),
+                a(str("adjust-threshold-underflow-limit"), arg)
+              )
+            ),
+            b(a(str("associate-lsp"), arg),
+              c(
+                b(str("from"),
+                  ipv4addr
+                )
+              )
+            ),
+            b(a(str("primary"), arg),
+              c(
+                b(str("bandwidth"),
+                  bandwidth_type
+                ),
+                a(str("class-of-service"), arg),
+                str("no-decrement-ttl"),
+                a(str("hop-limit"), arg),
+                str("no-cspf"),
+                str("admin-down"),
+                a(str("optimize-timer"), arg),
+                a(str("preference"), arg),
+                a(str("priority"), a(arg, arg)).as(:oneline),
+                str("record"),
+                str("no-record"),
+                str("standby"),
+                str("exclude-srlg"),
+                b(str("admin-group"),
+                  admin_group_include_exclude
+                ),
+                b(str("admin-group-extended"),
+                  admin_group_include_exclude
+                ),
+                b(str("oam"),
+                  periodic_oam
+                ),
+                str("adaptive"),
+                a(str("select"), arg)
+              )
+            ),
+            b(a(str("secondary"), arg),
+              c(
+                b(str("bandwidth"),
+                  bandwidth_type
+                ),
+                a(str("class-of-service"), arg),
+                str("no-decrement-ttl"),
+                a(str("hop-limit"), arg),
+                str("no-cspf"),
+                str("admin-down"),
+                a(str("optimize-timer"), arg),
+                a(str("preference"), arg),
+                a(str("priority"), a(arg, arg)).as(:oneline),
+                str("record"),
+                str("no-record"),
+                str("standby"),
+                str("exclude-srlg"),
+                b(str("admin-group"),
+                  admin_group_include_exclude
+                ),
+                b(str("admin-group-extended"),
+                  admin_group_include_exclude
+                ),
+                b(str("oam"),
+                  periodic_oam
+                ),
+                str("adaptive"),
+                a(str("select"), arg)
+              )
+            ),
+            b(str("policing"),
+              c(
+                a(str("filter"), arg),
+                str("no-auto-policing")
+              )
+            ).as(:oneline),
+            str("associate-backup-pe-groups"),
+            str("egress-protection")
+          )
+        ),
+        b(a(str("transit-lsp-association"), arg),
+          c(
+            a(str("lsp-name-1"), arg),
+            b(str("from-1"),
+              ipv4addr
+            ),
+            a(str("lsp-name-2"), arg),
+            b(str("from-2"),
+              ipv4addr
+            )
+          )
+        ),
+        b(a(str("path"), arg),
+          c(
+            b(ipaddr,
+              c(
+                c(
+                  str("loose"),
+                  str("strict")
+                )
+              )
+            ).as(:oneline)
+          )
+        ),
+        b(a(str("static-label-switched-path"), arg),
+          c(
+            c(
+              b(str("bypass"),
+                c(
+                  a(str("bandwidth"), arg),
+                  a(str("description"), quote | arg),
+                  b(str("next-hop"),
+                    ipv4addr_or_interface
+                  ),
+                  a(str("push"), arg),
+                  b(str("to"),
+                    ipv4addr
+                  )
+                )
+              ),
+              b(a(str("transit"), arg),
+                c(
+                  a(str("bandwidth"), arg),
+                  a(str("description"), quote | arg),
+                  b(str("link-protection"),
+                    c(
+                      a(str("bypass-name"), arg)
+                    )
+                  ).as(:oneline),
+                  b(str("next-hop"),
+                    ipv4addr_or_interface
+                  ),
+                  b(str("node-protection"),
+                    c(
+                      a(str("bypass-name"), arg),
+                      a(str("next-next-label"), arg)
+                    )
+                  ).as(:oneline),
+                  c(
+                    a(str("swap"), arg),
+                    str("pop")
+                  )
+                )
+              ),
+              b(str("ingress"),
+                c(
+                  a(str("bandwidth"), arg),
+                  a(str("class-of-service"), arg),
+                  a(str("description"), quote | arg),
+                  b(a(str("install"), arg),
+                    c(
+                      str("active")
+                    )
+                  ).as(:oneline),
+                  a(str("metric"), arg),
+                  b(str("next-hop"),
+                    ipv4addr_or_interface
+                  ),
+                  b(str("link-protection"),
+                    c(
+                      a(str("bypass-name"), arg)
+                    )
+                  ).as(:oneline),
+                  b(str("node-protection"),
+                    c(
+                      a(str("bypass-name"), arg),
+                      a(str("next-next-label"), arg)
+                    )
+                  ).as(:oneline),
+                  str("no-install-to-address"),
+                  b(str("policing"),
+                    c(
+                      a(str("filter"), arg),
+                      str("no-auto-policing")
+                    )
+                  ).as(:oneline),
+                  a(str("preference"), arg),
+                  b(str("to"),
+                    ipv4addr
+                  ),
+                  a(str("push"), arg)
+                )
+              )
+            )
+          )
+        ),
+        b(a(str("interface"), arg),
+          c(
+            c(
+              str("disable")
+            ),
+            a(str("srlg"), arg),
+            str("always-mark-connection-protection-tlv"),
+            str("switch-away-lsps"),
+            a(str("admin-group"), arg),
+            a(str("admin-group-extended"), arg),
+            b(str("static"),
+              c(
+                a(str("protection-revert-time"), arg)
+              )
+            )
+          )
+        ),
+        b(str("egress-protection"),
+          c(
+            b(a(str("context-identifier"), arg),
+              c(
+                c(
+                  str("primary"),
+                  str("protector")
+                ),
+                a(str("metric"), arg)
+              )
+            )
+          )
         )
       )
     end

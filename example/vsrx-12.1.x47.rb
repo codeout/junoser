@@ -20733,495 +20733,7 @@ rule(:juniper_protocols) do
             )
         ),
         "mpls" (
-            c(
-                c(
-                  "disable"
-                ),
-                "path-mtu" (
-                    c(
-                        "allow-fragmentation",
-                        "rsvp" (
-                            c(
-                                "mtu-signaling"
-                            )
-                        )
-                    )
-                ),
-                "diffserv-te" (
-                    c(
-                        "bandwidth-model" arg,
-                        "te-class-matrix" (
-                            c(
-                                "te0" (
-                                  te_class_object
-                                ).as(:oneline),
-                                "te1" (
-                                  te_class_object
-                                ).as(:oneline),
-                                "te2" (
-                                  te_class_object
-                                ).as(:oneline),
-                                "te3" (
-                                  te_class_object
-                                ).as(:oneline),
-                                "te4" (
-                                  te_class_object
-                                ).as(:oneline),
-                                "te5" (
-                                  te_class_object
-                                ).as(:oneline),
-                                "te6" (
-                                  te_class_object
-                                ).as(:oneline),
-                                "te7" (
-                                  te_class_object
-                                ).as(:oneline)
-                            )
-                        )
-                    )
-                ),
-                "auto-policing" (
-                    c(
-                        "class" ("all" | "ct0" | "ct1" | "ct2" | "ct3") (
-                            c(
-                                c(
-                                  "drop",
-                                  "loss-priority-high",
-                                  "loss-priority-low"
-                                )
-                            )
-                        )
-                    )
-                ),
-                "statistics" (
-                    c(
-                        "file" (
-                          trace_file_type
-                        ),
-                        "interval" arg,
-                        "auto-bandwidth",
-                        "no-transit-statistics"
-                    )
-                ),
-                "log-updown" (
-                    c(
-                        "syslog",
-                        "no-syslog",
-                        c(
-                          "trap",
-                          "no-trap" (
-                              c(
-                                  "mpls-lsp-traps",
-                                  "rfc3812-traps"
-                              )
-                          )
-                        ),
-                        "trap-path-down",
-                        "trap-path-up"
-                    )
-                ),
-                "traffic-engineering" arg,
-                "traceoptions" (
-                    c(
-                        "file" (
-                          trace_file_type
-                        ),
-                        "flag" ("connection" | "connection-detail" | "cspf" | "cspf-node" | "cspf-link" | "state" | "error" | "lsping" | "graceful-restart" | "nsr-synchronization" | "nsr-synchronization-detail" | "static" | "egress-protection" | "all").as(:oneline)
-                    )
-                ),
-                "admin-groups" arg (
-                    c(
-                        "group-value" arg
-                    )
-                ),
-                "advertisement-hold-time" arg,
-                "rsvp-error-hold-time" arg,
-                "optimize-aggressive",
-                "smart-optimize-timer" arg,
-                "optimize-switchover-delay" arg,
-                "no-propagate-ttl",
-                "explicit-null",
-                "ipv6-tunneling",
-                "icmp-tunneling",
-                "revert-timer" arg,
-                "optimize-hold-dead-delay" arg,
-                "expand-loose-hop",
-                "mib-mpls-show-p2mp",
-                "bandwidth" (
-                  bandwidth_type
-                ),
-                "class-of-service" arg,
-                "no-decrement-ttl",
-                "hop-limit" arg,
-                "no-cspf",
-                "admin-down",
-                "optimize-timer" arg,
-                "preference" arg,
-                "priority" (
-                    c(
-                        "setup-priority" arg,
-                        "reservation-priority" arg
-                    )
-                ),
-                "record",
-                "no-record",
-                "standby",
-                "exclude-srlg",
-                "admin-group" (
-                  admin_group_include_exclude
-                ),
-                "admin-group-extended" (
-                  admin_group_include_exclude
-                ),
-                "oam" (
-                  periodic_oam
-                ),
-                "label-switched-path" arg (
-                    c(
-                        c(
-                          "disable"
-                        ),
-                        "traceoptions" (
-                            c(
-                                "file" (
-                                  trace_file_type
-                                ),
-                                "flag" ("cspf" | "cspf-node" | "cspf-link" | "state" | "all").as(:oneline)
-                            )
-                        ),
-                        "no-install-to-address",
-                        "backup",
-                        "from" (
-                          ipv4addr
-                        ),
-                        c(
-                          "to" (
-                            ipv4addr
-                          ),
-                          "template"
-                        ),
-                        "metric" arg,
-                        "ldp-tunneling",
-                        "soft-preemption",
-                        "install" arg (
-                            c(
-                                "active"
-                            )
-                        ).as(:oneline),
-                        "retry-timer" arg,
-                        "retry-limit" arg,
-                        "lsp-attributes" (
-                            c(
-                                "signal-bandwidth" arg,
-                                "switching-type" arg,
-                                "encoding-type" arg,
-                                "gpid" arg
-                            )
-                        ),
-                        "revert-timer" arg,
-                        "optimize-hold-dead-delay" arg,
-                        "bandwidth" (
-                          bandwidth_type
-                        ),
-                        "class-of-service" arg,
-                        "no-decrement-ttl",
-                        "hop-limit" arg,
-                        "no-cspf",
-                        "admin-down",
-                        "optimize-timer" arg,
-                        "preference" arg,
-                        "priority" (
-                            c(
-                                "setup-priority" arg,
-                                "reservation-priority" arg
-                            )
-                        ),
-                        "record",
-                        "no-record",
-                        "standby",
-                        "exclude-srlg",
-                        "admin-group" (
-                          admin_group_include_exclude
-                        ),
-                        "admin-group-extended" (
-                          admin_group_include_exclude
-                        ),
-                        "oam" (
-                          periodic_oam
-                        ),
-                        c(
-                          "random",
-                          "least-fill",
-                          "most-fill"
-                        ),
-                        "description" arg,
-                        c(
-                          "link-protection",
-                          "node-link-protection"
-                        ),
-                        "inter-domain",
-                        "adaptive",
-                        "fast-reroute" (
-                            c(
-                                "hop-limit" arg,
-                                c(
-                                  "bandwidth" arg,
-                                  "bandwidth-percent" arg
-                                ),
-                                c(
-                                  "no-include-any",
-                                  "include-any" arg
-                                ),
-                                c(
-                                  "no-include-all",
-                                  "include-all" arg
-                                ),
-                                c(
-                                  "no-exclude",
-                                  "exclude" arg
-                                )
-                            )
-                        ),
-                        "p2mp" (
-                            c(
-                                "path_name" arg
-                            )
-                        ).as(:oneline),
-                        "auto-bandwidth" (
-                            c(
-                                "adjust-interval" arg,
-                                "adjust-threshold" arg,
-                                "minimum-bandwidth" arg,
-                                "maximum-bandwidth" arg,
-                                "monitor-bandwidth",
-                                "adjust-threshold-overflow-limit" arg,
-                                "adjust-threshold-underflow-limit" arg
-                            )
-                        ),
-                        "associate-lsp" arg (
-                            c(
-                                "from" (
-                                  ipv4addr
-                                )
-                            )
-                        ),
-                        "primary" arg (
-                            c(
-                                "bandwidth" (
-                                  bandwidth_type
-                                ),
-                                "class-of-service" arg,
-                                "no-decrement-ttl",
-                                "hop-limit" arg,
-                                "no-cspf",
-                                "admin-down",
-                                "optimize-timer" arg,
-                                "preference" arg,
-                                "priority" (
-                                    c(
-                                        "setup-priority" arg,
-                                        "reservation-priority" arg
-                                    )
-                                ),
-                                "record",
-                                "no-record",
-                                "standby",
-                                "exclude-srlg",
-                                "admin-group" (
-                                  admin_group_include_exclude
-                                ),
-                                "admin-group-extended" (
-                                  admin_group_include_exclude
-                                ),
-                                "oam" (
-                                  periodic_oam
-                                ),
-                                "adaptive",
-                                "select" arg
-                            )
-                        ),
-                        "secondary" arg (
-                            c(
-                                "bandwidth" (
-                                  bandwidth_type
-                                ),
-                                "class-of-service" arg,
-                                "no-decrement-ttl",
-                                "hop-limit" arg,
-                                "no-cspf",
-                                "admin-down",
-                                "optimize-timer" arg,
-                                "preference" arg,
-                                "priority" (
-                                    c(
-                                        "setup-priority" arg,
-                                        "reservation-priority" arg
-                                    )
-                                ),
-                                "record",
-                                "no-record",
-                                "standby",
-                                "exclude-srlg",
-                                "admin-group" (
-                                  admin_group_include_exclude
-                                ),
-                                "admin-group-extended" (
-                                  admin_group_include_exclude
-                                ),
-                                "oam" (
-                                  periodic_oam
-                                ),
-                                "adaptive",
-                                "select" arg
-                            )
-                        ),
-                        "policing" (
-                            c(
-                                "filter" arg,
-                                "no-auto-policing"
-                            )
-                        ).as(:oneline),
-                        "associate-backup-pe-groups",
-                        "egress-protection"
-                    )
-                ),
-                "transit-lsp-association" arg (
-                    c(
-                        "lsp-name-1" arg,
-                        "from-1" (
-                          ipv4addr
-                        ),
-                        "lsp-name-2" arg,
-                        "from-2" (
-                          ipv4addr
-                        )
-                    )
-                ),
-                "path" arg (
-                    c(
-                        "path-list" arg (
-                            c(
-                                c(
-                                  "loose",
-                                  "strict"
-                                )
-                            )
-                        ).as(:oneline)
-                    )
-                ),
-                "static-label-switched-path" arg (
-                    c(
-                        c(
-                          "bypass" (
-                              c(
-                                  "bandwidth" arg,
-                                  "description" arg,
-                                  "next-hop" (
-                                    ipv4addr_or_interface
-                                  ),
-                                  "push" arg,
-                                  "to" (
-                                    ipv4addr
-                                  )
-                              )
-                          ),
-                          "transit" arg (
-                              c(
-                                  "bandwidth" arg,
-                                  "description" arg,
-                                  "link-protection" (
-                                      c(
-                                          "bypass-name" arg
-                                      )
-                                  ).as(:oneline),
-                                  "next-hop" (
-                                    ipv4addr_or_interface
-                                  ),
-                                  "node-protection" (
-                                      c(
-                                          "bypass-name" arg,
-                                          "next-next-label" arg
-                                      )
-                                  ).as(:oneline),
-                                  c(
-                                    "swap" arg,
-                                    "pop"
-                                  )
-                              )
-                          ),
-                          "ingress" (
-                              c(
-                                  "bandwidth" arg,
-                                  "class-of-service" arg,
-                                  "description" arg,
-                                  "install" arg (
-                                      c(
-                                          "active"
-                                      )
-                                  ).as(:oneline),
-                                  "metric" arg,
-                                  "next-hop" (
-                                    ipv4addr_or_interface
-                                  ),
-                                  "link-protection" (
-                                      c(
-                                          "bypass-name" arg
-                                      )
-                                  ).as(:oneline),
-                                  "node-protection" (
-                                      c(
-                                          "bypass-name" arg,
-                                          "next-next-label" arg
-                                      )
-                                  ).as(:oneline),
-                                  "no-install-to-address",
-                                  "policing" (
-                                      c(
-                                          "filter" arg,
-                                          "no-auto-policing"
-                                      )
-                                  ).as(:oneline),
-                                  "preference" arg,
-                                  "to" (
-                                    ipv4addr
-                                  ),
-                                  "push" arg
-                              )
-                          )
-                        )
-                    )
-                ),
-                "interface" arg (
-                    c(
-                        c(
-                          "disable"
-                        ),
-                        "srlg" arg,
-                        "always-mark-connection-protection-tlv",
-                        "switch-away-lsps",
-                        "admin-group" arg,
-                        "admin-group-extended" arg,
-                        "static" (
-                            c(
-                                "protection-revert-time" arg
-                            )
-                        )
-                    )
-                ),
-                "egress-protection" (
-                    c(
-                        "context-identifier" arg (
-                            c(
-                                c(
-                                  "primary",
-                                  "protector"
-                                ),
-                                "metric" arg
-                            )
-                        )
-                    )
-                )
-            )
+          juniper_protocols_mpls
         ),
         "bgp" (
           juniper_protocols_bgp
@@ -28050,7 +27562,10 @@ rule(:juniper_routing_instance) do
                 ),
                 "igmp-snooping" (
                   juniper_protocols_igmp_snooping
-                )
+                ),
+                "mpls" (
+                  juniper_protocols_mpls
+                ),
             )
         ),
         "bridge-domains" (
@@ -38661,6 +38176,498 @@ rule(:pm_rspan_vlan) do
   arg.as(:arg) (
     c(
         "no-tag"
+    )
+  )
+end
+
+rule(:juniper_protocols_mpls) do
+  c(
+    c(
+      "disable"
+    ),
+    "path-mtu" (
+      c(
+        "allow-fragmentation",
+        "rsvp" (
+          c(
+            "mtu-signaling"
+          )
+        )
+      )
+    ),
+    "diffserv-te" (
+      c(
+        "bandwidth-model" arg,
+        "te-class-matrix" (
+          c(
+            "te0" (
+              te_class_object
+            ).as(:oneline),
+            "te1" (
+              te_class_object
+            ).as(:oneline),
+            "te2" (
+              te_class_object
+            ).as(:oneline),
+            "te3" (
+              te_class_object
+            ).as(:oneline),
+            "te4" (
+              te_class_object
+            ).as(:oneline),
+            "te5" (
+              te_class_object
+            ).as(:oneline),
+            "te6" (
+              te_class_object
+            ).as(:oneline),
+            "te7" (
+              te_class_object
+            ).as(:oneline)
+          )
+        )
+      )
+    ),
+    "auto-policing" (
+      c(
+        "class" ("all" | "ct0" | "ct1" | "ct2" | "ct3") (
+          c(
+            c(
+              "drop",
+              "loss-priority-high",
+              "loss-priority-low"
+            )
+          )
+        )
+      )
+    ),
+    "statistics" (
+      c(
+        "file" (
+          trace_file_type
+        ),
+        "interval" arg,
+        "auto-bandwidth",
+        "no-transit-statistics"
+      )
+    ),
+    "log-updown" (
+      c(
+        "syslog",
+        "no-syslog",
+        c(
+          "trap",
+          "no-trap" (
+            c(
+              "mpls-lsp-traps",
+              "rfc3812-traps"
+            )
+          )
+        ),
+        "trap-path-down",
+        "trap-path-up"
+      )
+    ),
+    "traffic-engineering" arg,
+    "traceoptions" (
+      c(
+        "file" (
+          trace_file_type
+        ),
+        "flag" ("connection" | "connection-detail" | "cspf" | "cspf-node" | "cspf-link" | "state" | "error" | "lsping" | "graceful-restart" | "nsr-synchronization" | "nsr-synchronization-detail" | "static" | "egress-protection" | "all").as(:oneline)
+      )
+    ),
+    "admin-groups" arg (
+      c(
+        "group-value" arg
+      )
+    ),
+    "advertisement-hold-time" arg,
+    "rsvp-error-hold-time" arg,
+    "optimize-aggressive",
+    "smart-optimize-timer" arg,
+    "optimize-switchover-delay" arg,
+    "no-propagate-ttl",
+    "explicit-null",
+    "ipv6-tunneling",
+    "icmp-tunneling",
+    "revert-timer" arg,
+    "optimize-hold-dead-delay" arg,
+    "expand-loose-hop",
+    "mib-mpls-show-p2mp",
+    "bandwidth" (
+      bandwidth_type
+    ),
+    "class-of-service" arg,
+    "no-decrement-ttl",
+    "hop-limit" arg,
+    "no-cspf",
+    "admin-down",
+    "optimize-timer" arg,
+    "preference" arg,
+    "priority" (
+      c(
+        "setup-priority" arg,
+        "reservation-priority" arg
+      )
+    ),
+    "record",
+    "no-record",
+    "standby",
+    "exclude-srlg",
+    "admin-group" (
+      admin_group_include_exclude
+    ),
+    "admin-group-extended" (
+      admin_group_include_exclude
+    ),
+    "oam" (
+      periodic_oam
+    ),
+    "label-switched-path" arg (
+      c(
+        c(
+          "disable"
+        ),
+        "traceoptions" (
+          c(
+            "file" (
+              trace_file_type
+            ),
+            "flag" ("cspf" | "cspf-node" | "cspf-link" | "state" | "all").as(:oneline)
+          )
+        ),
+        "no-install-to-address",
+        "backup",
+        "from" (
+          ipv4addr
+        ),
+        c(
+          "to" (
+            ipv4addr
+          ),
+          "template"
+        ),
+        "metric" arg,
+        "ldp-tunneling",
+        "soft-preemption",
+        "install" arg (
+          c(
+            "active"
+          )
+        ).as(:oneline),
+        "retry-timer" arg,
+        "retry-limit" arg,
+        "lsp-attributes" (
+          c(
+            "signal-bandwidth" arg,
+            "switching-type" arg,
+            "encoding-type" arg,
+            "gpid" arg
+          )
+        ),
+        "revert-timer" arg,
+        "optimize-hold-dead-delay" arg,
+        "bandwidth" (
+          bandwidth_type
+        ),
+        "class-of-service" arg,
+        "no-decrement-ttl",
+        "hop-limit" arg,
+        "no-cspf",
+        "admin-down",
+        "optimize-timer" arg,
+        "preference" arg,
+        "priority" (
+          c(
+            "setup-priority" arg,
+            "reservation-priority" arg
+          )
+        ),
+        "record",
+        "no-record",
+        "standby",
+        "exclude-srlg",
+        "admin-group" (
+          admin_group_include_exclude
+        ),
+        "admin-group-extended" (
+          admin_group_include_exclude
+        ),
+        "oam" (
+          periodic_oam
+        ),
+        c(
+          "random",
+          "least-fill",
+          "most-fill"
+        ),
+        "description" arg,
+        c(
+          "link-protection",
+          "node-link-protection"
+        ),
+        "inter-domain",
+        "adaptive",
+        "fast-reroute" (
+          c(
+            "hop-limit" arg,
+            c(
+              "bandwidth" arg,
+              "bandwidth-percent" arg
+            ),
+            c(
+              "no-include-any",
+              "include-any" arg
+            ),
+            c(
+              "no-include-all",
+              "include-all" arg
+            ),
+            c(
+              "no-exclude",
+              "exclude" arg
+            )
+          )
+        ),
+        "p2mp" (
+          c(
+            "path_name" arg
+          )
+        ).as(:oneline),
+        "auto-bandwidth" (
+          c(
+            "adjust-interval" arg,
+            "adjust-threshold" arg,
+            "minimum-bandwidth" arg,
+            "maximum-bandwidth" arg,
+            "monitor-bandwidth",
+            "adjust-threshold-overflow-limit" arg,
+            "adjust-threshold-underflow-limit" arg
+          )
+        ),
+        "associate-lsp" arg (
+          c(
+            "from" (
+              ipv4addr
+            )
+          )
+        ),
+        "primary" arg (
+          c(
+            "bandwidth" (
+              bandwidth_type
+            ),
+            "class-of-service" arg,
+            "no-decrement-ttl",
+            "hop-limit" arg,
+            "no-cspf",
+            "admin-down",
+            "optimize-timer" arg,
+            "preference" arg,
+            "priority" (
+              c(
+                "setup-priority" arg,
+                "reservation-priority" arg
+              )
+            ),
+            "record",
+            "no-record",
+            "standby",
+            "exclude-srlg",
+            "admin-group" (
+              admin_group_include_exclude
+            ),
+            "admin-group-extended" (
+              admin_group_include_exclude
+            ),
+            "oam" (
+              periodic_oam
+            ),
+            "adaptive",
+            "select" arg
+          )
+        ),
+        "secondary" arg (
+          c(
+            "bandwidth" (
+              bandwidth_type
+            ),
+            "class-of-service" arg,
+            "no-decrement-ttl",
+            "hop-limit" arg,
+            "no-cspf",
+            "admin-down",
+            "optimize-timer" arg,
+            "preference" arg,
+            "priority" (
+              c(
+                "setup-priority" arg,
+                "reservation-priority" arg
+              )
+            ),
+            "record",
+            "no-record",
+            "standby",
+            "exclude-srlg",
+            "admin-group" (
+              admin_group_include_exclude
+            ),
+            "admin-group-extended" (
+              admin_group_include_exclude
+            ),
+            "oam" (
+              periodic_oam
+            ),
+            "adaptive",
+            "select" arg
+          )
+        ),
+        "policing" (
+          c(
+            "filter" arg,
+            "no-auto-policing"
+          )
+        ).as(:oneline),
+        "associate-backup-pe-groups",
+        "egress-protection"
+      )
+    ),
+    "transit-lsp-association" arg (
+      c(
+        "lsp-name-1" arg,
+        "from-1" (
+          ipv4addr
+        ),
+        "lsp-name-2" arg,
+        "from-2" (
+          ipv4addr
+        )
+      )
+    ),
+    "path" arg (
+      c(
+        "path-list" arg (
+          c(
+            c(
+              "loose",
+              "strict"
+            )
+          )
+        ).as(:oneline)
+      )
+    ),
+    "static-label-switched-path" arg (
+      c(
+        c(
+          "bypass" (
+            c(
+              "bandwidth" arg,
+              "description" arg,
+              "next-hop" (
+                ipv4addr_or_interface
+              ),
+              "push" arg,
+              "to" (
+                ipv4addr
+              )
+            )
+          ),
+          "transit" arg (
+            c(
+              "bandwidth" arg,
+              "description" arg,
+              "link-protection" (
+                c(
+                  "bypass-name" arg
+                )
+              ).as(:oneline),
+              "next-hop" (
+                ipv4addr_or_interface
+              ),
+              "node-protection" (
+                c(
+                  "bypass-name" arg,
+                  "next-next-label" arg
+                )
+              ).as(:oneline),
+              c(
+                "swap" arg,
+                "pop"
+              )
+            )
+          ),
+          "ingress" (
+            c(
+              "bandwidth" arg,
+              "class-of-service" arg,
+              "description" arg,
+              "install" arg (
+                c(
+                  "active"
+                )
+              ).as(:oneline),
+              "metric" arg,
+              "next-hop" (
+                ipv4addr_or_interface
+              ),
+              "link-protection" (
+                c(
+                  "bypass-name" arg
+                )
+              ).as(:oneline),
+              "node-protection" (
+                c(
+                  "bypass-name" arg,
+                  "next-next-label" arg
+                )
+              ).as(:oneline),
+              "no-install-to-address",
+              "policing" (
+                c(
+                  "filter" arg,
+                  "no-auto-policing"
+                )
+              ).as(:oneline),
+              "preference" arg,
+              "to" (
+                ipv4addr
+              ),
+              "push" arg
+            )
+          )
+        )
+      )
+    ),
+    "interface" arg (
+      c(
+        c(
+          "disable"
+        ),
+        "srlg" arg,
+        "always-mark-connection-protection-tlv",
+        "switch-away-lsps",
+        "admin-group" arg,
+        "admin-group-extended" arg,
+        "static" (
+          c(
+            "protection-revert-time" arg
+          )
+        )
+      )
+    ),
+    "egress-protection" (
+      c(
+        "context-identifier" arg (
+          c(
+            c(
+              "primary",
+              "protector"
+            ),
+            "metric" arg
+          )
+        )
+      )
     )
   )
 end
