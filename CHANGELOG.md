@@ -1,3 +1,8 @@
+## 0.2.13 / 2017-10-13
+
+* Bug fix
+  * Support "protocols mpls" commands at "routing-instances" hierarchy
+
 ## 0.2.12 / 2017-10-06
 
 * Newly supported syntax
