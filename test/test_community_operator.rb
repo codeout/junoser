@@ -1,5 +1,4 @@
-require 'test-unit'
-require 'junoser'
+require 'helper'
 
 class TestCommunityOperator < Test::Unit::TestCase
   test 'community operator' do

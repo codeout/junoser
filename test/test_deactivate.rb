@@ -1,5 +1,4 @@
-require 'test-unit'
-require 'junoser'
+require 'helper'
 
 class TestDeactivate < Test::Unit::TestCase
   test 'check display set form with deactivated description' do

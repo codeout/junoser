@@ -1,5 +1,4 @@
-require 'test-unit'
-require 'junoser'
+require 'helper'
 
 class TestCommentLine < Test::Unit::TestCase
   display_set_config = <<-EOS

@@ -1,5 +1,4 @@
-require 'test-unit'
-require 'junoser'
+require 'helper'
 
 class TestRouteFilterOperator < Test::Unit::TestCase
   test 'route filter operator' do

@@ -1,5 +1,4 @@
-require 'test-unit'
-require 'junoser'
+require 'helper'
 
 class TestCarriageReturn < Test::Unit::TestCase
   test 'commit check display-set style' do
