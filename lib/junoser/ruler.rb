@@ -39,6 +39,76 @@ module Junoser
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
 
+      %w[as-number confederation-as metric-value limit-threshold filename filter-name class-name classifier-name link-subscription per-traffic-class-bandwidth template-name].each do |key|
+        str.gsub! %["#{key}" arg], 'arg'
+      end
+
+      str.gsub! '"equal-literal"', '"="'
+      str.gsub! '"plus-literal"', '"+"'
+      str.gsub! '"minus-literal"', '"-"'
+
+      str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
+      str.gsub!(/\("name" \| (.*)\)/) { "(arg | #$1)" }
+      str.gsub! '"vlan" ("id-name" | "all")', '"vlan" ("all" | arg)'
+      str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
+      str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }
+      str.gsub! '"description" arg', '"description" (quote | arg)'
+      str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
+      str.gsub! '"dhcp-service" (', '("dhcp-service" | "dhcp") ('
+
+      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
+      str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
+      str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+      str.gsub!(/"cspf"(.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
+      str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
+      str.gsub!(/"source-address-filter" (\(\s*control_source_address_filter_type\s*\))/) { %["source-adress-filter" arg #{$1}.as(:oneline)] }
+
+      %w[teardown hold-time stub].each do |key|
+        str.gsub!(/^(\s*"#{key}" \(\s*)c\(/) { "#{$1}sc(" }
+      end
+      %w[file confederation].each do |key|
+        str.gsub!(/^(\s*"#{key}" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
+      end
+      %w[exact longer orlonger].each do |key|
+        str.gsub!(/^(\s*"#{key}") arg/) { "#{$1}" }
+      end
+
+      str.gsub!(/^(\s*)"inline-services"/) do
+        format(['"inline-services" (',
+                '  "bandwidth" ("1g" | "10g")',
+                ')'], $1)
+      end
+      str.gsub!(/^(\s*)"ieee-802.3ad" \(\s*c\(\s*"lacp" \(\s*c\(/) do
+        format(['"802.3ad" (',
+                '  ca(',
+                '    "lacp" (',
+                '      c(',
+                '        "force-up",'], $1)
+      end
+      str.gsub!(/^(\s*)"as-path" \(\s*c\(\s*"path" arg,/) do
+        format(['"as-path" (',
+                '  ca('], $1)
+      end
+
+      str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
+        format(['rule(:regular_expression) do',
+                '  (quote | arg).as(:arg)',
+                'end'])
+      end
+      str.gsub!(/^rule\(:login_user_object\) do\s*arg\.as\(:arg\) \(\s*c\(\s*"full-name" arg,/) do
+        format(['rule(:login_user_object) do',
+                '  arg.as(:arg) (',
+                '    sc(',
+                '        "full-name" (quote | arg),'])
+      end
+
+      str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
+      str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
+      str.gsub!(/^(rule\(:trace_file_type\) do\s*)c\(\s*arg,/) { "#{$1}sca(" }
+      str.gsub!(/^(rule\(:archive_object\) do\s*)c\(/) { "#{$1}sc(" }
+
+      str.gsub!(/^(\s*)c\(\s*arg,$/) { "#{$1}ca(" }
+
       str
     end
 
