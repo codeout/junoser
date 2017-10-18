@@ -27,9 +27,13 @@ module Junoser
 
       def to_s
         str = case
+              when nokeyword? && content.empty?
+                format('arg')
+              when nokeyword?
+                content
               when content.empty?
                 format(label)
-              when content =~ /^ *arg$/
+              when content =~ /\A *arg\z/
                 format("#{label} arg")
               when label
                 format("#{label} (", content, ')')
