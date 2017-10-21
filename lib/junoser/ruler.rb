@@ -165,21 +165,25 @@ module Junoser
       lines_without_deactivate = lines.reject {|l| l =~ /^deactivate/ }
 
       lines.inject(true) do |passed, line|
-        if line =~ /^deactivate/
-          if lines_without_deactivate.grep(/^\#{line.sub(/^deactivate/, 'set')}/).empty?
-            next false
-          else
-            next passed
-          end
-        end
+        passed & parse_line(line, lines_without_deactivate)
+      end
+    end
 
-        begin
-          parse line
-          passed
-        rescue Parslet::ParseFailed
-          $stderr.puts "Invalid syntax:  \#{line}"
-          false
+    def parse_line(line, lines_without_deactivate)
+      if line =~ /^deactivate/
+        if lines_without_deactivate.grep(/^\#{line.sub(/^deactivate/, 'set')}/).empty?
+          return false
+        else
+          return true
         end
+      end
+
+      begin
+        parse line
+        true
+      rescue Parslet::ParseFailed
+        $stderr.puts "Invalid syntax:  \#{line}"
+        false
       end
     end
 
