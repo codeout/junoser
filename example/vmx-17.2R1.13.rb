@@ -27926,7 +27926,8 @@ rule(:juniper_bd_protocols_igmp_snooping) do
                             )
                         )
                     )
-                )
+                ),
+                "disable"
             )
         )
     )
@@ -47988,7 +47989,8 @@ rule(:juniper_default_ri_protocols_igmp_snooping) do
                             )
                         )
                     )
-                )
+                ),
+                "disable"
             )
         ),
         "traceoptions" (
@@ -57603,7 +57605,8 @@ rule(:juniper_ri_protocols_igmp_snooping) do
                             )
                         )
                     )
-                )
+                ),
+                "disable"
             )
         )
     )
