@@ -166,7 +166,7 @@ require 'parslet'
 module Junoser
   class Parser < Parslet::Parser
     def parse_lines(config)
-      lines = config.split("\\n")
+      lines = config.split("\\n").map(&:strip)
       lines_without_deactivate = lines.reject {|l| l =~ /^deactivate/ }
 
       lines.inject(true) do |passed, line|
