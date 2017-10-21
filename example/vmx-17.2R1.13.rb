@@ -47557,6 +47557,7 @@ rule(:juniper_protocols) do
         ),
         "lldp-med" (
             c(
+                "disable",
                 "fast-start" arg,
                 "interface" (arg | "all") (
                     c(
