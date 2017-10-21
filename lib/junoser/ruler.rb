@@ -172,6 +172,7 @@ module Junoser
     def parse_line(line, lines_without_deactivate)
       if line =~ /^deactivate/
         if lines_without_deactivate.grep(/^\#{line.sub(/^deactivate/, 'set')}/).empty?
+          $stderr.puts %(Corresponding "set" statement is not found:  \#{line})
           return false
         else
           return true
