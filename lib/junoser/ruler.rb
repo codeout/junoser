@@ -180,6 +180,10 @@ module Junoser
       end
 
       begin
+        if line =~ /(.*)\\s+apply-groups\\s+\\S+\$/
+          return \$1 == 'set' ? true : parse(\$1)
+        end
+
         parse line
         true
       rescue Parslet::ParseFailed
