@@ -39,6 +39,10 @@ module Junoser
         @oneliner ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="oneliner"]').empty?
       end
 
+      def nokeyword?
+        @nokeyword ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="nokeyword"]').empty?
+      end
+
       def has_single_child_of?(klass)
         config.size == 1 && config.first.is_a?(klass)
       end

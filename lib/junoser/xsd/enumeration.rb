@@ -16,7 +16,11 @@ module Junoser
       end
 
       def to_s
-        format(OFFSET + config.first)
+        if nokeyword?
+          format(OFFSET + 'arg')
+        else
+          format(OFFSET + config.first)
+        end
       end
 
 

@@ -48,41 +48,26 @@ module Junoser
       str.gsub! '"minus-literal"', '"-"'
 
       str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
-      str.gsub!(/\("name" \| (.*)\)/) { "(arg | #$1)" }
-      str.gsub! '"vlan" ("id-name" | "all")', '"vlan" ("all" | arg)'
       str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
+      str.gsub!(/\((.*) \| "vlan-id"\)/) { "(#$1 | arg)" }
       str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }
       str.gsub! '"description" arg', '"description" (quote | arg)'
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
-      str.gsub! '"path-list" arg (', 'b(ipaddr,'
+      str.gsub!(/arg \| (".*")/) { "#$1 | arg" }
       str.gsub! '"dhcp-service" (', '("dhcp-service" | "dhcp") ('
 
-      str.gsub!(/(s\(\s*)"address" arg/) { "#{$1}arg" }
-      str.gsub!(/^(\s*"idle-timeout" \(\s*c\(\s*c\(\s*"forever",\s*)"timeout" arg/) { "#{$1}arg" }
-
-      str = omit_label(str, 'contents', 'syslog_object')
-      str = omit_label(str, 'interface', 'cos_interfaces_type')
-      str = omit_label(str, 'interface', 'ir_interfaces_type')
-      str = omit_label(str, 'interface', 'interfaces_type')
-      str = omit_label(str, 'client-address-list', 'client_address_object')
-      str = omit_label(str, 'prefix-list-item', 'prefix_list_items')
-      str = omit_label(str, 'instance', 'juniper_routing_instance')
-      str = omit_label(str, 'vlan', 'vlan_type')
-      str = omit_label(str, 'dynamic-tunnel', 'dynamic_tunnel_type')
-
-      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmpv6"#$1"icmp"] }
+      str.gsub!(/"inet"(.*)"inet6"/) { %["inet6"#$1"inet"] }
+      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
+      str.gsub!(/"icmp"(.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
       str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
       str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+      %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
+        str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#$1"ethernet"] }
+      end
+      str.gsub! '"icmp6" |', '"icmp6" | "icmpv6" |'
       str.gsub!(/"cspf"(.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
       str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
       str.gsub!(/"source-address-filter" (\(\s*control_source_address_filter_type\s*\))/) { %["source-adress-filter" arg #{$1}.as(:oneline)] }
-      str.gsub!(/("next-hop" \(\s*c\(\s*c\(\s*[^)]*)"address" \(\s*ipaddr\s*\)/) { "#{$1}ipaddr" }
-
-      %w[metric metric2 metric3 metric4 tag tag2 preference preference2 color color2 local-preference].each do |key|
-        str.gsub!(/^(\s*"#{key}" \(\s*c\(\s*c\(\s*)"#{key}" arg/) { "#{$1}arg" }
-      end
-      str.gsub!(/^(\s*"vrf-target" \(\s*)c\(\s*"community" arg,/) { "#{$1}ca(" }
-      str.gsub!(/^(\s*)"priority" \(\s*c\(\s*"setup-priority" arg,\s*"reservation-priority" arg\s*\)\s*\)/) { %[#{$1}a("priority", a(arg, arg)).as(:oneline)] }
 
       %w[teardown hold-time stub].each do |key|
         str.gsub!(/^(\s*"#{key}" \(\s*)c\(/) { "#{$1}sc(" }
@@ -94,11 +79,7 @@ module Junoser
         str.gsub!(/^(\s*"#{key}") arg/) { "#{$1}" }
       end
 
-      str.gsub!(/^(\s*)"inline-services"/) do
-        format(['"inline-services" (',
-                '  "bandwidth" ("1g" | "10g")',
-                ')'], $1)
-      end
+
       str.gsub!(/^(\s*)"ieee-802.3ad" \(\s*c\(\s*"lacp" \(\s*c\(/) do
         format(['"802.3ad" (',
                 '  ca(',
@@ -106,20 +87,34 @@ module Junoser
                 '      c(',
                 '        "force-up",'], $1)
       end
-      str.gsub!(/^(\s*)"as-path" \(\s*c\(\s*"path" arg,/) do
-        format(['"as-path" (',
-                '  ca('], $1)
-      end
-      str.gsub!(/^(\s*)"as-path" arg \(\s*c\(\s*"path" arg\s*\)/) do
+      str.gsub!(/^(\s*)"as-path" arg \(\s*c\(\s*arg/) do
         format(['"as-path" arg (',
                 '  c(',
-                '    quote,',
-                '    arg',
-                '  )'], $1)
+                '    quote | arg'], $1)
       end
-      str.gsub!(/^(\s*)"ribgroup-name" arg$/) do
-        format(['arg (',
-                '  arg',
+      str.gsub!(/^(\s*)"priority" \(\s*c\(\s*arg,\s*arg\s*\)/) do
+        format(['"priority" (',
+                '  a(arg, arg)', $1])
+      end
+      str.gsub!(/^(\s*)"path" arg \(\s*c\(\s*c\(\s*"abstract",\s*c\(\s*"loose",\s*"loose-link",\s*"strict"\s*\)\s*\)\.as\(:oneline\)/) do
+        format(['"path" arg (',
+                '  c(',
+                '    b(',
+                '      ipaddr,',
+                '      c(',
+                '        "abstract",',
+                '        c(',
+                '          "loose-link",',
+                '          "loose",',
+                '          "strict"',
+                '        )',
+                '      ).as(:oneline)',
+                '    )', $1])
+      end
+
+      str.gsub!(/^(\s*)c\(\s*\("default"\)\s*\)/) do
+        format(['c(',
+                '  ("default" | arg)',
                 ')'], $1)
       end
 
@@ -135,19 +130,19 @@ module Junoser
                 '        "full-name" (quote | arg),'])
       end
 
-      str.gsub!(/(rule\(:juniper_policy_options\) do\s*)c\(/) { "#{$1}c(" }
       str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
       str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
       str.gsub!(/^(rule\(:trace_file_type\) do\s*)c\(\s*arg,/) { "#{$1}sca(" }
       str.gsub!(/^(rule\(:archive_object\) do\s*)c\(/) { "#{$1}sc(" }
+      str.gsub!(/^(rule\(:rib_group_inet_type\) do)\s*c\(\s*arg/) do
+        format([$1,
+                '  ca(',
+                '    a(arg, arg)'], '')
+      end
 
       str.gsub!(/^(\s*)c\(\s*arg,$/) { "#{$1}ca(" }
 
       str
-    end
-
-    def omit_label(str, label, content)
-      str.gsub(/(\s*)"#{label}" \(\s*#{content}\s*\)/) { "#{$1}#{content}" }
     end
 
     def format(str, offset=OFFSET)
@@ -170,21 +165,30 @@ module Junoser
       lines_without_deactivate = lines.reject {|l| l =~ /^deactivate/ }
 
       lines.inject(true) do |passed, line|
-        if line =~ /^deactivate/
-          if lines_without_deactivate.grep(/^\#{line.sub(/^deactivate/, 'set')}/).empty?
-            next false
-          else
-            next passed
-          end
+        passed & parse_line(line, lines_without_deactivate)
+      end
+    end
+
+    def parse_line(line, lines_without_deactivate)
+      if line =~ /^deactivate/
+        if lines_without_deactivate.grep(/^\#{line.sub(/^deactivate/, 'set')}/).empty?
+          $stderr.puts %(Corresponding "set" statement is not found:  \#{line})
+          return false
+        else
+          return true
+        end
+      end
+
+      begin
+        if line =~ /(.*)\\s+apply-groups\\s+\\S+\$/
+          return \$1 == 'set' ? true : parse(\$1)
         end
 
-        begin
-          parse line
-          passed
-        rescue Parslet::ParseFailed
-          $stderr.puts "Invalid syntax:  \#{line}"
-          false
-        end
+        parse line
+        true
+      rescue Parslet::ParseFailed
+        $stderr.puts "Invalid syntax:  \#{line}"
+        false
       end
     end
 

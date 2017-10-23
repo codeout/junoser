@@ -1,5 +1,6 @@
 require 'junoser/xsd/base'
 require 'junoser/xsd/enumeration'
+require 'junoser/xsd/simple_type'
 
 module Junoser
   module Xsd
@@ -17,10 +18,13 @@ module Junoser
           case child.name
           when 'enumeration'
             Junoser::Xsd::Enumeration.new(child, depth: @depth+1)
+          when 'simpleType'
+            Junoser::Xsd::SimpleType.new(child, depth: @depth+1)
+          when 'attribute'
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }
+        }.compact
       end
 
       def to_s
