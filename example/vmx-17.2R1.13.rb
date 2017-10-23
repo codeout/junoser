@@ -8138,6 +8138,9 @@ rule(:configuration) do
                   "vcp-no-hold-time"
               )
           ),
+          "ethernet-switching-options" (
+            juniper_ethernet_options
+          ),
           "vlans" (
               c(
                     vlan_types
@@ -94628,3 +94631,296 @@ rule(:write_option_82_type) do
 
 end
 
+rule(:juniper_ethernet_options) do
+    c(
+        "traceoptions" (
+            c(
+                "file" (
+                  trace_file_type
+                ),
+                "flag" ("parse" | "regex-parse" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "krt" | "vlan" | "forwarding-database" | "nexthop" | "interface" | "lib" | "stp" | "filter" | "access-security" | "rtg" | "ip-source-guard" | "analyzer" | "layer2-protocol-tunneling" | "unknown-unicast-forwarding" | "all") (
+                    c(
+                        "disable"
+                    )
+                ).as(:oneline)
+            )
+        ),
+        "voip" (
+            c(
+                "interface" arg (
+                    c(
+                        "vlan" arg,
+                        "forwarding-class" arg
+                    )
+                )
+            )
+        ),
+        "unknown-unicast-forwarding" (
+            c(
+                "vlan" arg (
+                    c(
+                        "interface" (
+                          interface_name
+                        )
+                    )
+                )
+            )
+        ),
+        "dot1q-tunneling" (
+            c(
+                "ether-type" (
+                  ("0x8100" | "0x9100" | "0x88a8")
+                )
+            )
+        ),
+        "mac-notification" (
+            c(
+                "notification-interval" arg
+            )
+        ),
+        "interfaces" (
+            c(
+                "esw-interface" (
+                  esw_interface_type
+                )
+            )
+        ),
+        "mac-table-aging-time" (
+          mac_aging_time_config
+        ),
+        "nonstop-bridging",
+        "static" (
+            c(
+                "vlan" arg (
+                    c(
+                        "mac" arg (
+                            c(
+                                "next-hop" (
+                                  interface_name
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "secure-access-port" (
+            c(
+                "interface" arg (
+                    c(
+                        "mac-limit" (
+                            c(
+                                "limit" arg,
+                                "action" (
+                                  ("none" | "drop" | "log" | "shutdown")
+                                )
+                            )
+                        ).as(:oneline),
+                        "static-ip" (
+                          juniper_ip_mac_static
+                        ),
+                        "allowed-mac" (
+                          mac_addr
+                        ),
+                        "no-allowed-mac-log",
+                        "dhcp-trusted",
+                        "no-dhcp-trusted",
+                        "fcoe-trusted",
+                        "no-fcoe-trusted",
+                        "persistent-learning"
+                    )
+                ),
+                "vlan" ("all" | "vlan-name") (
+                    c(
+                        c(
+                          "arp-inspection" (
+                              c(
+                                  "forwarding-class" arg
+                              )
+                          ).as(:oneline),
+                          "no-arp-inspection"
+                        ),
+                        c(
+                          "examine-dhcp" (
+                              c(
+                                  "forwarding-class" arg
+                              )
+                          ).as(:oneline),
+                          "no-examine-dhcp"
+                        ),
+                        "examine-fip",
+                        "mac-move-limit" (
+                            c(
+                                "limit" arg,
+                                "action" (
+                                  ("none" | "drop" | "log" | "shutdown")
+                                )
+                            )
+                        ).as(:oneline),
+                        "ip-source-guard",
+                        "no-ip-source-guard",
+                        "dhcp-option82" (
+                          dhcp_option82_type
+                        )
+                    )
+                ),
+                "dhcp-snooping-file" (
+                    c(
+                        "location" (
+                          filename
+                        ),
+                        "write-interval" arg,
+                        "timeout" arg
+                    )
+                )
+            )
+        ),
+        "authentication-whitelist" arg (
+            c(
+                "vlan-assignment" arg,
+                "interface" (
+                  interface_name
+                )
+            )
+        ),
+        "analyzer" (
+          analyzer_type
+        ),
+        "port-error-disable" (
+            c(
+                "disable-timeout" arg
+            )
+        ),
+        "bpdu-block" (
+            c(
+                "interface" ("all" | "name"),
+                "disable-timeout" arg
+            )
+        ),
+        "redundant-trunk-group" (
+            c(
+                "group" arg (
+                    c(
+                        "preempt-cutover-timer" arg,
+                        "description" arg,
+                        "interface" arg (
+                            c(
+                                "primary"
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        "storm-control" (
+            c(
+                "action-shutdown",
+                "interface" ("all" | "name") (
+                    c(
+                        "bandwidth" arg,
+                        "no-broadcast",
+                        "no-unknown-unicast",
+                        "level" arg,
+                        c(
+                          "multicast",
+                          "no-multicast",
+                          "no-registered-multicast",
+                          "no-unregistered-multicast"
+                        )
+                    )
+                )
+            )
+        )
+    )
+end
+
+rule(:esw_interface_type) do
+  arg.as(:arg) (
+    c(
+        "no-mac-learning"
+    )
+  )
+end
+
+rule(:mac_aging_time_config) do
+    c(
+        c(
+          "time" arg,
+          "unlimited"
+        )
+    )
+end
+
+rule(:juniper_ip_mac_static) do
+  arg.as(:arg) (
+    c(
+        "vlan" arg,
+        "mac" (
+          mac_addr
+        )
+    )
+  ).as(:oneline)
+end
+
+rule(:analyzer_type) do
+  arg.as(:arg) (
+    c(
+        "input" (
+          esw_analyzer_input_type
+        ),
+        "output" (
+          esw_analyzer_output_type
+        )
+    )
+  )
+end
+
+rule(:esw_analyzer_input_type) do
+    c(
+        "ingress" (
+          esw_analyzer_ingress_type
+        ),
+        "egress" (
+          esw_analyzer_egress_type
+        )
+    )
+end
+
+rule(:esw_analyzer_egress_type) do
+    c(
+        "interface" (
+          analyzer_egress_interface_type
+        ),
+        "vlan" (
+          analyzer_egress_vlan_type
+        )
+    )
+end
+
+rule(:esw_analyzer_ingress_type) do
+    c(
+        "interface" (
+          analyzer_ingress_interface_type
+        ),
+        "vlan" (
+          analyzer_ingress_vlan_type
+        )
+    )
+end
+
+rule(:esw_analyzer_output_type) do
+    c(
+        c(
+          "interface" (
+            interface_name
+          ),
+          "ip-address" (
+            ipv4addr
+          ),
+          "routing-instance" arg,
+          "vlan" (
+            pm_rspan_vlan
+          )
+        )
+    )
+end
