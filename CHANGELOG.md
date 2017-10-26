@@ -1,3 +1,7 @@
+## 0.3.0 / 2017-10-26
+
+* First release based on JUNOS 17.2R1.13 of vMX
+
 ## 0.2.13 / 2017-10-13
 
 * Bug fix
