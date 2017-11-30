@@ -20,9 +20,8 @@ module Junoser
           delete_line_hash = struct_to_hash(delete_line_struct)
           set_h = apply_delete(set_h,delete_line_hash)
         end
-        set_h
-#        set_struct = hash_to_struct(set_h)
-#        Junoser::Display::Set.new(set_struct).transform
+        set_struct = hash_to_struct(set_h)
+        Junoser::Display::Set.new(set_struct).transform
       end
 
       private
@@ -89,9 +88,26 @@ module Junoser
         set_hash
       end
 
-#      def hash_to_struct(hash)
-#
-#      end
+      def hash_to_struct(hash)
+        struct = ""
+        hash_to_struct_iter(hash){|str| struct << str}
+        struct
+      end
+
+      def hash_to_struct_iter(hash,&block)
+        hash.each_with_index do |(key,value),i|
+          yield key
+          if value != {}
+            yield "{\n"
+            hash_to_struct_iter(value,&block)
+          else
+            yield ";\n"
+          end
+          if i == hash.length - 1
+            yield "}\n"
+          end
+        end
+      end
 
       def ret_first_key_and_value(hash)
         hash.each do |key,hash|
