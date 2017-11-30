@@ -27,6 +27,10 @@ opts = OptionParser.new do |opts|
     command = :struct
   end
 
+  opts.on '--delete', 'Apply config delete sentence' do
+    command = :delete
+  end
+
   opts.on_tail '-h', '--help', 'Show this message' do
     puts opts
     exit
@@ -46,6 +50,8 @@ when :display_set
   puts Junoser::Cli.display_set($<)
 when :struct
   puts Junoser::Cli.struct($<)
+when :delete
+  puts Junoser::Cli.delete($<)
 else
   puts opts
   abort

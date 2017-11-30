@@ -25,6 +25,10 @@ module Junoser
         Junoser::Display::Structure.new(io_or_string).transform
       end
 
+      def delete(io_or_string)
+        Junoser::Display::Delete.new(io_or_string).apply
+      end
+
 
       private
 
