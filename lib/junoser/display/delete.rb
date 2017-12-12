@@ -16,10 +16,15 @@ module Junoser
         set_struct = Junoser::Display::Structure.new(s.join("\n")).transform
         set_h = struct_to_hash(set_struct)
         d.each do |delete_line|
-          delete_line_struct = Junoser::Display::Structure.new(delete_line).transform
-          delete_line_hash = struct_to_hash(delete_line_struct)
-          set_h = apply_delete(set_h,delete_line_hash)
+          begin
+            delete_line_struct = Junoser::Display::Structure.new(delete_line).transform
+            delete_line_hash = struct_to_hash(delete_line_struct)
+            set_h = apply_delete(set_h,delete_line_hash)
+          rescue
+            next
+          end
         end
+
         set_struct = hash_to_struct(set_h)
         Junoser::Display::Set.new(set_struct).transform
       end
@@ -41,41 +46,50 @@ module Junoser
         end
       end
 
-      def struct_to_first_hash(struct)
-        hash = {}
-        ar = ["",""]
-        num = 0
-        flag = 0
-        struct << " "
-        struct.chars.each do |c|
-          if num != 0
-            ar[1] << c
-          end
-          if c == "{"
-            num = num + 1
-            flag = 1
-            next
-          end
-          if c == "}"
-            num = num - 1
-            next
-          end
-          if num == 0
-            if c == ";"
-              hash.store(ar[0].strip,{})
-              ar = ["",""]
-              next
+    def struct_to_first_hash(struct)
+      hash = {}
+      ar = ["",""]
+      state = 0
+      struct.strip!
+      struct.chars.each do |c|
+        case state
+          when 0 then # initial state
+            case c
+              when "{" then
+                state += 1
+              when ";" then
+                hash.store(ar[0].strip,ar[1].strip)
+                ar = ["",""]
+              else
+                ar[0] << c
             end
-            if flag == 1
-              hash.store(ar[0].strip,ar[1].chop.strip)
-              ar = ["",""]
-              flag = 0
+          when 1 then
+            case c
+              when "{" then
+                ar[1] << c
+                state += 1
+              when "}" then
+                hash.store(ar[0].strip,ar[1].strip)
+                ar = ["",""]
+                state = 0
+              else
+                ar[1] << c
             end
-            ar[0] << c
-          end
+          else
+            case c
+              when "{" then
+                ar[1] << c
+                state += 1
+              when "}" then
+                ar[1] << c
+                state -= 1
+              else
+                ar[1] << c
+            end
         end
-        hash
       end
+      hash
+    end
 
       def apply_delete(set_hash,delete_line_hash)
         key,hash = ret_first_key_and_value(delete_line_hash)
