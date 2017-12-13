@@ -46,50 +46,50 @@ module Junoser
         end
       end
 
-    def struct_to_first_hash(struct)
-      hash = {}
-      ar = ["",""]
-      state = 0
-      struct.strip!
-      struct.chars.each do |c|
-        case state
-          when 0 then # initial state
-            case c
-              when "{" then
-                state += 1
-              when ";" then
-                hash.store(ar[0].strip,ar[1].strip)
-                ar = ["",""]
-              else
-                ar[0] << c
-            end
-          when 1 then
-            case c
-              when "{" then
-                ar[1] << c
-                state += 1
-              when "}" then
-                hash.store(ar[0].strip,ar[1].strip)
-                ar = ["",""]
-                state = 0
-              else
-                ar[1] << c
-            end
-          else
-            case c
-              when "{" then
-                ar[1] << c
-                state += 1
-              when "}" then
-                ar[1] << c
-                state -= 1
-              else
-                ar[1] << c
-            end
+      def struct_to_first_hash(struct)
+        hash = {}
+        key,value = "",""
+        state = 0
+        struct.strip!
+        struct.chars.each do |c|
+          case state
+            when 0 then # initial state
+              case c
+                when "{" then
+                  state += 1 # 1
+                when ";" then
+                  hash.store(key.strip,value.strip)
+                  key,value = "",""
+                else
+                  key << c
+              end
+            when 1 then
+              case c
+                when "{" then
+                  value << c
+                  state += 1 # 2
+                when "}" then
+                  hash.store(key.strip,value.strip)
+                  key,value = "",""
+                  state -= 1 # 0
+                else
+                  value << c
+              end
+            else
+              case c
+                when "{" then
+                  value << c
+                  state += 1
+                when "}" then
+                  value << c
+                  state -= 1
+                else
+                  value << c
+              end
+          end
         end
+        hash
       end
-      hash
-    end
 
       def apply_delete(set_hash,delete_line_hash)
         key,hash = ret_first_key_and_value(delete_line_hash)
