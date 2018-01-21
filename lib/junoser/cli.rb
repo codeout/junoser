@@ -24,7 +24,9 @@ module Junoser
       def struct(io_or_string)
         Junoser::Display::Structure.new(io_or_string).transform
       end
-
+      def compare(io_or_string)
+        Junoser::Display::Compare.new(io_or_string).diff
+      end
 
       private
 
