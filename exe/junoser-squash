@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'pathname'
+
+$: << File.expand_path('../../lib', Pathname.new(__FILE__).realpath)
+require 'junoser/squash'
+
+command = :squash
+opts = OptionParser.new do |opts|
+  opts.banner = 'junoser-squash: squash config file.'
+  opts.define_head 'Usage: junoser-squash [path]'
+
+  opts.on_tail '-h', '--help', 'Show this message' do
+    puts opts
+    exit
+  end
+end
+opts.parse!
+case command
+  when :squash
+    puts Junoser::Squash.new($<).transform
+  else
+    puts opts
+    abort
+end
