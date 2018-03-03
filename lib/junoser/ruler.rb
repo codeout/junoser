@@ -134,6 +134,7 @@ module Junoser
       str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
       str.gsub!(/^(rule\(:trace_file_type\) do\s*)c\(\s*arg,/) { "#{$1}sca(" }
       str.gsub!(/^(rule\(:archive_object\) do\s*)c\(/) { "#{$1}sc(" }
+      str.gsub!(/^(rule\(:server_group_type\) do\s*)c\(\s*c\(\s*arg\s*\)\s*\)/) { "#{$1}s(arg, arg)" }
       str.gsub!(/^(rule\(:rib_group_inet_type\) do)\s*c\(\s*arg/) do
         format([$1,
                 '  ca(',
