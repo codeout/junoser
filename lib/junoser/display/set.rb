@@ -72,17 +72,6 @@ module Junoser
         statements.unshift "set #{current_statement}#{str}"
         statements.join("\n")
       end
-
-      def struct(stack, statement, offset=2)
-        width = 2
-        if label = stack.shift
-          %[#{" "*offset}#{label} {
-#{struct(stack, statement, width+offset)}
-#{" "*offset}}]
-        else
-          %[#{" "*offset}#{statement};]
-        end
-      end
     end
   end
 end

@@ -60636,7 +60636,14 @@ rule(:juniper_system) do
                                                   jet_scripts_file_type
                                                 )
                                             )
-                                        )
+                                        ),
+                                        "clear-text" (
+                                            c(
+                                                "address" ipaddr,
+                                                "port" arg
+                                            )
+                                        ),
+                                        "skip-authentication"
                                     )
                                 )
                             )
