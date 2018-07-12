@@ -1,3 +1,15 @@
+## 0.3.2 / 2018-07-12
+
+* Bug fix
+  * Support "system services extension-service request-response grpc clear-text"
+  * Support "system services extension-service request-response grpc skip-authentication"
+
+## 0.3.1 / 2018-03-03
+
+* Introduce a CLI command "junoser-squash"
+* Bug fix
+  * Support "forwarding-options dhcp-relay server-group group_name x.x.x.x/y"
+
 ## 0.3.0 / 2017-10-26
 
 * First release based on JUNOS 17.2R1.13 of vMX
