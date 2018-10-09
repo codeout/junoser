@@ -1,3 +1,10 @@
+## 0.3.3 / 2018-10-09
+
+* Bug fix
+  * Accept quoted string for
+    * "snmp location"
+    * "snmp contact"
+
 ## 0.3.2 / 2018-07-12
 
 * Bug fix
