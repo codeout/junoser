@@ -143,6 +143,11 @@ module Junoser
 
       str.gsub!(/^(\s*)c\(\s*arg,$/) { "#{$1}ca(" }
 
+      str.gsub!(/^(\s*)"location" arg,\s*"contact" arg,/) do
+        format(['"location" (quote | arg),',
+                '"contact" (quote | arg),'], $1)
+      end
+
       str
     end
 
