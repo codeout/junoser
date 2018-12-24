@@ -14,3 +14,6 @@ module Junoser
     end
   end
 end
+
+# NOTE: Apply a patch
+require 'junoser/display/enumerable'
