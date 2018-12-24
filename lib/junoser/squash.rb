@@ -42,6 +42,14 @@ module Junoser
     rule(oneline: sequence(:strs)) do
       strs.join(' ')
     end
+
+    rule(enum: simple(:str)) do
+      str
+    end
+
+    rule(enum: sequence(:strs)) do
+      strs.join(' ')
+    end
   end
 
   class Squash

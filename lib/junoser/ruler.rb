@@ -232,6 +232,10 @@ module Junoser
       (c(*objects, arg) >> space.maybe).repeat(0)
     end
 
+    def enum(object)
+      (object.as(:enum))
+    end
+
     rule(:arg)     { match('\\S').repeat(1) }
     rule(:space)   { match('\\s').repeat(1) }
     rule(:any)     { match('.').repeat(1) }

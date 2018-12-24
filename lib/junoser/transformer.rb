@@ -44,6 +44,14 @@ module Junoser
       strs.join(' ')
     end
 
+    rule(enum: simple(:str)) do
+      str.to_s.gsub("\n", ' ')
+    end
+
+    rule(enum: sequence(:strs)) do
+      strs.join(' ')
+    end
+
 
     def self.remove_slash_asterisk(array)
       open = array.index("arg(/*)\n")
