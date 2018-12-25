@@ -276,7 +276,7 @@ rule(:configuration) do
                                           )
                                       )
                                   ).as(:oneline),
-                                  "flag" (("all" | "configuration" | "rtsock" | "client-server" | "interface" | "xmlproxy")) (
+                                  "flag" enum(("all" | "configuration" | "rtsock" | "client-server" | "interface" | "xmlproxy")) (
                                       c(
                                           "disable"
                                       )
@@ -376,7 +376,7 @@ rule(:configuration) do
                                       c(
                                           "port" arg (
                                               c(
-                                                  "transport" (("tcp" | "udp")) (
+                                                  "transport" enum(("tcp" | "udp")) (
                                                       c(
                                                           "export-profile" arg
                                                       )
@@ -425,7 +425,7 @@ rule(:configuration) do
                                                   "stream-format" (
                                                     ("json" | "csv" | "tsv")
                                                   ),
-                                                  "stream-type" (("traffic-statistics" | "queue-statistics"))
+                                                  "stream-type" enum(("traffic-statistics" | "queue-statistics"))
                                               )
                                           )
                                       )
@@ -1379,7 +1379,7 @@ rule(:configuration) do
                                                   )
                                               )
                                           ),
-                                          "syslog" (("any" | "authorization" | "privileged" | "cron" | "daemon" | "kernel" | "syslog" | "user" | "uucp" | "local0" | "local1" | "local2" | "local3" | "local4" | "local5" | "local6" | "local7")) (
+                                          "syslog" enum(("any" | "authorization" | "privileged" | "cron" | "daemon" | "kernel" | "syslog" | "user" | "uucp" | "local0" | "local1" | "local2" | "local3" | "local4" | "local5" | "local6" | "local7")) (
                                               c(
                                                   c(
                                                     "any",
@@ -1548,7 +1548,7 @@ rule(:configuration) do
                                           )
                                       )
                                   ).as(:oneline),
-                                  "flag" (("all" | "ipc" | "config" | "connect")).as(:oneline)
+                                  "flag" enum(("all" | "ipc" | "config" | "connect")).as(:oneline)
                               )
                           ),
                           "captive-portal" arg (
@@ -1907,7 +1907,7 @@ rule(:configuration) do
                                           )
                                       )
                                   ).as(:oneline),
-                                  "flag" (("all")).as(:oneline),
+                                  "flag" enum(("all")).as(:oneline),
                                   "level" (
                                     ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                                   )
@@ -2091,10 +2091,10 @@ rule(:configuration) do
                                                 c(
                                                     "resource-triggered",
                                                     "ingress-key" (
-                                                          (("source-ip" | "destination-ip" | "protocol" | "iif"))
+                                                          enum(("source-ip" | "destination-ip" | "protocol" | "iif"))
                                                     ),
                                                     "egress-key" (
-                                                          (("source-ip" | "destination-ip" | "protocol" | "oif"))
+                                                          enum(("source-ip" | "destination-ip" | "protocol" | "oif"))
                                                     )
                                                 )
                                             )
@@ -2535,13 +2535,13 @@ rule(:configuration) do
                                   "level" (
                                     ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                                   ),
-                                  "flag" (("gres" | "init" | "events" | "memory" | "message" | "packet-error" | "parse" | "receive-packets" | "session-db" | "states" | "timer" | "transmit-packets" | "routing-socket" | "routing-process" | "protocol" | "configuration" | "ipc-tx" | "ipc-rx" | "general" | "tunnel" | "stats" | "authentication" | "all")).as(:oneline),
+                                  "flag" enum(("gres" | "init" | "events" | "memory" | "message" | "packet-error" | "parse" | "receive-packets" | "session-db" | "states" | "timer" | "transmit-packets" | "routing-socket" | "routing-process" | "protocol" | "configuration" | "ipc-tx" | "ipc-rx" | "general" | "tunnel" | "stats" | "authentication" | "all")).as(:oneline),
                                   "debug-level" (
                                     ("error" | "detail" | "packet-dump")
                                   ),
                                   "filter" (
                                       c(
-                                          "protocol" (("ppp" | "l2tp" | "radius" | "udp")).as(:oneline),
+                                          "protocol" enum(("ppp" | "l2tp" | "radius" | "udp")).as(:oneline),
                                           "user-name" arg,
                                           "user" (
                                               c(
@@ -2647,7 +2647,7 @@ rule(:configuration) do
                                           )
                                       )
                                   ).as(:oneline),
-                                  "flag" (("routing-socket" | "routing-protocol" | "service-identification" | "configuration" | "ipc" | "kernel-object" | "snmp" | "all")).as(:oneline)
+                                  "flag" enum(("routing-socket" | "routing-protocol" | "service-identification" | "configuration" | "ipc" | "kernel-object" | "snmp" | "all")).as(:oneline)
                               )
                           )
                       )
@@ -3167,7 +3167,7 @@ rule(:configuration) do
                                   )
                               )
                           ).as(:oneline),
-                          "flag" (("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events" | "bfd-events" | "lib-events" | "reserved" | "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "informational" | "debugging" | "verbose" | "japi")) (
+                          "flag" enum(("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events" | "bfd-events" | "lib-events" | "reserved" | "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "informational" | "debugging" | "verbose" | "japi")) (
                               c(
                                   "disable"
                               )
@@ -3198,7 +3198,7 @@ rule(:configuration) do
                           ),
                           "traceoptions" (
                               c(
-                                  "flag" (("ipc" | "event" | "media" | "all")).as(:oneline)
+                                  "flag" enum(("ipc" | "event" | "media" | "all")).as(:oneline)
                               )
                           ),
                           "passive-monitor-mode",
@@ -4426,7 +4426,7 @@ rule(:configuration) do
                                   "fec" (
                                     ("sdfec" | "sdfec25")
                                   ),
-                                  "alarm" (("low-light-alarm")) (
+                                  "alarm" enum(("low-light-alarm")) (
                                       c(
                                           c(
                                             "syslog",
@@ -4590,7 +4590,7 @@ rule(:configuration) do
                                           )
                                       )
                                   ),
-                                  "warning" (("low-light-warning")) (
+                                  "warning" enum(("low-light-warning")) (
                                       c(
                                           c(
                                             "syslog",
@@ -5033,7 +5033,7 @@ rule(:configuration) do
                                   )
                               )
                           ),
-                          "unit" (("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
+                          "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
                               c(
                                   "policer-overhead" (
                                       c(
@@ -5123,10 +5123,10 @@ rule(:configuration) do
                                   ),
                                   "actual-transit-statistics",
                                   "demux-source" (
-                                        (("inet" | "inet6"))
+                                        enum(("inet" | "inet6"))
                                   ),
                                   "demux-destination" (
-                                        (("inet" | "inet6"))
+                                        enum(("inet" | "inet6"))
                                   ),
                                   "encapsulation" (
                                     ("atm-nlpid" | "atm-cisco-nlpid" | "atm-snap" | "atm-vc-mux" | "atm-ccc-vc-mux" | "atm-tcc-vc-mux" | "atm-tcc-snap" | "atm-ccc-cell-relay" | "vlan-vci-ccc" | "ether-over-atm-llc" | "ether-vpls-over-atm-llc" | "ppp-over-ether-over-atm-llc" | "ppp-over-ether" | "atm-ppp-vc-mux" | "atm-ppp-llc" | "atm-mlppp-llc" | "frame-relay-ppp" | "frame-relay-ccc" | "frame-relay" | "frame-relay-tcc" | "frame-relay-ether-type" | "frame-relay-ether-type-tcc" | "ether-vpls-fr" | "vlan-ccc" | "ethernet-ccc" | "vlan-vpls" | "vlan-bridge" | "dix" | "ethernet" | "ethernet-vpls" | "ethernet-bridge" | "vlan" | "vlan-tcc" | "multilink-ppp" | "multilink-frame-relay-end-to-end" | "ppp-ccc")
@@ -5705,7 +5705,7 @@ rule(:configuration) do
                                                           "client-type" (
                                                             ("stateful" | "autoconfig")
                                                           ),
-                                                          "client-ia-type" (("ia-na" | "ia-pd")),
+                                                          "client-ia-type" enum(("ia-na" | "ia-pd")),
                                                           "rapid-commit",
                                                           "client-identifier" (
                                                               c(
@@ -5714,7 +5714,7 @@ rule(:configuration) do
                                                                   )
                                                               )
                                                           ).as(:oneline),
-                                                          "req-option" (("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
+                                                          "req-option" enum(("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
                                                           "retransmission-attempt" arg,
                                                           "no-dns-propagation",
                                                           "update-router-advertisement" (
@@ -6188,10 +6188,10 @@ rule(:configuration) do
                                           "hash-keys" (
                                               c(
                                                   "ingress-key" (
-                                                        (("source-ip" | "destination-ip" | "protocol" | "iif"))
+                                                        enum(("source-ip" | "destination-ip" | "protocol" | "iif"))
                                                   ),
                                                   "egress-key" (
-                                                        (("source-ip" | "destination-ip" | "protocol" | "oif"))
+                                                        enum(("source-ip" | "destination-ip" | "protocol" | "oif"))
                                                   )
                                               )
                                           )
@@ -6269,7 +6269,7 @@ rule(:configuration) do
                                                   )
                                               )
                                           ).as(:oneline),
-                                          "flag" (("error" | "event" | "packet" | "pipe" | "pipe-detail" | "all")).as(:oneline)
+                                          "flag" enum(("error" | "event" | "packet" | "pipe" | "pipe-detail" | "all")).as(:oneline)
                                       )
                                   )
                               )
@@ -6354,7 +6354,7 @@ rule(:configuration) do
                               c(
                                   "security-to-group" (
                                       c(
-                                          "security-model" (("usm" | "v1" | "v2c")) (
+                                          "security-model" enum(("usm" | "v1" | "v2c")) (
                                               c(
                                                   "security-name" arg (
                                                       c(
@@ -6802,7 +6802,7 @@ rule(:configuration) do
                                   )
                               )
                           ).as(:oneline),
-                          "flag" (("timer" | "protocol-timeouts" | "pdu" | "varbind-error" | "routing-socket" | "interface-stats" | "subagent" | "general" | "nonvolatile-sets" | "all")).as(:oneline)
+                          "flag" enum(("timer" | "protocol-timeouts" | "pdu" | "varbind-error" | "routing-socket" | "interface-stats" | "subagent" | "general" | "nonvolatile-sets" | "all")).as(:oneline)
                       )
                   ),
                   "rmon" (
@@ -6935,7 +6935,7 @@ rule(:configuration) do
                                                   "no-world-readable"
                                               )
                                           ).as(:oneline),
-                                          "flag" (("configuration" | "memory" | "diagnostic" | "all")).as(:oneline)
+                                          "flag" enum(("configuration" | "memory" | "diagnostic" | "all")).as(:oneline)
                                       )
                                   )
                               )
@@ -7002,7 +7002,7 @@ rule(:configuration) do
                           "attributes-match" (
                               s(
                                       arg,
-                                      (("equals" | "starts-with" | "matches")),
+                                      enum(("equals" | "starts-with" | "matches")),
                                       arg
                               )
                           ).as(:oneline),
@@ -7137,7 +7137,7 @@ rule(:configuration) do
                                           "no-world-readable"
                                       )
                                   ).as(:oneline),
-                                  "flag" (("events" | "input" | "offline" | "output" | "rpc" | "xslt" | "all")).as(:oneline)
+                                  "flag" enum(("events" | "input" | "offline" | "output" | "rpc" | "xslt" | "all")).as(:oneline)
                               )
                           ),
                           "file" arg (
@@ -7205,7 +7205,7 @@ rule(:configuration) do
                                   )
                               )
                           ).as(:oneline),
-                          "flag" (("server" | "configuration" | "events" | "timer-events" | "database" | "policy" | "registration" | "syslogd" | "all")).as(:oneline)
+                          "flag" enum(("server" | "configuration" | "events" | "timer-events" | "database" | "policy" | "registration" | "syslogd" | "all")).as(:oneline)
                       )
                   ),
                   "redundancy-event" (
@@ -8208,8 +8208,8 @@ rule(:aaa_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("init" | "config" | "general" | "request" | "response" | "high-availability" | "debug" | "request-in" | "request-out" | "response-in" | "response-out" | "client-request-in" | "client-request-out" | "all")).as(:oneline),
-        "protocol" (("radius" | "diameter" | "all")).as(:oneline)
+        "flag" enum(("init" | "config" | "general" | "request" | "response" | "high-availability" | "debug" | "request-in" | "request-out" | "response-in" | "response-out" | "client-request-in" | "client-request-out" | "all")).as(:oneline),
+        "protocol" enum(("radius" | "diameter" | "all")).as(:oneline)
     )
 end
 
@@ -8553,7 +8553,7 @@ rule(:auto_configure_vlan_type) do
                 "dynamic-profile" arg (
                     c(
                         "accept" (
-                              (("inet" | "inet6" | "pppoe" | "dhcp-v4" | "dhcp-v6" | "any"))
+                              enum(("inet" | "inet6" | "pppoe" | "dhcp-v4" | "dhcp-v6" | "any"))
                         ),
                         "ranges" arg,
                         "access-profile" (
@@ -8589,10 +8589,10 @@ rule(:auto_configure_vlan_type) do
                     c(
                         c(
                           "accept" (
-                                (("inet" | "inet6" | "pppoe" | "dhcp-v4" | "dhcp-v6" | "any"))
+                                enum(("inet" | "inet6" | "pppoe" | "dhcp-v4" | "dhcp-v6" | "any"))
                           ),
                           "accept-out-of-band" (
-                                (("ancp"))
+                                enum(("ancp"))
                           )
                         ),
                         "ranges" arg,
@@ -8646,7 +8646,7 @@ end
 rule(:auto_configure_authentication_type) do
     c(
         "packet-types" (
-              (("inet" | "inet6" | "pppoe" | "dhcp-v4" | "dhcp-v6" | "any"))
+              enum(("inet" | "inet6" | "pppoe" | "dhcp-v4" | "dhcp-v6" | "any"))
         ),
         "password" arg,
         "username-include" (
@@ -9171,7 +9171,7 @@ rule(:charging_traceoptions) do
         "level" (
           ("critical" | "error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("init" | "config" | "general" | "triggers" | "cdr-encoding" | "transport" | "path-management" | "fsm" | "ipc" | "resource" | "group-fsm" | "client-fsm" | "timers" | "online" | "tpm" | "all")).as(:oneline)
+        "flag" enum(("init" | "config" | "general" | "triggers" | "cdr-encoding" | "transport" | "path-management" | "fsm" | "ipc" | "resource" | "group-fsm" | "client-fsm" | "timers" | "online" | "tpm" | "all")).as(:oneline)
     )
 end
 
@@ -9264,9 +9264,9 @@ rule(:chassis_type) do
         "aggregated-devices" (
           chassis_agg_dev_type
         ),
-        "disk-partition" (("/var" | "/config")) (
+        "disk-partition" enum(("/var" | "/config")) (
             c(
-                "level" (("high" | "full")) (
+                "level" enum(("high" | "full")) (
                     c(
                         "free-space" (
                             c(
@@ -9805,7 +9805,7 @@ rule(:chassis_type) do
                                 )
                             )
                         ).as(:oneline),
-                        "flag" (("parse" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "krt" | "lldp" | "provision" | "extended-port" | "multi-chassis" | "upgrade-group" | "device" | "tcp" | "interface" | "cluster" | "all")) (
+                        "flag" enum(("parse" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "krt" | "lldp" | "provision" | "extended-port" | "multi-chassis" | "upgrade-group" | "device" | "tcp" | "interface" | "cluster" | "all")) (
                             c(
                                 "disable"
                             )
@@ -10398,7 +10398,7 @@ end
 rule(:chassis_fpc_error_level_type) do
     c(
         "threshold" arg,
-        "action" (("reset" | "offline" | "alarm" | "get-state" | "log" | "disable-pfe" | "offline-pic"))
+        "action" enum(("reset" | "offline" | "alarm" | "get-state" | "log" | "disable-pfe" | "offline-pic"))
     )
 end
 
@@ -11182,7 +11182,7 @@ rule(:chassis_fpc_type) do
                     c(
                         "fabric-queue" (
                             c(
-                                "priority" (("low" | "high")) (
+                                "priority" enum(("low" | "high")) (
                                     c(
                                         "threshold" arg
                                     )
@@ -11191,7 +11191,7 @@ rule(:chassis_fpc_type) do
                         ),
                         "wan-queue" (
                             c(
-                                "priority" (("low" | "medium-low" | "medium-high" | "high")) (
+                                "priority" enum(("low" | "medium-low" | "medium-high" | "high")) (
                                     c(
                                         "threshold" arg
                                     )
@@ -11424,7 +11424,7 @@ rule(:chassis_pic_type) do
                                     "session-offload",
                                     "no-default-packages",
                                     "package" arg,
-                                    "syslog" (("external" | "pfe" | "daemon" | "kernel")) (
+                                    "syslog" enum(("external" | "pfe" | "daemon" | "kernel")) (
                                         c(
                                             c(
                                               "any",
@@ -11854,7 +11854,7 @@ rule(:chassis_non_stop_forwarding_type) do
     c(
         "traceoptions" (
             c(
-                "flag" (("update" | "all")).as(:oneline)
+                "flag" enum(("update" | "all")).as(:oneline)
             )
         )
     )
@@ -12136,7 +12136,7 @@ rule(:cos_policer_output_priority_map) do
                     c(
                         "forwarding-class" arg (
                             c(
-                                "loss-priority" (("low" | "high")).as(:oneline)
+                                "loss-priority" enum(("low" | "high")).as(:oneline)
                             )
                         )
                     )
@@ -12279,7 +12279,7 @@ rule(:cpcd_trace_options_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("configuration" | "clicommand" | "general" | "rtsock" | "statistics" | "rules" | "ssets" | "ipc" | "gres" | "re-services" | "re-svc-debug-stat" | "all")).as(:oneline)
+        "flag" enum(("configuration" | "clicommand" | "general" | "rtsock" | "statistics" | "rules" | "ssets" | "ipc" | "gres" | "re-services" | "re-svc-debug-stat" | "all")).as(:oneline)
     )
 end
 
@@ -14806,10 +14806,10 @@ rule(:gateway_type) do
                                     c(
                                         "reject",
                                         "committed-information-rate" (
-                                              (arg)
+                                              enum(arg)
                                         ),
                                         "committed-burst-size" (
-                                              (arg)
+                                              enum(arg)
                                         ),
                                         "dscp" arg
                                     )
@@ -15034,7 +15034,7 @@ rule(:call_usage_policy_type) do
 end
 
 rule(:call_usage_method_type) do
-  (("method-invite")).as(:arg)
+  enum(("method-invite")).as(:arg)
 end
 
 rule(:ggsn_pgw_apn_services) do
@@ -15749,7 +15749,7 @@ rule(:idpd_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("all")).as(:oneline),
+        "flag" enum(("all")).as(:oneline),
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         )
@@ -17536,7 +17536,7 @@ rule(:interfaces_type) do
         ),
         "traceoptions" (
             c(
-                "flag" (("ipc" | "event" | "media" | "all")).as(:oneline)
+                "flag" enum(("ipc" | "event" | "media" | "all")).as(:oneline)
             )
         ),
         "passive-monitor-mode",
@@ -18764,7 +18764,7 @@ rule(:interfaces_type) do
                 "fec" (
                   ("sdfec" | "sdfec25")
                 ),
-                "alarm" (("low-light-alarm")) (
+                "alarm" enum(("low-light-alarm")) (
                     c(
                         c(
                           "syslog",
@@ -18928,7 +18928,7 @@ rule(:interfaces_type) do
                         )
                     )
                 ),
-                "warning" (("low-light-warning")) (
+                "warning" enum(("low-light-warning")) (
                     c(
                         c(
                           "syslog",
@@ -19371,7 +19371,7 @@ rule(:interfaces_type) do
                 )
             )
         ),
-        "unit" (("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
+        "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
             c(
                 "policer-overhead" (
                     c(
@@ -19461,10 +19461,10 @@ rule(:interfaces_type) do
                 ),
                 "actual-transit-statistics",
                 "demux-source" (
-                      (("inet" | "inet6"))
+                      enum(("inet" | "inet6"))
                 ),
                 "demux-destination" (
-                      (("inet" | "inet6"))
+                      enum(("inet" | "inet6"))
                 ),
                 "encapsulation" (
                   ("atm-nlpid" | "atm-cisco-nlpid" | "atm-snap" | "atm-vc-mux" | "atm-ccc-vc-mux" | "atm-tcc-vc-mux" | "atm-tcc-snap" | "atm-ccc-cell-relay" | "vlan-vci-ccc" | "ether-over-atm-llc" | "ether-vpls-over-atm-llc" | "ppp-over-ether-over-atm-llc" | "ppp-over-ether" | "atm-ppp-vc-mux" | "atm-ppp-llc" | "atm-mlppp-llc" | "frame-relay-ppp" | "frame-relay-ccc" | "frame-relay" | "frame-relay-tcc" | "frame-relay-ether-type" | "frame-relay-ether-type-tcc" | "ether-vpls-fr" | "vlan-ccc" | "ethernet-ccc" | "vlan-vpls" | "vlan-bridge" | "dix" | "ethernet" | "ethernet-vpls" | "ethernet-bridge" | "vlan" | "vlan-tcc" | "multilink-ppp" | "multilink-frame-relay-end-to-end" | "ppp-ccc")
@@ -20043,7 +20043,7 @@ rule(:interfaces_type) do
                                         "client-type" (
                                           ("stateful" | "autoconfig")
                                         ),
-                                        "client-ia-type" (("ia-na" | "ia-pd")),
+                                        "client-ia-type" enum(("ia-na" | "ia-pd")),
                                         "rapid-commit",
                                         "client-identifier" (
                                             c(
@@ -20052,7 +20052,7 @@ rule(:interfaces_type) do
                                                 )
                                             )
                                         ).as(:oneline),
-                                        "req-option" (("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
+                                        "req-option" enum(("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
                                         "retransmission-attempt" arg,
                                         "no-dns-propagation",
                                         "update-router-advertisement" (
@@ -20526,10 +20526,10 @@ rule(:interfaces_type) do
                         "hash-keys" (
                             c(
                                 "ingress-key" (
-                                      (("source-ip" | "destination-ip" | "protocol" | "iif"))
+                                      enum(("source-ip" | "destination-ip" | "protocol" | "iif"))
                                 ),
                                 "egress-key" (
-                                      (("source-ip" | "destination-ip" | "protocol" | "oif"))
+                                      enum(("source-ip" | "destination-ip" | "protocol" | "oif"))
                                 )
                             )
                         )
@@ -20622,7 +20622,7 @@ rule(:ipsec_services_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("timer" | "routing-socket" | "parse" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "ams" | "lic" | "all")).as(:oneline)
+        "flag" enum(("timer" | "routing-socket" | "parse" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "ams" | "lic" | "all")).as(:oneline)
     )
 end
 
@@ -20646,7 +20646,7 @@ rule(:ipsec_vpn_rule_object) do
                         c(
                           "manual" (
                               c(
-                                  "direction" (("inbound" | "outbound" | "bidirectional")) (
+                                  "direction" enum(("inbound" | "outbound" | "bidirectional")) (
                                       c(
                                           "protocol" (
                                             ("ah" | "esp" | "bundle")
@@ -27797,7 +27797,7 @@ rule(:juniper_bd_protocols_igmp_snooping) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -27940,7 +27940,7 @@ rule(:juniper_bd_protocols_mld_snooping) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -28780,7 +28780,7 @@ rule(:jdhcp_interface_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("state" | "packet" | "flow" | "packet-option" | "dhcpv6-state" | "dhcpv6-packet" | "dhcpv6-packet-option" | "all")).as(:oneline)
+        "flag" enum(("state" | "packet" | "flow" | "packet-option" | "dhcpv6-state" | "dhcpv6-packet" | "dhcpv6-packet-option" | "all")).as(:oneline)
     )
 end
 
@@ -28872,7 +28872,7 @@ rule(:jdhcp_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("state" | "packet" | "flow" | "packet-option" | "dhcpv6-state" | "dhcpv6-packet" | "dhcpv6-packet-option" | "all" | "database" | "persistent" | "interface" | "rtsock" | "flow-notify" | "io" | "ha" | "ui" | "general" | "fwd" | "rpd" | "auth" | "profile" | "session-db" | "performance" | "statistics" | "dhcpv6-io" | "dhcpv6-rpd" | "dhcpv6-session-db" | "dhcpv6-general" | "liveness-detection" | "security-persistence" | "mclag")).as(:oneline)
+        "flag" enum(("state" | "packet" | "flow" | "packet-option" | "dhcpv6-state" | "dhcpv6-packet" | "dhcpv6-packet-option" | "all" | "database" | "persistent" | "interface" | "rtsock" | "flow-notify" | "io" | "ha" | "ui" | "general" | "fwd" | "rpd" | "auth" | "profile" | "session-db" | "performance" | "statistics" | "dhcpv6-io" | "dhcpv6-rpd" | "dhcpv6-session-db" | "dhcpv6-general" | "liveness-detection" | "security-persistence" | "mclag")).as(:oneline)
     )
 end
 
@@ -29003,7 +29003,7 @@ rule(:charged_traceoptions_type) do
         "level" (
           ("critical" | "error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("general" | "mirror" | "connection" | "file-operations" | "journaling" | "all")).as(:oneline)
+        "flag" enum(("general" | "mirror" | "connection" | "file-operations" | "journaling" | "all")).as(:oneline)
     )
 end
 
@@ -29432,7 +29432,7 @@ rule(:juniper_class_of_service_options) do
         ),
         "adaptive-shapers" arg (
             c(
-                "trigger" (("becn")) (
+                "trigger" enum(("becn")) (
                     c(
                         "shaping-rate" (
                             c(
@@ -29786,7 +29786,7 @@ rule(:juniper_class_of_service_options) do
         ),
         "dynamic-class-of-service-options" (
             c(
-                "vendor-specific-tags" (("actual-data-rate-downstream" | "access-loop-encapsulation"))
+                "vendor-specific-tags" enum(("actual-data-rate-downstream" | "access-loop-encapsulation"))
             )
         ),
         "interfaces" (
@@ -30017,7 +30017,7 @@ rule(:juniper_class_of_service_options) do
             c(
                 "scheduler-map" (
                     c(
-                        "priority" (("low" | "high")) (
+                        "priority" enum(("low" | "high")) (
                             c(
                                 "scheduler" arg
                             )
@@ -30154,7 +30154,7 @@ rule(:juniper_class_of_service_options) do
         ),
         "adjustment-control-profiles" arg (
             c(
-                "application" (("ancp" | "radius-coa" | "pppoe-tags" | "dhcp-tags")) (
+                "application" enum(("ancp" | "radius-coa" | "pppoe-tags" | "dhcp-tags")) (
                     c(
                         "priority" arg,
                         "algorithm" (
@@ -30179,7 +30179,7 @@ rule(:juniper_class_of_service_options) do
                         )
                     )
                 ).as(:oneline),
-                "flag" (("init" | "show" | "route-socket" | "parse" | "process" | "util" | "restart" | "snmp" | "hardware-database" | "asynch" | "dynamic" | "cos-adjustment" | "performance-monitor" | "chassis-scheduler" | "cn-util" | "snmp-timeouts" | "all" | "feature-capability" | "application")).as(:oneline)
+                "flag" enum(("init" | "show" | "route-socket" | "parse" | "process" | "util" | "restart" | "snmp" | "hardware-database" | "asynch" | "dynamic" | "cos-adjustment" | "performance-monitor" | "chassis-scheduler" | "cn-util" | "snmp-timeouts" | "all" | "feature-capability" | "application")).as(:oneline)
             )
         ),
         "multi-destination" (
@@ -30290,7 +30290,7 @@ rule(:appqos_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("all")).as(:oneline),
+        "flag" enum(("all")).as(:oneline),
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         )
@@ -30456,7 +30456,7 @@ rule(:cos_interfaces_type) do
                 )
             )
         ),
-        "unit" (("*")) (
+        "unit" enum(("*")) (
             c(
                 "output-forwarding-class-map" arg,
                 "forwarding-class" arg,
@@ -31583,7 +31583,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 "file" (
                                                   trace_file_type
                                                 ),
-                                                "flag" (("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                                "flag" enum(("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                                     c(
                                                         "disable"
                                                     )
@@ -31663,7 +31663,7 @@ rule(:juniper_dynamic_profile_object) do
                                         "forwarding-cache" (
                                             c(
                                                 "allow-maximum",
-                                                "family" (("inet" | "inet6")) (
+                                                "family" enum(("inet" | "inet6")) (
                                                     c(
                                                         "threshold" (
                                                             c(
@@ -31775,7 +31775,7 @@ rule(:juniper_dynamic_profile_object) do
                                 )
                             )
                         ).as(:oneline),
-                        "flag" (("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events" | "bfd-events" | "lib-events" | "reserved" | "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "informational" | "debugging" | "verbose" | "japi")) (
+                        "flag" enum(("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events" | "bfd-events" | "lib-events" | "reserved" | "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "informational" | "debugging" | "verbose" | "japi")) (
                             c(
                                 "disable"
                             )
@@ -31806,7 +31806,7 @@ rule(:juniper_dynamic_profile_object) do
                         ),
                         "traceoptions" (
                             c(
-                                "flag" (("ipc" | "event" | "media" | "all")).as(:oneline)
+                                "flag" enum(("ipc" | "event" | "media" | "all")).as(:oneline)
                             )
                         ),
                         "passive-monitor-mode",
@@ -33034,7 +33034,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "fec" (
                                   ("sdfec" | "sdfec25")
                                 ),
-                                "alarm" (("low-light-alarm")) (
+                                "alarm" enum(("low-light-alarm")) (
                                     c(
                                         c(
                                           "syslog",
@@ -33198,7 +33198,7 @@ rule(:juniper_dynamic_profile_object) do
                                         )
                                     )
                                 ),
-                                "warning" (("low-light-warning")) (
+                                "warning" enum(("low-light-warning")) (
                                     c(
                                         c(
                                           "syslog",
@@ -33641,7 +33641,7 @@ rule(:juniper_dynamic_profile_object) do
                                 )
                             )
                         ),
-                        "unit" (("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
+                        "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
                             c(
                                 "policer-overhead" (
                                     c(
@@ -33731,10 +33731,10 @@ rule(:juniper_dynamic_profile_object) do
                                 ),
                                 "actual-transit-statistics",
                                 "demux-source" (
-                                      (("inet" | "inet6"))
+                                      enum(("inet" | "inet6"))
                                 ),
                                 "demux-destination" (
-                                      (("inet" | "inet6"))
+                                      enum(("inet" | "inet6"))
                                 ),
                                 "encapsulation" (
                                   ("atm-nlpid" | "atm-cisco-nlpid" | "atm-snap" | "atm-vc-mux" | "atm-ccc-vc-mux" | "atm-tcc-vc-mux" | "atm-tcc-snap" | "atm-ccc-cell-relay" | "vlan-vci-ccc" | "ether-over-atm-llc" | "ether-vpls-over-atm-llc" | "ppp-over-ether-over-atm-llc" | "ppp-over-ether" | "atm-ppp-vc-mux" | "atm-ppp-llc" | "atm-mlppp-llc" | "frame-relay-ppp" | "frame-relay-ccc" | "frame-relay" | "frame-relay-tcc" | "frame-relay-ether-type" | "frame-relay-ether-type-tcc" | "ether-vpls-fr" | "vlan-ccc" | "ethernet-ccc" | "vlan-vpls" | "vlan-bridge" | "dix" | "ethernet" | "ethernet-vpls" | "ethernet-bridge" | "vlan" | "vlan-tcc" | "multilink-ppp" | "multilink-frame-relay-end-to-end" | "ppp-ccc")
@@ -34313,7 +34313,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         "client-type" (
                                                           ("stateful" | "autoconfig")
                                                         ),
-                                                        "client-ia-type" (("ia-na" | "ia-pd")),
+                                                        "client-ia-type" enum(("ia-na" | "ia-pd")),
                                                         "rapid-commit",
                                                         "client-identifier" (
                                                             c(
@@ -34322,7 +34322,7 @@ rule(:juniper_dynamic_profile_object) do
                                                                 )
                                                             )
                                                         ).as(:oneline),
-                                                        "req-option" (("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
+                                                        "req-option" enum(("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
                                                         "retransmission-attempt" arg,
                                                         "no-dns-propagation",
                                                         "update-router-advertisement" (
@@ -34796,10 +34796,10 @@ rule(:juniper_dynamic_profile_object) do
                                         "hash-keys" (
                                             c(
                                                 "ingress-key" (
-                                                      (("source-ip" | "destination-ip" | "protocol" | "iif"))
+                                                      enum(("source-ip" | "destination-ip" | "protocol" | "iif"))
                                                 ),
                                                 "egress-key" (
-                                                      (("source-ip" | "destination-ip" | "protocol" | "oif"))
+                                                      enum(("source-ip" | "destination-ip" | "protocol" | "oif"))
                                                 )
                                             )
                                         )
@@ -34900,7 +34900,7 @@ rule(:juniper_dynamic_profile_object) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events" | "bfd-events" | "lib-events" | "reserved" | "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "informational" | "debugging" | "verbose" | "japi")) (
+                                "flag" enum(("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events" | "bfd-events" | "lib-events" | "reserved" | "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "informational" | "debugging" | "verbose" | "japi")) (
                                     c(
                                         "disable"
                                     )
@@ -34931,7 +34931,7 @@ rule(:juniper_dynamic_profile_object) do
                                 ),
                                 "traceoptions" (
                                     c(
-                                        "flag" (("ipc" | "event" | "media" | "all")).as(:oneline)
+                                        "flag" enum(("ipc" | "event" | "media" | "all")).as(:oneline)
                                     )
                                 ),
                                 "passive-monitor-mode",
@@ -36159,7 +36159,7 @@ rule(:juniper_dynamic_profile_object) do
                                         "fec" (
                                           ("sdfec" | "sdfec25")
                                         ),
-                                        "alarm" (("low-light-alarm")) (
+                                        "alarm" enum(("low-light-alarm")) (
                                             c(
                                                 c(
                                                   "syslog",
@@ -36323,7 +36323,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 )
                                             )
                                         ),
-                                        "warning" (("low-light-warning")) (
+                                        "warning" enum(("low-light-warning")) (
                                             c(
                                                 c(
                                                   "syslog",
@@ -36766,7 +36766,7 @@ rule(:juniper_dynamic_profile_object) do
                                         )
                                     )
                                 ),
-                                "unit" (("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
+                                "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
                                     c(
                                         "policer-overhead" (
                                             c(
@@ -36856,10 +36856,10 @@ rule(:juniper_dynamic_profile_object) do
                                         ),
                                         "actual-transit-statistics",
                                         "demux-source" (
-                                              (("inet" | "inet6"))
+                                              enum(("inet" | "inet6"))
                                         ),
                                         "demux-destination" (
-                                              (("inet" | "inet6"))
+                                              enum(("inet" | "inet6"))
                                         ),
                                         "encapsulation" (
                                           ("atm-nlpid" | "atm-cisco-nlpid" | "atm-snap" | "atm-vc-mux" | "atm-ccc-vc-mux" | "atm-tcc-vc-mux" | "atm-tcc-snap" | "atm-ccc-cell-relay" | "vlan-vci-ccc" | "ether-over-atm-llc" | "ether-vpls-over-atm-llc" | "ppp-over-ether-over-atm-llc" | "ppp-over-ether" | "atm-ppp-vc-mux" | "atm-ppp-llc" | "atm-mlppp-llc" | "frame-relay-ppp" | "frame-relay-ccc" | "frame-relay" | "frame-relay-tcc" | "frame-relay-ether-type" | "frame-relay-ether-type-tcc" | "ether-vpls-fr" | "vlan-ccc" | "ethernet-ccc" | "vlan-vpls" | "vlan-bridge" | "dix" | "ethernet" | "ethernet-vpls" | "ethernet-bridge" | "vlan" | "vlan-tcc" | "multilink-ppp" | "multilink-frame-relay-end-to-end" | "ppp-ccc")
@@ -37438,7 +37438,7 @@ rule(:juniper_dynamic_profile_object) do
                                                                 "client-type" (
                                                                   ("stateful" | "autoconfig")
                                                                 ),
-                                                                "client-ia-type" (("ia-na" | "ia-pd")),
+                                                                "client-ia-type" enum(("ia-na" | "ia-pd")),
                                                                 "rapid-commit",
                                                                 "client-identifier" (
                                                                     c(
@@ -37447,7 +37447,7 @@ rule(:juniper_dynamic_profile_object) do
                                                                         )
                                                                     )
                                                                 ).as(:oneline),
-                                                                "req-option" (("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
+                                                                "req-option" enum(("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
                                                                 "retransmission-attempt" arg,
                                                                 "no-dns-propagation",
                                                                 "update-router-advertisement" (
@@ -37921,10 +37921,10 @@ rule(:juniper_dynamic_profile_object) do
                                                 "hash-keys" (
                                                     c(
                                                         "ingress-key" (
-                                                              (("source-ip" | "destination-ip" | "protocol" | "iif"))
+                                                              enum(("source-ip" | "destination-ip" | "protocol" | "iif"))
                                                         ),
                                                         "egress-key" (
-                                                              (("source-ip" | "destination-ip" | "protocol" | "oif"))
+                                                              enum(("source-ip" | "destination-ip" | "protocol" | "oif"))
                                                         )
                                                     )
                                                 )
@@ -37992,7 +37992,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                "flag" enum(("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                     c(
                                         "send",
                                         "receive",
@@ -38111,7 +38111,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         )
                                                     )
                                                 ).as(:oneline),
-                                                "flag" (("configuration" | "routing-socket" | "protocol" | "action-profile" | "all")).as(:oneline)
+                                                "flag" enum(("configuration" | "routing-socket" | "protocol" | "action-profile" | "all")).as(:oneline)
                                             )
                                         ),
                                         "action-profile" arg (
@@ -38613,7 +38613,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         )
                                                     )
                                                 ).as(:oneline),
-                                                "flag" (("configuration" | "routing-socket" | "protocol" | "init" | "error" | "packet" | "all")).as(:oneline)
+                                                "flag" enum(("configuration" | "routing-socket" | "protocol" | "init" | "error" | "packet" | "all")).as(:oneline)
                                             )
                                         ),
                                         "status-counter" arg,
@@ -38643,7 +38643,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 "file" (
                                                   trace_file_type
                                                 ),
-                                                "flag" (("events" | "pdu" | "timers" | "error" | "all")).as(:oneline)
+                                                "flag" enum(("events" | "pdu" | "timers" | "error" | "all")).as(:oneline)
                                             )
                                         ),
                                         "interval" (
@@ -38676,7 +38676,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 )
                                             )
                                         ).as(:oneline),
-                                        "flag" (("configuration" | "routing-socket" | "protocol" | "all")).as(:oneline)
+                                        "flag" enum(("configuration" | "routing-socket" | "protocol" | "all")).as(:oneline)
                                     )
                                 ),
                                 "interface" arg (
@@ -38696,7 +38696,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                "flag" enum(("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                     c(
                                         "send",
                                         "receive",
@@ -38775,7 +38775,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")).as(:oneline)
+                                "flag" enum(("route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")).as(:oneline)
                             )
                         ),
                         "interface" ("$junos-interface-name" | arg) (
@@ -39394,7 +39394,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                "flag" enum(("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                     c(
                                         "disable"
                                     )
@@ -39474,7 +39474,7 @@ rule(:juniper_dynamic_profile_object) do
                         "forwarding-cache" (
                             c(
                                 "allow-maximum",
-                                "family" (("inet" | "inet6")) (
+                                "family" enum(("inet" | "inet6")) (
                                     c(
                                         "threshold" (
                                             c(
@@ -39852,7 +39852,7 @@ rule(:cfm_traceoptions) do
                 )
             )
         ).as(:oneline),
-        "flag" (("configuration" | "routing-socket" | "protocol" | "init" | "error" | "issu" | "all")).as(:oneline)
+        "flag" enum(("configuration" | "routing-socket" | "protocol" | "init" | "error" | "issu" | "all")).as(:oneline)
     )
 end
 
@@ -39956,7 +39956,7 @@ rule(:flow_dep_traceoptions) do
         "file" (
           trace_file_type
         ),
-        "flag" (("resolution" | "flash" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+        "flag" enum(("resolution" | "flash" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
             c(
                 "send",
                 "receive",
@@ -40039,7 +40039,7 @@ rule(:juniper_fabric_routing_options) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("parse" | "regex-parse" | "config-internal" | "nsr-synchronization" | "condition-manager" | "graceful-restart" | "session" | "hfrr-fsm" | "hfrr-route" | "statistics-id-group" | "route-record" | "jvision-lsp" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all" | "eswd" | "arp" | "prefix" | "ne-port" | "route-selection" | "bridge" | "grat-arp" | "l2l3-map")) (
+                "flag" enum(("parse" | "regex-parse" | "config-internal" | "nsr-synchronization" | "condition-manager" | "graceful-restart" | "session" | "hfrr-fsm" | "hfrr-route" | "statistics-id-group" | "route-record" | "jvision-lsp" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all" | "eswd" | "arp" | "prefix" | "ne-port" | "route-selection" | "bridge" | "grat-arp" | "l2l3-map")) (
                     c(
                         "disable",
                         "send",
@@ -40065,7 +40065,7 @@ rule(:juniper_fabric_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("event" | "flash" | "kernel" | "indirect" | "task" | "igp-frr" | "igp-frr-extensive" | "tunnel" | "all")) (
+                        "flag" enum(("event" | "flash" | "kernel" | "indirect" | "task" | "igp-frr" | "igp-frr-extensive" | "tunnel" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -40084,7 +40084,7 @@ rule(:juniper_fabric_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("export" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("export" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -40105,7 +40105,7 @@ rule(:juniper_fabric_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("vccpdf" | "root" | "core" | "edge" | "cspf" | "all")) (
+                        "flag" enum(("vccpdf" | "root" | "core" | "edge" | "cspf" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -40559,14 +40559,14 @@ rule(:juniper_forwarding_options) do
                         "level" (
                           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                         ),
-                        "flag" (("trace" | "address" | "main" | "config" | "ifdb" | "io" | "rtsock" | "ui" | "util" | "gencfg" | "domain" | "tftp" | "bootp" | "port" | "if-rtsdb" | "all")).as(:oneline)
+                        "flag" enum(("trace" | "address" | "main" | "config" | "ifdb" | "io" | "rtsock" | "ui" | "util" | "gencfg" | "domain" | "tftp" | "bootp" | "port" | "if-rtsdb" | "all")).as(:oneline)
                     )
                 ),
                 "rtsdb-client-traceoptions" (
                     c(
                         "if-rtsdb" (
                             c(
-                                "flag" (("init" | "routing-socket" | "map" | "all")) (
+                                "flag" enum(("init" | "routing-socket" | "map" | "all")) (
                                     c(
                                         "disable"
                                     )
@@ -40857,7 +40857,7 @@ rule(:juniper_forwarding_options) do
                                 )
                             )
                         ).as(:oneline),
-                        "flag" (("all" | "bd" | "config-internal" | "interface" | "interface-vlan" | "ipc" | "kernel" | "krt" | "mac" | "nh" | "normal" | "parse" | "stp" | "task" | "timer" | "firewall")).as(:oneline)
+                        "flag" enum(("all" | "bd" | "config-internal" | "interface" | "interface-vlan" | "ipc" | "kernel" | "krt" | "mac" | "nh" | "normal" | "parse" | "stp" | "task" | "timer" | "firewall")).as(:oneline)
                     )
                 ),
                 "local-replication",
@@ -41549,7 +41549,7 @@ rule(:jdhcp_local_server_type) do
         "dhcpv6" (
           dhcpv6_local_server_type
         ),
-        "pool-match-order" (("external-authority" | "ip-address-first" | "option-82" | "option-82-strict")),
+        "pool-match-order" enum(("external-authority" | "ip-address-first" | "option-82" | "option-82-strict")),
         "duplicate-clients-on-interface",
         "duplicate-clients-in-subnet" (
           jdhcp_duplicate_clients_in_subnet_type
@@ -42173,7 +42173,7 @@ rule(:diameter_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("send" | "send-detail" | "receive" | "receive-detail" | "timeout" | "state" | "all")).as(:oneline),
+        "flag" enum(("send" | "send-detail" | "receive" | "receive-detail" | "timeout" | "state" | "all")).as(:oneline),
         "peer" arg
     )
 end
@@ -42230,7 +42230,7 @@ rule(:juniper_multicast_snooping_options) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "disable"
                     )
@@ -42341,7 +42341,7 @@ rule(:juniper_pic_services_logging_options) do
                         )
                     )
                 ).as(:oneline),
-                "flag" (("init" | "bookkeeping" | "connections" | "charging" | "flow-collector" | "all")).as(:oneline)
+                "flag" enum(("init" | "bookkeeping" | "connections" | "charging" | "flow-collector" | "all")).as(:oneline)
             )
         )
     )
@@ -44796,7 +44796,7 @@ rule(:juniper_protected_system_domain_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("configuration" | "rtsock" | "ipc" | "init" | "psd" | "all")).as(:oneline)
+        "flag" enum(("configuration" | "rtsock" | "ipc" | "init" | "psd" | "all")).as(:oneline)
     )
 end
 
@@ -44812,7 +44812,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("error" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("error" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -44831,7 +44831,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -44936,7 +44936,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -45018,7 +45018,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")).as(:oneline)
+                        "flag" enum(("route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")).as(:oneline)
                     )
                 ),
                 "interface" ("$junos-interface-name" | arg) (
@@ -45096,7 +45096,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("route" | "poison" | "packets" | "probe" | "report" | "neighbor" | "prune" | "graft" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("route" | "poison" | "packets" | "probe" | "report" | "neighbor" | "prune" | "graft" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -45149,7 +45149,7 @@ rule(:juniper_protocols) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                     c(
                                         "send",
                                         "receive",
@@ -45624,7 +45624,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -46166,7 +46166,7 @@ rule(:juniper_protocols) do
                                 "microsecond-stamp"
                             )
                         ).as(:oneline),
-                        "flag" (("database" | "general" | "interfaces" | "normal" | "packets" | "state" | "timer" | "ppm" | "all")).as(:oneline)
+                        "flag" enum(("database" | "general" | "interfaces" | "normal" | "packets" | "state" | "timer" | "ppm" | "all")).as(:oneline)
                     )
                 ),
                 "failover-delay" arg,
@@ -46190,7 +46190,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("error" | "topology" | "fec" | "connections" | "oam" | "egress-protection" | "auto-sensing" | "sdb" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("error" | "topology" | "fec" | "connections" | "oam" | "egress-protection" | "auto-sensing" | "sdb" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -46400,7 +46400,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("error" | "topology" | "nlri" | "connections" | "automatic-site" | "oam" | "mac-database" | "nsr" | "egress-protection" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("error" | "topology" | "nlri" | "connections" | "automatic-site" | "oam" | "mac-database" | "nsr" | "egress-protection" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -46458,7 +46458,7 @@ rule(:juniper_protocols) do
                                 )
                             )
                         ).as(:oneline),
-                        "flag" (("adjacency" | "event" | "error" | "rtsock" | "packet" | "ppm-packet" | "pipe" | "pipe-detail" | "state" | "timer" | "nsr-synchronization" | "nsr-packet" | "issu" | "slow-start" | "session" | "all")).as(:oneline)
+                        "flag" enum(("adjacency" | "event" | "error" | "rtsock" | "packet" | "ppm-packet" | "pipe" | "pipe-detail" | "state" | "timer" | "nsr-synchronization" | "nsr-packet" | "issu" | "slow-start" | "session" | "all")).as(:oneline)
                     )
                 ),
                 "no-issu-timer-negotiation"
@@ -46483,7 +46483,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("controller" | "state" | "route" | "general" | "interface" | "all")).as(:oneline)
+                        "flag" enum(("controller" | "state" | "route" | "general" | "interface" | "all")).as(:oneline)
                     )
                 ),
                 "lsp-external-controller" arg,
@@ -46534,7 +46534,7 @@ rule(:juniper_protocols) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("cryptographic-address" | "configuration" | "protocol" | "rsa" | "all")).as(:oneline)
+                                "flag" enum(("cryptographic-address" | "configuration" | "protocol" | "rsa" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -46566,7 +46566,7 @@ rule(:juniper_protocols) do
                                 )
                             )
                         ).as(:oneline),
-                        "flag" (("error" | "event" | "packet" | "pipe" | "pipe-detail" | "all")).as(:oneline)
+                        "flag" enum(("error" | "event" | "packet" | "pipe" | "pipe-detail" | "all")).as(:oneline)
                     )
                 )
             )
@@ -46588,7 +46588,7 @@ rule(:juniper_protocols) do
                                 )
                             )
                         ).as(:oneline),
-                        "flag" (("database" | "routing-socket" | "state" | "debug" | "event" | "packet" | "all")).as(:oneline)
+                        "flag" enum(("database" | "routing-socket" | "state" | "debug" | "event" | "packet" | "all")).as(:oneline)
                     )
                 )
             )
@@ -46610,7 +46610,7 @@ rule(:juniper_protocols) do
                                 )
                             )
                         ).as(:oneline),
-                        "flag" (("configuration" | "routing-socket" | "process" | "startup" | "protocol" | "packet" | "ppm" | "bfd" | "mc-ae" | "all")).as(:oneline)
+                        "flag" enum(("configuration" | "routing-socket" | "process" | "startup" | "protocol" | "packet" | "ppm" | "bfd" | "mc-ae" | "all")).as(:oneline)
                     )
                 ),
                 "ppm" (
@@ -46640,7 +46640,7 @@ rule(:juniper_protocols) do
                                                 )
                                             )
                                         ).as(:oneline),
-                                        "flag" (("configuration" | "routing-socket" | "protocol" | "action-profile" | "all")).as(:oneline)
+                                        "flag" enum(("configuration" | "routing-socket" | "protocol" | "action-profile" | "all")).as(:oneline)
                                     )
                                 ),
                                 "action-profile" arg (
@@ -47142,7 +47142,7 @@ rule(:juniper_protocols) do
                                                 )
                                             )
                                         ).as(:oneline),
-                                        "flag" (("configuration" | "routing-socket" | "protocol" | "init" | "error" | "packet" | "all")).as(:oneline)
+                                        "flag" enum(("configuration" | "routing-socket" | "protocol" | "init" | "error" | "packet" | "all")).as(:oneline)
                                     )
                                 ),
                                 "status-counter" arg,
@@ -47172,7 +47172,7 @@ rule(:juniper_protocols) do
                                         "file" (
                                           trace_file_type
                                         ),
-                                        "flag" (("events" | "pdu" | "timers" | "error" | "all")).as(:oneline)
+                                        "flag" enum(("events" | "pdu" | "timers" | "error" | "all")).as(:oneline)
                                     )
                                 ),
                                 "interval" (
@@ -47205,7 +47205,7 @@ rule(:juniper_protocols) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("configuration" | "routing-socket" | "protocol" | "all")).as(:oneline)
+                                "flag" enum(("configuration" | "routing-socket" | "protocol" | "all")).as(:oneline)
                             )
                         ),
                         "interface" arg (
@@ -47266,7 +47266,7 @@ rule(:juniper_protocols) do
                         "convert-clock-class-to-quality-level",
                         "clock-class-to-quality-level-mapping" (
                             c(
-                                "quality-level" (("prc" | "ssu-a" | "ssu-b" | "sec" | "prs" | "st2" | "tnc" | "st3e" | "st3" | "smc" | "st4" | "stu")) (
+                                "quality-level" enum(("prc" | "ssu-a" | "ssu-b" | "sec" | "prs" | "st2" | "tnc" | "st3e" | "st3" | "smc" | "st4" | "stu")) (
                                     c(
                                         "clock-class" arg
                                     )
@@ -47450,7 +47450,7 @@ rule(:juniper_protocols) do
                         "level" (
                           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                         ),
-                        "flag" (("accounting-statistics" | "authentication" | "chap" | "events" | "gres" | "init" | "interface-db" | "lcp" | "memory" | "ncp" | "packet-error" | "pap" | "parse" | "profile" | "receive-packets" | "routing-process" | "rtp" | "rtsock" | "session-db" | "smi-services-sentry" | "states" | "transmit-packets" | "tunnel" | "all")).as(:oneline),
+                        "flag" enum(("accounting-statistics" | "authentication" | "chap" | "events" | "gres" | "init" | "interface-db" | "lcp" | "memory" | "ncp" | "packet-error" | "pap" | "parse" | "profile" | "receive-packets" | "routing-process" | "rtp" | "rtsock" | "session-db" | "smi-services-sentry" | "states" | "transmit-packets" | "tunnel" | "all")).as(:oneline),
                         "filter" (
                             c(
                                 "aci" arg,
@@ -47517,7 +47517,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("all" | "configuration" | "rtsock" | "packet" | "protocol" | "interface" | "vlan" | "snmp")) (
+                        "flag" enum(("all" | "configuration" | "rtsock" | "packet" | "protocol" | "interface" | "vlan" | "snmp")) (
                             c(
                                 "disable"
                             )
@@ -47625,7 +47625,7 @@ rule(:juniper_protocols) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("pcep" | "all")).as(:oneline)
+                                "flag" enum(("pcep" | "all")).as(:oneline)
                             )
                         ),
                         "delegation-cleanup-timeout" arg
@@ -47681,7 +47681,7 @@ rule(:juniper_protocols) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("pcep" | "all")).as(:oneline)
+                                "flag" enum(("pcep" | "all")).as(:oneline)
                             )
                         ),
                         "delegation-cleanup-timeout" arg
@@ -47795,7 +47795,7 @@ rule(:juniper_protocols) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("configuration" | "rtsock" | "interface" | "client-server" | "all")) (
+                        "flag" enum(("configuration" | "rtsock" | "interface" | "client-server" | "all")) (
                             c(
                                 "disable"
                             )
@@ -47917,7 +47917,7 @@ rule(:clksync_traceoptions) do
                 )
             )
         ).as(:oneline),
-        "flag" (("init" | "routing-socket" | "synchronization" | "ptp" | "protocol" | "configuration" | "debug" | "ppm" | "error" | "hybrid" | "framer" | "ipc" | "all")).as(:oneline)
+        "flag" enum(("init" | "routing-socket" | "synchronization" | "ptp" | "protocol" | "configuration" | "debug" | "ppm" | "error" | "hybrid" | "framer" | "ipc" | "all")).as(:oneline)
     )
 end
 
@@ -47937,7 +47937,7 @@ rule(:juniper_default_ri_protocols_igmp_snooping) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "route" | "normal" | "general" | "state" | "task" | "timer" | "all")) (
+                        "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "route" | "normal" | "general" | "state" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -48031,7 +48031,7 @@ rule(:juniper_default_ri_protocols_igmp_snooping) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -48083,7 +48083,7 @@ rule(:juniper_default_ri_protocols_mld_snooping) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -48148,7 +48148,7 @@ rule(:juniper_default_ri_protocols_mld_snooping) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -48218,7 +48218,7 @@ rule(:juniper_protocols_amt) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "errors" | "tunnels" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "errors" | "tunnels" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -48280,7 +48280,7 @@ rule(:juniper_protocols_ancp) do
                 "level" (
                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                 ),
-                "flag" (("config" | "cos" | "routing-socket" | "packet" | "protocol" | "process" | "startup" | "session" | "general" | "restart" | "subscriber" | "timer" | "all")) (
+                "flag" enum(("config" | "cos" | "routing-socket" | "packet" | "protocol" | "process" | "startup" | "session" | "general" | "restart" | "subscriber" | "timer" | "all")) (
                     c(
                         "disable"
                     )
@@ -48493,7 +48493,7 @@ rule(:juniper_protocols_bd) do
                 "level" (
                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                 ),
-                "flag" (("configuration" | "routing-socket" | "interface-device" | "interface-logical" | "interface-family" | "learning-domain" | "ipc" | "mac-learning" | "initialization" | "flood-next-hop" | "storm-control" | "unknown-unicast-forwarding" | "all")).as(:oneline)
+                "flag" enum(("configuration" | "routing-socket" | "interface-device" | "interface-logical" | "interface-family" | "learning-domain" | "ipc" | "mac-learning" | "initialization" | "flood-next-hop" | "storm-control" | "unknown-unicast-forwarding" | "all")).as(:oneline)
             )
         )
     )
@@ -48551,7 +48551,7 @@ rule(:juniper_protocols_bgp) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -49024,7 +49024,7 @@ rule(:juniper_protocols_bgp) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -49484,7 +49484,7 @@ rule(:juniper_protocols_bgp) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                "flag" enum(("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                     c(
                                         "send",
                                         "receive",
@@ -50626,7 +50626,7 @@ rule(:juniper_protocols_bridge) do
                 "level" (
                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                 ),
-                "flag" (("configuration" | "routing-socket" | "interface-device" | "interface-logical" | "interface-family" | "bridging-domain" | "routing-instance" | "bridge-interface" | "learning-domain" | "ipc" | "mac-learning" | "initialization" | "flood-next-hop" | "irb" | "vpls-ping" | "vpls-loop-prev" | "logical-system" | "bmac-next-hop" | "bridge-bmac-next-hop" | "isid" | "mc-ae" | "kack" | "storm-control" | "redundant-trunk-group" | "unknown-unicast-forwarding" | "vxlan" | "all")).as(:oneline),
+                "flag" enum(("configuration" | "routing-socket" | "interface-device" | "interface-logical" | "interface-family" | "bridging-domain" | "routing-instance" | "bridge-interface" | "learning-domain" | "ipc" | "mac-learning" | "initialization" | "flood-next-hop" | "irb" | "vpls-ping" | "vpls-loop-prev" | "logical-system" | "bmac-next-hop" | "bridge-bmac-next-hop" | "isid" | "mc-ae" | "kack" | "storm-control" | "redundant-trunk-group" | "unknown-unicast-forwarding" | "vxlan" | "all")).as(:oneline),
                 "in-memory-debug"
             )
         ),
@@ -50701,7 +50701,7 @@ rule(:juniper_protocols_dot1x) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("dot1x-debug" | "parse" | "esw-if" | "eapol" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "vlan" | "all" | "dot1x-ipc" | "dot1x-event" | "iccp")) (
+                "flag" enum(("dot1x-debug" | "parse" | "esw-if" | "eapol" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "vlan" | "all" | "dot1x-ipc" | "dot1x-event" | "iccp")) (
                     c(
                         "disable"
                     )
@@ -50828,7 +50828,7 @@ rule(:juniper_protocols_esis) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("error" | "esh" | "ish" | "graceful-restart" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("error" | "esh" | "ish" | "graceful-restart" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -50863,7 +50863,7 @@ rule(:juniper_protocols_isis) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("error" | "spf" | "packets" | "hello" | "lsp" | "psn" | "csn" | "layer2-map" | "lsp-generation" | "graceful-restart" | "ldp-synchronization" | "nsr-synchronization" | "traffic-statistics" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("error" | "spf" | "packets" | "hello" | "lsp" | "psn" | "csn" | "layer2-map" | "lsp-generation" | "graceful-restart" | "ldp-synchronization" | "nsr-synchronization" | "traffic-statistics" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -50950,7 +50950,7 @@ rule(:juniper_protocols_isis) do
                 "credibility-protocol-preference",
                 "ipv4-multicast-rpf-routes",
                 "ignore-lsp-metrics",
-                "family" (("inet" | "inet6" | "inet-mpls" | "inet6-mpls")) (
+                "family" enum(("inet" | "inet6" | "inet-mpls" | "inet6-mpls")) (
                     c(
                         "shortcuts" (
                             c(
@@ -51130,7 +51130,7 @@ rule(:juniper_protocols_isis) do
                         )
                     )
                 ),
-                "family" (("inet" | "inet6")) (
+                "family" enum(("inet" | "inet6")) (
                     c(
                         "bfd-liveness-detection" (
                             c(
@@ -51177,7 +51177,7 @@ rule(:juniper_protocols_isis) do
                         "ipv6-multicast-metric" arg,
                         "no-advertise-adjacency-segment",
                         "te-metric" arg,
-                        "topology" (("default" | "ipv4-multicast" | "ipv6-unicast" | "ipv6-multicast")) (
+                        "topology" enum(("default" | "ipv4-multicast" | "ipv6-unicast" | "ipv6-multicast")) (
                             c(
                                 "metric" arg,
                                 "bandwidth-based-metrics" (
@@ -51232,7 +51232,7 @@ rule(:juniper_protocols_isis) do
                 "interface" arg,
                 "level" arg (
                     c(
-                        "topology" (("default" | "ipv4-multicast" | "ipv6-unicast" | "ipv6-multicast")) (
+                        "topology" enum(("default" | "ipv4-multicast" | "ipv6-unicast" | "ipv6-multicast")) (
                             c(
                                 "metric" arg,
                                 "bandwidth-based-metrics" (
@@ -51285,7 +51285,7 @@ rule(:juniper_protocols_l2control) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("parse" | "regex-parse" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "ppmlite" | "all")) (
+                "flag" enum(("parse" | "regex-parse" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "ppmlite" | "all")) (
                     c(
                         "disable"
                     )
@@ -51340,7 +51340,7 @@ rule(:juniper_protocols_ldp) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("error" | "event" | "packet-dump" | "packets" | "periodic" | "initialization" | "notification" | "address" | "label" | "binding" | "path" | "ppmd" | "nsr-synchronization" | "link-protection" | "p2mp-nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("error" | "event" | "packet-dump" | "packets" | "periodic" | "initialization" | "notification" | "address" | "label" | "binding" | "path" | "ppmd" | "nsr-synchronization" | "link-protection" | "p2mp-nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -51668,7 +51668,7 @@ rule(:juniper_protocols_ldp) do
             )
         ),
         "upstream-label-assignment",
-        "family" (("inet" | "inet6")),
+        "family" enum(("inet" | "inet6")),
         "transport-preference" (
           ("ipv4" | "ipv6")
         ),
@@ -51759,7 +51759,7 @@ rule(:juniper_protocols_lmp) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("init" | "show" | "route-socket" | "parse" | "process" | "server" | "routing" | "packets" | "hello-packets" | "state" | "nsr-synchronization" | "all")) (
+                "flag" enum(("init" | "show" | "route-socket" | "parse" | "process" | "server" | "routing" | "packets" | "hello-packets" | "state" | "nsr-synchronization" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -51843,7 +51843,7 @@ rule(:juniper_protocols_mpls) do
         ),
         "auto-policing" (
             c(
-                "class" (("all" | "ct0" | "ct1" | "ct2" | "ct3")) (
+                "class" enum(("all" | "ct0" | "ct1" | "ct2" | "ct3")) (
                     c(
                         c(
                           "drop",
@@ -51937,7 +51937,7 @@ rule(:juniper_protocols_mpls) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("connection" | "connection-detail" | "cspf" | "cspf-node" | "cspf-link" | "cspf-abstract" | "state" | "error" | "lsping" | "graceful-restart" | "nsr-synchronization" | "nsr-synchronization-detail" | "static" | "egress-protection" | "all" | "autobw-state" | "externally-controlled-lsp" | "ted-import" | "ted-export" | "lsp-history" | "abstract-hop")).as(:oneline)
+                "flag" enum(("connection" | "connection-detail" | "cspf" | "cspf-node" | "cspf-link" | "cspf-abstract" | "state" | "error" | "lsping" | "graceful-restart" | "nsr-synchronization" | "nsr-synchronization-detail" | "static" | "egress-protection" | "all" | "autobw-state" | "externally-controlled-lsp" | "ted-import" | "ted-export" | "lsp-history" | "abstract-hop")).as(:oneline)
             )
         ),
         "admin-groups" arg (
@@ -51999,7 +51999,7 @@ rule(:juniper_protocols_mpls) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("cspf" | "cspf-node" | "cspf-link" | "cspf-abstract" | "state" | "all")).as(:oneline)
+                        "flag" enum(("cspf" | "cspf-node" | "cspf-link" | "cspf-abstract" | "state" | "all")).as(:oneline)
                     )
                 ),
                 "no-install-to-address",
@@ -52488,7 +52488,7 @@ rule(:juniper_protocols_mpls) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("state" | "route" | "error" | "all")).as(:oneline)
+                        "flag" enum(("state" | "route" | "error" | "all")).as(:oneline)
                     )
                 )
             )
@@ -52566,7 +52566,7 @@ rule(:juniper_protocols_msdp) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -52593,7 +52593,7 @@ rule(:juniper_protocols_msdp) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -52653,7 +52653,7 @@ rule(:juniper_protocols_msdp) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -52680,7 +52680,7 @@ rule(:juniper_protocols_msdp) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                "flag" enum(("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                     c(
                                         "send",
                                         "receive",
@@ -52759,7 +52759,7 @@ rule(:juniper_protocols_mvpn) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("error" | "nlri" | "topology" | "tunnel" | "umh" | "intra-as-ad" | "inter-as-ad" | "spmsi-ad" | "leaf-ad" | "source-active" | "cmcast-join" | "mdt-safi-ad" | "mvpn-limit" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("error" | "nlri" | "topology" | "tunnel" | "umh" | "intra-as-ad" | "inter-as-ad" | "spmsi-ad" | "leaf-ad" | "source-active" | "cmcast-join" | "mdt-safi-ad" | "mvpn-limit" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -53035,7 +53035,7 @@ rule(:juniper_protocols_ospf) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -53522,7 +53522,7 @@ rule(:juniper_protocols_overlayd) do
                         )
                     )
                 ).as(:oneline),
-                "flag" (("socket" | "rtsock" | "config" | "all")).as(:oneline)
+                "flag" enum(("socket" | "rtsock" | "config" | "all")).as(:oneline)
             )
         )
     )
@@ -53532,7 +53532,7 @@ rule(:juniper_protocols_pgm) do
     c(
         "traceoptions" (
             c(
-                "flag" (("init" | "show" | "route-socket" | "parse" | "state" | "packets" | "all")) (
+                "flag" enum(("init" | "show" | "route-socket" | "parse" | "state" | "packets" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -53577,7 +53577,7 @@ rule(:juniper_protocols_pim) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("route" | "packets" | "hello" | "register" | "join" | "prune" | "graft" | "bootstrap" | "rp" | "autorp" | "assert" | "mdt" | "nsr-synchronization" | "bidirectional-df-election" | "mofrr" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("route" | "packets" | "hello" | "register" | "join" | "prune" | "graft" | "bootstrap" | "rp" | "autorp" | "assert" | "mdt" | "nsr-synchronization" | "bidirectional-df-election" | "mofrr" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -53706,7 +53706,7 @@ rule(:juniper_protocols_pim) do
         ),
         "sglimit" (
             c(
-                "family" (("inet" | "inet6")) (
+                "family" enum(("inet" | "inet6")) (
                     c(
                         "maximum" arg,
                         "threshold" arg,
@@ -53743,7 +53743,7 @@ rule(:juniper_protocols_pim) do
                 ),
                 "register-limit" (
                     c(
-                        "family" (("inet" | "inet6")) (
+                        "family" enum(("inet" | "inet6")) (
                             c(
                                 "maximum" arg,
                                 "threshold" arg,
@@ -53757,7 +53757,7 @@ rule(:juniper_protocols_pim) do
                 ),
                 "group-rp-mapping" (
                     c(
-                        "family" (("inet" | "inet6")) (
+                        "family" enum(("inet" | "inet6")) (
                             c(
                                 "maximum" arg,
                                 "threshold" arg,
@@ -54137,7 +54137,7 @@ end
 
 rule(:erp_trace_options) do
     c(
-        "flag" (("events" | "pdu" | "timers" | "state-machine" | "periodic-packet-management" | "config" | "normal" | "debug" | "all")).as(:oneline),
+        "flag" enum(("events" | "pdu" | "timers" | "state-machine" | "periodic-packet-management" | "config" | "normal" | "debug" | "all")).as(:oneline),
         "file" (
           trace_file_type
         )
@@ -54224,7 +54224,7 @@ rule(:juniper_protocols_rip) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("auth" | "error" | "expiration" | "holddown" | "packets" | "request" | "trigger" | "update" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("auth" | "error" | "expiration" | "holddown" | "packets" | "request" | "trigger" | "update" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -54423,7 +54423,7 @@ rule(:juniper_protocols_ripng) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("error" | "expiration" | "holddown" | "packets" | "request" | "trigger" | "update" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("error" | "expiration" | "holddown" | "packets" | "request" | "trigger" | "update" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -54509,7 +54509,7 @@ rule(:juniper_protocols_router_discovery) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")).as(:oneline)
+                "flag" enum(("route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")).as(:oneline)
             )
         ),
         "interface" arg (
@@ -54579,7 +54579,7 @@ rule(:juniper_protocols_rsvp) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("io-event" | "io-packets" | "packets" | "path" | "resv" | "pathtear" | "resvtear" | "state" | "error" | "route" | "lmp" | "event" | "nsr-synchronization" | "lsp-prefix" | "enhanced-frr" | "all")) (
+                "flag" enum(("io-event" | "io-packets" | "packets" | "path" | "resv" | "pathtear" | "resvtear" | "state" | "error" | "route" | "lmp" | "event" | "nsr-synchronization" | "lsp-prefix" | "enhanced-frr" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -54729,7 +54729,7 @@ rule(:juniper_protocols_rsvp) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("io-event" | "io-packets" | "packets" | "path" | "resv" | "pathtear" | "resvtear" | "state" | "error" | "route" | "lmp" | "event" | "nsr-synchronization" | "lsp-prefix" | "enhanced-frr" | "all")) (
+                        "flag" enum(("io-event" | "io-packets" | "packets" | "path" | "resv" | "pathtear" | "resvtear" | "state" | "error" | "route" | "lmp" | "event" | "nsr-synchronization" | "lsp-prefix" | "enhanced-frr" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -55678,7 +55678,7 @@ rule(:juniper_routing_instance) do
                                         "file" (
                                           trace_file_type
                                         ),
-                                        "flag" (("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                        "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                             c(
                                                 "send",
                                                 "receive",
@@ -56153,7 +56153,7 @@ rule(:juniper_routing_instance) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                     c(
                                         "send",
                                         "receive",
@@ -56732,7 +56732,7 @@ rule(:juniper_protocols_l2vpn) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("error" | "topology" | "nlri" | "connections" | "automatic-site" | "oam" | "mac-database" | "nsr" | "egress-protection" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("error" | "topology" | "nlri" | "connections" | "automatic-site" | "oam" | "mac-database" | "nsr" | "egress-protection" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -57444,7 +57444,7 @@ rule(:juniper_protocols_pim_snooping) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "hello" | "join" | "prune" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "hello" | "join" | "prune" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -57470,7 +57470,7 @@ rule(:juniper_ri_protocols_igmp_snooping) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -57652,7 +57652,7 @@ rule(:juniper_ri_protocols_mld_snooping) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "send",
                         "receive",
@@ -58023,7 +58023,7 @@ rule(:juniper_routing_instance_switch_options) do
                 "level" (
                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                 ),
-                "flag" (("configuration" | "routing-socket" | "interface-device" | "interface-logical" | "interface-family" | "bridging-domain" | "bridge-interface" | "learning-domain" | "ipc" | "mac-learning" | "initialization" | "flood-next-hop" | "irb" | "vpls-ping" | "vpls-loop-prev" | "storm-control" | "unknown-unicast-forwarding" | "vxlan" | "all")).as(:oneline)
+                "flag" enum(("configuration" | "routing-socket" | "interface-device" | "interface-logical" | "interface-family" | "bridging-domain" | "bridge-interface" | "learning-domain" | "ipc" | "mac-learning" | "initialization" | "flood-next-hop" | "irb" | "vpls-ping" | "vpls-loop-prev" | "storm-control" | "unknown-unicast-forwarding" | "vxlan" | "all")).as(:oneline)
             )
         )
     )
@@ -58085,7 +58085,7 @@ rule(:juniper_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("packets" | "up" | "down" | "statistics" | "route-monitoring" | "event" | "error" | "write" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("packets" | "up" | "down" | "statistics" | "route-monitoring" | "event" | "error" | "write" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -58148,7 +58148,7 @@ rule(:juniper_routing_options) do
                                 "file" (
                                   trace_file_type
                                 ),
-                                "flag" (("packets" | "up" | "down" | "statistics" | "route-monitoring" | "event" | "error" | "write" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                                "flag" enum(("packets" | "up" | "down" | "statistics" | "route-monitoring" | "event" | "error" | "write" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                                     c(
                                         "send",
                                         "receive",
@@ -58204,7 +58204,7 @@ rule(:juniper_routing_options) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("parse" | "regex-parse" | "config-internal" | "nsr-synchronization" | "condition-manager" | "graceful-restart" | "session" | "hfrr-fsm" | "hfrr-route" | "statistics-id-group" | "route-record" | "jvision-lsp" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                "flag" enum(("parse" | "regex-parse" | "config-internal" | "nsr-synchronization" | "condition-manager" | "graceful-restart" | "session" | "hfrr-fsm" | "hfrr-route" | "statistics-id-group" | "route-record" | "jvision-lsp" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                     c(
                         "disable"
                     )
@@ -58256,7 +58256,7 @@ rule(:juniper_routing_options) do
                 "rib-group" (
                   rib_group_type
                 ),
-                "family" (("inet" | "inet6")) (
+                "family" enum(("inet" | "inet6")) (
                     c(
                         "import" (
                           policy_algebra
@@ -59379,7 +59379,7 @@ rule(:juniper_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("event" | "flash" | "kernel" | "indirect" | "task" | "igp-frr" | "igp-frr-extensive" | "tunnel" | "all")) (
+                        "flag" enum(("event" | "flash" | "kernel" | "indirect" | "task" | "igp-frr" | "igp-frr-extensive" | "tunnel" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -59419,7 +59419,7 @@ rule(:juniper_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "disable"
                             )
@@ -59499,7 +59499,7 @@ rule(:juniper_routing_options) do
                 "forwarding-cache" (
                     c(
                         "allow-maximum",
-                        "family" (("inet" | "inet6")) (
+                        "family" enum(("inet" | "inet6")) (
                             c(
                                 "threshold" (
                                     c(
@@ -59578,7 +59578,7 @@ rule(:juniper_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("export" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("export" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -59625,7 +59625,7 @@ rule(:juniper_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("kernel" | "tunnel" | "task" | "all")) (
+                        "flag" enum(("kernel" | "tunnel" | "task" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -59648,7 +59648,7 @@ rule(:juniper_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("debug" | "parse" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("debug" | "parse" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -59665,7 +59665,7 @@ rule(:juniper_routing_options) do
         ),
         "topologies" (
             c(
-                "family" (("inet" | "inet6")) (
+                "family" enum(("inet" | "inet6")) (
                     c(
                         "topology" arg
                     )
@@ -59757,7 +59757,7 @@ rule(:juniper_routing_options) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("error" | "packets" | "keepalive" | "update" | "nsr-synchronization" | "state" | "policy" | "task" | "timer" | "all")) (
+                        "flag" enum(("error" | "packets" | "keepalive" | "update" | "nsr-synchronization" | "state" | "policy" | "task" | "timer" | "all")) (
                             c(
                                 "send",
                                 "receive",
@@ -59778,7 +59778,7 @@ rule(:juniper_routing_options) do
                                         "file" (
                                           trace_file_type
                                         ),
-                                        "flag" (("error" | "packets" | "keepalive" | "update" | "state" | "task" | "timer" | "all")) (
+                                        "flag" enum(("error" | "packets" | "keepalive" | "update" | "state" | "task" | "timer" | "all")) (
                                             c(
                                                 "send",
                                                 "receive",
@@ -60085,7 +60085,7 @@ rule(:jflow_service_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("parse" | "rtsock" | "sm" | "all")).as(:oneline)
+        "flag" enum(("parse" | "rtsock" | "sm" | "all")).as(:oneline)
     )
 end
 
@@ -60097,7 +60097,7 @@ rule(:juniper_services_captive_portal) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("dot1x-debug" | "parse" | "esw-if" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "all" | "dot1x-ipc" | "dot1x-event")) (
+                "flag" enum(("dot1x-debug" | "parse" | "esw-if" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "all" | "dot1x-ipc" | "dot1x-event")) (
                     c(
                         "disable"
                     )
@@ -60401,7 +60401,7 @@ rule(:juniper_system) do
                                 "no-world-readable"
                             )
                         ).as(:oneline),
-                        "flag" (("all" | "events" | "config" | "radius" | "tacplus")).as(:oneline)
+                        "flag" enum(("all" | "events" | "config" | "radius" | "tacplus")).as(:oneline)
                     )
                 ),
                 "destination" (
@@ -60677,7 +60677,7 @@ rule(:juniper_system) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("timer" | "timeouts" | "routing-socket" | "general" | "config" | "grpc" | "notification" | "all")).as(:oneline)
+                                "flag" enum(("timer" | "timeouts" | "routing-socket" | "general" | "config" | "grpc" | "notification" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -60708,7 +60708,7 @@ rule(:juniper_system) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("all" | "incoming" | "outgoing" | "debug")).as(:oneline),
+                                "flag" enum(("all" | "incoming" | "outgoing" | "debug")).as(:oneline),
                                 "on-demand"
                             )
                         )
@@ -60819,7 +60819,7 @@ rule(:juniper_system) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("beep" | "profile" | "application" | "io" | "all")).as(:oneline)
+                                "flag" enum(("beep" | "profile" | "application" | "io" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -60841,7 +60841,7 @@ rule(:juniper_system) do
                                         )
                                     )
                                 ).as(:oneline),
-                                "flag" (("configuration" | "connectivity" | "all")).as(:oneline)
+                                "flag" enum(("configuration" | "connectivity" | "all")).as(:oneline)
                             )
                         ),
                         "client" arg (
@@ -61371,7 +61371,7 @@ rule(:juniper_system) do
                         )
                     )
                 ),
-                "console" (("any" | "authorization" | "daemon" | "ftp" | "ntp" | "security" | "kernel" | "user" | "dfc" | "external" | "firewall" | "pfe" | "conflict-log" | "change-log" | "interactive-commands")) (
+                "console" enum(("any" | "authorization" | "daemon" | "ftp" | "ntp" | "security" | "kernel" | "user" | "dfc" | "external" | "firewall" | "pfe" | "conflict-log" | "change-log" | "interactive-commands")) (
                     c(
                         c(
                           "any",
@@ -61523,7 +61523,7 @@ rule(:juniper_system) do
                                         "microsecond-stamp"
                                     )
                                 ).as(:oneline),
-                                "flag" (("ephemeral-commit" | "operational-command" | "debug" | "all")).as(:oneline)
+                                "flag" enum(("ephemeral-commit" | "operational-command" | "debug" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -61560,7 +61560,7 @@ rule(:juniper_system) do
                                         "microsecond-stamp"
                                     )
                                 ).as(:oneline),
-                                "flag" (("all" | "commit-server" | "batch" | "configuration")).as(:oneline)
+                                "flag" enum(("all" | "commit-server" | "batch" | "configuration")).as(:oneline)
                             )
                         )
                     )
@@ -61772,7 +61772,7 @@ rule(:juniper_system) do
                                         )
                                     )
                                 ),
-                                "flag" (("configuration" | "framework" | "radius" | "local-authentication" | "ldap" | "address-assignment" | "jsrc" | "gx-plus" | "session-db" | "profile-db" | "lib-stats" | "user-access" | "nasreq" | "all")).as(:oneline)
+                                "flag" enum(("configuration" | "framework" | "radius" | "local-authentication" | "ldap" | "address-assignment" | "jsrc" | "gx-plus" | "session-db" | "profile-db" | "lib-stats" | "user-access" | "nasreq" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -61812,7 +61812,7 @@ rule(:juniper_system) do
                                 "level" (
                                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                                 ),
-                                "flag" (("framework" | "all")).as(:oneline)
+                                "flag" enum(("framework" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -61877,7 +61877,7 @@ rule(:juniper_system) do
                                 "level" (
                                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                                 ),
-                                "flag" (("framework" | "configuration" | "memory-management" | "daemon" | "application" | "node" | "diameter-instance" | "dne" | "peer" | "messages" | "all")).as(:oneline)
+                                "flag" enum(("framework" | "configuration" | "memory-management" | "daemon" | "application" | "node" | "diameter-instance" | "dne" | "peer" | "messages" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -61959,7 +61959,7 @@ rule(:juniper_system) do
                                 "level" (
                                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                                 ),
-                                "flag" (("configuration" | "database" | "general" | "message" | "rtsock" | "statistics" | "subscriber" | "gres" | "issu" | "authentication" | "profile" | "all")).as(:oneline)
+                                "flag" enum(("configuration" | "database" | "general" | "message" | "rtsock" | "statistics" | "subscriber" | "gres" | "issu" | "authentication" | "profile" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -61986,7 +61986,7 @@ rule(:juniper_system) do
                                 "level" (
                                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                                 ),
-                                "flag" (("authentication" | "configuration" | "database" | "dictionary" | "dynamic" | "fsm" | "general" | "kernel" | "op-script" | "statistics" | "all")).as(:oneline)
+                                "flag" enum(("authentication" | "configuration" | "database" | "dictionary" | "dynamic" | "fsm" | "general" | "kernel" | "op-script" | "statistics" | "all")).as(:oneline)
                             )
                         )
                     )
@@ -79939,7 +79939,7 @@ rule(:autoconf_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("configuration" | "interfaces" | "io" | "rtsock" | "ui" | "auth" | "all")).as(:oneline)
+        "flag" enum(("configuration" | "interfaces" | "io" | "rtsock" | "ui" | "auth" | "all")).as(:oneline)
     )
 end
 
@@ -79961,7 +79961,7 @@ rule(:bbe_smgd_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("config" | "main" | "interface" | "rpd" | "service" | "net" | "autoconf" | "demux" | "session" | "io" | "vbf" | "dhcp" | "cpcd" | "pppoe" | "ppp" | "rtsock" | "ui" | "l2tp" | "dprof" | "auth" | "stats" | "ucac" | "snmp" | "ancp" | "jssc" | "gre" | "all")).as(:oneline)
+        "flag" enum(("config" | "main" | "interface" | "rpd" | "service" | "net" | "autoconf" | "demux" | "session" | "io" | "vbf" | "dhcp" | "cpcd" | "pppoe" | "ppp" | "rtsock" | "ui" | "l2tp" | "dprof" | "auth" | "stats" | "ucac" | "snmp" | "ancp" | "jssc" | "gre" | "all")).as(:oneline)
     )
 end
 
@@ -79988,7 +79988,7 @@ rule(:bdbrepd_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("database" | "mirror" | "replication" | "ui" | "general" | "session-db" | "server" | "all")).as(:oneline)
+        "flag" enum(("database" | "mirror" | "replication" | "ui" | "general" | "session-db" | "server" | "all")).as(:oneline)
     )
 end
 
@@ -80022,7 +80022,7 @@ rule(:datapath_traced_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("datapath-traced-infrastructure" | "datapath-traced-server" | "client-management" | "all")).as(:oneline)
+        "flag" enum(("datapath-traced-infrastructure" | "datapath-traced-server" | "client-management" | "all")).as(:oneline)
     )
 end
 
@@ -80044,7 +80044,7 @@ rule(:ddos_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("config" | "events" | "gres" | "init" | "memory" | "protocol" | "rtsock" | "signal" | "state" | "timer" | "ui" | "ipc" | "socket" | "all")).as(:oneline)
+        "flag" enum(("config" | "events" | "gres" | "init" | "memory" | "protocol" | "rtsock" | "signal" | "state" | "timer" | "ui" | "ipc" | "socket" | "all")).as(:oneline)
     )
 end
 
@@ -80066,7 +80066,7 @@ rule(:dhcp_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("binding" | "config" | "conflict" | "event" | "ifdb" | "io" | "lease" | "main" | "misc" | "option" | "packet" | "pool" | "protocol" | "relay" | "rtsock" | "scope" | "signal" | "trace" | "ui" | "all")).as(:oneline)
+        "flag" enum(("binding" | "config" | "conflict" | "event" | "ifdb" | "io" | "lease" | "main" | "misc" | "option" | "packet" | "pool" | "protocol" | "relay" | "rtsock" | "scope" | "signal" | "trace" | "ui" | "all")).as(:oneline)
     )
 end
 
@@ -80094,7 +80094,7 @@ rule(:httpd_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("configuration" | "mgd" | "webauth" | "dynamic-vpn" | "init" | "all")).as(:oneline)
+        "flag" enum(("configuration" | "mgd" | "webauth" | "dynamic-vpn" | "init" | "all")).as(:oneline)
     )
 end
 
@@ -80116,7 +80116,7 @@ rule(:jdhcp_interface_traceoptions_level_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("state" | "packet" | "flow" | "packet-option" | "dhcpv6-state" | "dhcpv6-packet" | "dhcpv6-packet-option" | "all")).as(:oneline)
+        "flag" enum(("state" | "packet" | "flow" | "packet-option" | "dhcpv6-state" | "dhcpv6-packet" | "dhcpv6-packet-option" | "all")).as(:oneline)
     )
 end
 
@@ -80138,7 +80138,7 @@ rule(:jdhcp_traceoptions_level_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("state" | "packet" | "flow" | "packet-option" | "dhcpv6-state" | "dhcpv6-packet" | "dhcpv6-packet-option" | "all" | "database" | "persistent" | "interface" | "rtsock" | "flow-notify" | "io" | "ha" | "ui" | "general" | "fwd" | "rpd" | "auth" | "profile" | "session-db" | "performance" | "statistics" | "dhcpv6-io" | "dhcpv6-rpd" | "dhcpv6-session-db" | "dhcpv6-general" | "liveness-detection" | "security-persistence" | "mclag")).as(:oneline)
+        "flag" enum(("state" | "packet" | "flow" | "packet-option" | "dhcpv6-state" | "dhcpv6-packet" | "dhcpv6-packet-option" | "all" | "database" | "persistent" | "interface" | "rtsock" | "flow-notify" | "io" | "ha" | "ui" | "general" | "fwd" | "rpd" | "auth" | "profile" | "session-db" | "performance" | "statistics" | "dhcpv6-io" | "dhcpv6-rpd" | "dhcpv6-session-db" | "dhcpv6-general" | "liveness-detection" | "security-persistence" | "mclag")).as(:oneline)
     )
 end
 
@@ -80177,7 +80177,7 @@ rule(:jptspd_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("configuration" | "general" | "rtsock" | "peer" | "pic" | "radius" | "session" | "all")).as(:oneline)
+        "flag" enum(("configuration" | "general" | "rtsock" | "peer" | "pic" | "radius" | "session" | "all")).as(:oneline)
     )
 end
 
@@ -80199,7 +80199,7 @@ rule(:jsavald_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("rtsock" | "general" | "firewall" | "database" | "all")).as(:oneline)
+        "flag" enum(("rtsock" | "general" | "firewall" | "database" | "all")).as(:oneline)
     )
 end
 
@@ -80614,7 +80614,7 @@ rule(:juniper_virtual_chassis_traceoptions) do
         "file" (
           vchassis_trace_file_type
         ),
-        "flag" (("parse" | "hello" | "psn" | "csn" | "lsp" | "normal" | "task" | "krt" | "spf" | "me" | "packets" | "lsp-generation" | "error" | "route" | "state" | "auto-configuration" | "graceful-restart" | "dcp-infra" | "dcp-dev-state" | "heartbeat" | "all")) (
+        "flag" enum(("parse" | "hello" | "psn" | "csn" | "lsp" | "normal" | "task" | "krt" | "spf" | "me" | "packets" | "lsp-generation" | "error" | "route" | "state" | "auto-configuration" | "graceful-restart" | "dcp-infra" | "dcp-dev-state" | "heartbeat" | "all")) (
             c(
                 "send",
                 "receive",
@@ -80993,7 +80993,7 @@ rule(:kod_trace_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("main" | "vpn-localization-config" | "vpn-localization-replay" | "all")).as(:oneline)
+        "flag" enum(("main" | "vpn-localization-config" | "vpn-localization-replay" | "all")).as(:oneline)
     )
 end
 
@@ -81032,7 +81032,7 @@ end
 rule(:l2tp_interface_traceoptions) do
   arg.as(:arg) (
     c(
-        "flag" (("ipc" | "protocol" | "packet-dump" | "system" | "all")).as(:oneline),
+        "flag" enum(("ipc" | "protocol" | "packet-dump" | "system" | "all")).as(:oneline),
         "debug-level" (
           ("error" | "detail" | "extensive")
         )
@@ -81197,7 +81197,7 @@ rule(:license_object) do
                         )
                     )
                 ).as(:oneline),
-                "flag" (("all" | "events" | "config")).as(:oneline)
+                "flag" enum(("all" | "events" | "config")).as(:oneline)
             )
         ),
         "keys" (
@@ -81313,7 +81313,7 @@ end
 rule(:lr_interfaces_type) do
   arg.as(:arg) (
     c(
-        "unit" (("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
+        "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (
             c(
                 "policer-overhead" (
                     c(
@@ -81403,10 +81403,10 @@ rule(:lr_interfaces_type) do
                 ),
                 "actual-transit-statistics",
                 "demux-source" (
-                      (("inet" | "inet6"))
+                      enum(("inet" | "inet6"))
                 ),
                 "demux-destination" (
-                      (("inet" | "inet6"))
+                      enum(("inet" | "inet6"))
                 ),
                 "encapsulation" (
                   ("atm-nlpid" | "atm-cisco-nlpid" | "atm-snap" | "atm-vc-mux" | "atm-ccc-vc-mux" | "atm-tcc-vc-mux" | "atm-tcc-snap" | "atm-ccc-cell-relay" | "vlan-vci-ccc" | "ether-over-atm-llc" | "ether-vpls-over-atm-llc" | "ppp-over-ether-over-atm-llc" | "ppp-over-ether" | "atm-ppp-vc-mux" | "atm-ppp-llc" | "atm-mlppp-llc" | "frame-relay-ppp" | "frame-relay-ccc" | "frame-relay" | "frame-relay-tcc" | "frame-relay-ether-type" | "frame-relay-ether-type-tcc" | "ether-vpls-fr" | "vlan-ccc" | "ethernet-ccc" | "vlan-vpls" | "vlan-bridge" | "dix" | "ethernet" | "ethernet-vpls" | "ethernet-bridge" | "vlan" | "vlan-tcc" | "multilink-ppp" | "multilink-frame-relay-end-to-end" | "ppp-ccc")
@@ -81985,7 +81985,7 @@ rule(:lr_interfaces_type) do
                                         "client-type" (
                                           ("stateful" | "autoconfig")
                                         ),
-                                        "client-ia-type" (("ia-na" | "ia-pd")),
+                                        "client-ia-type" enum(("ia-na" | "ia-pd")),
                                         "rapid-commit",
                                         "client-identifier" (
                                             c(
@@ -81994,7 +81994,7 @@ rule(:lr_interfaces_type) do
                                                 )
                                             )
                                         ).as(:oneline),
-                                        "req-option" (("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
+                                        "req-option" enum(("dns-server" | "domain" | "ntp-server" | "time-zone" | "sip-server" | "sip-domain" | "nis-server" | "nis-domain" | "fqdn" | "vendor-spec")),
                                         "retransmission-attempt" arg,
                                         "no-dns-propagation",
                                         "update-router-advertisement" (
@@ -82468,10 +82468,10 @@ rule(:lr_interfaces_type) do
                         "hash-keys" (
                             c(
                                 "ingress-key" (
-                                      (("source-ip" | "destination-ip" | "protocol" | "iif"))
+                                      enum(("source-ip" | "destination-ip" | "protocol" | "iif"))
                                 ),
                                 "egress-key" (
-                                      (("source-ip" | "destination-ip" | "protocol" | "oif"))
+                                      enum(("source-ip" | "destination-ip" | "protocol" | "oif"))
                                 )
                             )
                         )
@@ -83624,7 +83624,7 @@ rule(:gtp_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("error" | "warning" | "debug" | "encode" | "decode" | "config" | "events" | "packet-io" | "tracker" | "peer" | "pathfailure" | "all")).as(:oneline)
+        "flag" enum(("error" | "warning" | "debug" | "encode" | "decode" | "config" | "events" | "packet-io" | "tracker" | "peer" | "pathfailure" | "all")).as(:oneline)
     )
 end
 
@@ -83657,7 +83657,7 @@ rule(:mobile_smd_traceoptions) do
         "level" (
           ("critical" | "error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("init" | "config" | "ctxt" | "svcpic" | "fsm" | "ha" | "waitq" | "pfem" | "stats" | "bulkjob" | "cos-cac" | "all")).as(:oneline)
+        "flag" enum(("init" | "config" | "ctxt" | "svcpic" | "fsm" | "ha" | "waitq" | "pfem" | "stats" | "bulkjob" | "cos-cac" | "all")).as(:oneline)
     )
 end
 
@@ -84006,7 +84006,7 @@ rule(:mrp_trace_options) do
         "file" (
           trace_file_type
         ),
-        "flag" (("events" | "pdu" | "timers" | "state-machine" | "socket" | "error" | "all")) (
+        "flag" enum(("events" | "pdu" | "timers" | "state-machine" | "socket" | "error" | "all")) (
             c(
                 "disable"
             )
@@ -85199,7 +85199,7 @@ rule(:pccd_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("pccd-main" | "pccd-config" | "pccd-core" | "pccd-ui" | "pccd-rpd" | "pccd-functions" | "all")).as(:oneline)
+        "flag" enum(("pccd-main" | "pccd-config" | "pccd-core" | "pccd-ui" | "pccd-rpd" | "pccd-functions" | "all")).as(:oneline)
     )
 end
 
@@ -85436,14 +85436,14 @@ rule(:periodic_oam) do
                         "file" (
                           trace_file_type
                         ),
-                        "flag" (("init" | "error" | "event" | "general" | "packet" | "timer" | "all")).as(:oneline)
+                        "flag" enum(("init" | "error" | "event" | "general" | "packet" | "timer" | "all")).as(:oneline)
                     )
                 ),
                 "querier" (
                     c(
                         "loss" (
                             c(
-                                "traffic-class" (("tc-0" | "tc-1" | "tc-2" | "tc-3" | "tc-4" | "tc-5" | "tc-6" | "tc-7" | "all" | "none")) (
+                                "traffic-class" enum(("tc-0" | "tc-1" | "tc-2" | "tc-3" | "tc-4" | "tc-5" | "tc-6" | "tc-7" | "all" | "none")) (
                                     c(
                                         "query-interval" arg,
                                         "measurement-quantity" (
@@ -85458,7 +85458,7 @@ rule(:periodic_oam) do
                         ),
                         "delay" (
                             c(
-                                "traffic-class" (("tc-0" | "tc-1" | "tc-2" | "tc-3" | "tc-4" | "tc-5" | "tc-6" | "tc-7" | "all")) (
+                                "traffic-class" enum(("tc-0" | "tc-1" | "tc-2" | "tc-3" | "tc-4" | "tc-5" | "tc-6" | "tc-7" | "all")) (
                                     c(
                                         "query-interval" arg,
                                         "padding-size" arg,
@@ -85471,7 +85471,7 @@ rule(:periodic_oam) do
                         ),
                         "loss-delay" (
                             c(
-                                "traffic-class" (("tc-0" | "tc-1" | "tc-2" | "tc-3" | "tc-4" | "tc-5" | "tc-6" | "tc-7" | "all" | "none")) (
+                                "traffic-class" enum(("tc-0" | "tc-1" | "tc-2" | "tc-3" | "tc-4" | "tc-5" | "tc-6" | "tc-7" | "all" | "none")) (
                                     c(
                                         "query-interval" arg,
                                         "measurement-quantity" (
@@ -85522,7 +85522,7 @@ rule(:periodic_oam) do
                         )
                     )
                 ).as(:oneline),
-                "flag" (("configuration" | "pipe" | "rpc-packet-details" | "database" | "network" | "traceroute" | "all")).as(:oneline)
+                "flag" enum(("configuration" | "pipe" | "rpc-packet-details" | "database" | "network" | "traceroute" | "all")).as(:oneline)
             )
         )
     )
@@ -85952,7 +85952,7 @@ rule(:pgcp_h248_traffic_management_object) do
                 "default" arg,
                 "minimum" arg,
                 "maximum" (
-                      (arg)
+                      enum(arg)
                 ),
                 "rtcp" (
                   pgcp_h248_rtcp_rate_units_object
@@ -85965,7 +85965,7 @@ rule(:pgcp_h248_traffic_management_object) do
                 "default" arg,
                 "minimum" arg,
                 "maximum" (
-                      (arg)
+                      enum(arg)
                 ),
                 "rtcp" (
                   pgcp_h248_rtcp_rate_units_object
@@ -85977,7 +85977,7 @@ rule(:pgcp_h248_traffic_management_object) do
                 "default" arg,
                 "minimum" arg,
                 "maximum" (
-                      (arg)
+                      enum(arg)
                 ),
                 "rtcp" (
                   pgcp_h248_rtcp_burst_units_object
@@ -86158,7 +86158,7 @@ rule(:pmond_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("events" | "heartbeat" | "process-tracking" | "ui" | "all")).as(:oneline)
+        "flag" enum(("events" | "heartbeat" | "process-tracking" | "ui" | "all")).as(:oneline)
     )
 end
 
@@ -86188,7 +86188,7 @@ rule(:ppp_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("access" | "address-pool" | "auth" | "chap" | "pap" | "config" | "ifdb" | "lcp" | "memory" | "message" | "mlppp" | "ncp" | "ppp" | "radius" | "redundancy" | "rtsock" | "session" | "signal" | "timer" | "ui" | "ci" | "all")).as(:oneline)
+        "flag" enum(("access" | "address-pool" | "auth" | "chap" | "pap" | "config" | "ifdb" | "lcp" | "memory" | "message" | "mlppp" | "ncp" | "ppp" | "radius" | "redundancy" | "rtsock" | "session" | "signal" | "timer" | "ui" | "ci" | "all")).as(:oneline)
     )
 end
 
@@ -86281,7 +86281,7 @@ rule(:pppoe_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("config" | "events" | "gres" | "init" | "interface-db" | "memory" | "protocol" | "rtsock" | "session-db" | "signal" | "state" | "stats" | "timer" | "ui" | "all")).as(:oneline),
+        "flag" enum(("config" | "events" | "gres" | "init" | "interface-db" | "memory" | "protocol" | "rtsock" | "session-db" | "signal" | "state" | "stats" | "timer" | "ui" | "all")).as(:oneline),
         "filter" (
             c(
                 "aci" arg,
@@ -86389,7 +86389,7 @@ rule(:programmable_rpd_type) do
                 "file" (
                   trace_file_type
                 ),
-                "flag" (("client" | "japi" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")).as(:oneline)
+                "flag" enum(("client" | "japi" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")).as(:oneline)
             )
         ),
         "purge-timeout" arg
@@ -86633,7 +86633,7 @@ rule(:r2cp_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("configuration" | "event" | "interface" | "node" | "packet" | "rtsock" | "session" | "socket" | "timer" | "virtual-channel" | "all")).as(:oneline)
+        "flag" enum(("configuration" | "event" | "interface" | "node" | "packet" | "rtsock" | "session" | "socket" | "timer" | "virtual-channel" | "all")).as(:oneline)
     )
 end
 
@@ -86687,7 +86687,7 @@ rule(:radius_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("send" | "send-detail" | "receive" | "receive-detail" | "timeout" | "state" | "all")).as(:oneline),
+        "flag" enum(("send" | "send-detail" | "receive" | "receive-detail" | "timeout" | "state" | "all")).as(:oneline),
         "server" arg,
         "client" arg,
         "snoop-segment" arg
@@ -86797,7 +86797,7 @@ rule(:redundancy_group_type) do
                                 )
                             )
                         ).as(:oneline),
-                        "flag" (("error" | "event" | "packet" | "pipe" | "pipe-detail" | "all")).as(:oneline)
+                        "flag" enum(("error" | "event" | "packet" | "pipe" | "pipe-detail" | "all")).as(:oneline)
                     )
                 )
             )
@@ -87124,15 +87124,15 @@ rule(:res_cleanupd_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("events" | "gencfg" | "module" | "sysvsem" | "sysvshm" | "tracking" | "ui" | "all")).as(:oneline)
+        "flag" enum(("events" | "gencfg" | "module" | "sysvsem" | "sysvshm" | "tracking" | "ui" | "all")).as(:oneline)
     )
 end
 
 rule(:resource_monitor_type) do
     c(
-        "resource-category" (("jtree")) (
+        "resource-category" enum(("jtree")) (
             c(
-                "resource-type" (("free-pages" | "free-dwords" | "contiguous-pages")) (
+                "resource-type" enum(("free-pages" | "free-dwords" | "contiguous-pages")) (
                     c(
                         "low-watermark" arg,
                         "high-watermark" arg
@@ -87167,7 +87167,7 @@ rule(:resource_monitor_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("all")).as(:oneline)
+        "flag" enum(("all")).as(:oneline)
     )
 end
 
@@ -87380,7 +87380,7 @@ rule(:rmopd_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("configuration" | "ipc" | "ppm" | "statistics" | "error" | "all")).as(:oneline)
+        "flag" enum(("configuration" | "ipc" | "ppm" | "statistics" | "error" | "all")).as(:oneline)
     )
 end
 
@@ -87402,7 +87402,7 @@ rule(:rmps_clnt_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("infra" | "memory" | "communication" | "resource-tables" | "info-tables" | "redundancy" | "all")).as(:oneline)
+        "flag" enum(("infra" | "memory" | "communication" | "resource-tables" | "info-tables" | "redundancy" | "all")).as(:oneline)
     )
 end
 
@@ -87424,7 +87424,7 @@ rule(:rmpsd_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("config" | "gres" | "init" | "memory" | "communication" | "license-management" | "signal" | "state" | "timer" | "ui" | "resource-manager" | "info-manager" | "packet-steering" | "all")).as(:oneline)
+        "flag" enum(("config" | "gres" | "init" | "memory" | "communication" | "license-management" | "signal" | "state" | "timer" | "ui" | "resource-manager" | "info-manager" | "packet-steering" | "all")).as(:oneline)
     )
 end
 
@@ -87746,7 +87746,7 @@ rule(:route_record_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("parse" | "all")).as(:oneline)
+        "flag" enum(("parse" | "all")).as(:oneline)
     )
 end
 
@@ -88674,7 +88674,7 @@ rule(:script_traceoptions) do
                 "no-world-readable"
             )
         ).as(:oneline),
-        "flag" (("all" | "events" | "input" | "offline" | "output" | "rpc" | "xslt")).as(:oneline)
+        "flag" enum(("all" | "events" | "input" | "offline" | "output" | "rpc" | "xslt")).as(:oneline)
     )
 end
 
@@ -88832,7 +88832,7 @@ rule(:sdk_mgmtd_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("service-infrastructure" | "routing-instance" | "config-handling" | "command-handling" | "cli-show-commands" | "all")).as(:oneline)
+        "flag" enum(("service-infrastructure" | "routing-instance" | "config-handling" | "command-handling" | "cli-show-commands" | "all")).as(:oneline)
     )
 end
 
@@ -88854,7 +88854,7 @@ rule(:sdk_vmmd_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("init" | "configuration" | "ccif" | "pxe" | "platform" | "heartbeat" | "routing-instances" | "snmp" | "miscellaneous" | "all")).as(:oneline)
+        "flag" enum(("init" | "configuration" | "ccif" | "pxe" | "platform" | "heartbeat" | "routing-instances" | "snmp" | "miscellaneous" | "all")).as(:oneline)
     )
 end
 
@@ -88995,7 +88995,7 @@ rule(:gvpn_member_ike) do
                 "level" (
                   ("error" | "warning" | "notice" | "info" | "verbose" | "all")
                 ),
-                "flag" (("timer" | "routing-socket" | "parse" | "config" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "thread" | "high-availability" | "next-hop-tunnels" | "all")).as(:oneline),
+                "flag" enum(("timer" | "routing-socket" | "parse" | "config" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "thread" | "high-availability" | "next-hop-tunnels" | "all")).as(:oneline),
                 "gateway-filter" (
                     c(
                         "local-address" (
@@ -89386,7 +89386,7 @@ rule(:ipsec_internal_sa) do
         "description" arg,
         "manual" (
             c(
-                "direction" (("inbound" | "outbound" | "bidirectional")) (
+                "direction" enum(("inbound" | "outbound" | "bidirectional")) (
                     c(
                         "protocol" (
                           ("ah" | "esp" | "bundle")
@@ -89477,7 +89477,7 @@ rule(:ipsec_sa) do
         c(
           "manual" (
               c(
-                  "direction" (("inbound" | "outbound" | "bidirectional")) (
+                  "direction" enum(("inbound" | "outbound" | "bidirectional")) (
                       c(
                           "protocol" (
                             ("ah" | "esp" | "bundle")
@@ -89536,7 +89536,7 @@ rule(:ipsec_trusted_channel_sa) do
         "description" arg,
         "manual" (
             c(
-                "direction" (("inbound" | "outbound" | "bidirectional")) (
+                "direction" enum(("inbound" | "outbound" | "bidirectional")) (
                     c(
                         "protocol" (
                           ("ah" | "esp" | "bundle")
@@ -89641,7 +89641,7 @@ rule(:security_macsec) do
                         "cak" arg
                     )
                 ),
-                "exclude-protocol" (("cdp" | "lldp" | "lacp")).as(:oneline)
+                "exclude-protocol" enum(("cdp" | "lldp" | "lacp")).as(:oneline)
             )
         ),
         "interfaces" arg (
@@ -89676,7 +89676,7 @@ rule(:macsec_trace_options) do
         "file" (
           trace_file_type
         ),
-        "flag" (("config" | "debug" | "normal" | "all")).as(:oneline)
+        "flag" enum(("config" | "debug" | "normal" | "all")).as(:oneline)
     )
 end
 
@@ -89685,14 +89685,14 @@ rule(:mka_trace_options) do
         "file" (
           trace_file_type
         ),
-        "flag" (("mka-packets" | "state" | "to-secy" | "keys" | "normal" | "all")).as(:oneline)
+        "flag" enum(("mka-packets" | "state" | "to-secy" | "keys" | "normal" | "all")).as(:oneline)
     )
 end
 
 rule(:security_model_access) do
-  (("any" | "usm" | "v1" | "v2c")).as(:arg) (
+  enum(("any" | "usm" | "v1" | "v2c")).as(:arg) (
     c(
-        "security-level" (("none" | "authentication" | "privacy")) (
+        "security-level" enum(("none" | "authentication" | "privacy")) (
             c(
                 "context-match" (
                   ("exact" | "prefix")
@@ -89895,7 +89895,7 @@ rule(:security_pki) do
                         )
                     )
                 ).as(:oneline),
-                "flag" (("certificate-verification" | "online-crl-check" | "enrollment" | "all")).as(:oneline)
+                "flag" enum(("certificate-verification" | "online-crl-check" | "enrollment" | "all")).as(:oneline)
             )
         )
     )
@@ -89923,7 +89923,7 @@ rule(:security_traceoptions) do
                 "pic" arg
             )
         ),
-        "flag" (("timer" | "routing-socket" | "parse" | "config" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "thread" | "high-availability" | "next-hop-tunnels" | "all" | "ams" | "lic")).as(:oneline),
+        "flag" enum(("timer" | "routing-socket" | "parse" | "config" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "thread" | "high-availability" | "next-hop-tunnels" | "all" | "ams" | "lic")).as(:oneline),
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         )
@@ -90396,7 +90396,7 @@ rule(:pcef_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("init" | "config" | "general" | "high-availability" | "debug" | "fsm" | "tftmgr" | "all")).as(:oneline)
+        "flag" enum(("init" | "config" | "general" | "high-availability" | "debug" | "fsm" | "tftmgr" | "all")).as(:oneline)
     )
 end
 
@@ -91002,7 +91002,7 @@ rule(:smid_type) do
                                 )
                             )
                         ),
-                        "log-type" (("debug" | "info" | "notice")) (
+                        "log-type" enum(("debug" | "info" | "notice")) (
                             c(
                                 c(
                                   "none",
@@ -91046,7 +91046,7 @@ rule(:smid_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("database" | "ui" | "general" | "session-db" | "server" | "issu" | "all")).as(:oneline)
+        "flag" enum(("database" | "ui" | "general" | "session-db" | "server" | "issu" | "all")).as(:oneline)
     )
 end
 
@@ -91073,7 +91073,7 @@ rule(:smihelperd_traceoptions_type) do
                 )
             )
         ).as(:oneline),
-        "flag" (("sdb" | "general" | "ui" | "snmp" | "all")).as(:oneline)
+        "flag" enum(("sdb" | "general" | "ui" | "snmp" | "all")).as(:oneline)
     )
 end
 
@@ -91289,7 +91289,7 @@ rule(:software_datapath_traceoptions) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("ager" | "commands" | "configuration" | "flow" | "init" | "ipv6-router-advertisement" | "memory" | "redundancy" | "reassembly" | "buffering" | "all")).as(:oneline)
+        "flag" enum(("ager" | "commands" | "configuration" | "flow" | "init" | "ipv6-router-advertisement" | "memory" | "redundancy" | "reassembly" | "buffering" | "all")).as(:oneline)
     )
 end
 
@@ -91941,7 +91941,7 @@ rule(:srd_traceoptions_object) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("config" | "connect" | "route" | "ssd" | "snmp" | "system" | "opcmd" | "state-machine" | "kcom" | "database" | "swithover" | "stateful-sync" | "redundancy-group" | "all")).as(:oneline)
+        "flag" enum(("config" | "connect" | "route" | "ssd" | "snmp" | "system" | "opcmd" | "state-machine" | "kcom" | "database" | "swithover" | "stateful-sync" | "redundancy-group" | "all")).as(:oneline)
     )
 end
 
@@ -91963,7 +91963,7 @@ rule(:ssd_traceoptions_type) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("infrastructure" | "server" | "routing-instance" | "client-management" | "interfaces-management" | "route-management" | "nexthop-management" | "firewall-management" | "nexthop-group-management" | "cli" | "cfg" | "all")).as(:oneline)
+        "flag" enum(("infrastructure" | "server" | "routing-instance" | "client-management" | "interfaces-management" | "route-management" | "nexthop-management" | "firewall-management" | "nexthop-group-management" | "cli" | "cfg" | "all")).as(:oneline)
     )
 end
 
@@ -92107,7 +92107,7 @@ rule(:ssl_traceoptions) do
         "level" (
           ("brief" | "detail" | "extensive" | "verbose")
         ),
-        "flag" (("cli-configuration" | "termination" | "initiation" | "proxy" | "selected-profile" | "all")).as(:oneline)
+        "flag" enum(("cli-configuration" | "termination" | "initiation" | "proxy" | "selected-profile" | "all")).as(:oneline)
     )
 end
 
@@ -92138,7 +92138,7 @@ rule(:stp_trace_options) do
         "file" (
           trace_file_type
         ),
-        "flag" (("events" | "bpdu" | "timers" | "port-information-state-machine" | "port-receive-state-machine" | "port-role-select-state-machine" | "port-role-transit-state-machine" | "port-state-transit-state-machine" | "port-migration-state-machine" | "port-transmit-state-machine" | "topology-change-state-machine" | "bridge-detection-state-machine" | "state-machine-variables" | "ppmd" | "all-failures" | "all")) (
+        "flag" enum(("events" | "bpdu" | "timers" | "port-information-state-machine" | "port-receive-state-machine" | "port-role-select-state-machine" | "port-role-transit-state-machine" | "port-state-transit-state-machine" | "port-migration-state-machine" | "port-transmit-state-machine" | "topology-change-state-machine" | "bridge-detection-state-machine" | "state-machine-variables" | "ppmd" | "all-failures" | "all")) (
             c(
                 "disable"
             )
@@ -92239,7 +92239,7 @@ rule(:sw_rule_object) do
 end
 
 rule(:syslog_object) do
-  (("any" | "authorization" | "daemon" | "ftp" | "ntp" | "security" | "kernel" | "user" | "dfc" | "external" | "firewall" | "pfe" | "conflict-log" | "change-log" | "interactive-commands")).as(:arg) (
+  enum(("any" | "authorization" | "daemon" | "ftp" | "ntp" | "security" | "kernel" | "user" | "dfc" | "external" | "firewall" | "pfe" | "conflict-log" | "change-log" | "interactive-commands")).as(:arg) (
     c(
         c(
           "any",
@@ -92453,7 +92453,7 @@ rule(:tdir_netmon_traceoptions_object) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("all-real-services" | "messages" | "probe" | "inter-thread" | "database" | "file-descriptor-queue" | "probe-infra" | "all")).as(:oneline),
+        "flag" enum(("all-real-services" | "messages" | "probe" | "inter-thread" | "database" | "file-descriptor-queue" | "probe-infra" | "all")).as(:oneline),
         "monitor" arg (
             c(
                 "group-name" arg,
@@ -92568,7 +92568,7 @@ rule(:tdir_traceoptions_object) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("normal" | "config" | "connect" | "health" | "parse" | "probe" | "route" | "snmp" | "statistics" | "system" | "operational-commands" | "filter" | "all")).as(:oneline)
+        "flag" enum(("normal" | "config" | "connect" | "health" | "parse" | "probe" | "route" | "snmp" | "statistics" | "system" | "operational-commands" | "filter" | "all")).as(:oneline)
     )
 end
 
@@ -92745,7 +92745,7 @@ rule(:trace_file_type) do
 end
 
 rule(:transaction_method_type) do
-  (("method-invite" | "method-options" | "method-refer" | "method-subscribe" | "method-publish" | "method-message" | "method-register")).as(:arg)
+  enum(("method-invite" | "method-options" | "method-refer" | "method-subscribe" | "method-publish" | "method-message" | "method-register")).as(:arg)
 end
 
 rule(:transaction_policy_type) do
@@ -92989,7 +92989,7 @@ rule(:mobiled_traceoptions) do
                 )
             )
         ).as(:oneline),
-        "flag" (("configuration" | "protocol" | "init" | "error" | "all")) (
+        "flag" enum(("configuration" | "protocol" | "init" | "error" | "all")) (
             c(
                 "send",
                 "receive",
@@ -93775,7 +93775,7 @@ rule(:urlf_traceoptions_object) do
         "level" (
           ("error" | "warning" | "notice" | "info" | "verbose" | "all")
         ),
-        "flag" (("normal" | "config" | "dns" | "timer" | "connect" | "parse" | "statistics" | "system" | "operational-commands" | "filter" | "gencfg" | "routing" | "snmp" | "all")).as(:oneline)
+        "flag" enum(("normal" | "config" | "dns" | "timer" | "connect" | "parse" | "statistics" | "system" | "operational-commands" | "filter" | "gencfg" | "routing" | "snmp" | "all")).as(:oneline)
     )
 end
 

@@ -42,32 +42,32 @@ module Junoser
         end
       end
 
-      def each_with_inactive(&block)
+      def each_with_inactive(str='', &block)
         each do |k, v|
           k = "inactive: #{k}" if v.deactivated
-          yield k, v
-        end
-      end
-
-      def to_s
-        str = ''
-
-        each_with_inactive do |k, v|
-          if v.empty?
-            str << OFFSET*@depth << "#{k};\n"
-          else
-            str << OFFSET*@depth << "#{k} {\n"
-            str << v.to_s.chop << "\n"
-            str << OFFSET*@depth << "}\n"
-          end
+          yield k, v, str
         end
 
         str
       end
 
+      def to_s
+        each_with_inactive('', &method(:hash_item_to_s))
+      end
+
       def_delegators :@hash, :[], :[]=, :each, :empty?
 
       private
+
+      def hash_item_to_s(key, value, str)
+        if value.empty?
+          str << OFFSET*@depth << "#{key};\n"
+        else
+          str << OFFSET*@depth << "#{key} {\n"
+          str << value.to_s.chop << "\n"
+          str << OFFSET*@depth << "}\n"
+        end
+      end
 
       def join_arg(str)
         str.gsub!(/\narg\((.*)\)$/) { " #$1" }

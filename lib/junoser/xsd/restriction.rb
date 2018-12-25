@@ -30,8 +30,16 @@ module Junoser
       def to_s
         return format('arg') if config.empty?
 
-        str = '(' + config.map {|c| c.to_s.strip }.join(' | ') + ')'
+        str = enumeration? ? 'enum' : ''
+        str += '(' + config.map {|c| c.to_s.strip }.join(' | ') + ')'
         format(str)
+      end
+
+
+      private
+
+      def enumeration?
+        children.reject {|c| c.name != 'enumeration'}.empty?
       end
     end
   end
