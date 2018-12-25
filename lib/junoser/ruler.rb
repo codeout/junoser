@@ -12,12 +12,17 @@ module Junoser
 
     def rule
       str = @rule.read
+      str = remove_comments(str)
       str = process_reserved_element(str)
       str = str.split(/\n/).map {|l| format(process_line(l)) }.join("\n")
     end
 
 
     private
+
+    def remove_comments(str)
+      str.gsub(%r(\s*/\*.*\*/), '')
+    end
 
     def process_line(str)
       return str if str =~ /^(.* do|end)$/

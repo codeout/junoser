@@ -86,6 +86,19 @@ module Junoser
           'arg'
         end
       end
+
+      def format(header, content = nil, footer = nil)
+        if documentation
+          header += "  /* #{documentation} */"
+        end
+
+        super(header, content, footer)
+      end
+
+      def documentation
+        @documentation ||= xml.xpath('./xsd:annotation/xsd:documentation').text
+        @documentation.empty? ? nil : @documentation
+      end
     end
   end
 end
