@@ -29,6 +29,7 @@ module Junoser
       process_argument_syntax(str)
       process_structural_syntax(str)
       process_word(str)
+      process_reserved_word(str)
       process_comment(str)
 
       str
@@ -155,6 +156,13 @@ module Junoser
 
       # (arg | "foo")  ->  ["arg", "foo"]
       str.gsub!(/^(\s*) \(arg( \| "[^"]+")+\)/) {"#$1[\"arg\"#{$2.split(' | ').join(', ')}]"}
+
+      str
+    end
+
+    def process_reserved_word(str)
+      # ieee-802.3ad  -> 802.3ad
+      str.gsub! 'ieee-802.3ad', '802.3ad'
 
       str
     end
