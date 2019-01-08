@@ -6,7 +6,8 @@ require 'rake/testtask'
 
 xsd_path = File.join(__dir__, 'tmp/junos-system-17.2.xsd')
 rule_path = File.join(__dir__, 'tmp/rule.rb')
-parser_path = File.join(__dir__, 'lib/junoser/parser.rb')
+ruby_parser_path = File.join(__dir__, 'lib/junoser/parser.rb')
+js_parser_path = File.join(__dir__, 'tmp/schema.js')
 
 def open_files(input, output, &block)
   i = open(input)
@@ -29,10 +30,17 @@ namespace :build do
     end
   end
 
-  desc 'Build the parser'
+  desc 'Build ruby parser'
   task(:rule) do
-    open_files(rule_path, parser_path) do |input, output|
+    open_files(rule_path, ruby_parser_path) do |input, output|
       output.puts Junoser::Ruler.new(input).to_rule
+    end
+  end
+
+  desc 'Build javascript parser'
+  task(:jsrule) do
+    open_files(rule_path, js_parser_path) do |input, output|
+      output.puts Junoser::JsRuler.new(input).to_rule
     end
   end
 end
