@@ -206,6 +206,9 @@ module Junoser
       # {
       #   "null_1": foo()
       lines.gsub!(/([{,]\n\s*)([^ "(]+)/m) {"#$1\"null_#{sequence}\": #$2"}
+
+      # "arg"  ->  "arg_1"
+      lines.gsub('"arg":') {%["arg_#{sequence}":]}
     end
 
     def balance_parenthesis(lines)
