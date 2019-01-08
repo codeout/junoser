@@ -108,8 +108,8 @@ module Junoser
       # "foo" ("bar" | "baz"),  ->  "foo": ["bar", "baz"],
       str.gsub!(%r|^(\s*)"(\S+)" \(([^)]+)\)(,?)$|) {"#$1\"#$2\": [#{$3.split(' | ').join(', ')}]#$4"}
 
-      # "foo" enum(("bar" | "baz"))  ->  "foo": new Repeatable(["bar", "baz"])
-      str.gsub!(/^(\s*)("\S+") enum\(\((.*)\)\)/) {"#$1#$2: new Repeatable(#{$3.gsub('"', '').split(' | ')})"}
+      # "foo" enum(("bar" | "baz"))  ->  "foo": new Enumeration(["bar", "baz"])
+      str.gsub!(/^(\s*)("\S+") enum\(\((.*)\)\)/) {"#$1#$2: new Enumeration(#{$3.gsub('"', '').split(' | ')})"}
 
       # "foo" arg  /* doc */,  ->  "foo | doc": "arg",
       str.gsub!(%r|^(\s*)"([^"]+)" arg  /\* (.*) \*/(,?)$|) {"#$1\"#$2 | #$3\": \"arg\"#$4"}
@@ -151,8 +151,8 @@ module Junoser
         "#$1#{$2.gsub('"', '').split(' | ')}#{comma}"
       end
 
-      # enum(("bar" | "baz"))  ->  "foo": new Repeatable(["bar", "baz"])
-      str.gsub!(/^(\s*)enum\(\((.*)\)\)/) {"#$1new Repeatable(#{$2.gsub('"', '').split(' | ')})"}
+      # enum(("bar" | "baz"))  ->  "foo": new Enumeration(["bar", "baz"])
+      str.gsub!(/^(\s*)enum\(\((.*)\)\)/) {"#$1new Enumeration(#{$2.gsub('"', '').split(' | ')})"}
 
       # (arg | "foo")  ->  ["arg", "foo"]
       str.gsub!(/^(\s*) \(arg( \| "[^"]+")+\)/) {"#$1[\"arg\"#{$2.split(' | ').join(', ')}]"}
@@ -264,10 +264,10 @@ module Junoser
 
     def rule_header
       <<~EOS
-        class Repeatable {
+        class Enumeration {
           constructor(list) {
-            this.children = this;
             this.list = list;
+            this.children = [];
           }
 
           map(callback) {
@@ -277,7 +277,11 @@ module Junoser
 
           find(callback) {
             // NOTE: This is a bit hacky but assuming that it's called like "this.children.find((node) => node.name === string)"
-            return this;
+            return;
+          }
+
+          forEach(callback) {
+            return this.list.forEach(callback);
           }
 
           keywords() {
@@ -313,7 +317,7 @@ module Junoser
 
         }
 
-        module.exports = {schema:new JunosSchema(), Repeatable: Repeatable, Sequence: Sequence};
+        module.exports = {schema:new JunosSchema(), Enumeration: Enumeration, Sequence: Sequence};
       EOS
     end
   end
