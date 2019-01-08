@@ -254,10 +254,10 @@ module Junoser
 
     def objectize_arg_of_s(lines)
       # s(  ->  s({
-      lines.gsub!(/^( *(?:return|\S+:)? +)s\($/m) { "#$1this.s({" }
+      lines.gsub!(/^( *(?:return|\S+:)? +)s\($/m) {"#$1this.s({"}
 
       # )  ->  })
-      lines.gsub!(/^( *)\)$/m) { "#$1})" }
+      lines.gsub!(/^( *)\)$/m) {"#$1})"}
 
       lines
     end
