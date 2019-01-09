@@ -163,8 +163,15 @@ module Junoser
     def process_reserved_word(str)
       # ieee-802.3ad  -> 802.3ad
       str.gsub! 'ieee-802.3ad', '802.3ad'
+      fix_route_filter(str)
 
       str
+    end
+
+    def fix_route_filter(str)
+      str.gsub!(/("exact \| [^"]*"): "arg"/) {"#$1: null"}
+      str.gsub!(/("longer \| [^"]*"): "arg"/) {"#$1: null"}
+      str.gsub!(/("orlonger \| [^"]*"): "arg"/) {"#$1: null"}
     end
 
     def process_comment(str)
