@@ -327,7 +327,7 @@ module Junoser
 
         }
 
-        module.exports = {schema:new JunosSchema(), Enumeration: Enumeration, Sequence: Sequence};
+        module.exports = {JunosSchema: JunosSchema, Enumeration: Enumeration, Sequence: Sequence};
       EOS
     end
   end
