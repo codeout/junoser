@@ -1,3 +1,13 @@
+## [0.3.4] - 2019-02-17
+
+### Added
+
+* Newly supported syntax
+  * protocols bgp minimum-hold-time xxx
+  * system dump-on-panic
+  * chassis fpc x pic x port x number-of-sub-ports x
+
+
 ## [0.3.3] - 2018-10-09
 
 ### Fixed
