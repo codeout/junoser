@@ -1,3 +1,11 @@
+## [0.3.5] - 2019-08-15
+
+### Fixed
+
+* Accept quoted string for
+  * "as-path path"
+
+
 ## [0.3.4] - 2019-02-17
 
 ### Added
