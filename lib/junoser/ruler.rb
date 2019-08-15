@@ -153,6 +153,12 @@ module Junoser
                 '"contact" (quote | arg),'], $1)
       end
 
+      str.gsub!(/^(\s*)"as-path" \(\s*c\(\s*"path" arg/) do
+        format(['"as-path" (',
+                '  c(',
+                '    "path" (quote | arg)'], $1)
+      end
+
       str
     end
 
