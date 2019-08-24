@@ -44,6 +44,8 @@ module Junoser
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
 
+      str.gsub! /"groups" \(\s*s\(\s*any\s*\)\s*\)/, 'a("groups", arg, configuration)'
+
       %w[as-number confederation-as metric-value limit-threshold filename filter-name class-name classifier-name link-subscription per-traffic-class-bandwidth template-name].each do |key|
         str.gsub! %["#{key}" arg], 'arg'
       end
