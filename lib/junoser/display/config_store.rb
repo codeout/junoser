@@ -78,7 +78,7 @@ module Junoser
       def match(str)
         each do |statement, store|
           # NOTE: return the first object
-          return [statement, store] if str =~ /^#{statement}\b/
+          return [statement, store] if str =~ /^#{Regexp.escape(statement)}(\b|$)/
         end
 
         []
