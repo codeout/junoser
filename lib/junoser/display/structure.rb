@@ -16,13 +16,17 @@ module Junoser
         transform = Junoser::Transformer.new
 
         config = Junoser::Input.new(@input).read.split("\n")
-        deactivated_lines = config.grep(/^deactivate /).map {|l| l.sub(/^deactivate /, '') }
+        deactivated_lines = []
 
         config.each do |line|
-          next if line =~ /^deactivate /
+          if line =~ /^deactivate (.*)/
+            deactivated_lines << $1
+            next
+          end
 
           transformed = transform.apply(parser.parse(line))
-          raise "ERROR: parse failed" unless transformed.is_a?(String)
+          raise "ERROR: Failed to parse \"#{line}\"" unless transformed.is_a?(String)
+
           @config << transformed
         end
 

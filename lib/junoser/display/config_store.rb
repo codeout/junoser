@@ -26,7 +26,7 @@ module Junoser
       alias << push
 
       def deactivate(deactivated_line)
-        statement, store = matched(deactivated_line)
+        statement, store = match(deactivated_line)
 
         if statement
           if statement == deactivated_line
@@ -35,7 +35,7 @@ module Junoser
             store.deactivate(deactivated_line.sub(/^#{statement} */, ''))
           end
         else
-          statement, store = inverse_matched(deactivated_line)
+          statement, store = inverse_match(deactivated_line)
           if statement
             store.deactivated = true
           end
@@ -75,7 +75,7 @@ module Junoser
         str
       end
 
-      def matched(str)
+      def match(str)
         each do |statement, store|
           # NOTE: return the first object
           return [statement, store] if str =~ /^#{statement}\b/
@@ -84,7 +84,7 @@ module Junoser
         []
       end
 
-      def inverse_matched(str)
+      def inverse_match(str)
         each do |statement, store|
           # NOTE: return the first object
           return [statement, store] if statement =~ /^#{str}\b/
