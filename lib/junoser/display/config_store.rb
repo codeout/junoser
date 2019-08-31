@@ -78,7 +78,7 @@ module Junoser
       def matched(str)
         each do |statement, store|
           # NOTE: return the first object
-          return [statement, store] if str =~ /^#{statement}/
+          return [statement, store] if str =~ /^#{statement}\b/
         end
 
         []
@@ -87,7 +87,7 @@ module Junoser
       def inverse_matched(str)
         each do |statement, store|
           # NOTE: return the first object
-          return [statement, store] if statement =~ /^#{str}/
+          return [statement, store] if statement =~ /^#{str}\b/
         end
 
         []
