@@ -1,3 +1,14 @@
+## [0.3.7] - 2019-09-03
+
+### Fixed
+
+* "apply-groups" translation between "display set" and structured form
+
+### Added
+
+* Support "deactivate ... apply-groups"
+
+
 ## [0.3.6] - 2019-08-25
 
 ### Fixed
