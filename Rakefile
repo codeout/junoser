@@ -45,6 +45,17 @@ namespace :build do
   end
 end
 
+task('find-srx-methods') do
+  vsrx = File.read('vsrx.rb')
+  vmx = File.read('lib/junoser/parser.rb')
+
+  vsrx.scan(/^ +([0-9a-z_]+) *$/).flatten.uniq.sort.each do |method|
+    next if ['arg', 'end', 'ipaddr', 'time'].include?(method)
+
+    puts method unless vsrx =~ /rule\(:#{method}\)/m || vmx =~ /rule\(:#{method}\)/m
+  end
+end
+
 
 Rake::TestTask.new do |t|
   t.libs << 'test'
