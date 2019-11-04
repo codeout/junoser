@@ -16,7 +16,9 @@ module Junoser
 
     def rule
       str = @rule.read
-      str = str.split(/\n/).map {|l| format(process_line(l))}.join("\n")
+      str = str.split(/\n/).map {|l|
+        format(process_line(l)) unless l =~ /^ *#/  # Skip additional comment lines
+      }.compact.join("\n")
       finalize(str)
     end
 
