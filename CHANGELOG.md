@@ -1,3 +1,11 @@
+## [0.3.8] - 2019-11-04
+
+### Added
+
+* Newly supported syntax
+  * security (by porting the hierarchy from vSRX 18.3R1.9)
+
+
 ## [0.3.7] - 2019-09-03
 
 ### Fixed
