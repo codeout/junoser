@@ -22,7 +22,7 @@ end
 
 namespace :build do
   desc 'Build an intermediate config hierarchy'
-  task(:config) do
+  task :config do
     open_files(xsd_path, rule_path) do |input, output|
       Nokogiri::XML(input).root.remove_unused.xpath('/xsd:schema/*').each do |e|
         output.puts e.to_config
@@ -31,21 +31,21 @@ namespace :build do
   end
 
   desc 'Build ruby parser'
-  task(:rule) do
+  task :rule do
     open_files(rule_path, ruby_parser_path) do |input, output|
       output.puts Junoser::Ruler.new(input).to_rule
     end
   end
 
   desc 'Build javascript parser'
-  task(:jsrule) do
+  task :jsrule do
     open_files(rule_path, js_parser_path) do |input, output|
       output.puts Junoser::JsRuler.new(input).to_rule
     end
   end
 end
 
-task('find-srx-methods') do
+task 'find-srx-methods' do
   vsrx = File.read('vsrx.rb')
   vmx = File.read('lib/junoser/parser.rb')
 
