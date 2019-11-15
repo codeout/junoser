@@ -18,11 +18,23 @@ module Junoser
       end
 
       def display_set(io_or_string)
-        Junoser::Display::Set.new(io_or_string).transform
+        config = Junoser::Input.new(io_or_string).read
+
+        if Junoser::Display.display_set?(config)
+          config
+        else
+          Junoser::Display::Set.new(config).transform
+        end
       end
 
       def struct(io_or_string)
-        Junoser::Display::Structure.new(io_or_string).transform
+        config = Junoser::Input.new(io_or_string).read
+
+        if Junoser::Display.display_set?(config)
+          Junoser::Display::Structure.new(config).transform
+        else
+          config
+        end
       end
 
 
