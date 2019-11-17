@@ -161,6 +161,12 @@ module Junoser
                 '    "path" (quote | arg)'], $1)
       end
 
+      str.gsub!(/^(\s*)"policy" \(\s*s\(\s*arg,\s*"to-zone-name" arg,\s*c\(\s*"policy" \(\s*policy_type\s*\)\s*\)/) do
+        format(['b(s("from-zone", arg, "to-zone", arg),',
+                '    b("policy", policy_type',
+               ], $1)
+      end
+
       str
     end
 
