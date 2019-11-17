@@ -1,3 +1,10 @@
+## [0.3.9] - 2019-11-17
+
+### Fixed
+
+* security policies
+* "junoser -s" and "junoser -d" unexpectedly raises errors
+
 ## [0.3.8] - 2019-11-04
 
 ### Added
