@@ -165,6 +165,12 @@ module Junoser
     def process_reserved_word(str)
       # ieee-802.3ad  -> 802.3ad
       str.gsub! 'ieee-802.3ad', '802.3ad'
+
+      # "policy | Define a policy context from this zone" -> "from-zone | Define a policy context from this zone"
+      str.gsub! 'policy | Define a policy context from this zone', 'from-zone | Define a policy context from this zone'
+      # "to-zone-name | Destination zone" -> "to-zone | Destination zone"
+      str.gsub! 'to-zone-name | Destination zone', 'to-zone | Destination zone'
+
       fix_route_filter(str)
 
       str
