@@ -65,7 +65,7 @@ module Junoser
       config.each do |l|
         l.strip!
         case l
-          when /^set /
+          when /^(set|deactivate) /
             @lines << l
           when /^delete /
             to_delete = @parser.parse(l.gsub(/^delete /, 'set '))
