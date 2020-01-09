@@ -67,4 +67,4 @@ Or send a pull request to fix.
 
 ## Copyright and License
 
-Copyright (c) 2019 Shintaro Kojima. Code released under the [MIT license](LICENSE.txt).
+Copyright (c) 2020 Shintaro Kojima. Code released under the [MIT license](LICENSE.txt).
