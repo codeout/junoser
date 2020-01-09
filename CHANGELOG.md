@@ -1,3 +1,15 @@
+## [0.3.10] - 2020-01-09
+
+### Added
+
+* Experimentally support "insert" statement
+
+### Fixed
+
+* junoser-squash unexpectedly kept statements intact due to tokenization bug
+* junoser-squash unexpectedly removed "deactivate" statements
+* "deactivate" to "inactive:" translation during "junoser -s"
+
 ## [0.3.9] - 2019-11-17
 
 ### Fixed
@@ -15,13 +27,13 @@
 
 ## [0.3.7] - 2019-09-03
 
-### Fixed
-
-* "apply-groups" translation between "display set" and structured form
-
 ### Added
 
 * Support "deactivate ... apply-groups"
+
+### Fixed
+
+* "apply-groups" translation between "display set" and structured form
 
 
 ## [0.3.6] - 2019-08-25
