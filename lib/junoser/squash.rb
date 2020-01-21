@@ -2,62 +2,12 @@ require 'junoser'
 require 'parslet'
 
 module Junoser
-  class DeleteTransformer < Parslet::Transform
-    rule(config: simple(:config)) do
-      "(#{config.to_s} .*"
-    end
-
-    rule(config: sequence(:configs)) do
-      configs.join("\n")
-    end
-
-    rule(arg: simple(:arg)) do
-      arg
-    end
-
-    rule(label: simple(:label)) do
-      ")#{Regexp.escape(label.to_s)}"
-    end
-
-    rule(label: simple(:label), child: simple(:child)) do
-      "#{Regexp.escape(label.to_s)} #{child}"
-    end
-
-    rule(label: simple(:label), child: sequence(:children)) do
-      %[#{Regexp.escape(label.to_s)} #{children.join(' ')}]
-    end
-
-    rule(statement: simple(:statement), argument: simple(:argument)) do
-      "#{statement} #{argument}"
-    end
-
-    rule(statement: simple(:statement), argument: sequence(:arguments)) do
-      %[#{statement} #{arguments.join(' ')}]
-    end
-
-    rule(oneline: simple(:str)) do
-      str
-    end
-
-    rule(oneline: sequence(:strs)) do
-      strs.join(' ')
-    end
-
-    rule(enum: simple(:str)) do
-      str
-    end
-
-    rule(enum: sequence(:strs)) do
-      strs.join(' ')
-    end
-  end
-
   class Squash
     def initialize(io_or_string)
       @input = io_or_string
       @lines = []
       @parser = Junoser::Parser.new
-      @transformer = DeleteTransformer.new
+      @transformer = Junoser::Transformer.new
     end
 
     def transform
@@ -68,8 +18,7 @@ module Junoser
         when /^(set|deactivate) /
           @lines << l
         when /^delete /
-          to_delete = @parser.parse(l.gsub(/^delete /, 'set '))
-          delete_lines @transformer.apply(to_delete)
+          delete_lines delete_pattern(l.gsub(/^delete /, 'set '))
         end
       end
 
@@ -93,6 +42,28 @@ module Junoser
       @lines.each do |l|
         l.sub!(/#{pattern}/) { $1 }
       end
+    end
+
+    def split_last_token(line)
+      tokens = join_arg(@transformer.apply(@parser.parse(line))).split("\n")
+      tokens.map! { |t|
+        t.gsub!(/arg\((.*)\)/) { "#$1" } # Strip arg
+        Regexp.escape(t.strip)
+      }
+
+      [tokens[0..-2].join(' '), tokens.last]
+    end
+
+    # Ported from lib/junoser/display/config_store.rb
+    def join_arg(str)
+      str.gsub!(/\narg\((.*)\)$/) { " #$1" }
+      str.gsub!(/arg\((.*)\)/) { "#$1" }
+      str
+    end
+
+    def delete_pattern(line)
+      line, last_token = split_last_token(line)
+      "(#{line}\s+)#{last_token}.*"
     end
   end
 end
