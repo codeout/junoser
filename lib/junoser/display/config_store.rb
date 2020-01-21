@@ -78,7 +78,7 @@ module Junoser
       def match(str)
         each do |statement, store|
           # NOTE: return the first object
-          return [statement, store] if str =~ /^#{Regexp.escape(statement)}(\b|$)/
+          return [statement, store] if str =~ /^#{Regexp.escape(statement)}((?= )|$)/
         end
 
         []
@@ -87,7 +87,7 @@ module Junoser
       def inverse_match(str)
         each do |statement, store|
           # NOTE: return the first object
-          return [statement, store] if statement =~ /^#{str}\b/
+          return [statement, store] if statement =~ /^#{str}(?= )/
         end
 
         []
