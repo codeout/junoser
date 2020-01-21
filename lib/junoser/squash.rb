@@ -65,11 +65,11 @@ module Junoser
       config.each do |l|
         l.strip!
         case l
-          when /^(set|deactivate) /
-            @lines << l
-          when /^delete /
-            to_delete = @parser.parse(l.gsub(/^delete /, 'set '))
-            delete_lines @transformer.apply(to_delete)
+        when /^(set|deactivate) /
+          @lines << l
+        when /^delete /
+          to_delete = @parser.parse(l.gsub(/^delete /, 'set '))
+          delete_lines @transformer.apply(to_delete)
         end
       end
 
@@ -80,7 +80,7 @@ module Junoser
     private
 
     def remove_subcommand(lines)
-      lines.each_with_index do |l,i|
+      lines.each_with_index do |l, i|
         lines[i..-1].each do |l2|
           if l.include?(l2) and l != l2
             lines.delete(l2)
