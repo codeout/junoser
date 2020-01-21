@@ -19,6 +19,10 @@ module Junoser
           @lines << l
         when /^delete /
           delete_lines delete_pattern(l.gsub(/^delete /, 'set '))
+        when /^insert (.*) before (.*)/
+          insert_before insert_pattern("set #{$1}"), $2
+        when /^insert (.*) after (.*)/
+          insert_after insert_pattern("set #{$1}"), $2
         end
       end
 
@@ -64,6 +68,27 @@ module Junoser
     def delete_pattern(line)
       line, last_token = split_last_token(line)
       "(#{line}\s+)#{last_token}.*"
+    end
+
+    def insert_pattern(line)
+      line, last_token = split_last_token(line)
+      "(#{line})\s+#{last_token}"
+    end
+
+    def insert_before(pattern_to_insert, key_token)
+      key_pattern = pattern_to_insert.sub(/\).*/) { ") #{key_token}" }
+
+      lines_to_insert = @lines.select { |l| l =~ /#{pattern_to_insert}/ }
+      @lines.reject! { |l| l =~ /#{pattern_to_insert}/ }
+
+      key_index = @lines.index { |l| l =~ /#{key_pattern}/ }
+      @lines.insert(key_index, lines_to_insert).flatten!
+    end
+
+    def insert_after(pattern_to_insert, key_token)
+      @lines.reverse!
+      insert_before pattern_to_insert, key_token
+      @lines.reverse!
     end
   end
 end
