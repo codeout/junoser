@@ -19,6 +19,8 @@ module Junoser
           @lines << l
         when /^delete /
           delete_lines delete_pattern(l.gsub(/^delete /, 'set '))
+        when /^activate /
+          delete_lines l.gsub(/^activate /, 'deactivate ')
         when /^insert (.*) before (.*)/
           insert_before insert_pattern("set #{$1}"), $2
         when /^insert (.*) after (.*)/
