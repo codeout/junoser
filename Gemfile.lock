@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    junoser (0.3.10)
+    junoser (0.3.11)
       parslet
 
 GEM
@@ -27,4 +27,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   2.0.2
+   2.1.2
