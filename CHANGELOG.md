@@ -1,8 +1,14 @@
-## [0.3.10] - 2020-01-09
+## [0.3.11] - 2020-01-28
 
 ### Added
 
-* Experimentally support "insert" statement
+* junoser-squash supports "activate" statement
+
+## [0.3.10] - 2020-01-27
+
+### Added
+
+* junoser-squash experimentally supports "insert" statement
 
 ### Fixed
 
