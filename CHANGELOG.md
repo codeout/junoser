@@ -1,3 +1,10 @@
+## [0.3.12] - 2020-02-06
+
+### Fixed
+
+* "insert" statement whose last two tokens are keyword and argument, with the following single "before" (or "after") argument
+  * eg) insert protocols bgp group foo export bar insert baz
+
 ## [0.3.11] - 2020-01-28
 
 ### Added

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    junoser (0.3.11)
+    junoser (0.3.12)
       parslet
 
 GEM
