@@ -55,4 +55,34 @@ set routing-options static route 10.0.1.0/24
 set routing-options static route 10.0.2.0/24
 set routing-options static route 10.0.3.0/24', Junoser::Squash.new(config).transform)
   end
+
+  test 'check insert statement' do
+    config = 'set policy-options policy-statement foo term bar then accept
+set policy-options policy-statement foo term baz then accept
+insert policy-options policy-statement foo term baz before term bar'
+
+    assert_equal('set policy-options policy-statement foo term baz then accept
+set policy-options policy-statement foo term bar then accept', Junoser::Squash.new(config).transform)
+
+    config = 'set policy-options policy-statement foo term bar then accept
+set policy-options policy-statement foo term baz then accept
+insert policy-options policy-statement foo term bar after term baz'
+
+    assert_equal('set policy-options policy-statement foo term baz then accept
+set policy-options policy-statement foo term bar then accept', Junoser::Squash.new(config).transform)
+
+    config = 'set protocols bgp group foo export bar
+set protocols bgp group foo export baz
+insert protocols bgp group foo export baz before bar'
+
+    assert_equal('set protocols bgp group foo export baz
+set protocols bgp group foo export bar', Junoser::Squash.new(config).transform)
+
+    config = 'set protocols bgp group foo export bar
+set protocols bgp group foo export baz
+insert protocols bgp group foo export bar after baz'
+
+    assert_equal('set protocols bgp group foo export baz
+set protocols bgp group foo export bar', Junoser::Squash.new(config).transform)
+  end
 end

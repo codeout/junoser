@@ -22,9 +22,9 @@ module Junoser
         when /^activate /
           delete_lines l.gsub(/^activate /, 'deactivate ')
         when /^insert (.*) before (.*)/
-          insert_before insert_pattern("set #{$1}"), $2
+          insert_before "set #{$1}", $2
         when /^insert (.*) after (.*)/
-          insert_after insert_pattern("set #{$1}"), $2
+          insert_after "set #{$1}", $2
         end
       end
 
@@ -72,18 +72,14 @@ module Junoser
       "(#{line}\s+)#{last_token}.*"
     end
 
-    def insert_pattern(line)
-      line, last_token = split_last_token(line)
-      "(#{line})\s+#{last_token}"
-    end
+    def insert_before(statement_to_insert, key_statement)
+      key_tokens = key_statement.strip.split
+      key_statement = (statement_to_insert.strip.split[0..-(key_tokens.size+1)] + key_tokens).join(' ')
 
-    def insert_before(pattern_to_insert, key_token)
-      key_pattern = pattern_to_insert.sub(/\).*/) { ") #{key_token}" }
+      lines_to_insert = @lines.select { |l| l.include?(statement_to_insert) }
+      @lines.reject! { |l| l.include?(statement_to_insert) }
 
-      lines_to_insert = @lines.select { |l| l =~ /#{pattern_to_insert}/ }
-      @lines.reject! { |l| l =~ /#{pattern_to_insert}/ }
-
-      key_index = @lines.index { |l| l =~ /#{key_pattern}/ }
+      key_index = @lines.index { |l| l.include?(key_statement) }
       @lines.insert(key_index, lines_to_insert).flatten!
     end
 
