@@ -12,7 +12,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     parslet (2.0.0)
     power_assert (1.1.6)
-    rake (10.5.0)
+    rake (13.0.1)
     test-unit (3.3.5)
       power_assert
 
@@ -23,7 +23,7 @@ DEPENDENCIES
   bundler (~> 2.0)
   junoser!
   nokogiri
-  rake (~> 10.0)
+  rake (~> 13.0)
   test-unit
 
 BUNDLED WITH
