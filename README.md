@@ -56,6 +56,29 @@ set protocols bgp group ebgp-peers neighbor 192.0.2.2
 
 Use ```junoser -s``` to translate into structured form.
 
+## Updating parser for new directives
+
+From [Juniper
+website](https://support.juniper.net/support/downloads/), you can
+download the XSD schema for the version of JunOS you want to target:
+
+ - Junos XML API
+ - Select your version
+ - Application Tools
+ - XML Schema for Configurator Data
+
+Put it in `tmp/`, update `xsd_path` in `Rakefile` and run:
+
+```zsh
+$ bundle exec rake build:config build:rule
+```
+
+Alternatively, you may look in `example/` for some prebuilt rules
+file. If you want to use them, copy one to `tmp/rules.rb` and run:
+
+```zsh
+$ bundle exec rake build:rule
+```
 
 ## Contributing
 
