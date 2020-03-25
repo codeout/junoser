@@ -97,6 +97,7 @@ module Junoser
 
       def documentation
         @documentation ||= xml.xpath('./xsd:annotation/xsd:documentation').text
+        @documentation.delete!("\n")
         @documentation.empty? ? nil : @documentation
       end
     end
