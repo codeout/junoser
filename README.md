@@ -67,6 +67,12 @@ download the XSD schema for the version of JunOS you want to target:
  - Application Tools
  - XML Schema for Configurator Data
 
+Alternatively, you can retrieve the schema with Netconf:
+
+```zsh
+$ ssh -Csp 830 JUNOS netconf < example/get-schema.xml | sed -n '/^<xsd:schema/,/^<\/xsd:schema/p' > junos-XXX.xsd
+```
+
 Put it in `tmp/`, update `xsd_path` in `Rakefile` and run:
 
 ```zsh
