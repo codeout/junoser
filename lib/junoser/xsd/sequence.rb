@@ -11,9 +11,9 @@ module Junoser
         @config ||= children.map {|child|
           case child.name
           when 'choice'
-            Junoser::Xsd::Choice.new(child, depth: @depth+1)
+            Junoser::Xsd::Choice.new(child, depth: @depth+1, parent: self)
           when 'element'
-            Junoser::Xsd::Element.new(child, depth: @depth+1)
+            Junoser::Xsd::Element.new(child, depth: @depth+1, parent: self)
           when 'any'
             'any'
           else

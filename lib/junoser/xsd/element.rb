@@ -16,9 +16,9 @@ module Junoser
         @config ||= children.map {|child|
           case child.name
           when 'complexType'
-            Junoser::Xsd::ComplexType.new(child, depth: @depth+1)
+            Junoser::Xsd::ComplexType.new(child, depth: @depth+1, parent: self)
           when 'simpleType'
-            Junoser::Xsd::SimpleType.new(child, depth: @depth+1)
+            Junoser::Xsd::SimpleType.new(child, depth: @depth+1, parent: self)
           else
             raise "ERROR: unknown element: #{child.name}"
           end
@@ -70,7 +70,7 @@ module Junoser
         when @argument.name == 'simpleType'
           'arg'
         else
-          arg = Junoser::Xsd::Element.new(@argument, depth: @depth+1).config
+          arg = Junoser::Xsd::Element.new(@argument, depth: @depth+1, parent: self).config
           raise "ERROR: argument shouldn't consist of multiple elements" if arg.size > 1
           arg.first.to_s.strip
         end

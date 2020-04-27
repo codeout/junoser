@@ -1,13 +1,14 @@
 module Junoser
   module Xsd
     module Base
-      attr_reader :xml
+      attr_reader :xml, :parent
 
       OFFSET = '  '
 
       def initialize(xml, options={})
         @xml = xml
         @depth = options[:depth] || 0
+        @parent = options[:parent]
       end
 
       def config

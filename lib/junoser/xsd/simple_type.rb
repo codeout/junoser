@@ -11,9 +11,9 @@ module Junoser
         @config ||= children.map {|child|
           case child.name
           when 'restriction'
-            Junoser::Xsd::Restriction.new(child, depth: @depth+1)
+            Junoser::Xsd::Restriction.new(child, depth: @depth+1, parent: self)
           when 'union'
-            Junoser::Xsd::Union.new(child, depth: @depth+1)
+            Junoser::Xsd::Union.new(child, depth: @depth+1, parent: self)
           else
             raise "ERROR: unknown element: #{child.name}"
           end

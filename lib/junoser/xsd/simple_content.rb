@@ -10,7 +10,7 @@ module Junoser
         @config ||= children.map {|child|
           case child.name
           when 'restriction'
-            Junoser::Xsd::Restriction.new(child, depth: @depth+1)
+            Junoser::Xsd::Restriction.new(child, depth: @depth+1, parent: self)
           when 'extension'
             'arg'
           else
