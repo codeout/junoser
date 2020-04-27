@@ -97,7 +97,10 @@ module Junoser
 
       def documentation
         @documentation ||= xml.xpath('./xsd:annotation/xsd:documentation').text
-        @documentation.delete!("\n")
+
+        # Translate multiline documentation into a single line to make it parsable in further processes
+        @documentation.gsub! /\n\s*/, ' '
+
         @documentation.empty? ? nil : @documentation
       end
     end
