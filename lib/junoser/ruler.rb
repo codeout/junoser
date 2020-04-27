@@ -127,15 +127,19 @@ module Junoser
       end
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
-        format(['rule(:regular_expression) do',
-                '  (quote | arg).as(:arg)',
-                'end'])
+        <<~EOS
+        rule(:regular_expression) do
+          (quote | arg).as(:arg)
+        end
+        EOS
       end
       str.gsub!(/^rule\(:login_user_object\) do\s*arg\.as\(:arg\) \(\s*c\(\s*"full-name" arg,/) do
-        format(['rule(:login_user_object) do',
-                '  arg.as(:arg) (',
-                '    sc(',
-                '        "full-name" (quote | arg),'])
+        <<~EOS
+        rule(:login_user_object) do
+          arg.as(:arg) (
+            sc(
+              "full-name" (quote | arg),
+        EOS
       end
 
       str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
