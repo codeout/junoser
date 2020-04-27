@@ -28,7 +28,15 @@ module Junoser
         when has_single_child_of?(Junoser::Xsd::Choice)
           child = config.first
           str = child.config.map(&:to_s).reject(&:empty?).join(",\n")
-          format('c(', str, ')') unless str.empty?
+
+          return if str.empty?
+
+          # Assuming that <xsd:sequence> always has <xsd:complexType> as the parent
+          if parent.parent&.oneliner? && config.first.unbounded?
+            format('sc(', str, ')')
+          else
+            format('c(', str, ')')
+          end
         else
           str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.reject(&:empty?).join(",\n")
           format('s(', str, ')')

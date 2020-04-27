@@ -33,12 +33,12 @@ module Junoser
          ']>'].join("\n#{OFFSET*(@depth+1)}")
       end
 
-
-      private
-
       def oneliner?
         @oneliner ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="oneliner"]').empty?
       end
+
+
+      private
 
       def nokeyword?
         @nokeyword ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="nokeyword"]').empty?

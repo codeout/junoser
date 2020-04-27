@@ -29,6 +29,10 @@ module Junoser
           format('c(', config.map(&:to_s).join(",\n"), ')')
         end
       end
+
+      def unbounded?
+        xml['maxOccurs'] == 'unbounded'
+      end
     end
   end
 end
