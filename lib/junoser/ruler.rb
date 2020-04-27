@@ -46,65 +46,91 @@ module Junoser
 
       str.gsub! /"groups" \(\s*s\(\s*any\s*\)\s*\)/, 'a("groups", arg, configuration)'
 
-      %w[as-number confederation-as metric-value limit-threshold filename filter-name class-name classifier-name link-subscription per-traffic-class-bandwidth template-name].each do |key|
-        str.gsub! %["#{key}" arg], 'arg'
-      end
-
       str.gsub! '"equal-literal"', '"="'
       str.gsub! '"plus-literal"', '"+"'
       str.gsub! '"minus-literal"', '"-"'
 
-      str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
-      str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
-      str.gsub!(/\((.*) \| "vlan-id"\)/) { "(#$1 | arg)" }
+      #
+      # Statements can be quoted
+      #
       str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }
       str.gsub! '"message" arg', '"message" (quote | arg)'
       str.gsub! '"description" arg', '"description" (quote | arg)'
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
-      str.gsub!(/arg \| (".*")/) { "#$1 | arg" }
-      str.gsub! '"dhcp-service" (', '("dhcp-service" | "dhcp") ('
 
-      str.gsub!(/"inet"(.*)"inet6"/) { %["inet6"#$1"inet"] }
-      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
-      str.gsub!(/"icmp"(.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
-      str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
-      str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
-      %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
-        str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#$1"ethernet"] }
-      end
-      str.gsub! '"icmp6" |', '"icmp6" | "icmpv6" |'
-      str.gsub!(/"cspf"(.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
-      str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
-      str.gsub!(/"source-address-filter" (\(\s*control_source_address_filter_type\s*\))/) { %["source-adress-filter" arg #{$1}.as(:oneline)] }
-
-      %w[teardown hold-time stub].each do |key|
-        str.gsub!(/^(\s*"#{key}" \(\s*)c\(/) { "#{$1}sc(" }
-      end
-      %w[file confederation].each do |key|
-        str.gsub!(/^(\s*"#{key}" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
-      end
-      %w[exact longer orlonger].each do |key|
-        str.gsub!(/^(\s*"#{key}") arg/) { "#{$1}" }
-      end
-
-
-      str.gsub!(/^(\s*)"ieee-802.3ad" \(\s*c\(\s*"lacp" \(\s*c\(/) do
-        format(['"802.3ad" (',
-                '  ca(',
-                '    "lacp" (',
-                '      c(',
-                '        "force-up",'], $1)
-      end
       str.gsub!(/^(\s*)"as-path" arg \(\s*c\(\s*arg/) do
         format(['"as-path" arg (',
                 '  c(',
                 '    quote | arg'], $1)
       end
-      str.gsub!(/^(\s*)"priority" \(\s*c\(\s*arg,\s*arg\s*\)/) do
+
+      str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
+        <<~EOS
+        rule(:regular_expression) do
+          (quote | arg).as(:arg)
+        end
+        EOS
+      end
+
+      str.gsub!(/^rule\(:login_user_object\) do\s*arg\.as\(:arg\) \(\s*c\(\s*"full-name" arg,/) do
+        <<~EOS
+        rule(:login_user_object) do
+          arg.as(:arg) (
+            sc(
+              "full-name" (quote | arg),
+        EOS
+      end
+
+      str.gsub!(/^(\s*)"location" arg,\s*"contact" arg,/) do
+        format(['"location" (quote | arg),',
+                '"contact" (quote | arg),'], $1)
+      end
+
+      str.gsub!(/^(\s*)"as-path" \(\s*c\(\s*"path" arg/) do
+        format(['"as-path" (',
+                '  c(',
+                '    "path" (quote | arg)'], $1)
+      end
+
+      #
+      # "arg" matches anything so move to the end
+      #
+      str.gsub!(/arg \| (".*")/) { "#$1 | arg" }
+      str.gsub!(/^(\s*)c\(\s*arg,$/) { "#{$1}ca(" }
+      str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
+      str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
+      str.gsub!(/^(rule\(:trace_file_type\) do\s*)ca\(/) { "#{$1}sca(" }
+
+      str.gsub!(/^(rule\(:archive_object\) do\s*)c\(/) { "#{$1}sc(" }
+      str.gsub!(/^(rule\(:server_group_type\) do\s*)c\(\s*c\(\s*arg\s*\)\s*\)/) { "#{$1}s(arg, arg)" }
+
+      str.gsub!(/^(rule\(:rib_group_inet_type\) do)\s*c\(\s*arg/) do
+        format([$1,
+                '  ca(',
+                '    a(arg, arg)'], '')
+      end
+
+      # Fix overkill
+      str.gsub!(/^(\s*)"priority" \(\s*ca\(\s*arg\s*\)/) do
         format(['"priority" (',
                 '  a(arg, arg)', $1])
       end
-      str.gsub!(/^(\s*)"path" arg \(\s*c\(\s*c\(\s*"abstract",\s*c\(\s*"loose",\s*"loose-link",\s*"strict"\s*\)\s*\)\.as\(:oneline\)/) do
+
+      #
+      # Longer pattern first
+      #
+      str.gsub!(/"cspf"(.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
+      str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
+      str.gsub!(/"inet"(.*)"inet6"/) { %["inet6"#$1"inet"] }
+      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
+      str.gsub!(/"icmp"(.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
+      str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+
+      %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
+        str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#$1"ethernet"] }
+      end
+
+      str.gsub!(/^(\s*)"path" arg \(\s*c\(\s*sc\(\s*"abstract",\s*c\(\s*"loose",\s*"loose-link",\s*"strict"\s*\)\s*\)\.as\(:oneline\)/) do
         format(['"path" arg (',
                 '  c(',
                 '    b(',
@@ -120,52 +146,51 @@ module Junoser
                 '    )', $1])
       end
 
-      str.gsub!(/^(\s*)c\(\s*\("default"\)\s*\)/) do
+      #
+      # Fix .xsd: Elements without "nokeyword" flag
+      #
+      str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
+      str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
+      str.gsub!(/\((.*) \| "vlan-id"\)/) { "(#$1 | arg)" }
+
+      %w[filename].each do |key|
+        str.gsub! %["#{key}" arg], 'arg'
+      end
+
+      # "filename" fix above leaves "arg". Move to the end
+      str.gsub!(/^(rule\(:esp_trace_file_type\) do\s*)c\(\s*arg,/) { "#{$1}ca(" }
+
+      # Fix .xsd: system processes dhcp is valid on some platforms
+      str.gsub! '"dhcp-service" (', '("dhcp-service" | "dhcp") ('
+
+      # Fix .xsd: "icmpv6" is also acceptable
+      str.gsub! '"icmp6" |', '"icmp6" | "icmpv6" |'
+
+      #
+      # Fix .xsd: "arg" is missing
+      #
+      str.gsub!(/"route-filter" (\(\s*control_route_filter_type\s*\))/) { %["route-filter" arg #{$1}.as(:oneline)] }
+      str.gsub!(/"source-address-filter" (\(\s*control_source_address_filter_type\s*\))/) { %["source-adress-filter" arg #{$1}.as(:oneline)] }
+      %w[file].each do |key|
+        str.gsub!(/^(\s*"#{key}" \(\s*)c\(\s*arg,/) { "#{$1}sca(" }
+      end
+
+      # Fix .xsd: Unnecessary "arg" is added
+      %w[exact longer orlonger].each do |key|
+        str.gsub!(/^(\s*"#{key}") arg/) { "#{$1}" }
+      end
+
+      # Fix .xsd: "ieee-802.3ad" is invalid
+      str.gsub! '"ieee-802.3ad"', '"802.3ad"'
+
+      # Fix .xsd: "class-of-service interfaces all unit * classifiers exp foo"
+      str.gsub!(/^(\s*)sc\(\s*\("default"\)\s*\)/) do
         format(['c(',
                 '  ("default" | arg)',
                 ')'], $1)
       end
 
-      str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
-        <<~EOS
-        rule(:regular_expression) do
-          (quote | arg).as(:arg)
-        end
-        EOS
-      end
-      str.gsub!(/^rule\(:login_user_object\) do\s*arg\.as\(:arg\) \(\s*c\(\s*"full-name" arg,/) do
-        <<~EOS
-        rule(:login_user_object) do
-          arg.as(:arg) (
-            sc(
-              "full-name" (quote | arg),
-        EOS
-      end
-
-      str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
-      str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
-      str.gsub!(/^(rule\(:trace_file_type\) do\s*)c\(\s*arg,/) { "#{$1}sca(" }
-      str.gsub!(/^(rule\(:archive_object\) do\s*)c\(/) { "#{$1}sc(" }
-      str.gsub!(/^(rule\(:server_group_type\) do\s*)c\(\s*c\(\s*arg\s*\)\s*\)/) { "#{$1}s(arg, arg)" }
-      str.gsub!(/^(rule\(:rib_group_inet_type\) do)\s*c\(\s*arg/) do
-        format([$1,
-                '  ca(',
-                '    a(arg, arg)'], '')
-      end
-
-      str.gsub!(/^(\s*)c\(\s*arg,$/) { "#{$1}ca(" }
-
-      str.gsub!(/^(\s*)"location" arg,\s*"contact" arg,/) do
-        format(['"location" (quote | arg),',
-                '"contact" (quote | arg),'], $1)
-      end
-
-      str.gsub!(/^(\s*)"as-path" \(\s*c\(\s*"path" arg/) do
-        format(['"as-path" (',
-                '  c(',
-                '    "path" (quote | arg)'], $1)
-      end
-
+      # Fix .xsd: "from-zone" arg is also required
       str.gsub!(/^(\s*)"policy" \(\s*s\(\s*arg,\s*"to-zone-name" arg,\s*c\(\s*"policy" \(\s*policy_type\s*\)\s*\)/) do
         format(['b(s("from-zone", arg, "to-zone", arg),',
                 '    b("policy", policy_type',
