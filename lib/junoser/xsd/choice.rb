@@ -10,9 +10,9 @@ module Junoser
         @config ||= children.map {|child|
           case child.name
           when 'element'
-            Junoser::Xsd::Element.new(child, depth: @depth+1)
+            Junoser::Xsd::Element.new(child, depth: @depth+1, parent: self)
           when 'choice'
-            Junoser::Xsd::Choice.new(child, depth: @depth+1)
+            Junoser::Xsd::Choice.new(child, depth: @depth+1, parent: self)
           else
             raise "ERROR: unknown element: #{child.name}"
           end
@@ -28,6 +28,10 @@ module Junoser
         else
           format('c(', config.map(&:to_s).join(",\n"), ')')
         end
+      end
+
+      def unbounded?
+        xml['maxOccurs'] == 'unbounded'
       end
     end
   end

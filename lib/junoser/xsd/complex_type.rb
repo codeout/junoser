@@ -18,9 +18,9 @@ module Junoser
         @config ||= children.map {|child|
           case child.name
           when 'sequence'
-            Junoser::Xsd::Sequence.new(child, depth: @depth+1)
+            Junoser::Xsd::Sequence.new(child, depth: @depth+1, parent: self)
           when 'simpleContent'
-            Junoser::Xsd::SimpleContent.new(child, depth: @depth+1)
+            Junoser::Xsd::SimpleContent.new(child, depth: @depth+1, parent: self)
           when 'attribute'
             'arg'
           else
@@ -52,7 +52,7 @@ module Junoser
       def argument
         return unless @argument
 
-        arg = Junoser::Xsd::Element.new(@argument, depth: @depth+1).config
+        arg = Junoser::Xsd::Element.new(@argument, depth: @depth+1, parent: self).config
         raise "ERROR: argument shouldn't consist of multiple elements" if arg.size > 1
 
         if root?

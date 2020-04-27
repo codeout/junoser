@@ -1,13 +1,14 @@
 module Junoser
   module Xsd
     module Base
-      attr_reader :xml
+      attr_reader :xml, :parent
 
       OFFSET = '  '
 
       def initialize(xml, options={})
         @xml = xml
         @depth = options[:depth] || 0
+        @parent = options[:parent]
       end
 
       def config
@@ -32,12 +33,12 @@ module Junoser
          ']>'].join("\n#{OFFSET*(@depth+1)}")
       end
 
-
-      private
-
       def oneliner?
         @oneliner ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="oneliner"]').empty?
       end
+
+
+      private
 
       def nokeyword?
         @nokeyword ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="nokeyword"]').empty?

@@ -9,7 +9,7 @@ module Junoser
         @config ||= children.map {|child|
           case child.name
           when 'simpleType'
-            Junoser::Xsd::SimpleType.new(child, depth: @depth+1)
+            Junoser::Xsd::SimpleType.new(child, depth: @depth+1, parent: self)
           else
             raise "ERROR: unknown element: #{child.name}"
           end

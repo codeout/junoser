@@ -17,9 +17,9 @@ module Junoser
         @config ||= children.map {|child|
           case child.name
           when 'enumeration'
-            Junoser::Xsd::Enumeration.new(child, depth: @depth+1)
+            Junoser::Xsd::Enumeration.new(child, depth: @depth+1, parent: self)
           when 'simpleType'
-            Junoser::Xsd::SimpleType.new(child, depth: @depth+1)
+            Junoser::Xsd::SimpleType.new(child, depth: @depth+1, parent: self)
           when 'attribute'
           else
             raise "ERROR: unknown element: #{child.name}"
