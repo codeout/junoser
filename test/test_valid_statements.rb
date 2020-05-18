@@ -115,6 +115,8 @@ class TestValidStatements < Test::Unit::TestCase
       set interfaces ge-0/0/0 ether-options 802.3ad ae0
       set interfaces ge-0/0/0 ether-options 802.3ad lacp force-up
       set interfaces ge-0/0/0 ether-options 802.3ad lacp port-priority 1
+
+      set policy-options prefix-list ipvX-bgp-neighbors apply-path "routing-instances <*> protocols bgp group <*> neighbor <*>"
     EOS
 
     config.split("\n").each do |l|
