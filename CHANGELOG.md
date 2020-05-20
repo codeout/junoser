@@ -35,7 +35,7 @@
 ### Added
 
 * Newly supported syntax
-  * security (by porting the hierarchy from vSRX 18.3R1.9)
+  * "security" (by porting the hierarchy from vSRX 18.3R1.9)
 
 
 ## [0.3.7] - 2019-09-03
@@ -69,9 +69,9 @@
 ### Added
 
 * Newly supported syntax
-  * protocols bgp minimum-hold-time xxx
-  * system dump-on-panic
-  * chassis fpc x pic x port x number-of-sub-ports x
+  * "protocols bgp minimum-hold-time xxx"
+  * "system dump-on-panic"
+  * "chassis fpc x pic x port x number-of-sub-ports x"
 
 
 ## [0.3.3] - 2018-10-09
@@ -121,7 +121,7 @@
 ### Added
 
 * Newly supported syntax
-  * class-of-service shared-buffer
+  * "class-of-service shared-buffer"
 
 
 ## [0.2.11] - 2017-09-07
@@ -129,15 +129,15 @@
 ### Added
 
 * Newly supported syntax
-  * forwarding-options analyzer
-  * routing-options dynamic-tunnels <name> udp
+  * "forwarding-options analyzer"
+  * "routing-options dynamic-tunnels <name> udp"
 
 
 ## [0.2.10] - 2017-08-22
 
 ### Fixed
 
-* routing-options dynamic-tunnels
+* "routing-options dynamic-tunnels"
 
 
 ## [0.2.9] - 2017-06-09
@@ -145,14 +145,14 @@
 ### Added
 
 * Newly supported syntax
-  * protocols sflow
+  * "protocols sflow"
 
 
 ## [0.2.8] - 2017-05-17
 
 ### Fixed
 
-* chassis forwarding-options
+* "chassis forwarding-options"
 
 
 ## [0.2.7] - 2017-05-01
@@ -160,9 +160,9 @@
 ### Added
 
 * Newly supported syntax
-  * system processes app-engine-virtual-machine-management-service
-  * system processes app-engine-management-service
-  * chassis fpc ? pic ? tunnel-services
+  * "system processes app-engine-virtual-machine-management-service"
+  * "system processes app-engine-management-service"
+  * "chassis fpc ? pic ? tunnel-services"
 
 
 ## [0.2.6] - 2017-04-21
@@ -170,7 +170,7 @@
 ### Added
 
 * Newly supported syntax
-  * chassis fpc ? pic ? port ? channel-speed ?
+  * "chassis fpc ? pic ? port ? channel-speed ?"
 
 ## [0.2.5] - 2017-04-18
 
@@ -184,7 +184,7 @@
 ### Added
 
 * Newly supported syntax
-  * system processes app-engine-virtual-machine-management-service traceoptions
+  * "system processes app-engine-virtual-machine-management-service traceoptions"
   * Some platforms expect "system processes dhcp", not "system processes dhcp-service"
   * "storm-control" under family bridge
 
@@ -198,8 +198,8 @@
 ### Added
 
 * Newly supported syntax
-  * chassis fpc N error
-  * forwarding-options sampling family mpls
+  * "chassis fpc N error"
+  * "forwarding-options sampling family mpls"
 
 
 ## [0.2.2] - 2016-02-15
@@ -207,7 +207,7 @@
 ### Added
 
 * Newly supported syntax
-  * system services ssh
+  * "system services ssh"
 
 ### Fixed
 
@@ -224,7 +224,7 @@
 
 ### Fixed
 
-* template-name
+* "template-name"
 
 
 ## [0.2.0] - 2015-12-26
@@ -243,30 +243,30 @@
 
 ### Fixed
 
-* 802.3ad
-* ether-options
-* storm-control default
-* vrf-target
-* maximum-prefix teardown
-* traceoptions
-* system syslog archive
-* system login user
-* routing-options confederation
-* hold-time
-* protocols ospf area x.x.x.x stub default-metric x x
-* protocols rsvp interface xxx subscription x
-* traceoptions cspf-link
-* protocols mpls priority
-* protocols mpls label-switched-path xxx primary xxx bandwidth xxx
-* protocols xxx rib-group xxx xxx
-* protocols mpls path xxx xxx
+* "802.3ad"
+* "ether-options"
+* "storm-control default"
+* "vrf-target"
+* "maximum-prefix teardown"
+* "traceoptions"
+* "system syslog archive"
+* "system login user"
+* "routing-options confederation"
+* "hold-time"
+* "protocols ospf area x.x.x.x stub default-metric x x"
+* "protocols rsvp interface xxx subscription x"
+* "traceoptions cspf-link"
+* "protocols mpls priority"
+* "protocols mpls label-switched-path xxx primary xxx bandwidth xxx"
+* "protocols xxx rib-group xxx xxx"
+* "protocols mpls path xxx xxx"
 
 
 ## [0.1.6] - 2015-10-31
 
 ### Fixed
 
-* route-filter statement should be translated into one-line
+* "route-filter" statement should be translated into one-line
 
 
 ## [0.1.5] - 2015-09-11
