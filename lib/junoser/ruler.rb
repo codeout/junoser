@@ -92,6 +92,11 @@ module Junoser
                 '    "path" (quote | arg)'], $1)
       end
 
+      str.gsub!(/^(\s*)prefix_list_items,\s*"apply-path" arg/) do
+        format(['"apply-path" (quote | arg),',
+                'prefix_list_items'], $1)
+      end
+
       #
       # "arg" matches anything so move to the end
       #
