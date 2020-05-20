@@ -1,3 +1,14 @@
+## [0.3.13] - 2020-05-20
+
+### Fixed
+
+* Accept quoted strings under
+  * "system login message"
+  * "policy-options prefix-list xxx apply-path"
+
+* <xsd:documentation/> processing during "rake build:config"
+* <xsd:sequence><xsd:choice maxOccurs="unbounded"></xsd:sequence> should be considered as a sequence
+
 ## [0.3.12] - 2020-02-06
 
 ### Fixed
