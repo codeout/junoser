@@ -60,7 +60,7 @@
 
 ### Fixed
 
-* Accept quoted string for
+* Accept quoted strings under
   * "as-path path"
 
 
@@ -78,7 +78,7 @@
 
 ### Fixed
 
-* Accept quoted string for
+* Accept quoted strings under
   * "snmp location"
   * "snmp contact"
 
