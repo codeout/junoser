@@ -28,33 +28,40 @@ $ gem install junoser
 
 ### Usage
 
-To verify configurations syntax:
+#### Syntax validation
 
 ```zsh
 $ junoser -c config.txt
-```
 
-or
+# or
 
-```zsh
 $ cat config.txt | junoser -c
 ```
 
-To translate configuration into "display set" form:
+#### Syntax translation
+
+##### Structured form into "display set"
 
 ```zsh
-$ /exe/junoser -d config.txt
+$ junoser -d config.txt
 set protocols bgp group ebgp-peers neighbor 192.0.2.2
-```
 
-or
+# or
 
-```zsh
 $ cat config.txt | junoser -d
 set protocols bgp group ebgp-peers neighbor 192.0.2.2
 ```
 
-Use ```junoser -s``` to translate into structured form.
+##### "display set" into structured form
+
+```zsh
+$ junoser -s config.txt
+
+# or
+
+$ cat config.txt | junoser -s
+```
+
 
 ## Updating parser for new directives
 
