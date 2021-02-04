@@ -14,7 +14,7 @@
 ### Fixed
 
 * "insert" statement whose last two tokens are keyword and argument, with the following single "before" (or "after") argument
-  * eg) insert protocols bgp group foo export bar insert baz
+  * eg) insert protocols bgp group foo export bar before baz
 
 ## [0.3.11] - 2020-01-28
 
