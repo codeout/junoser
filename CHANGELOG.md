@@ -9,6 +9,7 @@
 * <xsd:documentation/> processing during "rake build:config"
 * <xsd:sequence><xsd:choice maxOccurs="unbounded"></xsd:sequence> should be considered as a sequence
 
+
 ## [0.3.12] - 2020-02-06
 
 ### Fixed
@@ -16,11 +17,13 @@
 * "insert" statement whose last two tokens are keyword and argument, with the following single "before" (or "after") argument
   * eg) insert protocols bgp group foo export bar before baz
 
+
 ## [0.3.11] - 2020-01-28
 
 ### Added
 
 * junoser-squash supports "activate" statement
+
 
 ## [0.3.10] - 2020-01-27
 
@@ -34,12 +37,14 @@
 * junoser-squash unexpectedly removed "deactivate" statements
 * "deactivate" to "inactive:" translation during "junoser -s"
 
+
 ## [0.3.9] - 2019-11-17
 
 ### Fixed
 
 * security policies
 * "junoser -s" and "junoser -d" unexpectedly raises errors
+
 
 ## [0.3.8] - 2019-11-04
 
@@ -284,14 +289,14 @@
 
 ### Fixed
 
-* mistakenly processed '{' and '}' in as-path string
+* Mistakenly processed '{' and '}' in as-path string
 
 
 ## [0.1.4] - 2015-09-11
 
 ### Fixed
 
-* missing community operator in policy-statement didn't fail
+* Missing community operator in policy-statement didn't fail
 
 
 ## [0.1.3] - 2015-07-26
