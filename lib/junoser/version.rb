@@ -1,3 +1,3 @@
 module Junoser
-  VERSION = "0.3.13"
+  VERSION = "0.4.0"
 end
