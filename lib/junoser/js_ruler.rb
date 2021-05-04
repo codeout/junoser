@@ -63,8 +63,6 @@ module Junoser
 
       str.gsub! '.as(:arg)', ''
 
-      # any  ->  "any"
-
       # c(  ->  {
       str.gsub!(/^(\s*)c\(/) {"#$1{"}
 
@@ -226,9 +224,14 @@ module Junoser
       lines.gsub('"arg":') {%["arg_#{sequence}":]}
     end
 
+    # }  ->  )
     def balance_parenthesis(lines)
       # Fixes
       lines.gsub! 'Timeslots (1..24;', 'Timeslots (1..24);'
+      lines.gsub! '(such that the VLAN range is x <= range <= y.', '(such that the VLAN range is x <= range <= y).'
+      lines.gsub! '(intended primarily for use with a peer or group"', '(intended primarily for use with a peer or group)"'
+      lines.gsub! '(e.g. QSFP28 and QSFP+,', '(e.g. QSFP28 and QSFP+),'
+      lines.gsub! '(see the description of policy evaluation at the top of this module."', '(see the description of policy evaluation at the top of this module)."'
 
       count = 0
       target = nil
@@ -273,37 +276,28 @@ module Junoser
     def objectize_arg_of_s(lines)
       # s(  ->  s({
       lines.gsub!(/^( *(?:return|\S+:)? +)s\($/m) {"#$1this.s({"}
+      # sc(  ->  sc({
+      lines.gsub!(/^( *(?:return|\S+:)? +)sc\($/m) {"#$1this.sc({"}
 
       # )  ->  })
-      lines.gsub!(/^( *)\)$/m) {"#$1})"}
+      lines.gsub!(/^( *)\)(,?)$/m) {"#$1})#$2"}
 
       lines
     end
 
     def rule_header
       <<~EOS
+        /* eslint-disable semi */
+
         class Enumeration {
           constructor(list) {
             this.list = list;
-            this.children = [];
           }
+        }
 
-          map(callback) {
-            // NOTE: This is a bit hacky but assuming that it's called like "this.children.map((node) => node.name)"
-            return this.list;
-          }
-
-          find(callback) {
-            // NOTE: This is a bit hacky but assuming that it's called like "this.children.find((node) => node.name === string)"
-            return;
-          }
-
-          forEach(callback) {
-            return this.list.forEach(callback);
-          }
-
-          keywords() {
-            return this.list;
+        class Repeatable {
+          constructor(list) {
+            this.list = list;
           }
         }
 
@@ -327,6 +321,10 @@ module Junoser
             return new Sequence(list);
           }
 
+          sc(obj) {
+            return new Repeatable(obj);
+          }
+
       EOS
     end
 
@@ -335,7 +333,8 @@ module Junoser
 
         }
 
-        module.exports = {JunosSchema: JunosSchema, Enumeration: Enumeration, Sequence: Sequence};
+        // eslint-disable-next-line no-undef
+        module.exports = {JunosSchema, Enumeration, Repeatable, Sequence};
       EOS
     end
   end
