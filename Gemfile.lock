@@ -7,7 +7,9 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    nokogiri (1.11.3)
+    mini_portile2 (2.5.1)
+    nokogiri (1.11.4)
+      mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     parslet (2.0.0)
     power_assert (2.0.0)
