@@ -124,12 +124,19 @@ module Junoser
       #
       # Longer pattern first
       #
-      str.gsub!(/"cspf"(.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
-      str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
-      str.gsub!(/"inet"(.*)"inet6"/) { %["inet6"#$1"inet"] }
-      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
-      str.gsub!(/"icmp"(.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
-      str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+      # covers:
+      #   "inet" | "inet6"
+      #
+      #   and even
+      #
+      #   "inet",
+      #   "inet6"
+      str.gsub!(/"cspf"(.*\s*.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
+      str.gsub!(/"http"(.*\s*.*)"https"/) { %["https"#$1"http"] }
+      str.gsub!(/"inet"(.*\s*.*)"inet6"/) { %["inet6"#$1"inet"] }
+      str.gsub!(/"icmp"(.*\s*.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
+      str.gsub!(/"icmp"(.*\s*.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
+      str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
 
       %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
         str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#$1"ethernet"] }
