@@ -209,6 +209,9 @@ module Junoser
                ], $1)
       end
 
+      # Fix .xsd: "members" accepts [ foo bar ]
+      str.gsub! '"members" arg', '"members" any'
+
       str
     end
 
