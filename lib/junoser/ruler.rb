@@ -241,7 +241,7 @@ module Junoser
 
       begin
         # .xsd doesn't include "apply-groups"
-        if line =~ /(.*)\\s+apply-groups\\s+(\\S+|\\[.*\\])$/
+        if line =~ /(.*)\\s+apply-groups(-except)?\\s+(\\S+|\\[.*\\])$/
           return \$1 == 'set' ? true : parse(\$1)
         end
 

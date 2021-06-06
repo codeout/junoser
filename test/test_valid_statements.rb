@@ -122,6 +122,10 @@ class TestValidStatements < Test::Unit::TestCase
       set protocols isis source-packet-routing mapping-server foo
       set protocols ldp sr-mapping-client
       set routing-options source-packet-routing mapping-server-entry foo prefix-segment 10.0.0.1/32 index 1
+
+      set forwarding-options rpf-loose-mode-discard family inet6
+      set policy-options policy-statement BGP_Customer_out term aggregates6 from protocol ospf3
+      set policy-options policy-statement BGP_aggregate_contributors term internal_only from protocol ospf3
     EOS
 
     config.split("\n").each do |l|

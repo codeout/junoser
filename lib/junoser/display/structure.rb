@@ -49,7 +49,7 @@ module Junoser
       private
 
       def trim_apply_groups(line)
-        line.gsub! /\s+(apply-groups\s+.*)/, ''
+        line.gsub! /\s+(apply-groups(-except)?\s+.*)/, ''
         return $1
       end
     end
