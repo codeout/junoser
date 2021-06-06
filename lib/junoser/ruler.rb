@@ -14,9 +14,8 @@ module Junoser
       str = @rule.read
       str = remove_comments(str)
       str = process_reserved_element(str)
-      str = str.split(/\n/).map {|l| format(process_line(l)) }.join("\n")
+      str = str.split(/\n/).map { |l| format(process_line(l)) }.join("\n")
     end
-
 
     private
 
@@ -27,16 +26,16 @@ module Junoser
     def process_line(str)
       return str if str =~ /^(.* do|end)$/
 
-      str.gsub!(/("[^"]+")/) { "str(#$1)" }  # "foo" -> str("foo")
+      str.gsub!(/("[^"]+")/) { "str(#$1)" } # "foo" -> str("foo")
 
-      str.gsub!(/^(\s*)arg(\.as\(:\S+\))? \($/) { "#{$1}b(arg#$2," }  # arg ( -> b(arg,
-      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+)(\.as\(:\S+\))?(,?)$/) { "#{$1}a(#$2, #$3)#$4#$5" }  # str("foo") bar -> a(str("foo"), bar)
-      str.gsub!(/^(\s*)(str\(\S+\)) (enum)?\((.*)\)(,?)$/) { "#{$1}a(#$2, #$3#$4)#$5" }  # str("foo") (a | b) -> a(str("foo"), a | b)
+      str.gsub!(/^(\s*)arg(\.as\(:\S+\))? \($/) { "#{$1}b(arg#$2," } # arg ( -> b(arg,
+      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+)(\.as\(:\S+\))?(,?)$/) { "#{$1}a(#$2, #$3)#$4#$5" } # str("foo") bar -> a(str("foo"), bar)
+      str.gsub!(/^(\s*)(str\(\S+\)) (enum)?\((.*)\)(,?)$/) { "#{$1}a(#$2, #$3#$4)#$5" } # str("foo") (a | b) -> a(str("foo"), a | b)
 
-      str.gsub!(/^(\s*)(str\(\S+\)) \($/) { "#{$1}b(#$2," }  # str("foo") ( -> b(str("foo"),
-      str.gsub!(/^(\s*)(enum)?(\(.*\))(\.as\(:\S\))? \($/) { "#{$1}b(#$2#$3#$4," }  # (a | b) ( -> b((a | b),
-      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+) \($/) { "#{$1}b(a(#$2, #$3)," }  # str("foo") bar ( -> b(a(str("foo"), bar),
-      str.gsub!(/^(\s*)(str\(\S+\)) (enum)?\((.*)\) \($/) { "#{$1}a(#$2, #$3#$4," }  # str("foo") (a | b) ( -> a(str("foo"), a | b,
+      str.gsub!(/^(\s*)(str\(\S+\)) \($/) { "#{$1}b(#$2," } # str("foo") ( -> b(str("foo"),
+      str.gsub!(/^(\s*)(enum)?(\(.*\))(\.as\(:\S\))? \($/) { "#{$1}b(#$2#$3#$4," } # (a | b) ( -> b((a | b),
+      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+) \($/) { "#{$1}b(a(#$2, #$3)," } # str("foo") bar ( -> b(a(str("foo"), bar),
+      str.gsub!(/^(\s*)(str\(\S+\)) (enum)?\((.*)\) \($/) { "#{$1}a(#$2, #$3#$4," } # str("foo") (a | b) ( -> a(str("foo"), a | b,
 
       str
     end
@@ -66,18 +65,18 @@ module Junoser
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
         <<~EOS
-        rule(:regular_expression) do
-          (quote | arg).as(:arg)
-        end
+          rule(:regular_expression) do
+            (quote | arg).as(:arg)
+          end
         EOS
       end
 
       str.gsub!(/^rule\(:login_user_object\) do\s*arg\.as\(:arg\) \(\s*c\(\s*"full-name" arg,/) do
         <<~EOS
-        rule(:login_user_object) do
-          arg.as(:arg) (
-            sc(
-              "full-name" (quote | arg),
+          rule(:login_user_object) do
+            arg.as(:arg) (
+              sc(
+                "full-name" (quote | arg),
         EOS
       end
 
@@ -124,12 +123,20 @@ module Junoser
       #
       # Longer pattern first
       #
-      str.gsub!(/"cspf"(.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
-      str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
-      str.gsub!(/"inet"(.*)"inet6"/) { %["inet6"#$1"inet"] }
-      str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
-      str.gsub!(/"icmp"(.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
-      str.gsub!(/"snmp"(.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+      # covers:
+      #   "inet" | "inet6"
+      #
+      #   and even
+      #
+      #   "inet",
+      #   "inet6"
+      str.gsub!(/"cspf"(.*\s*.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
+      str.gsub!(/"http"(.*\s*.*)"https"/) { %["https"#$1"http"] }
+      str.gsub!(/"inet"(.*\s*.*)"inet6"/) { %["inet6"#$1"inet"] }
+      str.gsub!(/"icmp"(.*\s*.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
+      str.gsub!(/"icmp"(.*\s*.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
+      str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
+      str.gsub!(/"ospf"(.*\s*.*)"ospf3"/) { %["ospf3"#$1"ospf"] }
 
       %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
         str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#$1"ethernet"] }
@@ -205,12 +212,12 @@ module Junoser
       str
     end
 
-    def format(str, offset=OFFSET)
+    def format(str, offset = OFFSET)
       case str
       when String
         str.empty? ? '' : offset + str
       when Array
-        str.map {|s| s.empty? ? '' : offset + s.to_s }.join("\n")
+        str.map { |s| s.empty? ? '' : offset + s.to_s }.join("\n")
       end
     end
 
