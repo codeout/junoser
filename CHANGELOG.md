@@ -1,3 +1,18 @@
+## [0.4.1] - 2021-06-06
+
+### Added
+
+* Newly supported syntax
+  * "apply-groups-except"
+
+### Fixed
+
+* "scpf-link", "https", "inet6", "icmp6", "icmpv6", "ospf3", and "snmptrap" keywords might be marked as invalid in some hierarchies
+* "policy-options community xxx members"
+* "policy-options route-distinguisher xxx members"
+* "routing-options confederation members"
+
+
 ## [0.4.0] - 2021-05-02
 
 ### Added
