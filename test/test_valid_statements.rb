@@ -126,6 +126,8 @@ class TestValidStatements < Test::Unit::TestCase
       set forwarding-options rpf-loose-mode-discard family inet6
       set policy-options policy-statement BGP_Customer_out term aggregates6 from protocol ospf3
       set policy-options policy-statement BGP_aggregate_contributors term internal_only from protocol ospf3
+
+      set virtual-chassis vcp-snmp-statistics
     EOS
 
     config.split("\n").each do |l|
