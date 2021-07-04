@@ -130,6 +130,8 @@ class TestValidStatements < Test::Unit::TestCase
       set virtual-chassis vcp-snmp-statistics
 
       set services ssl initiation profile syslog-tls-profile protocol-version tls12
+
+      set applications application idrac-app1 term t1 protocol tcp destination-port 5900
     EOS
 
     config.split("\n").each do |l|

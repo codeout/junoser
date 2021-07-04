@@ -213,6 +213,9 @@ module Junoser
       # Fix .xsd: "members" accepts [ foo bar ]
       str.gsub! '"members" arg', '"members" any'
 
+      # Fix .xsd: "term_object" accepts multiple conditions
+      str.gsub!(/^(rule\(:term_object\) do\s*arg\.as\(:arg\) \(\s*)c\(/) { "#{$1}sc(" }
+
       str
     end
 
