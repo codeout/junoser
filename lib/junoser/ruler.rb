@@ -137,6 +137,7 @@ module Junoser
       str.gsub!(/"icmp"(.*\s*.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
       str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
       str.gsub!(/"ospf"(.*\s*.*)"ospf3"/) { %["ospf3"#$1"ospf"] }
+      str.gsub! '"tls1" | "tls11" | "tls12"', '"tls11" | "tls12" | "tls1"'
 
       %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
         str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#$1"ethernet"] }
