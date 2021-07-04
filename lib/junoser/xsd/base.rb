@@ -34,14 +34,16 @@ module Junoser
       end
 
       def oneliner?
-        @oneliner ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="oneliner"]').empty?
+        # don't use "/flag" as xsd manipulation automatically add "xsd:" prefix
+        @oneliner ||= !xml.xpath('./xsd:annotation/xsd:appinfo/*[local-name()="flag" and text()="oneliner"]').empty?
       end
 
 
       private
 
       def nokeyword?
-        @nokeyword ||= !xml.xpath('./xsd:annotation/xsd:appinfo/flag[text()="nokeyword"]').empty?
+        # don't use "/flag" as xsd manipulation automatically add "xsd:" prefix
+        @nokeyword ||= !xml.xpath('./xsd:annotation/xsd:appinfo/*[local-name()="flag" and text()="nokeyword"]').empty?
       end
 
       def has_single_child_of?(klass)
