@@ -132,6 +132,10 @@ class TestValidStatements < Test::Unit::TestCase
       set services ssl initiation profile syslog-tls-profile protocol-version tls12
 
       set applications application idrac-app1 term t1 protocol tcp destination-port 5900
+
+      set security log stream syslog-tls-stream host port 6514
+      set security log stream syslog-tls-stream-eqiad host port 6514
+      set security address-book global address pypi.python.org dns-name pypi.python.org
     EOS
 
     config.split("\n").each do |l|
