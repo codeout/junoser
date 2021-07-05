@@ -394,7 +394,7 @@ rule(:configuration) do
                                             ("http-get" | "http-metadata-get" | "icmp-ping" | "icmp-ping-timestamp" | "icmp6-ping" | "tcp-ping" | "udp-ping" | "udp-ping-timestamp")
                                           ),
                                           "target" (  /* Target destination for probe */
-                                              c(
+                                              sc(
                                                   c(
                                                     "address" (  /* Address of target host */
                                                       ipv4addr  /* Address of target host */
@@ -759,7 +759,7 @@ rule(:configuration) do
                                               )
                                           ),
                                           "syslog" enum(("any" | "authorization" | "privileged" | "cron" | "daemon" | "kernel" | "syslog" | "user" | "uucp" | "local0" | "local1" | "local2" | "local3" | "local4" | "local5" | "local6" | "local7")) (  /* System logging facility */
-                                              c(
+                                              sc(
                                                   c(
                                                     "any"  /* All levels */,
                                                     "emergency"  /* Panic conditions */,
@@ -877,7 +877,7 @@ rule(:configuration) do
                                               )
                                           ),
                                           "secondary-disk" ("hdb" | "hdc" | "hdd") (  /* Virtual-machine disk */
-                                              c(
+                                              sc(
                                                   "size" arg  /* Virtual-machine secondary disk size */
                                               )
                                           ).as(:oneline)
@@ -916,7 +916,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -1123,7 +1123,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -1165,7 +1165,7 @@ rule(:configuration) do
                   "screen" (  /* Configure screen feature */
                       c(
                           "trap" (  /* Configure trap interval */
-                              c(
+                              sc(
                                   "interval" arg  /* Trap interval */
                               )
                           ).as(:oneline),
@@ -1176,7 +1176,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -1435,7 +1435,7 @@ rule(:configuration) do
                                       c(
                                           "no-remote-trace"  /* Disable remote tracing */,
                                           "file" (  /* Trace file information */
-                                              c(
+                                              sc(
                                                     arg,
                                                   "size" arg  /* Maximum trace file size */,
                                                   "files" arg  /* Maximum number of trace files */,
@@ -1510,7 +1510,7 @@ rule(:configuration) do
                                       c(
                                           "no-remote-trace"  /* Disable remote tracing */,
                                           "file" (  /* Trace file information */
-                                              c(
+                                              sc(
                                                     arg,
                                                   "size" arg  /* Maximum trace file size */,
                                                   "files" arg  /* Maximum number of trace files */,
@@ -1591,7 +1591,7 @@ rule(:configuration) do
                                       c(
                                           "no-remote-trace"  /* Disable remote tracing */,
                                           "file" (  /* Trace file information */
-                                              c(
+                                              sc(
                                                     arg,
                                                   "size" arg  /* Maximum trace file size */,
                                                   "files" arg  /* Maximum number of trace files */,
@@ -1657,7 +1657,7 @@ rule(:configuration) do
                                       c(
                                           "no-remote-trace"  /* Disable remote tracing */,
                                           "file" (  /* Trace file information */
-                                              c(
+                                              sc(
                                                     arg,
                                                   "size" arg  /* Maximum trace file size */,
                                                   "files" arg  /* Maximum number of trace files */,
@@ -1697,7 +1697,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -1837,7 +1837,7 @@ rule(:configuration) do
               )
           ),
           "access-profile" (  /* Access profile for this instance */
-              c(
+              sc(
                   arg  /* Profile name */
               )
           ).as(:oneline),
@@ -2039,7 +2039,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -2331,7 +2331,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -2515,7 +2515,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -2579,7 +2579,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -2665,7 +2665,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -2808,7 +2808,7 @@ rule(:configuration) do
                           "traceoptions" (  /* Data-plane firewall authentication tracing options */
                               c(
                                   "flag" enum(("authentication" | "proxy" | "all")) (  /* Events to include in trace output */
-                                      c(
+                                      sc(
                                           c(
                                             "terse"  /* Include terse amount of output in trace */,
                                             "detail"  /* Include detailed amount of output in trace */,
@@ -2823,7 +2823,7 @@ rule(:configuration) do
                   "screen" (  /* Configure screen feature */
                       c(
                           "trap" (  /* Configure trap interval */
-                              c(
+                              sc(
                                   "interval" arg  /* Trap interval */
                               )
                           ).as(:oneline),
@@ -2834,7 +2834,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -2898,7 +2898,7 @@ rule(:configuration) do
                           "traceoptions" (  /* Traceoptions for resource manager */
                               c(
                                   "flag" enum(("client" | "group" | "resource" | "gate" | "session" | "chassis cluster" | "messaging" | "service pinhole" | "error" | "all")) (  /* Resource manager objects and events to include in trace */
-                                      c(
+                                      sc(
                                           c(
                                             "terse"  /* Set trace verbosity level to terse */,
                                             "detail"  /* Set trace verbosity level to detail */,
@@ -2919,7 +2919,7 @@ rule(:configuration) do
                       c(
                           "no-remote-trace"  /* Disable remote tracing */,
                           "file" (  /* Trace file information */
-                              c(
+                              sc(
                                     arg,
                                   "size" arg  /* Maximum trace file size */,
                                   "files" arg  /* Maximum number of trace files */,
@@ -2940,7 +2940,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -2954,7 +2954,7 @@ rule(:configuration) do
                               )
                           ),
                           "capture-file" (  /* Packet capture options */
-                              c(
+                              sc(
                                   arg  /* Capture file name */,
                                   "format" (  /* Capture file format */
                                     ("pcap")
@@ -2980,7 +2980,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -3028,7 +3028,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -3721,7 +3721,7 @@ rule(:configuration) do
                                       c(
                                           "no-remote-trace"  /* Disable remote tracing */,
                                           "file" (  /* Trace file information */
-                                              c(
+                                              sc(
                                                     arg,
                                                   "size" arg  /* Maximum trace file size */,
                                                   "files" arg  /* Maximum number of trace files */,
@@ -3787,14 +3787,14 @@ rule(:configuration) do
                                           "limit" (  /* Packet limits */
                                               c(
                                                   "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "others" | arg)) (  /* Payload Rate limit */
-                                                      c(
+                                                      sc(
                                                           "rate" arg  /* Rate limit */
                                                       )
                                                   ).as(:oneline),
                                                   "address" arg (  /* Rate limit for a list of IP addresses */
                                                       c(
                                                           "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "others" | arg)) (  /* Payload Rate limit */
-                                                              c(
+                                                              sc(
                                                                   "rate" arg  /* Rate limit */
                                                               )
                                                           ).as(:oneline)
@@ -3842,7 +3842,7 @@ rule(:configuration) do
                                       c(
                                           "no-remote-trace"  /* Disable remote tracing */,
                                           "file" (  /* Trace file information */
-                                              c(
+                                              sc(
                                                     arg,
                                                   "size" arg  /* Maximum trace file size */,
                                                   "files" arg  /* Maximum number of trace files */,
@@ -3912,7 +3912,7 @@ rule(:configuration) do
                       c(
                           "no-remote-trace"  /* Disable remote tracing */,
                           "file" (  /* Trace file information */
-                              c(
+                              sc(
                                     arg,
                                   "size" arg  /* Maximum trace file size */,
                                   "files" arg  /* Maximum number of trace files */,
@@ -3924,7 +3924,7 @@ rule(:configuration) do
                               )
                           ).as(:oneline),
                           "flag" enum(("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events" | "bfd-events" | "lib-events" | "reserved" | "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "informational" | "debugging" | "verbose" | "japi")) (  /* Tracing parameters */
-                              c(
+                              sc(
                                   "disable"  /* Disable this trace flag */
                               )
                           ).as(:oneline)
@@ -3934,7 +3934,7 @@ rule(:configuration) do
                       c(
                           "member" arg  /* Interfaces belonging to the interface range */,
                           "member-range" arg (  /* Interfaces range in <start-range> to <end-range> format */
-                              c(
+                              sc(
                                   "end-range" (
                                     interface_device
                                   )
@@ -3986,7 +3986,7 @@ rule(:configuration) do
                             "no-per-unit-scheduler"  /* Don't enable subunit queuing on Frame Relay or VLAN IQ interface */,
                             "shared-scheduler"  /* Enabled shared queuing on an IQ2 interface */,
                             "hierarchical-scheduler" (  /* Enable hierarchical scheduling */
-                                c(
+                                sc(
                                     "maximum-hierarchy-levels" arg  /* Maximum hierarchy levels */,
                                     "maximum-l2-nodes" arg  /* Maximum l2 nodes, allowed numbers are power of 2 between 1 and 16k (needs FPC reboot) */,
                                     "maximum-l3-nodes" arg  /* Maximum l3 nodes, allowed numbers are power of 2 between 2 and 32k (needs FPC reboot) */,
@@ -4017,7 +4017,7 @@ rule(:configuration) do
                           ),
                           "mtu" arg  /* Maximum transmit packet size */,
                           "hold-time" (  /* Hold time for link up and link down */
-                              c(
+                              sc(
                                   "up" arg  /* Link up hold time */,
                                   "down" arg  /* Link down hold time */
                               )
@@ -4095,7 +4095,7 @@ rule(:configuration) do
                             multi_chassis_protection_group  /* Inter-Chassis protection configuration */
                           ),
                           "clocking" (  /* Interface clock source */
-                              c(
+                              sc(
                                   c(
                                     "internal"  /* Clocking provided by local system */,
                                     "external" (  /* Clocking provided by DCE (loop timing) */
@@ -4227,7 +4227,7 @@ rule(:configuration) do
                                             dcd_shaping_config  /* Virtual path traffic-shaping options */
                                           ),
                                           "oam-period" (  /* F4 OAM cell period */
-                                              c(
+                                              sc(
                                                   c(
                                                       arg,
                                                     "disable"  /* Disable F4 OAM loopback */.as(:oneline)
@@ -4244,7 +4244,7 @@ rule(:configuration) do
                                   ),
                                   "ilmi"  /* Enable Interim Local Management Interface */,
                                   "linear-red-profiles" arg (  /* ATM2 CoS virtual circuit drop profiles */
-                                      c(
+                                      sc(
                                           "queue-depth" arg  /* Maximum queue depth */,
                                           "high-plp-threshold" arg  /* Fill level percentage when linear RED is applied for high PLP */,
                                           "low-plp-threshold" arg  /* Fill level percentage when linear RED is applied for low PLP */,
@@ -4263,7 +4263,7 @@ rule(:configuration) do
                                                     ("low" | "high")
                                                   ),
                                                   "transmit-weight" (  /* Transmit weight */
-                                                      c(
+                                                      sc(
                                                           c(
                                                             "percent" arg  /* Transmit weight as percentage */,
                                                             "cells" arg  /* Transmit weight by cells count */
@@ -4361,7 +4361,7 @@ rule(:configuration) do
                                       )
                                   ),
                                   "ignore-errors" (  /* Ignore anomalies or errors */
-                                      c(
+                                      sc(
                                           "tcp"  /* TCP protocol errors */,
                                           "alg"  /* ALG anomalies or errors */
                                       )
@@ -4375,45 +4375,45 @@ rule(:configuration) do
                                           "filter" (  /* Filtering options for the packet capture */
                                               c(
                                                   "source-ip" (  /* Filter based on source-ip (and wildcard) */
-                                                      c(
-                                                            ipaddr  /* Source IP */,
+                                                      sc(
                                                           "wildcard" (  /* Source IP wildcard */
                                                             ipaddr  /* Source IP wildcard */
-                                                          )
+                                                          ),
+                                                            ipaddr  /* Source IP */
                                                       )
                                                   ).as(:oneline),
                                                   "dest-ip" (  /* Filter based on dest-ip (and wildcard) */
-                                                      c(
-                                                            ipaddr  /* Dest IP */,
+                                                      sc(
                                                           "wildcard" (  /* Dest IP wildcard */
                                                             ipaddr  /* Dest IP wildcard */
-                                                          )
+                                                          ),
+                                                            ipaddr  /* Dest IP */
                                                       )
                                                   ).as(:oneline),
                                                   "sw-sip" (  /* Filter based on source softwire ip (and wildcard) */
-                                                      c(
-                                                            ipv6addr  /* Source softwire IP */,
+                                                      sc(
                                                           "wildcard" (  /* Source IP wildcard */
                                                             ipv6addr  /* Source IP wildcard */
-                                                          )
+                                                          ),
+                                                            ipv6addr  /* Source softwire IP */
                                                       )
                                                   ).as(:oneline),
                                                   "sw-dip" (  /* Filter based on destination softwire ip (and wildcard) */
-                                                      c(
-                                                            ipaddr  /* Destination softwire IP */,
+                                                      sc(
                                                           "wildcard" (  /* Destination IP wildcard */
                                                             ipaddr  /* Destination IP wildcard */
-                                                          )
+                                                          ),
+                                                            ipaddr  /* Destination softwire IP */
                                                       )
                                                   ).as(:oneline),
                                                   "sport-range" (  /* Filter based on source port */
-                                                      c(
+                                                      sc(
                                                           "low" arg  /* Source port range start */,
                                                           "high" arg  /* Source port range end */
                                                       )
                                                   ).as(:oneline),
                                                   "dport-range" (  /* Filter based on destination port */
-                                                      c(
+                                                      sc(
                                                           "low" arg  /* Destination port range start */,
                                                           "high" arg  /* Destination port range end */
                                                       )
@@ -4439,30 +4439,30 @@ rule(:configuration) do
                                   "unframed"  /* Enable unframed mode */,
                                   "no-unframed"  /* Don't enable unframed mode */,
                                   "compatibility-mode" (  /* Set CSU compatibility mode */
-                                      c(
+                                      sc(
                                           c(
                                             "larscom" (  /* Compatible with Larscom CSU */
-                                                c(
+                                                sc(
                                                     "subrate" arg  /* Set subrate value */
                                                 )
                                             ).as(:oneline),
                                             "verilink" (  /* Compatible with Verilink CSU (not on 2/4-port T3 PIC) */
-                                                c(
+                                                sc(
                                                     "subrate" arg  /* Set subrate value */
                                                 )
                                             ).as(:oneline),
                                             "adtran" (  /* Compatible with Adtran CSU (not on 2/4-port T3 PIC) */
-                                                c(
+                                                sc(
                                                     "subrate" arg  /* Set subrate value */
                                                 )
                                             ).as(:oneline),
                                             "kentrox" (  /* Compatible with Kentrox CSU */
-                                                c(
+                                                sc(
                                                     "subrate" arg  /* Set subrate value (not on 2/4-port T3 PIC) */
                                                 )
                                             ).as(:oneline),
                                             "digital-link" (  /* Compatible with Digital Link CSU */
-                                                c(
+                                                sc(
                                                     "subrate" (  /* Set subrate value */
                                                       ("301Kb" | "601Kb" | "902Kb" | "1.2Mb" | "1.5Mb" | "1.8Mb" | "2.1Mb" | "2.4Mb" | "2.7Mb" | "3.0Mb" | "3.3Mb" | "3.6Mb" | "3.9Mb" | "4.2Mb" | "4.5Mb" | "4.8Mb" | "5.1Mb" | "5.4Mb" | "5.7Mb" | "6.0Mb" | "6.3Mb" | "6.6Mb" | "6.9Mb" | "7.2Mb" | "7.5Mb" | "7.8Mb" | "8.1Mb" | "8.4Mb" | "8.7Mb" | "9.0Mb" | "9.3Mb" | "9.6Mb" | "9.9Mb" | "10.2Mb" | "10.5Mb" | "10.8Mb" | "11.1Mb" | "11.4Mb" | "11.7Mb" | "12.0Mb" | "12.3Mb" | "12.6Mb" | "12.9Mb" | "13.2Mb" | "13.5Mb" | "13.8Mb" | "14.1Mb" | "14.4Mb" | "14.7Mb" | "15.0Mb" | "15.3Mb" | "15.6Mb" | "15.9Mb" | "16.2Mb" | "16.5Mb" | "16.8Mb" | "17.1Mb" | "17.4Mb" | "17.7Mb" | "18.0Mb" | "18.3Mb" | "18.6Mb" | "18.9Mb" | "19.2Mb" | "19.5Mb" | "19.8Mb" | "20.1Mb" | "20.5Mb" | "20.8Mb" | "21.1Mb" | "21.4Mb" | "21.7Mb" | "22.0Mb" | "22.3Mb" | "22.6Mb" | "22.9Mb" | "23.2Mb" | "23.5Mb" | "23.8Mb" | "24.1Mb" | "24.4Mb" | "24.7Mb" | "25.0Mb" | "25.3Mb" | "25.6Mb" | "25.9Mb" | "26.2Mb" | "26.5Mb" | "26.8Mb" | "27.1Mb" | "27.4Mb" | "27.7Mb" | "28.0Mb" | "28.3Mb" | "28.6Mb" | "28.9Mb" | "29.2Mb" | "29.5Mb" | "29.8Mb" | "30.1Mb" | "30.4Mb" | "30.7Mb" | "31.0Mb" | "31.3Mb" | "31.6Mb" | "31.9Mb" | "32.2Mb" | "32.5Mb" | "32.8Mb" | "33.1Mb" | "33.4Mb" | "33.7Mb" | "34.0Mb" | "34.3Mb" | "34.6Mb" | "34.9Mb" | "35.2Mb" | "35.5Mb" | "35.8Mb" | "36.1Mb" | "36.4Mb" | "36.7Mb" | "37.0Mb" | "37.3Mb" | "37.6Mb" | "37.9Mb" | "38.2Mb" | "38.5Mb" | "38.8Mb" | "39.1Mb" | "39.4Mb" | "39.7Mb" | "40.0Mb" | "40.3Mb" | "40.6Mb" | "40.9Mb" | "41.2Mb" | "41.5Mb" | "41.8Mb" | "42.1Mb" | "42.4Mb" | "42.7Mb" | "43.0Mb" | "43.3Mb" | "43.6Mb" | "43.9Mb" | "44.2Mb")
                                                     )
@@ -4505,18 +4505,18 @@ rule(:configuration) do
                                   "unframed"  /* Enable unframed mode */,
                                   "no-unframed"  /* Don't enable unframed mode */,
                                   "compatibility-mode" (  /* Set CSU compatibility mode */
-                                      c(
+                                      sc(
                                           c(
                                             "larscom"  /* Compatible with Larscom CSU (only non IQ E3 interfaces) */,
                                             "digital-link" (  /* Compatible with Digital Link CSU */
-                                                c(
+                                                sc(
                                                     "subrate" (  /* Set subrate value */
                                                       ("358Kb" | "716Kb" | "1.1Mb" | "1.4Mb" | "1.8Mb" | "2.1Mb" | "2.5Mb" | "2.9Mb" | "3.2Mb" | "3.6Mb" | "3.9Mb" | "4.3Mb" | "4.7Mb" | "5.0Mb" | "5.4Mb" | "5.7Mb" | "6.1Mb" | "6.4Mb" | "6.8Mb" | "7.2Mb" | "7.5Mb" | "7.9Mb" | "8.2Mb" | "8.6Mb" | "9.0Mb" | "9.3Mb" | "9.7Mb" | "10.0Mb" | "10.4Mb" | "10.7Mb" | "11.1Mb" | "11.5Mb" | "11.8Mb" | "12.2Mb" | "12.5Mb" | "12.9Mb" | "13.2Mb" | "13.6Mb" | "14.0Mb" | "14.3Mb" | "14.7Mb" | "15.0Mb" | "15.4Mb" | "15.8Mb" | "16.1Mb" | "16.5Mb" | "16.8Mb" | "17.2Mb" | "17.5Mb" | "17.9Mb" | "18.3Mb" | "18.6Mb" | "19.0Mb" | "19.3Mb" | "19.7Mb" | "20.0Mb" | "20.4Mb" | "20.8Mb" | "21.1Mb" | "21.5Mb" | "21.8Mb" | "22.2Mb" | "22.6Mb" | "22.9Mb" | "23.3Mb" | "23.6Mb" | "24.0Mb" | "24.3Mb" | "24.7Mb" | "25.1Mb" | "25.4Mb" | "25.8Mb" | "26.1Mb" | "26.5Mb" | "26.9Mb" | "27.2Mb" | "27.6Mb" | "27.9Mb" | "28.3Mb" | "28.6Mb" | "29.0Mb" | "29.4Mb" | "29.7Mb" | "30.1Mb" | "30.4Mb" | "30.8Mb" | "31.1Mb" | "31.5Mb" | "31.9Mb" | "32.2Mb" | "32.6Mb" | "32.9Mb" | "33.3Mb" | "33.7Mb" | "34.0Mb")
                                                     )
                                                 )
                                             ).as(:oneline),
                                             "kentrox" (  /* Compatible with Kentrox CSU */
-                                                c(
+                                                sc(
                                                     "subrate" arg  /* Set subrate value (only for E3 IQ interfaces) */
                                                 )
                                             ).as(:oneline)
@@ -4655,7 +4655,7 @@ rule(:configuration) do
                                         c(
                                             "ignore-all"  /* Ignore all control leads */,
                                             "dtr" (  /* Data Transmit Ready signal handling */
-                                                c(
+                                                sc(
                                                     c(
                                                       "assert"  /* Assert DTR signal */,
                                                       "de-assert"  /* Deassert DTR signal */,
@@ -4797,7 +4797,7 @@ rule(:configuration) do
                                               )
                                           ),
                                           "recovery-timeout" (  /* Recovery timeout for this interface */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -4868,7 +4868,7 @@ rule(:configuration) do
                                   c(
                                     "no-auto-negotiation"  /* Disable auto-negotiation */,
                                     "auto-negotiation" (  /* Enable auto-negotiation */
-                                        c(
+                                        sc(
                                             "remote-fault" (
                                               ("local-interface-offline" | "local-interface-online")
                                             )
@@ -5055,7 +5055,7 @@ rule(:configuration) do
                                               )
                                           ),
                                           "fec-ber" (  /* Optics Errored Seconds Threshold crossing defect trigger */
-                                              c(
+                                              sc(
                                                   "enable-tca"  /* Enable the Optics errored seconds threshold crossing alert */,
                                                   "no-enable-tca"  /* Don't enable the Optics errored seconds threshold crossing alert */,
                                                   "threshold" arg  /* TCA threshold for BER value in format: xe-n, x is an integer or decimal number, n = 0..9 */,
@@ -5497,7 +5497,7 @@ rule(:configuration) do
                                   "redundancy" (  /* Container interface redundancy options */
                                       c(
                                           "hold-time" (  /* Hold time for link up and link down */
-                                              c(
+                                              sc(
                                                   "up" arg  /* Link up hold time */,
                                                   "down" arg  /* Link down hold time */
                                               )
@@ -5530,7 +5530,7 @@ rule(:configuration) do
                                   "proxy-macip-advertisement"  /* Proxy advertisement of type 2 MAC+IP route for EVPN */,
                                   "virtual-gateway-accept-data"  /* Accept packets destined for virtual gateway address */,
                                   "peer-psd" (  /* Peer psd */
-                                      c(
+                                      sc(
                                           arg  /* Peer psd name */
                                       )
                                   ).as(:oneline),
@@ -5584,7 +5584,7 @@ rule(:configuration) do
                                   "routing-services"  /* Enable routing services */,
                                   "no-routing-services"  /* Don't enable routing services */,
                                   "arp-resp" (  /* Knob to control ARP response on the interface, default is restricted */
-                                      c(
+                                      sc(
                                           c(
                                             "unrestricted"  /* Enable unrestricted ARP respone on the interface */,
                                             "restricted"  /* Enable restricted proxy ARP response on the interface */
@@ -5592,7 +5592,7 @@ rule(:configuration) do
                                       )
                                   ).as(:oneline),
                                   "proxy-arp" (  /* Enable proxy ARP on the interface, default is unrestricted */
-                                      c(
+                                      sc(
                                           c(
                                             "unrestricted"  /* Enable unrestricted proxy ARP on the interface */,
                                             "restricted"  /* Enable restricted proxy ARP on the interface */
@@ -5608,7 +5608,7 @@ rule(:configuration) do
                                     "vlan-id-list" arg  /* List of VLAN identifiers */,
                                     "vlan-tag" arg  /* IEEE 802.1q tag list for VLAN tagged frames */,
                                     "vlan-tags" (  /* IEEE 802.1q tags */
-                                        c(
+                                        sc(
                                             "outer" (  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */
                                               ("$junos-stacked-vlan-id" | "$junos-vlan-id" | arg)
                                             ),
@@ -5659,7 +5659,7 @@ rule(:configuration) do
                                     "psn-vpi" arg  /* PSN VPI */
                                   ),
                                   "atm-l2circuit-mode" (  /* Select ATM Layer 2 circuit transport mode */
-                                      c(
+                                      sc(
                                           c(
                                             "cell"  /* ATM Layer 2 circuit cell mode */,
                                             "aal5"  /* ATM Layer 2 circuit AAL5 mode */
@@ -5667,7 +5667,7 @@ rule(:configuration) do
                                       )
                                   ).as(:oneline),
                                   "vci-range" (  /* ATM VCI range start <start-vci> end <end-vci> */
-                                      c(
+                                      sc(
                                           "start" arg  /* ATM VCI range's start value */,
                                           "end" arg  /* ATM VCI range's end value */
                                       )
@@ -5680,7 +5680,7 @@ rule(:configuration) do
                                     dcd_shaping_config  /* Virtual circuit traffic-shaping options */
                                   ),
                                   "oam-period" (  /* OAM cell period */
-                                      c(
+                                      sc(
                                           c(
                                               arg,
                                             "disable"  /* Disable F5 OAM loopback */.as(:oneline)
@@ -5744,13 +5744,13 @@ rule(:configuration) do
                                                     ("q0" | "q1" | "q2" | "q3")
                                                   ),
                                                   "port" (  /* UDP destination ports reserved for RTP packets */
-                                                      c(
+                                                      sc(
                                                           "minimum" arg,
                                                           "maximum" arg
                                                       )
                                                   ).as(:oneline),
                                                   "maximum-contexts" (  /* Maximum number of simultaneous RTP contexts */
-                                                      c(
+                                                      sc(
                                                             arg
                                                       )
                                                   ).as(:oneline)
@@ -5882,7 +5882,7 @@ rule(:configuration) do
                                                       c(
                                                           "fail-filter" arg  /* Name of filter applied to packets failing RPF check */,
                                                           "mode" (  /* Mode for reverse path forwarding */
-                                                              c(
+                                                              sc(
                                                                   "loose"  /* Reverse-path-forwarding loose mode */
                                                               )
                                                           ).as(:oneline)
@@ -5905,7 +5905,7 @@ rule(:configuration) do
                                                       c(
                                                           c(
                                                             "input" (  /* Filter to be applied to received packets */
-                                                                c(
+                                                                sc(
                                                                     arg  /* Name of the filter */,
                                                                     "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                     "precedence" arg  /* Precedence of the filter */
@@ -5915,7 +5915,7 @@ rule(:configuration) do
                                                           ),
                                                           c(
                                                             "output" (  /* Filter to be applied to transmitted packets */
-                                                                c(
+                                                                sc(
                                                                     arg  /* Name of the filter */,
                                                                     "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                     "precedence" arg  /* Precedence of the filter */
@@ -6009,7 +6009,7 @@ rule(:configuration) do
                                                                     dcd_shaping_config  /* Virtual circuit traffic-shaping options */
                                                                   ),
                                                                   "oam-period" (  /* OAM cell period */
-                                                                      c(
+                                                                      sc(
                                                                           c(
                                                                               arg,
                                                                             "disable"  /* Disable OAM loopback */.as(:oneline)
@@ -6030,7 +6030,7 @@ rule(:configuration) do
                                                               )
                                                           ),
                                                           "arp" arg (  /* Static Address Resolution Protocol entries */
-                                                              c(
+                                                              sc(
                                                                   "l2-interface" (  /* Layer 2 interface name for ARP entry */
                                                                     interface_name  /* Layer 2 interface name for ARP entry */
                                                                   ),
@@ -6061,7 +6061,7 @@ rule(:configuration) do
                                                       )
                                                   ),
                                                   "unnumbered-address" (  /* Unnumbered interface address/destination prefix */
-                                                      c(
+                                                      sc(
                                                             interface_unit  /* Interface from which to take local address */,
                                                           "preferred-source-address" (  /* Preferred address on the donor interface */
                                                             ("$junos-preferred-source-address" | arg)
@@ -6098,7 +6098,7 @@ rule(:configuration) do
                                                               )
                                                           ),
                                                           "client-identifier" (  /* DHCP Server identifies a client by client-identifier value  */
-                                                              c(
+                                                              sc(
                                                                   "duid-type" (  /* DUID identifying a client */
                                                                     ("duid-llt" | "vendor" | "duid-ll")
                                                                   )
@@ -6130,7 +6130,7 @@ rule(:configuration) do
                                                       c(
                                                           "fail-filter" arg  /* Name of filter applied to packets failing RPF check */,
                                                           "mode" (  /* Mode for reverse path forwarding */
-                                                              c(
+                                                              sc(
                                                                   "loose"  /* Reverse-path-forwarding loose mode */
                                                               )
                                                           ).as(:oneline)
@@ -6170,7 +6170,7 @@ rule(:configuration) do
                                                       c(
                                                           c(
                                                             "input" (  /* Filter to be applied to received packets */
-                                                                c(
+                                                                sc(
                                                                     arg  /* Name of the filter */,
                                                                     "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                     "precedence" arg  /* Precedence of the filter */
@@ -6180,7 +6180,7 @@ rule(:configuration) do
                                                           ),
                                                           c(
                                                             "output" (  /* Filter to be applied to transmitted packets */
-                                                                c(
+                                                                sc(
                                                                     arg  /* Name of the filter */,
                                                                     "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                     "precedence" arg  /* Precedence of the filter */
@@ -6248,7 +6248,7 @@ rule(:configuration) do
                                                           "preferred"  /* Preferred address on interface */,
                                                           "master-only"  /* Master management IP address for router */,
                                                           "ndp" arg (  /* Static Neighbor Discovery Protocol  entries */
-                                                              c(
+                                                              sc(
                                                                   "l2-interface" (  /* Layer 2 interface name for NDP entry */
                                                                     interface_name  /* Layer 2 interface name for NDP entry */
                                                                   ),
@@ -6282,7 +6282,7 @@ rule(:configuration) do
                                                   "demux-source"  /* Demux based on source prefix */,
                                                   "demux-destination"  /* Demux based on destination prefix */,
                                                   "unnumbered-address" (  /* Unnumbered interface address/destination prefix */
-                                                      c(
+                                                      sc(
                                                             interface_unit  /* Interface from which to take local address */,
                                                           "preferred-source-address" (  /* Preferred address on the donor interface */
                                                             ("$junos-preferred-source-ipv6-address" | arg)
@@ -6416,7 +6416,7 @@ rule(:configuration) do
                                                       c(
                                                           c(
                                                             "input" (  /* Filter to be applied to received packets */
-                                                                c(
+                                                                sc(
                                                                     arg  /* Name of the filter */,
                                                                     "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                     "precedence" arg  /* Precedence of the filter */
@@ -6426,7 +6426,7 @@ rule(:configuration) do
                                                           ),
                                                           c(
                                                             "output" (  /* Filter to be applied to transmitted packets */
-                                                                c(
+                                                                sc(
                                                                     arg  /* Name of the filter */,
                                                                     "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                     "precedence" arg  /* Precedence of the filter */
@@ -6555,14 +6555,14 @@ rule(:configuration) do
                               )
                           ),
                           "no-partition" (  /* Use channelizable interface as clear channel */
-                              c(
+                              sc(
                                   "interface-type" (  /* Interface type */
                                     ("e1" | "t1" | "at" | "t3" | "e3" | "ct3" | "so" | "cau4")
                                   )
                               )
                           ).as(:oneline),
                           "partition" arg (  /* Channelized interface partition */
-                              c(
+                              sc(
                                   "oc-slice" arg  /* Range of SONET/SDH slices (for example, 1, 7-9) */,
                                   "timeslots" arg  /* Timeslots [(1..24) for T1, (1..31) for E1]; for example, 1-3,4,9,22-24 (no spaces) */,
                                   "interface-type" (  /* Sublevel interface type */
@@ -6591,7 +6591,7 @@ rule(:configuration) do
                                   "spid2" arg  /* Additional service profile identifier */,
                                   "calling-number" arg  /* Calling number included in outgoing calls */,
                                   "incoming-called-number" arg (  /* Incoming called number to be screened */
-                                      c(
+                                      sc(
                                           "reject"  /* Reject the called number */
                                       )
                                   ).as(:oneline),
@@ -6608,7 +6608,7 @@ rule(:configuration) do
                           "dialer-options" (  /* Dialer options */
                               c(
                                   "pool" arg (  /* Dialer pool */
-                                      c(
+                                      sc(
                                           "priority" arg  /* Dialer pool priority */
                                       )
                                   ).as(:oneline)
@@ -6625,12 +6625,12 @@ rule(:configuration) do
                                   "sim" arg (  /* SIM slot to connect LTE network */
                                       c(
                                           "select-profile" (  /* Profile to be applied */
-                                              c(
+                                              sc(
                                                   "profile-id" arg  /* Profile to be used for data calls */
                                               )
                                           ).as(:oneline),
                                           "radio-access" (  /* Select radio access technology */
-                                              c(
+                                              sc(
                                                   c(
                                                     "automatic"  /* Automatically selects radio access type */,
                                                     "umts-3g-only"  /* 3G only */,
@@ -6773,7 +6773,7 @@ rule(:configuration) do
                                       )
                                   ),
                                   "notify-filter" (  /* Notify filter to apply to notifications */
-                                      c(
+                                      sc(
                                             arg
                                       )
                                   ).as(:oneline)
@@ -6790,7 +6790,7 @@ rule(:configuration) do
                           "notify-filter" arg (  /* Filters to apply to SNMP notifications */
                               c(
                                   "oid" arg (  /* OID include/exclude list */
-                                      c(
+                                      sc(
                                           c(
                                             "include"  /* Include this OID in the notify filter */,
                                             "exclude"  /* Exclude this OID from the notify filter */
@@ -6872,7 +6872,7 @@ rule(:configuration) do
                                     unreadable  /* SNMPv3 USM privacy password */
                                   ),
                                   "clients" arg (  /* List of source address prefix ranges to accept */
-                                      c(
+                                      sc(
                                           "restrict"  /* Deny access */
                                       )
                                   ).as(:oneline)
@@ -6908,7 +6908,7 @@ rule(:configuration) do
                   "view" arg (  /* Define MIB views */
                       c(
                           "oid" arg (  /* OID include/exclude list */
-                              c(
+                              sc(
                                   c(
                                     "include"  /* Include this OID in the view */,
                                     "exclude"  /* Exclude this OID from the view */
@@ -6931,7 +6931,7 @@ rule(:configuration) do
                           c(
                             "client-list-name" arg  /* The name of client list or prefix list */,
                             "clients" arg (  /* List of source address prefix ranges to accept */
-                                c(
+                                sc(
                                     "restrict"  /* Deny access */
                                 )
                             ).as(:oneline)
@@ -6941,7 +6941,7 @@ rule(:configuration) do
                                   c(
                                     "client-list-name" arg  /* The name of client list or prefix list */,
                                     "clients" arg (  /* List of source address prefix ranges to accept */
-                                        c(
+                                        sc(
                                             "restrict"  /* Deny access */
                                         )
                                     ).as(:oneline)
@@ -6953,7 +6953,7 @@ rule(:configuration) do
                                   c(
                                     "client-list-name" arg  /* The name of client list or prefix list */,
                                     "clients" arg (  /* List of source address prefix ranges to accept */
-                                        c(
+                                        sc(
                                             "restrict"  /* Deny access */
                                         )
                                     ).as(:oneline)
@@ -6967,7 +6967,7 @@ rule(:configuration) do
                                           c(
                                             "client-list-name" arg  /* The name of client list or prefix list */,
                                             "clients" arg (  /* List of source address prefix ranges to accept */
-                                                c(
+                                                sc(
                                                     "restrict"  /* Deny access */
                                                 )
                                             ).as(:oneline)
@@ -7126,7 +7126,7 @@ rule(:configuration) do
                   "routing-instance-access" (  /* SNMP routing-instance options */
                       c(
                           "access-list" arg (  /* Allow/Deny SNMP access to routing-instances */
-                              c(
+                              sc(
                                   "restrict"  /* Deny access */
                               )
                           ).as(:oneline)
@@ -7142,7 +7142,7 @@ rule(:configuration) do
                           ),
                           "no-remote-trace"  /* Disable remote tracing */,
                           "file" (  /* Trace file information */
-                              c(
+                              sc(
                                   "size" arg  /* Maximum trace file size */,
                                   "files" arg  /* Maximum number of trace files */,
                                   "world-readable"  /* Allow any user to read the log file */,
@@ -7220,7 +7220,7 @@ rule(:configuration) do
               c(
                   "max-policies" arg  /* Number of policies that can be executed simultaneously */,
                   "generate-event" arg (  /* Generate an internal event */
-                      c(
+                      sc(
                           c(
                             "time-of-day" (  /* Time of day at which to generate event (hh:mm:ss) */
                               date  /* Time of day at which to generate event (hh:mm:ss) */
@@ -7236,7 +7236,7 @@ rule(:configuration) do
                           "within" arg (  /* List of events correlated with trigering events */
                               c(
                                   "trigger" (  /* Correlate events based on the number of occurrences */
-                                      c(
+                                      sc(
                                           c(
                                             "until"  /* Trigger when occurrences of triggering event < 'count' */,
                                             "on"  /* Trigger when occurrences of triggering event = 'count' */,
@@ -7247,7 +7247,7 @@ rule(:configuration) do
                                   ).as(:oneline),
                                   "events" arg  /* List of events that must occur within time interval */,
                                   "not" (  /* Events must not occur within time interval */
-                                      c(
+                                      sc(
                                           "events" arg  /* List of events that must not occur within time interval */
                                       )
                                   ).as(:oneline)
@@ -7281,7 +7281,7 @@ rule(:configuration) do
                                           "user-name" arg  /* User under whose privileges upload action will execute */,
                                           "transfer-delay" arg  /* Delay before uploading file to the destination */,
                                           "retry-count" (  /* Upload output-filename retry attempt count */
-                                              c(
+                                              sc(
                                                     arg,
                                                   "retry-interval" arg  /* Time interval between each retry */
                                               )
@@ -7292,7 +7292,7 @@ rule(:configuration) do
                                   "change-configuration" (  /* Change configuration */
                                       c(
                                           "retry" (  /* Change configuration retry attempt count */
-                                              c(
+                                              sc(
                                                   "count" arg  /* Number of retry attempts */,
                                                   "interval" arg  /* Time interval between each retry */
                                               )
@@ -7322,7 +7322,7 @@ rule(:configuration) do
                                               c(
                                                   "transfer-delay" arg  /* Delay before uploading file to the destination */,
                                                   "retry-count" (  /* Upload output-filename retry attempt count */
-                                                      c(
+                                                      sc(
                                                             arg,
                                                           "retry-interval" arg  /* Time interval between each retry */
                                                       )
@@ -7337,7 +7337,7 @@ rule(:configuration) do
                                   "event-script" arg (  /* Invoke event scripts */
                                       c(
                                           "arguments" arg (  /* Command line argument to the script */
-                                              c(
+                                              sc(
                                                   arg  /* Value of the argument */
                                               )
                                           ).as(:oneline),
@@ -7347,7 +7347,7 @@ rule(:configuration) do
                                               c(
                                                   "transfer-delay" arg  /* Delay before uploading files */,
                                                   "retry-count" (  /* Upload output-filename retry attempt count */
-                                                      c(
+                                                      sc(
                                                             arg,
                                                           "retry-interval" arg  /* Time interval between each retry */
                                                       )
@@ -7383,7 +7383,7 @@ rule(:configuration) do
                               c(
                                   "no-remote-trace"  /* Disable remote tracing */,
                                   "file" (  /* Trace file information */
-                                      c(
+                                      sc(
                                             arg,
                                           "size" arg  /* Maximum trace file size */,
                                           "files" arg  /* Maximum number of trace files */,
@@ -7435,7 +7435,7 @@ rule(:configuration) do
                       c(
                           "transfer-delay" arg  /* Delay before transferring files */,
                           "archive-sites" arg (  /* List of archive destinations */
-                              c(
+                              sc(
                                   "password" (  /* Password for login into the archive site */
                                     unreadable  /* Password for login into the archive site */
                                   )
@@ -7447,7 +7447,7 @@ rule(:configuration) do
                       c(
                           "no-remote-trace"  /* Disable remote tracing */,
                           "file" (  /* Trace file information */
-                              c(
+                              sc(
                                     arg,
                                   "size" arg  /* Maximum trace file size */,
                                   "files" arg  /* Maximum number of trace files */,
@@ -7702,7 +7702,7 @@ rule(:configuration) do
                       c(
                           "host" arg (  /* Host to be notified */
                               c(
-                                      c(
+                                      sc(
                                           c(
                                             "any"  /* All levels */,
                                             "emergency"  /* Panic conditions */,
@@ -7752,7 +7752,7 @@ rule(:configuration) do
                       c(
                           "no-remote-trace"  /* Disable remote tracing */,
                           "file" (  /* Trace file information */
-                              c(
+                              sc(
                                     arg,
                                   "size" arg  /* Maximum trace file size */,
                                   "files" arg  /* Maximum number of trace files */,
@@ -7774,7 +7774,7 @@ rule(:configuration) do
                       c(
                           "no-remote-trace"  /* Disable remote tracing */,
                           "file" (  /* Trace file information */
-                              c(
+                              sc(
                                     arg,
                                   "size" arg  /* Maximum trace file size */,
                                   "files" arg  /* Maximum number of trace files */,
@@ -7833,7 +7833,7 @@ rule(:configuration) do
           "poe"  /* Power over Ethernet options */,
           "wlan"  /* Wireless access point configuration */,
           "session-limit-group" arg (  /* Session-limit-group configuration */
-              c(
+              sc(
                   "maximum-sessions" arg  /* Maximum number of sessions per tunnel-group */
               )
           ).as(:oneline),
@@ -7850,7 +7850,7 @@ rule(:aamwd_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -7943,7 +7943,7 @@ rule(:alg_object) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -7960,11 +7960,11 @@ rule(:alg_object) do
             )
         ),
         "alg-manager" (  /* Configure ALG-MANAGER */
-            c(
+            sc(
                 "traceoptions" (  /* ALG-MANAGER trace options */
                     c(
                         "flag" enum(("all")) (  /* ALG-MANAGER trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -7975,11 +7975,11 @@ rule(:alg_object) do
             )
         ).as(:oneline),
         "alg-support-lib" (  /* Configure ALG-SUPPORT-LIB */
-            c(
+            sc(
                 "traceoptions" (  /* ALG-SUPPORT-LIB trace options */
                     c(
                         "flag" enum(("all")) (  /* ALG-SUPPORT-LIB trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8005,7 +8005,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* DNS ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* DNS ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8016,7 +8016,7 @@ rule(:alg_object) do
             )
         ),
         "ftp" (  /* Configure FTP ALG */
-            c(
+            sc(
                 "disable"  /* Disable FTP ALG */,
                 "ftps-extension"  /* Enable secure FTP and FTP-ssl protocols */,
                 "line-break-extension"  /* Enable CR+LF line termination */,
@@ -8024,7 +8024,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* FTP ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* FTP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8050,7 +8050,7 @@ rule(:alg_object) do
                         "message-flood" (  /* Configure Message flood ALG options */
                             c(
                                 "gatekeeper" (  /* Set options for gatekeeper messages */
-                                    c(
+                                    sc(
                                         "threshold" arg  /* Message flood gatekeeper threshold */
                                     )
                                 ).as(:oneline)
@@ -8066,7 +8066,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* H.323 ALG trace options */
                     c(
                         "flag" enum(("q931" | "h245" | "ras" | "h225-asn1" | "h245-asn1" | "ras-asn1" | "chassis-cluster" | "all")) (  /* H.323 ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "terse"  /* Set trace verbosity level to terse */,
                                   "detail"  /* Set trace verbosity level to detail */,
@@ -8093,12 +8093,12 @@ rule(:alg_object) do
                             )
                         ),
                         "message-flood" (  /* Set message flood ALG options */
-                            c(
+                            sc(
                                 "threshold" arg  /* Message flood threshold */
                             )
                         ).as(:oneline),
                         "connection-flood" (  /* Set connection flood options */
-                            c(
+                            sc(
                                 "threshold" arg  /* Connection flood threshold */
                             )
                         ).as(:oneline)
@@ -8112,7 +8112,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* MGCP ALG trace options */
                     c(
                         "flag" enum(("call" | "decode" | "error" | "chassis-cluster" | "nat" | "packet" | "rm" | "all")) (  /* MGCP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8123,14 +8123,14 @@ rule(:alg_object) do
             )
         ),
         "msrpc" (  /* Configure MSRPC ALG */
-            c(
+            sc(
                 "disable"  /* Disable MSRPC ALG */,
                 "group-max-usage" arg  /* Set maximum group usage percentage, default 80 */,
                 "map-entry-timeout" arg  /* Set entry timeout, default 8hour */,
                 "traceoptions" (  /* MSRPC ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* MSRPC ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8141,14 +8141,14 @@ rule(:alg_object) do
             )
         ).as(:oneline),
         "sunrpc" (  /* Configure SUNRPC ALG */
-            c(
+            sc(
                 "disable"  /* Disable SUNRPC ALG */,
                 "group-max-usage" arg  /* Set maximum group usage percentage, default 80 */,
                 "map-entry-timeout" arg  /* Set entry timeout, default 8hour */,
                 "traceoptions" (  /* SUNRPC ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* SUNRPC ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8164,7 +8164,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* RSH ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* RSH ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8175,12 +8175,12 @@ rule(:alg_object) do
             )
         ),
         "rtsp" (  /* Configure RTSP ALG */
-            c(
+            sc(
                 "disable"  /* Disable RTSP ALG */,
                 "traceoptions" (  /* RTSP ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* RTSP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8203,7 +8203,7 @@ rule(:alg_object) do
                             )
                         ),
                         "call-flood" (  /* Configure call flood thresholds */
-                            c(
+                            sc(
                                 "threshold" arg  /* Calls per second per client */
                             )
                         ).as(:oneline)
@@ -8217,7 +8217,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* SCCP ALG trace options */
                     c(
                         "flag" enum(("call" | "cli" | "decode" | "error" | "chassis-cluster" | "init" | "nat" | "rm" | "all")) (  /* SCCP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8274,7 +8274,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* SIP ALG trace options */
                     c(
                         "flag" enum(("call" | "chassis-cluster" | "nat" | "parser" | "rm" | "all")) (  /* SIP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "terse"  /* Set trace verbosity level to terse */,
                                   "detail"  /* Set trace verbosity level to detail */,
@@ -8287,12 +8287,12 @@ rule(:alg_object) do
             )
         ),
         "sql" (  /* Configure SQL ALG */
-            c(
+            sc(
                 "disable"  /* Disable SQL ALG */,
                 "traceoptions" (  /* SQL ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* SQL ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8303,12 +8303,12 @@ rule(:alg_object) do
             )
         ).as(:oneline),
         "talk" (  /* Configure Talk ALG */
-            c(
+            sc(
                 "disable"  /* Disable Talk ALG */,
                 "traceoptions" (  /* TALK ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* TALK ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8319,12 +8319,12 @@ rule(:alg_object) do
             )
         ).as(:oneline),
         "tftp" (  /* Configure TFTP ALG */
-            c(
+            sc(
                 "disable"  /* Disable TFTP ALG */,
                 "traceoptions" (  /* TFTP ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* TFTP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8335,12 +8335,12 @@ rule(:alg_object) do
             )
         ).as(:oneline),
         "pptp" (  /* Configure PPTP ALG */
-            c(
+            sc(
                 "disable"  /* Disable PPTP ALG */,
                 "traceoptions" (  /* PPTP ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* PPTP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8359,7 +8359,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* IKE-ESP ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* IKE-ESP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Set trace verbosity level to extensive */
                                 )
@@ -8374,7 +8374,7 @@ rule(:alg_object) do
                 "traceoptions" (  /* TWAMP ALG trace options */
                     c(
                         "flag" enum(("all")) (  /* TWAMP ALG trace flags */
-                            c(
+                            sc(
                                 c(
                                   "extensive"  /* Trace verbosity level to extensive */
                                 )
@@ -8592,7 +8592,7 @@ rule(:apbr_rule_type) do
         "then" (  /* Specify rule action to take when packet match criteria */
             c(
                 "routing-instance" (  /* Packets are directed to specified routing instance */
-                    c(
+                    sc(
                         arg  /* Name of routing instance */
                     )
                 ).as(:oneline),
@@ -8817,7 +8817,7 @@ rule(:aps_type) do
         ),
         "paired-group" arg  /* Name of paired APS group */,
         "authentication-key" (  /* Authentication parameters */
-            c(
+            sc(
                   unreadable  /* Authentication key */
             )
         ).as(:oneline),
@@ -8881,7 +8881,7 @@ rule(:auto_configure_vlan_type) do
                         ),
                         "ranges" arg  /* Configure interface based on stacked-vlan range */,
                         "access-profile" (  /* Auto-configure VLAN access profile for these ranges */
-                            c(
+                            sc(
                                   arg
                             )
                         ).as(:oneline)
@@ -8901,7 +8901,7 @@ rule(:auto_configure_vlan_type) do
                   auto_configure_authentication_type  /* Auto-configure stacked VLAN authentication */
                 ),
                 "access-profile" (  /* Auto-configure stacked VLAN access profile */
-                    c(
+                    sc(
                           arg
                     )
                 ).as(:oneline)
@@ -8921,7 +8921,7 @@ rule(:auto_configure_vlan_type) do
                         ),
                         "ranges" arg  /* Configure interface based on vlan range */,
                         "access-profile" (  /* Auto-configure VLAN access profile for these ranges */
-                            c(
+                            sc(
                                   arg
                             )
                         ).as(:oneline)
@@ -8940,7 +8940,7 @@ rule(:auto_configure_vlan_type) do
                   auto_configure_authentication_type  /* Auto-configure VLAN authentication */
                 ),
                 "access-profile" (  /* Auto-configure VLAN access profile */
-                    c(
+                    sc(
                           arg
                     )
                 ).as(:oneline)
@@ -8965,7 +8965,7 @@ rule(:auto_configure_authentication_type) do
                 "user-prefix" arg  /* User defined prefix */,
                 "mac-address"  /* Include MAC address */,
                 "option-82" (  /* Include option 82 */
-                    c(
+                    sc(
                         "circuit-id"  /* Include option 82 circuit-id (sub option 1) */,
                         "remote-id"  /* Include option 82 remote-id (sub option 2) */
                     )
@@ -9191,7 +9191,7 @@ rule(:chassis_type) do
         "fpc-resync"  /* Send and receive Nchip cells for newly onlined FPC */,
         "craft-lockout"  /* Disable craft interface input */,
         "config-button" (  /* Config button behavior settings */
-            c(
+            sc(
                 "no-rescue"  /* Don't reset to rescue configuration */,
                 "no-clear"  /* Don't reset to factory-default configuration */
             )
@@ -9227,7 +9227,7 @@ rule(:chassis_type) do
                 "level" enum(("high" | "full")) (  /* Threshold level */
                     c(
                         "free-space" (  /* Enter threshold value & choose the metric */
-                            c(
+                            sc(
                                   arg,
                                 c(
                                   "percent"  /* Free space threshold in % */,
@@ -9367,7 +9367,7 @@ rule(:chassis_type) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -9394,7 +9394,7 @@ rule(:chassis_type) do
                 "redundancy-group" arg (  /* Set redundancy-group parameters */
                     c(
                         "node" enum(("0" | "1")) (  /* Set node specific parameters */
-                            c(
+                            sc(
                                 "priority" arg  /* Priority of the node in the redundancy-group */
                             )
                         ).as(:oneline),
@@ -9408,7 +9408,7 @@ rule(:chassis_type) do
                         "gratuitous-arp-count" arg  /* Number of gratuitous ARPs to send on an active interface after failover */,
                         "hold-down-interval" arg  /* RG failover interval. RG0(300-1800) RG1+(0-1800) */,
                         "interface-monitor" arg (  /* Define interfaces to monitor */
-                            c(
+                            sc(
                                 "weight" arg  /* Weight assigned to this interface that influences failover */
                             )
                         ).as(:oneline),
@@ -10079,7 +10079,7 @@ rule(:ce1_channel_type) do
   arg.as(:arg) (
     c(
         "channel-group" arg (  /* Define channel group */
-            c(
+            sc(
                 "timeslots" arg  /* DS0 timeslots (1..31); for example, 1-3,4,9,22-24 (no spaces) */
             )
         ).as(:oneline)
@@ -10434,7 +10434,7 @@ rule(:ct3_channel_type) do
   arg.as(:arg) (
     c(
         "channel-group" arg (  /* Define channel group */
-            c(
+            sc(
                 "timeslots" arg  /* DS0 timeslots (1..24); for example, 1-3,4,9,22-24 (no spaces) */
             )
         ).as(:oneline)
@@ -10560,7 +10560,7 @@ rule(:custom_attack_type) do
                                             )
                                         ),
                                         "ip-flags" (  /* IP Flag bits */
-                                            c(
+                                            sc(
                                                 "rb"  /* Reserved bit */,
                                                 "no-rb"  /* Don't reserved bit */,
                                                 "mf"  /* More Fragment bit */,
@@ -10784,7 +10784,7 @@ rule(:custom_attack_type) do
                                             )
                                         ),
                                         "tcp-flags" (  /* TCP header flags */
-                                            c(
+                                            sc(
                                                 "r1"  /* Set Reserverd bit 1 */,
                                                 "no-r1"  /* Don't set Reserverd bit 1 */,
                                                 "r2"  /* Set Reserved bit 2 */,
@@ -11114,7 +11114,7 @@ rule(:chain_member_type) do
                                             )
                                         ),
                                         "ip-flags" (  /* IP Flag bits */
-                                            c(
+                                            sc(
                                                 "rb"  /* Reserved bit */,
                                                 "no-rb"  /* Don't reserved bit */,
                                                 "mf"  /* More Fragment bit */,
@@ -11338,7 +11338,7 @@ rule(:chain_member_type) do
                                             )
                                         ),
                                         "tcp-flags" (  /* TCP header flags */
-                                            c(
+                                            sc(
                                                 "r1"  /* Set Reserverd bit 1 */,
                                                 "no-r1"  /* Don't set Reserverd bit 1 */,
                                                 "r2"  /* Set Reserved bit 2 */,
@@ -11585,13 +11585,13 @@ rule(:dcd_shaping_config) do
     c(
         c(
           "cbr" (  /* Constant bandwidth utilization */
-              c(
+              sc(
                   arg  /* Constant bandwidth utilization */,
                   "cdvt" arg  /* Cell Delay Variation Tolerance */
               )
           ).as(:oneline),
           "vbr" (  /* Variable bandwidth utilization */
-              c(
+              sc(
                   "peak" arg  /* Peak rate */,
                   "sustained" arg  /* Sustained rate */,
                   "burst" arg  /* Burst size */,
@@ -11599,7 +11599,7 @@ rule(:dcd_shaping_config) do
               )
           ).as(:oneline),
           "rtvbr" (  /* ATM2 real-time variable bandwidth utilization */
-              c(
+              sc(
                   "peak" arg  /* Peak rate */,
                   "sustained" arg  /* Sustained rate */,
                   "burst" arg  /* Burst size */,
@@ -11662,8 +11662,8 @@ rule(:default_anti_virus_feature) do
             c(
                 "server" (  /* SAV and Anti-Spam first hop DNS server */
                     c(
-                          ipaddr  /* SAV and Anti-Spam first hop DNS server ip */,
-                        "routing-instance" arg  /* Routing instance name */
+                        "routing-instance" arg  /* Routing instance name */,
+                          ipaddr  /* SAV and Anti-Spam first hop DNS server ip */
                     )
                 ),
                 "sxl-timeout" arg  /* Sxl sophos anti-virus engine timeout */,
@@ -11921,7 +11921,7 @@ rule(:dhcp_client_type) do
                   "hexadecimal" arg  /* Client identifier as a hexadecimal string */
                 ),
                 "user-id" (  /* Add user id to client-id option  */
-                    c(
+                    sc(
                         c(
                           "ascii" arg  /* Client identifier as an ASCII string */,
                           "hexadecimal" arg  /* Client identifier as a hexadecimal string */
@@ -12812,7 +12812,7 @@ rule(:ethernet_switching_type) do
         "vlan-rewrite" (  /* Specify VLAN translation */
             c(
                 "translate" arg (  /* Translate incoming VLAN tag */
-                    c(
+                    sc(
                           arg
                     )
                 ).as(:oneline)
@@ -12855,7 +12855,7 @@ rule(:ethernet_switching_type) do
             )
         ),
         "recovery-timeout" (  /* Recovery timeout for this interface */
-            c(
+            sc(
                   arg
             )
         ).as(:oneline)
@@ -13097,9 +13097,9 @@ end
 
 rule(:host_object) do
     c(
-          ipaddr  /* IP address */,
         "port" arg  /* Host port number */,
-        "routing-instance" arg  /* Routing-instance name */
+        "routing-instance" arg  /* Routing-instance name */,
+          ipaddr  /* IP address */
     )
 end
 
@@ -13134,7 +13134,7 @@ rule(:icap_redir_server) do
             c(
                 "authorization-type" arg  /* Authentication type. 'Basic' by default */,
                 "credentials" (  /* Credentials text */
-                    c(
+                    sc(
                         c(
                           "ascii" arg  /* ASCII string */,
                           "base64" arg  /* Base64 string */
@@ -13148,7 +13148,7 @@ rule(:icap_redir_server) do
         "reqmod-uri" arg  /* REQMOD option resource identifier */,
         "respmod-uri" arg  /* RESPMOD option resource identifier */,
         "routing-instance" (  /* Routing instance */
-            c(
+            sc(
                   arg
             )
         ).as(:oneline),
@@ -13176,7 +13176,7 @@ rule(:icap_redirect_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -13366,7 +13366,7 @@ rule(:idpd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -13395,14 +13395,14 @@ rule(:ids_option_type) do
         "icmp" (  /* Configure ICMP ids options */
             c(
                 "ip-sweep" (  /* Configure ip sweep ids option */
-                    c(
+                    sc(
                         "threshold" arg  /* Threshold */
                     )
                 ).as(:oneline),
                 "fragment"  /* Enable ICMP fragment ids option */,
                 "large"  /* Enable large ICMP packet (size > 1024) ids option */,
                 "flood" (  /* Configure icmp flood ids option */
-                    c(
+                    sc(
                         "threshold" arg  /* Threshold */
                     )
                 ).as(:oneline),
@@ -13435,7 +13435,7 @@ rule(:ids_option_type) do
                                 "SMF-DPD-option"  /* Enable Simplified Multicast Forwarding ipv6 Duplicate Packet Detection option ids option */,
                                 "RPL-option"  /* Enable Routing Protocol for Low-power and Lossy networks option ids option */,
                                 "user-defined-option-type" arg (  /* User-defined option type range */
-                                    c(
+                                    sc(
                                         "to" (  /* Upper limit of option type range */
                                             c(
                                                   arg
@@ -13457,7 +13457,7 @@ rule(:ids_option_type) do
                                 "ILNP-nonce-option"  /* Enable Identifier-Locator Network Protocol Nonce option ids option */,
                                 "line-identification-option"  /* Enable line identification option ids option */,
                                 "user-defined-option-type" arg (  /* User-defined option type range */
-                                    c(
+                                    sc(
                                         "to" (  /* Upper limit of option type range */
                                             c(
                                                   arg
@@ -13471,7 +13471,7 @@ rule(:ids_option_type) do
                         "mobility-header"  /* Enable ipv6 mobility header ids option */,
                         "HIP-header"  /* Enable ipv6 Host Identify Protocol header ids option */,
                         "user-defined-header-type" arg (  /* User-defined header type range */
-                            c(
+                            sc(
                                 "to" (  /* Upper limit of header type range */
                                     c(
                                           arg
@@ -13522,12 +13522,12 @@ rule(:ids_option_type) do
                 "tcp-no-flag"  /* Enable TCP packet without flag ids option */,
                 "syn-frag"  /* Enable SYN fragment ids option */,
                 "port-scan" (  /* Configure TCP port scan ids option */
-                    c(
+                    sc(
                         "threshold" arg  /* Threshold */
                     )
                 ).as(:oneline),
                 "syn-ack-ack-proxy" (  /* Configure syn-ack-ack proxy ids option */
-                    c(
+                    sc(
                         "threshold" arg  /* Threshold */
                     )
                 ).as(:oneline),
@@ -13554,7 +13554,7 @@ rule(:ids_option_type) do
                 "land"  /* Enable land attack ids option */,
                 "winnuke"  /* Enable winnuke attack ids option */,
                 "tcp-sweep" (  /* Configure TCP sweep ids option */
-                    c(
+                    sc(
                         "threshold" arg  /* Threshold */
                     )
                 ).as(:oneline)
@@ -13569,12 +13569,12 @@ rule(:ids_option_type) do
                     )
                 ),
                 "udp-sweep" (  /* Configure UDP sweep ids option */
-                    c(
+                    sc(
                         "threshold" arg  /* Threshold */
                     )
                 ).as(:oneline),
                 "port-scan" (  /* Configure UDP port scan ids option */
-                    c(
+                    sc(
                         "threshold" arg  /* Threshold */
                     )
                 ).as(:oneline)
@@ -13972,7 +13972,7 @@ rule(:inet6_filter) do
                                       arg,
                                 c(
                                   "routing-instance" (  /* Packets are directed to specified routing instance */
-                                      c(
+                                      sc(
                                           arg  /* Name of routing instance */,
                                           "topology" arg  /* Packets are directed to specified topology */
                                       )
@@ -13982,7 +13982,7 @@ rule(:inet6_filter) do
                               )
                           ).as(:oneline),
                           "routing-instance" (  /* Packets are directed to specified routing instance */
-                              c(
+                              sc(
                                   arg  /* Name of routing instance */,
                                   "topology" arg  /* Packets are directed to specified topology */
                               )
@@ -13991,7 +13991,7 @@ rule(:inet6_filter) do
                           "next-ip6"  /* Packets are directed to specified the specified ipv6 address */.as(:oneline),
                           "next-interface"  /* Packets are to be routed through the specified interface */,
                           "reject" (  /* Reject the packet */
-                              c(
+                              sc(
                                   c(
                                     "no-route"  /* Send ICMPv6 No Route message */,
                                     "administratively-prohibited"  /* Send ICMPv6 Administratively Prohibited message */,
@@ -14089,7 +14089,7 @@ rule(:inet6_fuf) do
                           "accept"  /* Accept the packet */,
                           "discard"  /* Discard the packet */,
                           "routing-instance" (  /* Packets are directed to specified routing instance */
-                              c(
+                              sc(
                                   arg  /* Name of routing instance */,
                                   "topology" arg  /* Packets are directed to specified topology */
                               )
@@ -14663,7 +14663,7 @@ rule(:inet_filter) do
                                       arg,
                                 c(
                                   "routing-instance" (  /* Packets are directed to specified routing instance */
-                                      c(
+                                      sc(
                                           arg  /* Name of routing instance */,
                                           "topology" arg  /* Packets are directed to specified topology */
                                       )
@@ -14673,7 +14673,7 @@ rule(:inet_filter) do
                               )
                           ).as(:oneline),
                           "routing-instance" (  /* Packets are directed to specified routing instance */
-                              c(
+                              sc(
                                   arg  /* Name of routing instance */,
                                   "topology" arg  /* Packets are directed to specified topology */
                               )
@@ -14686,7 +14686,7 @@ rule(:inet_filter) do
                           "decapsulate"  /* Terminate a tunnel */.as(:oneline),
                           "encapsulate"  /* Send to a tunnel */.as(:oneline),
                           "reject" (  /* Reject the packet */
-                              c(
+                              sc(
                                   c(
                                     "network-unreachable"  /* Send ICMP Network Unreachable message */,
                                     "host-unreachable"  /* Send ICMP Host Unreachable message */,
@@ -14781,7 +14781,7 @@ rule(:inet_fuf) do
                           "accept"  /* Accept the packet */,
                           "discard"  /* Discard the packet */,
                           "routing-instance" (  /* Packets are directed to specified routing instance */
-                              c(
+                              sc(
                                   arg  /* Name of routing instance */,
                                   "topology" arg  /* Packets are directed to specified topology */
                               )
@@ -15084,7 +15084,7 @@ rule(:interfaces_type) do
           "no-per-unit-scheduler"  /* Don't enable subunit queuing on Frame Relay or VLAN IQ interface */,
           "shared-scheduler"  /* Enabled shared queuing on an IQ2 interface */,
           "hierarchical-scheduler" (  /* Enable hierarchical scheduling */
-              c(
+              sc(
                   "maximum-hierarchy-levels" arg  /* Maximum hierarchy levels */,
                   "maximum-l2-nodes" arg  /* Maximum l2 nodes, allowed numbers are power of 2 between 1 and 16k (needs FPC reboot) */,
                   "maximum-l3-nodes" arg  /* Maximum l3 nodes, allowed numbers are power of 2 between 2 and 32k (needs FPC reboot) */,
@@ -15115,7 +15115,7 @@ rule(:interfaces_type) do
         ),
         "mtu" arg  /* Maximum transmit packet size */,
         "hold-time" (  /* Hold time for link up and link down */
-            c(
+            sc(
                 "up" arg  /* Link up hold time */,
                 "down" arg  /* Link down hold time */
             )
@@ -15193,7 +15193,7 @@ rule(:interfaces_type) do
           multi_chassis_protection_group  /* Inter-Chassis protection configuration */
         ),
         "clocking" (  /* Interface clock source */
-            c(
+            sc(
                 c(
                   "internal"  /* Clocking provided by local system */,
                   "external" (  /* Clocking provided by DCE (loop timing) */
@@ -15325,7 +15325,7 @@ rule(:interfaces_type) do
                           dcd_shaping_config  /* Virtual path traffic-shaping options */
                         ),
                         "oam-period" (  /* F4 OAM cell period */
-                            c(
+                            sc(
                                 c(
                                     arg,
                                   "disable"  /* Disable F4 OAM loopback */.as(:oneline)
@@ -15342,7 +15342,7 @@ rule(:interfaces_type) do
                 ),
                 "ilmi"  /* Enable Interim Local Management Interface */,
                 "linear-red-profiles" arg (  /* ATM2 CoS virtual circuit drop profiles */
-                    c(
+                    sc(
                         "queue-depth" arg  /* Maximum queue depth */,
                         "high-plp-threshold" arg  /* Fill level percentage when linear RED is applied for high PLP */,
                         "low-plp-threshold" arg  /* Fill level percentage when linear RED is applied for low PLP */,
@@ -15361,7 +15361,7 @@ rule(:interfaces_type) do
                                   ("low" | "high")
                                 ),
                                 "transmit-weight" (  /* Transmit weight */
-                                    c(
+                                    sc(
                                         c(
                                           "percent" arg  /* Transmit weight as percentage */,
                                           "cells" arg  /* Transmit weight by cells count */
@@ -15459,7 +15459,7 @@ rule(:interfaces_type) do
                     )
                 ),
                 "ignore-errors" (  /* Ignore anomalies or errors */
-                    c(
+                    sc(
                         "tcp"  /* TCP protocol errors */,
                         "alg"  /* ALG anomalies or errors */
                     )
@@ -15473,45 +15473,45 @@ rule(:interfaces_type) do
                         "filter" (  /* Filtering options for the packet capture */
                             c(
                                 "source-ip" (  /* Filter based on source-ip (and wildcard) */
-                                    c(
-                                          ipaddr  /* Source IP */,
+                                    sc(
                                         "wildcard" (  /* Source IP wildcard */
                                           ipaddr  /* Source IP wildcard */
-                                        )
+                                        ),
+                                          ipaddr  /* Source IP */
                                     )
                                 ).as(:oneline),
                                 "dest-ip" (  /* Filter based on dest-ip (and wildcard) */
-                                    c(
-                                          ipaddr  /* Dest IP */,
+                                    sc(
                                         "wildcard" (  /* Dest IP wildcard */
                                           ipaddr  /* Dest IP wildcard */
-                                        )
+                                        ),
+                                          ipaddr  /* Dest IP */
                                     )
                                 ).as(:oneline),
                                 "sw-sip" (  /* Filter based on source softwire ip (and wildcard) */
-                                    c(
-                                          ipv6addr  /* Source softwire IP */,
+                                    sc(
                                         "wildcard" (  /* Source IP wildcard */
                                           ipv6addr  /* Source IP wildcard */
-                                        )
+                                        ),
+                                          ipv6addr  /* Source softwire IP */
                                     )
                                 ).as(:oneline),
                                 "sw-dip" (  /* Filter based on destination softwire ip (and wildcard) */
-                                    c(
-                                          ipaddr  /* Destination softwire IP */,
+                                    sc(
                                         "wildcard" (  /* Destination IP wildcard */
                                           ipaddr  /* Destination IP wildcard */
-                                        )
+                                        ),
+                                          ipaddr  /* Destination softwire IP */
                                     )
                                 ).as(:oneline),
                                 "sport-range" (  /* Filter based on source port */
-                                    c(
+                                    sc(
                                         "low" arg  /* Source port range start */,
                                         "high" arg  /* Source port range end */
                                     )
                                 ).as(:oneline),
                                 "dport-range" (  /* Filter based on destination port */
-                                    c(
+                                    sc(
                                         "low" arg  /* Destination port range start */,
                                         "high" arg  /* Destination port range end */
                                     )
@@ -15537,30 +15537,30 @@ rule(:interfaces_type) do
                 "unframed"  /* Enable unframed mode */,
                 "no-unframed"  /* Don't enable unframed mode */,
                 "compatibility-mode" (  /* Set CSU compatibility mode */
-                    c(
+                    sc(
                         c(
                           "larscom" (  /* Compatible with Larscom CSU */
-                              c(
+                              sc(
                                   "subrate" arg  /* Set subrate value */
                               )
                           ).as(:oneline),
                           "verilink" (  /* Compatible with Verilink CSU (not on 2/4-port T3 PIC) */
-                              c(
+                              sc(
                                   "subrate" arg  /* Set subrate value */
                               )
                           ).as(:oneline),
                           "adtran" (  /* Compatible with Adtran CSU (not on 2/4-port T3 PIC) */
-                              c(
+                              sc(
                                   "subrate" arg  /* Set subrate value */
                               )
                           ).as(:oneline),
                           "kentrox" (  /* Compatible with Kentrox CSU */
-                              c(
+                              sc(
                                   "subrate" arg  /* Set subrate value (not on 2/4-port T3 PIC) */
                               )
                           ).as(:oneline),
                           "digital-link" (  /* Compatible with Digital Link CSU */
-                              c(
+                              sc(
                                   "subrate" (  /* Set subrate value */
                                     ("301Kb" | "601Kb" | "902Kb" | "1.2Mb" | "1.5Mb" | "1.8Mb" | "2.1Mb" | "2.4Mb" | "2.7Mb" | "3.0Mb" | "3.3Mb" | "3.6Mb" | "3.9Mb" | "4.2Mb" | "4.5Mb" | "4.8Mb" | "5.1Mb" | "5.4Mb" | "5.7Mb" | "6.0Mb" | "6.3Mb" | "6.6Mb" | "6.9Mb" | "7.2Mb" | "7.5Mb" | "7.8Mb" | "8.1Mb" | "8.4Mb" | "8.7Mb" | "9.0Mb" | "9.3Mb" | "9.6Mb" | "9.9Mb" | "10.2Mb" | "10.5Mb" | "10.8Mb" | "11.1Mb" | "11.4Mb" | "11.7Mb" | "12.0Mb" | "12.3Mb" | "12.6Mb" | "12.9Mb" | "13.2Mb" | "13.5Mb" | "13.8Mb" | "14.1Mb" | "14.4Mb" | "14.7Mb" | "15.0Mb" | "15.3Mb" | "15.6Mb" | "15.9Mb" | "16.2Mb" | "16.5Mb" | "16.8Mb" | "17.1Mb" | "17.4Mb" | "17.7Mb" | "18.0Mb" | "18.3Mb" | "18.6Mb" | "18.9Mb" | "19.2Mb" | "19.5Mb" | "19.8Mb" | "20.1Mb" | "20.5Mb" | "20.8Mb" | "21.1Mb" | "21.4Mb" | "21.7Mb" | "22.0Mb" | "22.3Mb" | "22.6Mb" | "22.9Mb" | "23.2Mb" | "23.5Mb" | "23.8Mb" | "24.1Mb" | "24.4Mb" | "24.7Mb" | "25.0Mb" | "25.3Mb" | "25.6Mb" | "25.9Mb" | "26.2Mb" | "26.5Mb" | "26.8Mb" | "27.1Mb" | "27.4Mb" | "27.7Mb" | "28.0Mb" | "28.3Mb" | "28.6Mb" | "28.9Mb" | "29.2Mb" | "29.5Mb" | "29.8Mb" | "30.1Mb" | "30.4Mb" | "30.7Mb" | "31.0Mb" | "31.3Mb" | "31.6Mb" | "31.9Mb" | "32.2Mb" | "32.5Mb" | "32.8Mb" | "33.1Mb" | "33.4Mb" | "33.7Mb" | "34.0Mb" | "34.3Mb" | "34.6Mb" | "34.9Mb" | "35.2Mb" | "35.5Mb" | "35.8Mb" | "36.1Mb" | "36.4Mb" | "36.7Mb" | "37.0Mb" | "37.3Mb" | "37.6Mb" | "37.9Mb" | "38.2Mb" | "38.5Mb" | "38.8Mb" | "39.1Mb" | "39.4Mb" | "39.7Mb" | "40.0Mb" | "40.3Mb" | "40.6Mb" | "40.9Mb" | "41.2Mb" | "41.5Mb" | "41.8Mb" | "42.1Mb" | "42.4Mb" | "42.7Mb" | "43.0Mb" | "43.3Mb" | "43.6Mb" | "43.9Mb" | "44.2Mb")
                                   )
@@ -15603,18 +15603,18 @@ rule(:interfaces_type) do
                 "unframed"  /* Enable unframed mode */,
                 "no-unframed"  /* Don't enable unframed mode */,
                 "compatibility-mode" (  /* Set CSU compatibility mode */
-                    c(
+                    sc(
                         c(
                           "larscom"  /* Compatible with Larscom CSU (only non IQ E3 interfaces) */,
                           "digital-link" (  /* Compatible with Digital Link CSU */
-                              c(
+                              sc(
                                   "subrate" (  /* Set subrate value */
                                     ("358Kb" | "716Kb" | "1.1Mb" | "1.4Mb" | "1.8Mb" | "2.1Mb" | "2.5Mb" | "2.9Mb" | "3.2Mb" | "3.6Mb" | "3.9Mb" | "4.3Mb" | "4.7Mb" | "5.0Mb" | "5.4Mb" | "5.7Mb" | "6.1Mb" | "6.4Mb" | "6.8Mb" | "7.2Mb" | "7.5Mb" | "7.9Mb" | "8.2Mb" | "8.6Mb" | "9.0Mb" | "9.3Mb" | "9.7Mb" | "10.0Mb" | "10.4Mb" | "10.7Mb" | "11.1Mb" | "11.5Mb" | "11.8Mb" | "12.2Mb" | "12.5Mb" | "12.9Mb" | "13.2Mb" | "13.6Mb" | "14.0Mb" | "14.3Mb" | "14.7Mb" | "15.0Mb" | "15.4Mb" | "15.8Mb" | "16.1Mb" | "16.5Mb" | "16.8Mb" | "17.2Mb" | "17.5Mb" | "17.9Mb" | "18.3Mb" | "18.6Mb" | "19.0Mb" | "19.3Mb" | "19.7Mb" | "20.0Mb" | "20.4Mb" | "20.8Mb" | "21.1Mb" | "21.5Mb" | "21.8Mb" | "22.2Mb" | "22.6Mb" | "22.9Mb" | "23.3Mb" | "23.6Mb" | "24.0Mb" | "24.3Mb" | "24.7Mb" | "25.1Mb" | "25.4Mb" | "25.8Mb" | "26.1Mb" | "26.5Mb" | "26.9Mb" | "27.2Mb" | "27.6Mb" | "27.9Mb" | "28.3Mb" | "28.6Mb" | "29.0Mb" | "29.4Mb" | "29.7Mb" | "30.1Mb" | "30.4Mb" | "30.8Mb" | "31.1Mb" | "31.5Mb" | "31.9Mb" | "32.2Mb" | "32.6Mb" | "32.9Mb" | "33.3Mb" | "33.7Mb" | "34.0Mb")
                                   )
                               )
                           ).as(:oneline),
                           "kentrox" (  /* Compatible with Kentrox CSU */
-                              c(
+                              sc(
                                   "subrate" arg  /* Set subrate value (only for E3 IQ interfaces) */
                               )
                           ).as(:oneline)
@@ -15753,7 +15753,7 @@ rule(:interfaces_type) do
                       c(
                           "ignore-all"  /* Ignore all control leads */,
                           "dtr" (  /* Data Transmit Ready signal handling */
-                              c(
+                              sc(
                                   c(
                                     "assert"  /* Assert DTR signal */,
                                     "de-assert"  /* Deassert DTR signal */,
@@ -15895,7 +15895,7 @@ rule(:interfaces_type) do
                             )
                         ),
                         "recovery-timeout" (  /* Recovery timeout for this interface */
-                            c(
+                            sc(
                                   arg
                             )
                         ).as(:oneline),
@@ -15966,7 +15966,7 @@ rule(:interfaces_type) do
                 c(
                   "no-auto-negotiation"  /* Disable auto-negotiation */,
                   "auto-negotiation" (  /* Enable auto-negotiation */
-                      c(
+                      sc(
                           "remote-fault" (
                             ("local-interface-offline" | "local-interface-online")
                           )
@@ -16153,7 +16153,7 @@ rule(:interfaces_type) do
                             )
                         ),
                         "fec-ber" (  /* Optics Errored Seconds Threshold crossing defect trigger */
-                            c(
+                            sc(
                                 "enable-tca"  /* Enable the Optics errored seconds threshold crossing alert */,
                                 "no-enable-tca"  /* Don't enable the Optics errored seconds threshold crossing alert */,
                                 "threshold" arg  /* TCA threshold for BER value in format: xe-n, x is an integer or decimal number, n = 0..9 */,
@@ -16595,7 +16595,7 @@ rule(:interfaces_type) do
                 "redundancy" (  /* Container interface redundancy options */
                     c(
                         "hold-time" (  /* Hold time for link up and link down */
-                            c(
+                            sc(
                                 "up" arg  /* Link up hold time */,
                                 "down" arg  /* Link down hold time */
                             )
@@ -16628,7 +16628,7 @@ rule(:interfaces_type) do
                 "proxy-macip-advertisement"  /* Proxy advertisement of type 2 MAC+IP route for EVPN */,
                 "virtual-gateway-accept-data"  /* Accept packets destined for virtual gateway address */,
                 "peer-psd" (  /* Peer psd */
-                    c(
+                    sc(
                         arg  /* Peer psd name */
                     )
                 ).as(:oneline),
@@ -16682,7 +16682,7 @@ rule(:interfaces_type) do
                 "routing-services"  /* Enable routing services */,
                 "no-routing-services"  /* Don't enable routing services */,
                 "arp-resp" (  /* Knob to control ARP response on the interface, default is restricted */
-                    c(
+                    sc(
                         c(
                           "unrestricted"  /* Enable unrestricted ARP respone on the interface */,
                           "restricted"  /* Enable restricted proxy ARP response on the interface */
@@ -16690,7 +16690,7 @@ rule(:interfaces_type) do
                     )
                 ).as(:oneline),
                 "proxy-arp" (  /* Enable proxy ARP on the interface, default is unrestricted */
-                    c(
+                    sc(
                         c(
                           "unrestricted"  /* Enable unrestricted proxy ARP on the interface */,
                           "restricted"  /* Enable restricted proxy ARP on the interface */
@@ -16706,7 +16706,7 @@ rule(:interfaces_type) do
                   "vlan-id-list" arg  /* List of VLAN identifiers */,
                   "vlan-tag" arg  /* IEEE 802.1q tag list for VLAN tagged frames */,
                   "vlan-tags" (  /* IEEE 802.1q tags */
-                      c(
+                      sc(
                           "outer" (  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */
                             ("$junos-stacked-vlan-id" | "$junos-vlan-id" | arg)
                           ),
@@ -16757,7 +16757,7 @@ rule(:interfaces_type) do
                   "psn-vpi" arg  /* PSN VPI */
                 ),
                 "atm-l2circuit-mode" (  /* Select ATM Layer 2 circuit transport mode */
-                    c(
+                    sc(
                         c(
                           "cell"  /* ATM Layer 2 circuit cell mode */,
                           "aal5"  /* ATM Layer 2 circuit AAL5 mode */
@@ -16765,7 +16765,7 @@ rule(:interfaces_type) do
                     )
                 ).as(:oneline),
                 "vci-range" (  /* ATM VCI range start <start-vci> end <end-vci> */
-                    c(
+                    sc(
                         "start" arg  /* ATM VCI range's start value */,
                         "end" arg  /* ATM VCI range's end value */
                     )
@@ -16778,7 +16778,7 @@ rule(:interfaces_type) do
                   dcd_shaping_config  /* Virtual circuit traffic-shaping options */
                 ),
                 "oam-period" (  /* OAM cell period */
-                    c(
+                    sc(
                         c(
                             arg,
                           "disable"  /* Disable F5 OAM loopback */.as(:oneline)
@@ -16842,13 +16842,13 @@ rule(:interfaces_type) do
                                   ("q0" | "q1" | "q2" | "q3")
                                 ),
                                 "port" (  /* UDP destination ports reserved for RTP packets */
-                                    c(
+                                    sc(
                                         "minimum" arg,
                                         "maximum" arg
                                     )
                                 ).as(:oneline),
                                 "maximum-contexts" (  /* Maximum number of simultaneous RTP contexts */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -16980,7 +16980,7 @@ rule(:interfaces_type) do
                                     c(
                                         "fail-filter" arg  /* Name of filter applied to packets failing RPF check */,
                                         "mode" (  /* Mode for reverse path forwarding */
-                                            c(
+                                            sc(
                                                 "loose"  /* Reverse-path-forwarding loose mode */
                                             )
                                         ).as(:oneline)
@@ -17003,7 +17003,7 @@ rule(:interfaces_type) do
                                     c(
                                         c(
                                           "input" (  /* Filter to be applied to received packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -17013,7 +17013,7 @@ rule(:interfaces_type) do
                                         ),
                                         c(
                                           "output" (  /* Filter to be applied to transmitted packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -17107,7 +17107,7 @@ rule(:interfaces_type) do
                                                   dcd_shaping_config  /* Virtual circuit traffic-shaping options */
                                                 ),
                                                 "oam-period" (  /* OAM cell period */
-                                                    c(
+                                                    sc(
                                                         c(
                                                             arg,
                                                           "disable"  /* Disable OAM loopback */.as(:oneline)
@@ -17128,7 +17128,7 @@ rule(:interfaces_type) do
                                             )
                                         ),
                                         "arp" arg (  /* Static Address Resolution Protocol entries */
-                                            c(
+                                            sc(
                                                 "l2-interface" (  /* Layer 2 interface name for ARP entry */
                                                   interface_name  /* Layer 2 interface name for ARP entry */
                                                 ),
@@ -17159,7 +17159,7 @@ rule(:interfaces_type) do
                                     )
                                 ),
                                 "unnumbered-address" (  /* Unnumbered interface address/destination prefix */
-                                    c(
+                                    sc(
                                           interface_unit  /* Interface from which to take local address */,
                                         "preferred-source-address" (  /* Preferred address on the donor interface */
                                           ("$junos-preferred-source-address" | arg)
@@ -17196,7 +17196,7 @@ rule(:interfaces_type) do
                                             )
                                         ),
                                         "client-identifier" (  /* DHCP Server identifies a client by client-identifier value  */
-                                            c(
+                                            sc(
                                                 "duid-type" (  /* DUID identifying a client */
                                                   ("duid-llt" | "vendor" | "duid-ll")
                                                 )
@@ -17228,7 +17228,7 @@ rule(:interfaces_type) do
                                     c(
                                         "fail-filter" arg  /* Name of filter applied to packets failing RPF check */,
                                         "mode" (  /* Mode for reverse path forwarding */
-                                            c(
+                                            sc(
                                                 "loose"  /* Reverse-path-forwarding loose mode */
                                             )
                                         ).as(:oneline)
@@ -17268,7 +17268,7 @@ rule(:interfaces_type) do
                                     c(
                                         c(
                                           "input" (  /* Filter to be applied to received packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -17278,7 +17278,7 @@ rule(:interfaces_type) do
                                         ),
                                         c(
                                           "output" (  /* Filter to be applied to transmitted packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -17346,7 +17346,7 @@ rule(:interfaces_type) do
                                         "preferred"  /* Preferred address on interface */,
                                         "master-only"  /* Master management IP address for router */,
                                         "ndp" arg (  /* Static Neighbor Discovery Protocol  entries */
-                                            c(
+                                            sc(
                                                 "l2-interface" (  /* Layer 2 interface name for NDP entry */
                                                   interface_name  /* Layer 2 interface name for NDP entry */
                                                 ),
@@ -17380,7 +17380,7 @@ rule(:interfaces_type) do
                                 "demux-source"  /* Demux based on source prefix */,
                                 "demux-destination"  /* Demux based on destination prefix */,
                                 "unnumbered-address" (  /* Unnumbered interface address/destination prefix */
-                                    c(
+                                    sc(
                                           interface_unit  /* Interface from which to take local address */,
                                         "preferred-source-address" (  /* Preferred address on the donor interface */
                                           ("$junos-preferred-source-ipv6-address" | arg)
@@ -17514,7 +17514,7 @@ rule(:interfaces_type) do
                                     c(
                                         c(
                                           "input" (  /* Filter to be applied to received packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -17524,7 +17524,7 @@ rule(:interfaces_type) do
                                         ),
                                         c(
                                           "output" (  /* Filter to be applied to transmitted packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -17653,14 +17653,14 @@ rule(:interfaces_type) do
             )
         ),
         "no-partition" (  /* Use channelizable interface as clear channel */
-            c(
+            sc(
                 "interface-type" (  /* Interface type */
                   ("e1" | "t1" | "at" | "t3" | "e3" | "ct3" | "so" | "cau4")
                 )
             )
         ).as(:oneline),
         "partition" arg (  /* Channelized interface partition */
-            c(
+            sc(
                 "oc-slice" arg  /* Range of SONET/SDH slices (for example, 1, 7-9) */,
                 "timeslots" arg  /* Timeslots [(1..24) for T1, (1..31) for E1]; for example, 1-3,4,9,22-24 (no spaces) */,
                 "interface-type" (  /* Sublevel interface type */
@@ -17689,7 +17689,7 @@ rule(:interfaces_type) do
                 "spid2" arg  /* Additional service profile identifier */,
                 "calling-number" arg  /* Calling number included in outgoing calls */,
                 "incoming-called-number" arg (  /* Incoming called number to be screened */
-                    c(
+                    sc(
                         "reject"  /* Reject the called number */
                     )
                 ).as(:oneline),
@@ -17706,7 +17706,7 @@ rule(:interfaces_type) do
         "dialer-options" (  /* Dialer options */
             c(
                 "pool" arg (  /* Dialer pool */
-                    c(
+                    sc(
                         "priority" arg  /* Dialer pool priority */
                     )
                 ).as(:oneline)
@@ -17723,12 +17723,12 @@ rule(:interfaces_type) do
                 "sim" arg (  /* SIM slot to connect LTE network */
                     c(
                         "select-profile" (  /* Profile to be applied */
-                            c(
+                            sc(
                                 "profile-id" arg  /* Profile to be used for data calls */
                             )
                         ).as(:oneline),
                         "radio-access" (  /* Select radio access technology */
-                            c(
+                            sc(
                                 c(
                                   "automatic"  /* Automatically selects radio access type */,
                                   "umts-3g-only"  /* 3G only */,
@@ -18154,12 +18154,12 @@ rule(:juniper_access_options) do
                         "strip-user-name" (  /* Options for stripping user name string */
                             c(
                                 "delimiter" (  /* Allowable delimiter characters for strip user name separation */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline),
                                 "parse-direction" (  /* Strip user name parsing direction */
-                                    c(
+                                    sc(
                                         c(
                                           "right-to-left"  /* Parse the username from right to left */,
                                           "left-to-right"  /* Parse the username field from left to right */
@@ -18325,7 +18325,7 @@ rule(:juniper_access_options) do
                                 "authentication-denied" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18334,7 +18334,7 @@ rule(:juniper_access_options) do
                                 "no-resources" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18343,7 +18343,7 @@ rule(:juniper_access_options) do
                                 "server-request-timeout" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18356,7 +18356,7 @@ rule(:juniper_access_options) do
                                 "network-logout" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18365,7 +18365,7 @@ rule(:juniper_access_options) do
                                 "remote-reset" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18374,7 +18374,7 @@ rule(:juniper_access_options) do
                                 "subscriber-logout" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18383,7 +18383,7 @@ rule(:juniper_access_options) do
                                 "time-limit" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18392,7 +18392,7 @@ rule(:juniper_access_options) do
                                 "volume-limit" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18405,7 +18405,7 @@ rule(:juniper_access_options) do
                                 "administrative-reset" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18414,7 +18414,7 @@ rule(:juniper_access_options) do
                                 "idle-timeout" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18423,7 +18423,7 @@ rule(:juniper_access_options) do
                                 "reassign-on-match" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18432,7 +18432,7 @@ rule(:juniper_access_options) do
                                 "remote-reset" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18441,7 +18441,7 @@ rule(:juniper_access_options) do
                                 "session-timeout" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18456,7 +18456,7 @@ rule(:juniper_access_options) do
                         "client-request" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18465,7 +18465,7 @@ rule(:juniper_access_options) do
                         "lost-carrier" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18474,7 +18474,7 @@ rule(:juniper_access_options) do
                         "nak" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18483,7 +18483,7 @@ rule(:juniper_access_options) do
                         "nas-logout" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18492,7 +18492,7 @@ rule(:juniper_access_options) do
                         "no-offers" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18505,7 +18505,7 @@ rule(:juniper_access_options) do
                         "admin-down" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18514,7 +18514,7 @@ rule(:juniper_access_options) do
                         "client-request" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18523,7 +18523,7 @@ rule(:juniper_access_options) do
                         "lost-carrier" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18532,7 +18532,7 @@ rule(:juniper_access_options) do
                         "nak" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18541,7 +18541,7 @@ rule(:juniper_access_options) do
                         "nas-logout" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18550,7 +18550,7 @@ rule(:juniper_access_options) do
                         "no-resource" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18565,7 +18565,7 @@ rule(:juniper_access_options) do
                         "admin-logout" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18574,7 +18574,7 @@ rule(:juniper_access_options) do
                         "admin-reconnect" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18583,7 +18583,7 @@ rule(:juniper_access_options) do
                         "other" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18594,7 +18594,7 @@ rule(:juniper_access_options) do
                                 "access-interface-down" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18603,7 +18603,7 @@ rule(:juniper_access_options) do
                                 "admin-access-interface-down" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18612,7 +18612,7 @@ rule(:juniper_access_options) do
                                 "admin-core-interface-down" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18623,7 +18623,7 @@ rule(:juniper_access_options) do
                                         "port-down" (  /* Terminate-code specification */
                                             c(
                                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                                    c(
+                                                    sc(
                                                           arg
                                                     )
                                                 ).as(:oneline)
@@ -18632,7 +18632,7 @@ rule(:juniper_access_options) do
                                         "port-vlan-id-change" (  /* Terminate-code specification */
                                             c(
                                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                                    c(
+                                                    sc(
                                                           arg
                                                     )
                                                 ).as(:oneline)
@@ -18643,7 +18643,7 @@ rule(:juniper_access_options) do
                                 "core-interface-down" (  /* Terminate-code specification */
                                     c(
                                         "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline)
@@ -18654,7 +18654,7 @@ rule(:juniper_access_options) do
                                         "no-free-vlans" (  /* Terminate-code specification */
                                             c(
                                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                                    c(
+                                                    sc(
                                                           arg
                                                     )
                                                 ).as(:oneline)
@@ -18667,7 +18667,7 @@ rule(:juniper_access_options) do
                         "profile-request-error" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18676,7 +18676,7 @@ rule(:juniper_access_options) do
                         "sdb-error" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18685,7 +18685,7 @@ rule(:juniper_access_options) do
                         "subscriber-activate-error" (  /* Terminate-code specification */
                             c(
                                 "radius" (  /* Radius Acct-Terminate-Cause configuration */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -18726,7 +18726,7 @@ rule(:juniper_access_options) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -18858,7 +18858,7 @@ end
 rule(:address_assignment_type) do
     c(
         "neighbor-discovery-router-advertisement" (  /* Designated NDRA pool for this instance */
-            c(
+            sc(
                   arg
             )
         ).as(:oneline),
@@ -19010,7 +19010,7 @@ rule(:address_pool_object) do
             ipv4prefix  /* Address or address prefix */
           ),
           "address-range" (  /* Range of addresses for pool */
-              c(
+              sc(
                   "low" (  /* Lower limit of address range */
                     ipv4addr  /* Lower limit of address range */
                   ),
@@ -19058,12 +19058,12 @@ rule(:dhcp_attribute_type) do
                 "option-82" (
                     c(
                         "circuit-id" arg (  /* Circuit ID portion of the option 82 */
-                            c(
+                            sc(
                                 "range" arg  /* Range name */
                             )
                         ).as(:oneline),
                         "remote-id" arg (  /* Remote ID portion of the option 82 */
-                            c(
+                            sc(
                                 "range" arg  /* Range name */
                             )
                         ).as(:oneline)
@@ -19107,7 +19107,7 @@ rule(:dhcp_attribute_type) do
           interface_name  /* PPP interface name for propagating DNS/WINS settings */
         ),
         "option" arg (  /* DHCP option */
-            c(
+            sc(
                 c(
                   "flag" (  /* Boolean flag value */
                     ("true" | "false" | "on" | "off")
@@ -19206,7 +19206,7 @@ rule(:domain_map_type) do
                 ),
                 "strip-domain"  /* Enable domain name stripping from the username */,
                 "strip-username" (  /* Enable user name stripping from the username */
-                    c(
+                    sc(
                         c(
                           "right-to-left"  /* Strip to first domain delimiter on the right */,
                           "left-to-right"  /* Strip to first domain delimiter on the left */
@@ -19218,7 +19218,7 @@ rule(:domain_map_type) do
             )
         ),
         "parse-order" (  /* Order in which search parsing is conducted (i.e. look for domain-namd or realm-name first) */
-            c(
+            sc(
                 c(
                   "domain-first"  /* Search for domain name in username field before searching for realm name */,
                   "realm-first"  /* Search for realm name in username field before searching for domain name */
@@ -19226,12 +19226,12 @@ rule(:domain_map_type) do
             )
         ).as(:oneline),
         "delimiter" (  /* Allowable delimiter characters for domain name separation */
-            c(
+            sc(
                   arg
             )
         ).as(:oneline),
         "parse-direction" (  /* Domain name parsing direction */
-            c(
+            sc(
                 c(
                   "right-to-left"  /* Parse the username from right to left */,
                   "left-to-right"  /* Parse the username field from left to right to find domain name */
@@ -19239,12 +19239,12 @@ rule(:domain_map_type) do
             )
         ).as(:oneline),
         "realm-delimiter" (  /* Allowable delimiter characters for realm name separation */
-            c(
+            sc(
                   arg
             )
         ).as(:oneline),
         "realm-parse-direction" (  /* Realm name parsing direction */
-            c(
+            sc(
                 c(
                   "left-to-right"  /* Parse the username field from left to right to find realm name */,
                   "right-to-left"  /* Parse the username field from right to left to find realm name */
@@ -19379,7 +19379,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Define a classification of code point aliases */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Classify code points to a loss priority */
-                                    c(
+                                    sc(
                                         "code-points" arg  /* List of code point aliases and/or bit strings */
                                     )
                                 ).as(:oneline)
@@ -19395,7 +19395,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Define a classification of code point aliases */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Classify code points to a loss priority */
-                                    c(
+                                    sc(
                                         "code-points" arg  /* List of code point aliases and/or bit strings */
                                     )
                                 ).as(:oneline)
@@ -19411,7 +19411,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Define a classification of code point aliases */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Classify code points to a loss priority */
-                                    c(
+                                    sc(
                                         "code-points" arg  /* List of code point aliases and/or bit strings */
                                     )
                                 ).as(:oneline)
@@ -19427,7 +19427,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Define a classification of code point aliases */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Classify code points to a loss priority */
-                                    c(
+                                    sc(
                                         "code-points" arg  /* List of code point aliases and/or bit strings */
                                     )
                                 ).as(:oneline)
@@ -19443,7 +19443,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Define a classification of code point aliases */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Classify code points to a loss priority */
-                                    c(
+                                    sc(
                                         "code-points" arg  /* List of code point aliases and/or bit strings */
                                     )
                                 ).as(:oneline)
@@ -19459,7 +19459,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Define a classification of code point aliases */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Classify code points to a loss priority */
-                                    c(
+                                    sc(
                                         "code-points" arg  /* List of code point aliases and/or bit strings */
                                     )
                                 ).as(:oneline)
@@ -19477,7 +19477,7 @@ rule(:juniper_class_of_service_options) do
                 "frame-relay-de" arg (  /* Frame relay discard eligible bit loss priority map */
                     c(
                         "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Map code points to a loss priority */
-                            c(
+                            sc(
                                 "code-points" arg  /* List of bit strings */
                             )
                         ).as(:oneline)
@@ -19489,32 +19489,32 @@ rule(:juniper_class_of_service_options) do
         "code-point-aliases" (  /* Mapping of code point aliases to bit strings */
             c(
                 "dscp" arg (  /* Differentiated Services code point aliases */
-                    c(
+                    sc(
                         arg  /* DSCP 6-bit pattern */
                     )
                 ).as(:oneline),
                 "dscp-ipv6" arg (  /* Differentiated Services code point aliases IPv6 */
-                    c(
+                    sc(
                         arg  /* DSCP 6-bit pattern */
                     )
                 ).as(:oneline),
                 "exp" arg (  /* MPLS EXP code point aliases */
-                    c(
+                    sc(
                         arg  /* EXP 3-bit pattern */
                     )
                 ).as(:oneline),
                 "ieee-802.1" arg (  /* IEEE-802.1 code point aliases */
-                    c(
+                    sc(
                         arg  /* IEEE-802.1 3-bit pattern */
                     )
                 ).as(:oneline),
                 "inet-precedence" arg (  /* IPv4 precedence code point aliases */
-                    c(
+                    sc(
                         arg  /* IPv4 precedence 3-bit pattern */
                     )
                 ).as(:oneline),
                 "ieee-802.1ad" arg (  /* IEEE-802.1ad (DEI) code point aliases */
-                    c(
+                    sc(
                         arg  /* IEEE-802.1ad (DEI) 4-bit pattern */
                     )
                 ).as(:oneline),
@@ -19526,7 +19526,7 @@ rule(:juniper_class_of_service_options) do
                 "to-802.1p-from-dscp" arg (  /* DSCP to 802.1 translation table */
                     c(
                         "to-code-point" arg (  /* IEEE 802.1 code point */
-                            c(
+                            sc(
                                 "from-code-points" arg  /* DSCP code point */
                             )
                         ).as(:oneline)
@@ -19544,7 +19544,7 @@ rule(:juniper_class_of_service_options) do
                 "dscp-code-point" arg  /* Static DSCP code point of egress host traffic */,
                 "override-firewall"  /* Override firewall filter actions for RE generated traffic */,
                 "translation-table" (  /* Translation table for host outbound packets */
-                    c(
+                    sc(
                         "to-802.1p-from-dscp" arg  /* DSCP to 802.1 translation table */
                     )
                 ).as(:oneline),
@@ -19573,7 +19573,7 @@ rule(:juniper_class_of_service_options) do
         "drop-profiles" arg (  /* Random Early Drop (RED) data point map */
             c(
                 "fill-level" arg (  /* Fill-level value of data point */
-                    c(
+                    sc(
                         "drop-probability" arg  /* Probability packet will be dropped */
                     )
                 ).as(:oneline),
@@ -19588,9 +19588,9 @@ rule(:juniper_class_of_service_options) do
         "adaptive-shapers" arg (  /* Define the list of trigger types and associated rates */
             c(
                 "trigger" enum(("becn")) (  /* List of trigger types */
-                    c(
+                    sc(
                         "shaping-rate" (  /* Shaping rate for the trigger */
-                            c(
+                            sc(
                                 c(
                                   arg  /* Shaping rate as an absolute rate */,
                                   "percent" arg  /* Shaping rate as a percentage */
@@ -19607,7 +19607,7 @@ rule(:juniper_class_of_service_options) do
                     c(
                         "scheduler-map" arg  /* Scheduler map applied to this virtual channel */,
                         "shaping-rate" (  /* Shaping rate for the trigger */
-                            c(
+                            sc(
                                 c(
                                   arg  /* Adaptive shaping rate as an absolute rate */,
                                   "percent" arg  /* Adaptive shaping rate as a percentage */
@@ -19626,7 +19626,7 @@ rule(:juniper_class_of_service_options) do
             c(
                 "class"  /* Forwarding class to map to queue number */.as(:oneline),
                 "queue" arg (  /* Queue number to map to forwarding class */
-                    c(
+                    sc(
                           arg,
                         "priority" (  /* Fabric priority */
                           ("low" | "high")
@@ -19646,7 +19646,7 @@ rule(:juniper_class_of_service_options) do
                 "sustained-rate" arg  /* ATM Sustained Cell Rate (SCR) */,
                 "max-burst-size" arg  /* ATM Maximum Burst Size (MBS) */,
                 "shaping-rate" (  /* Shaping rate */
-                    c(
+                    sc(
                         c(
                           arg  /* Shaping rate as an absolute rate */,
                           "percent" arg  /* Shaping rate as a percentage */
@@ -19655,7 +19655,7 @@ rule(:juniper_class_of_service_options) do
                     )
                 ).as(:oneline),
                 "overhead-accounting" (  /* Overhead accounting */
-                    c(
+                    sc(
                           arg,
                         "bytes" arg  /* Byte adjust value */,
                         "frame-mode-bytes" arg  /* Overhead bytes when in frame-mode */,
@@ -19672,7 +19672,7 @@ rule(:juniper_class_of_service_options) do
                 "shaping-rate-excess-medium-high"  /* Shaping rate for excess medium-high traffic */.as(:oneline),
                 "shaping-rate-excess-medium-low"  /* Shaping rate for excess medium-low traffic */.as(:oneline),
                 "guaranteed-rate" (  /* Guaranteed rate */
-                    c(
+                    sc(
                         c(
                           arg  /* Guaranteed rate as an absolute rate */,
                           "percent" arg  /* Guaranteed rate as a percentage */
@@ -19687,7 +19687,7 @@ rule(:juniper_class_of_service_options) do
                 "excess-rate-medium-low"  /* Excess bandwidth sharing for excess-medium-low priority */.as(:oneline),
                 c(
                   "delay-buffer-rate" (  /* Delay buffer rate */
-                      c(
+                      sc(
                           c(
                             arg  /* Delay buffer rate as an absolute rate */,
                             "percent" arg  /* Delay buffer rate as a percentage */,
@@ -19716,18 +19716,18 @@ rule(:juniper_class_of_service_options) do
                     c(
                         "no-default"  /* Do not apply default classifiers to this interface */,
                         "exp" (  /* EXP classifier */
-                            c(
+                            sc(
                                   ("default")
                             )
                         ).as(:oneline),
                         "ieee-802.1"  /* IEEE-802.1 classifier */.as(:oneline),
                         "dscp" (  /* Differentiated Services code point classifier */
-                            c(
+                            sc(
                                   ("default")
                             )
                         ).as(:oneline),
                         "dscp-ipv6" (  /* Differentiated Services code point classifier IPv6 */
-                            c(
+                            sc(
                                   ("default")
                             )
                         ).as(:oneline)
@@ -19747,7 +19747,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Markings for named forwarding class */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Code point marking based on loss priority */
-                                    c(
+                                    sc(
                                         "code-point" arg  /* Code point aliases or bit string */
                                     )
                                 ).as(:oneline)
@@ -19763,7 +19763,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Markings for named forwarding class */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Code point marking based on loss priority */
-                                    c(
+                                    sc(
                                         "code-point" arg  /* Code point aliases or bit string */
                                     )
                                 ).as(:oneline)
@@ -19779,7 +19779,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Markings for named forwarding class */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Code point marking based on loss priority */
-                                    c(
+                                    sc(
                                         "code-point" arg  /* Code point aliases or bit string */
                                     )
                                 ).as(:oneline)
@@ -19795,7 +19795,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Markings for named forwarding class */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Code point marking based on loss priority */
-                                    c(
+                                    sc(
                                         "code-point" arg  /* Code point aliases or bit string */
                                     )
                                 ).as(:oneline)
@@ -19811,7 +19811,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Markings for named forwarding class */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Code point marking based on loss priority */
-                                    c(
+                                    sc(
                                         "code-point" arg  /* Code point aliases or bit string */
                                     )
                                 ).as(:oneline)
@@ -19827,7 +19827,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Markings for named forwarding class */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Code point marking based on loss priority */
-                                    c(
+                                    sc(
                                         "code-point" arg  /* Code point aliases or bit string */
                                     )
                                 ).as(:oneline)
@@ -19843,7 +19843,7 @@ rule(:juniper_class_of_service_options) do
                         "forwarding-class" arg (  /* Markings for named forwarding class */
                             c(
                                 "loss-priority" ("low" | "high" | "medium-low" | "medium-high") (  /* Code point marking based on loss priority */
-                                    c(
+                                    sc(
                                         "code-point" arg  /* Code point aliases or bit string */
                                     )
                                 ).as(:oneline)
@@ -19858,7 +19858,7 @@ rule(:juniper_class_of_service_options) do
         "scheduler-maps" arg (  /* Mapping of forwarding classes to packet schedulers */
             c(
                 "forwarding-class" arg (  /* Forwarding class name to map to scheduler */
-                    c(
+                    sc(
                         "scheduler" arg  /* Scheduler name */
                     )
                 ).as(:oneline)
@@ -19899,7 +19899,7 @@ rule(:juniper_class_of_service_options) do
                 ),
                 "excess-rate"  /* Excess bandwidth sharing proportion */.as(:oneline),
                 "shaping-rate" (  /* Shaping rate */
-                    c(
+                    sc(
                         c(
                           arg  /* Shaping rate as an absolute rate */,
                           "percent" arg  /* Shaping rate as a percentage */
@@ -19973,7 +19973,7 @@ rule(:juniper_class_of_service_options) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -20015,7 +20015,7 @@ rule(:appqos_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -20080,7 +20080,7 @@ rule(:cos_interfaces_type) do
         ),
         "output-forwarding-class-map" arg  /* Output forwarding class map name */,
         "shaping-rate" (  /* Output shaping rate */
-            c(
+            sc(
                 arg  /* Shaping rate as an absolute rate */,
                 "overhead" arg  /* Shaping overhead bytes to be accounted in egress */
             )
@@ -20088,24 +20088,24 @@ rule(:cos_interfaces_type) do
         "input-excess-bandwidth-share"  /* Input Excess bandwidth sharing policy */.as(:oneline),
         "excess-bandwidth-share"  /* Output Excess bandwidth sharing policy */.as(:oneline),
         "input-shaping-rate" (  /* Input shaping rate */
-            c(
+            sc(
                 arg  /* Input shaping rate as an absolute rate */
             )
         ).as(:oneline),
         "input-traffic-control-profile" (  /* Input traffic control profile */
-            c(
+            sc(
                   arg
             )
         ).as(:oneline),
         "input-traffic-control-profile-remaining" (  /* Input traffic control profile for remaining traffic on the ifd */
-            c(
+            sc(
                   arg
             )
         ).as(:oneline),
         "output-traffic-control-profile"  /* Output traffic control profile */.as(:oneline),
         "output-traffic-control-profile-remaining"  /* Output traffic control profile for remaining traffic on the ifd */.as(:oneline),
         "member-link-scheduler" (  /* Scheduler parameter model for member link */
-            c(
+            sc(
                 c(
                   "scale"  /* Scale scheduler parameters on aggregate interface */,
                   "replicate"  /* Copy scheduler parameters from aggregate interface */
@@ -20130,7 +20130,7 @@ rule(:cos_interfaces_type) do
                 "fragmentation-map" arg  /* Fragmentation map applied to this logical interface */,
                 "adaptive-shaper" arg  /* Adaptive shaper applied to this logical interface */,
                 "shaping-rate" (  /* Output shaping rate */
-                    c(
+                    sc(
                         c(
                           arg  /* Shaping rate as an absolute rate */,
                           "percent" arg  /* Shaping rate as a percentage */
@@ -20138,7 +20138,7 @@ rule(:cos_interfaces_type) do
                     )
                 ).as(:oneline),
                 "input-shaping-rate" (  /* Input shaping rate */
-                    c(
+                    sc(
                         c(
                           arg  /* Shaping rate as an absolute rate */,
                           "percent" arg  /* Shaping rate as a percentage */
@@ -20146,20 +20146,20 @@ rule(:cos_interfaces_type) do
                     )
                 ).as(:oneline),
                 "input-traffic-control-profile" (  /* Input traffic control profile */
-                    c(
+                    sc(
                           arg,
                         "shared-instance" arg  /* Name of the shared instance */
                     )
                 ).as(:oneline),
                 "output-traffic-control-profile" (  /* Output traffic control profile */
-                    c(
+                    sc(
                           arg,
                         "shared-instance" arg  /* Name of the shared instance */
                     )
                 ).as(:oneline),
                 "output-traffic-control-profile-remaining"  /* Output traffic control profile for remaining traffic on the ifl */.as(:oneline),
                 "report-ingress-shaping-rate" (  /* Report ingress shaping rate */
-                    c(
+                    sc(
                         c(
                           arg  /* Ingress shaping rate as an absolute value */
                         )
@@ -20179,23 +20179,23 @@ rule(:cos_interfaces_type) do
                             )
                         ),
                         "exp" (  /* EXP classifier */
-                            c(
+                            sc(
                                   ("default")
                             )
                         ).as(:oneline),
                         "ieee-802.1" (  /* IEEE-802.1 classifier */
-                            c(
+                            sc(
                                   ("default"),
                                 "vlan-tag" arg  /* VLAN tag used for classification */
                             )
                         ).as(:oneline),
                         "inet-precedence" (  /* IPv4 precedence classifier */
-                            c(
+                            sc(
                                   ("default")
                             )
                         ).as(:oneline),
                         "ieee-802.1ad" (  /* IEEE-802.1ad (DEI) classifier */
-                            c(
+                            sc(
                                   ("default"),
                                 "vlan-tag" arg  /* VLAN tag used for classification */
                             )
@@ -20206,7 +20206,7 @@ rule(:cos_interfaces_type) do
                 "loss-priority-maps" (  /* Loss priority maps applied to incoming packets */
                     c(
                         "frame-relay-de" (  /* Frame Relay discard eligible bit loss priority map */
-                            c(
+                            sc(
                                   ("default")
                             )
                         ).as(:oneline)
@@ -20215,28 +20215,28 @@ rule(:cos_interfaces_type) do
                 "rewrite-rules" (  /* Rewrite rules applied to outgoing packets */
                     c(
                         "dscp" ("default") (  /* Differentiated Services code point rewrite rule */
-                            c(
+                            sc(
                                 "protocol" (  /* Specify protocol matching criteria */
                                   ("mpls" | "gtp-inet-outer" | "gtp-inet-both" | "inet-outer" | "inet-both")
                                 )
                             )
                         ).as(:oneline),
                         "dscp-ipv6" ("default") (  /* Differentiated Services code point rewrite rule IPv6 */
-                            c(
+                            sc(
                                 "protocol" (  /* Specify protocol matching criteria */
                                   ("mpls" | "gtp-inet-outer" | "gtp-inet-both")
                                 )
                             )
                         ).as(:oneline),
                         "exp" ("default") (  /* EXP rewrite rule */
-                            c(
+                            sc(
                                 "protocol" (  /* Specify protocol matching criteria */
                                   ("mpls-any" | "mpls-inet-both" | "mpls-inet-both-non-vpn")
                                 )
                             )
                         ).as(:oneline),
                         "ieee-802.1" (  /* IEEE-802.1 rewrite rule */
-                            c(
+                            sc(
                                   ("default"),
                                 "vlan-tag" (  /* One or more VLAN tags to which rewrite rule applies */
                                   ("outer" | "outer-and-inner")
@@ -20244,7 +20244,7 @@ rule(:cos_interfaces_type) do
                             )
                         ).as(:oneline),
                         "inet-precedence" ("default") (  /* IPv4 precedence rewrite rule */
-                            c(
+                            sc(
                                 "protocol" (  /* Specify protocol matching criteria */
                                   ("mpls" | "gtp-inet-outer" | "gtp-inet-both" | "inet-outer" | "inet-both")
                                 )
@@ -20253,7 +20253,7 @@ rule(:cos_interfaces_type) do
                         "exp-swap-push-push"  /* Copy incoming EXP into all swap-push-push labels */.as(:oneline),
                         "exp-push-push-push"  /* Top-label EXP rewrite rule for push-push-push operation */.as(:oneline),
                         "frame-relay-de" (  /* Frame relay discard eligible bit rewrite rule */
-                            c(
+                            sc(
                                   ("default")
                             )
                         ).as(:oneline),
@@ -20342,7 +20342,7 @@ rule(:juniper_def_rtb_switch_options) do
         "service-id" arg  /* Service ID required if multi-chassis AE is part of a bridge-domain */,
         "ovsdb-managed"  /* All vxlan bridge domains in routing instance are remote managed */,
         "vtep-source-interface" (  /* Source layer-3 IFL for VXLAN */
-            c(
+            sc(
                   interface_name,
                 c(
                   "inet"  /* IPv4 source */,
@@ -20373,7 +20373,7 @@ rule(:juniper_def_rtb_switch_options) do
         ),
         "authentication-whitelist"  /* MAC authentication-whitelist configuration needed to bypass Authentication */,
         "route-distinguisher" (  /* Route distinguisher for this instance */
-            c(
+            sc(
                 arg  /* Number in (16 bit:32 bit) or (32 bit 'L':16 bit) or (IP address:16 bit) format */
             )
         ).as(:oneline),
@@ -20722,7 +20722,7 @@ rule(:juniper_dynamic_profile_object) do
                                                     )
                                                 ),
                                                 "static-route" (  /* Static route Status */
-                                                    c(
+                                                    sc(
                                                         "bfd-admin-down" (  /* Static route State on BFD ADMIN DOWN */
                                                           ("active" | "passive")
                                                         )
@@ -20883,7 +20883,7 @@ rule(:juniper_dynamic_profile_object) do
                                         ),
                                         c(
                                           "maximum-routes" (  /* Maximum number of routes */
-                                              c(
+                                              sc(
                                                     arg,
                                                   c(
                                                     "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -20893,7 +20893,7 @@ rule(:juniper_dynamic_profile_object) do
                                               )
                                           ).as(:oneline),
                                           "maximum-paths" (  /* Maximum number of paths */
-                                              c(
+                                              sc(
                                                     arg,
                                                   c(
                                                     "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -20904,7 +20904,7 @@ rule(:juniper_dynamic_profile_object) do
                                           ).as(:oneline)
                                         ),
                                         "maximum-prefixes" (  /* Maximum number of prefixes */
-                                            c(
+                                            sc(
                                                   arg,
                                                 c(
                                                   "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -20916,7 +20916,7 @@ rule(:juniper_dynamic_profile_object) do
                                         "multipath" (  /* Protocol-independent load balancing */
                                             c(
                                                 "vpn-unequal-cost" (  /* Include VPN routes with unequal IGP metrics */
-                                                    c(
+                                                    sc(
                                                         "equal-external-internal"  /* Include external and internal VPN routes */
                                                     )
                                                 ).as(:oneline),
@@ -20924,7 +20924,7 @@ rule(:juniper_dynamic_profile_object) do
                                             )
                                         ),
                                         "protect" (  /* Protocol-independent protection */
-                                            c(
+                                            sc(
                                                 "core"  /* Protect against unreachability to service-edge router */
                                             )
                                         ).as(:oneline),
@@ -21081,7 +21081,7 @@ rule(:juniper_dynamic_profile_object) do
                                                   trace_file_type  /* Trace file options */
                                                 ),
                                                 "flag" enum(("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                                    c(
+                                                    sc(
                                                         "disable"  /* Disable this trace flag */
                                                     )
                                                 ).as(:oneline)
@@ -21107,7 +21107,7 @@ rule(:juniper_dynamic_profile_object) do
                                                   policy_algebra  /* Policy for matched flows */
                                                 ),
                                                 "bandwidth" (  /* Bandwidth properties for matched flows */
-                                                    c(
+                                                    sc(
                                                         arg  /* Static or default bandwidth for the matched flows */,
                                                         "adaptive"  /* Auto-sense bandwidth for matched flows */
                                                     )
@@ -21118,7 +21118,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 "forwarding-cache" (  /* Forwarding cache properties for matched flows */
                                                     c(
                                                         "timeout" (  /* Timeout properties for matched flows */
-                                                            c(
+                                                            sc(
                                                                 c(
                                                                     arg,
                                                                   "never" (  /* Forwarding cache entries never time out */
@@ -21251,7 +21251,7 @@ rule(:juniper_dynamic_profile_object) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -21263,7 +21263,7 @@ rule(:juniper_dynamic_profile_object) do
                             )
                         ).as(:oneline),
                         "flag" enum(("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events" | "bfd-events" | "lib-events" | "reserved" | "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "informational" | "debugging" | "verbose" | "japi")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "disable"  /* Disable this trace flag */
                             )
                         ).as(:oneline)
@@ -21273,7 +21273,7 @@ rule(:juniper_dynamic_profile_object) do
                     c(
                         "member" arg  /* Interfaces belonging to the interface range */,
                         "member-range" arg (  /* Interfaces range in <start-range> to <end-range> format */
-                            c(
+                            sc(
                                 "end-range" (
                                   interface_device
                                 )
@@ -21325,7 +21325,7 @@ rule(:juniper_dynamic_profile_object) do
                           "no-per-unit-scheduler"  /* Don't enable subunit queuing on Frame Relay or VLAN IQ interface */,
                           "shared-scheduler"  /* Enabled shared queuing on an IQ2 interface */,
                           "hierarchical-scheduler" (  /* Enable hierarchical scheduling */
-                              c(
+                              sc(
                                   "maximum-hierarchy-levels" arg  /* Maximum hierarchy levels */,
                                   "maximum-l2-nodes" arg  /* Maximum l2 nodes, allowed numbers are power of 2 between 1 and 16k (needs FPC reboot) */,
                                   "maximum-l3-nodes" arg  /* Maximum l3 nodes, allowed numbers are power of 2 between 2 and 32k (needs FPC reboot) */,
@@ -21356,7 +21356,7 @@ rule(:juniper_dynamic_profile_object) do
                         ),
                         "mtu" arg  /* Maximum transmit packet size */,
                         "hold-time" (  /* Hold time for link up and link down */
-                            c(
+                            sc(
                                 "up" arg  /* Link up hold time */,
                                 "down" arg  /* Link down hold time */
                             )
@@ -21434,7 +21434,7 @@ rule(:juniper_dynamic_profile_object) do
                           multi_chassis_protection_group  /* Inter-Chassis protection configuration */
                         ),
                         "clocking" (  /* Interface clock source */
-                            c(
+                            sc(
                                 c(
                                   "internal"  /* Clocking provided by local system */,
                                   "external" (  /* Clocking provided by DCE (loop timing) */
@@ -21566,7 +21566,7 @@ rule(:juniper_dynamic_profile_object) do
                                           dcd_shaping_config  /* Virtual path traffic-shaping options */
                                         ),
                                         "oam-period" (  /* F4 OAM cell period */
-                                            c(
+                                            sc(
                                                 c(
                                                     arg,
                                                   "disable"  /* Disable F4 OAM loopback */.as(:oneline)
@@ -21583,7 +21583,7 @@ rule(:juniper_dynamic_profile_object) do
                                 ),
                                 "ilmi"  /* Enable Interim Local Management Interface */,
                                 "linear-red-profiles" arg (  /* ATM2 CoS virtual circuit drop profiles */
-                                    c(
+                                    sc(
                                         "queue-depth" arg  /* Maximum queue depth */,
                                         "high-plp-threshold" arg  /* Fill level percentage when linear RED is applied for high PLP */,
                                         "low-plp-threshold" arg  /* Fill level percentage when linear RED is applied for low PLP */,
@@ -21602,7 +21602,7 @@ rule(:juniper_dynamic_profile_object) do
                                                   ("low" | "high")
                                                 ),
                                                 "transmit-weight" (  /* Transmit weight */
-                                                    c(
+                                                    sc(
                                                         c(
                                                           "percent" arg  /* Transmit weight as percentage */,
                                                           "cells" arg  /* Transmit weight by cells count */
@@ -21700,7 +21700,7 @@ rule(:juniper_dynamic_profile_object) do
                                     )
                                 ),
                                 "ignore-errors" (  /* Ignore anomalies or errors */
-                                    c(
+                                    sc(
                                         "tcp"  /* TCP protocol errors */,
                                         "alg"  /* ALG anomalies or errors */
                                     )
@@ -21714,45 +21714,45 @@ rule(:juniper_dynamic_profile_object) do
                                         "filter" (  /* Filtering options for the packet capture */
                                             c(
                                                 "source-ip" (  /* Filter based on source-ip (and wildcard) */
-                                                    c(
-                                                          ipaddr  /* Source IP */,
+                                                    sc(
                                                         "wildcard" (  /* Source IP wildcard */
                                                           ipaddr  /* Source IP wildcard */
-                                                        )
+                                                        ),
+                                                          ipaddr  /* Source IP */
                                                     )
                                                 ).as(:oneline),
                                                 "dest-ip" (  /* Filter based on dest-ip (and wildcard) */
-                                                    c(
-                                                          ipaddr  /* Dest IP */,
+                                                    sc(
                                                         "wildcard" (  /* Dest IP wildcard */
                                                           ipaddr  /* Dest IP wildcard */
-                                                        )
+                                                        ),
+                                                          ipaddr  /* Dest IP */
                                                     )
                                                 ).as(:oneline),
                                                 "sw-sip" (  /* Filter based on source softwire ip (and wildcard) */
-                                                    c(
-                                                          ipv6addr  /* Source softwire IP */,
+                                                    sc(
                                                         "wildcard" (  /* Source IP wildcard */
                                                           ipv6addr  /* Source IP wildcard */
-                                                        )
+                                                        ),
+                                                          ipv6addr  /* Source softwire IP */
                                                     )
                                                 ).as(:oneline),
                                                 "sw-dip" (  /* Filter based on destination softwire ip (and wildcard) */
-                                                    c(
-                                                          ipaddr  /* Destination softwire IP */,
+                                                    sc(
                                                         "wildcard" (  /* Destination IP wildcard */
                                                           ipaddr  /* Destination IP wildcard */
-                                                        )
+                                                        ),
+                                                          ipaddr  /* Destination softwire IP */
                                                     )
                                                 ).as(:oneline),
                                                 "sport-range" (  /* Filter based on source port */
-                                                    c(
+                                                    sc(
                                                         "low" arg  /* Source port range start */,
                                                         "high" arg  /* Source port range end */
                                                     )
                                                 ).as(:oneline),
                                                 "dport-range" (  /* Filter based on destination port */
-                                                    c(
+                                                    sc(
                                                         "low" arg  /* Destination port range start */,
                                                         "high" arg  /* Destination port range end */
                                                     )
@@ -21778,30 +21778,30 @@ rule(:juniper_dynamic_profile_object) do
                                 "unframed"  /* Enable unframed mode */,
                                 "no-unframed"  /* Don't enable unframed mode */,
                                 "compatibility-mode" (  /* Set CSU compatibility mode */
-                                    c(
+                                    sc(
                                         c(
                                           "larscom" (  /* Compatible with Larscom CSU */
-                                              c(
+                                              sc(
                                                   "subrate" arg  /* Set subrate value */
                                               )
                                           ).as(:oneline),
                                           "verilink" (  /* Compatible with Verilink CSU (not on 2/4-port T3 PIC) */
-                                              c(
+                                              sc(
                                                   "subrate" arg  /* Set subrate value */
                                               )
                                           ).as(:oneline),
                                           "adtran" (  /* Compatible with Adtran CSU (not on 2/4-port T3 PIC) */
-                                              c(
+                                              sc(
                                                   "subrate" arg  /* Set subrate value */
                                               )
                                           ).as(:oneline),
                                           "kentrox" (  /* Compatible with Kentrox CSU */
-                                              c(
+                                              sc(
                                                   "subrate" arg  /* Set subrate value (not on 2/4-port T3 PIC) */
                                               )
                                           ).as(:oneline),
                                           "digital-link" (  /* Compatible with Digital Link CSU */
-                                              c(
+                                              sc(
                                                   "subrate" (  /* Set subrate value */
                                                     ("301Kb" | "601Kb" | "902Kb" | "1.2Mb" | "1.5Mb" | "1.8Mb" | "2.1Mb" | "2.4Mb" | "2.7Mb" | "3.0Mb" | "3.3Mb" | "3.6Mb" | "3.9Mb" | "4.2Mb" | "4.5Mb" | "4.8Mb" | "5.1Mb" | "5.4Mb" | "5.7Mb" | "6.0Mb" | "6.3Mb" | "6.6Mb" | "6.9Mb" | "7.2Mb" | "7.5Mb" | "7.8Mb" | "8.1Mb" | "8.4Mb" | "8.7Mb" | "9.0Mb" | "9.3Mb" | "9.6Mb" | "9.9Mb" | "10.2Mb" | "10.5Mb" | "10.8Mb" | "11.1Mb" | "11.4Mb" | "11.7Mb" | "12.0Mb" | "12.3Mb" | "12.6Mb" | "12.9Mb" | "13.2Mb" | "13.5Mb" | "13.8Mb" | "14.1Mb" | "14.4Mb" | "14.7Mb" | "15.0Mb" | "15.3Mb" | "15.6Mb" | "15.9Mb" | "16.2Mb" | "16.5Mb" | "16.8Mb" | "17.1Mb" | "17.4Mb" | "17.7Mb" | "18.0Mb" | "18.3Mb" | "18.6Mb" | "18.9Mb" | "19.2Mb" | "19.5Mb" | "19.8Mb" | "20.1Mb" | "20.5Mb" | "20.8Mb" | "21.1Mb" | "21.4Mb" | "21.7Mb" | "22.0Mb" | "22.3Mb" | "22.6Mb" | "22.9Mb" | "23.2Mb" | "23.5Mb" | "23.8Mb" | "24.1Mb" | "24.4Mb" | "24.7Mb" | "25.0Mb" | "25.3Mb" | "25.6Mb" | "25.9Mb" | "26.2Mb" | "26.5Mb" | "26.8Mb" | "27.1Mb" | "27.4Mb" | "27.7Mb" | "28.0Mb" | "28.3Mb" | "28.6Mb" | "28.9Mb" | "29.2Mb" | "29.5Mb" | "29.8Mb" | "30.1Mb" | "30.4Mb" | "30.7Mb" | "31.0Mb" | "31.3Mb" | "31.6Mb" | "31.9Mb" | "32.2Mb" | "32.5Mb" | "32.8Mb" | "33.1Mb" | "33.4Mb" | "33.7Mb" | "34.0Mb" | "34.3Mb" | "34.6Mb" | "34.9Mb" | "35.2Mb" | "35.5Mb" | "35.8Mb" | "36.1Mb" | "36.4Mb" | "36.7Mb" | "37.0Mb" | "37.3Mb" | "37.6Mb" | "37.9Mb" | "38.2Mb" | "38.5Mb" | "38.8Mb" | "39.1Mb" | "39.4Mb" | "39.7Mb" | "40.0Mb" | "40.3Mb" | "40.6Mb" | "40.9Mb" | "41.2Mb" | "41.5Mb" | "41.8Mb" | "42.1Mb" | "42.4Mb" | "42.7Mb" | "43.0Mb" | "43.3Mb" | "43.6Mb" | "43.9Mb" | "44.2Mb")
                                                   )
@@ -21844,18 +21844,18 @@ rule(:juniper_dynamic_profile_object) do
                                 "unframed"  /* Enable unframed mode */,
                                 "no-unframed"  /* Don't enable unframed mode */,
                                 "compatibility-mode" (  /* Set CSU compatibility mode */
-                                    c(
+                                    sc(
                                         c(
                                           "larscom"  /* Compatible with Larscom CSU (only non IQ E3 interfaces) */,
                                           "digital-link" (  /* Compatible with Digital Link CSU */
-                                              c(
+                                              sc(
                                                   "subrate" (  /* Set subrate value */
                                                     ("358Kb" | "716Kb" | "1.1Mb" | "1.4Mb" | "1.8Mb" | "2.1Mb" | "2.5Mb" | "2.9Mb" | "3.2Mb" | "3.6Mb" | "3.9Mb" | "4.3Mb" | "4.7Mb" | "5.0Mb" | "5.4Mb" | "5.7Mb" | "6.1Mb" | "6.4Mb" | "6.8Mb" | "7.2Mb" | "7.5Mb" | "7.9Mb" | "8.2Mb" | "8.6Mb" | "9.0Mb" | "9.3Mb" | "9.7Mb" | "10.0Mb" | "10.4Mb" | "10.7Mb" | "11.1Mb" | "11.5Mb" | "11.8Mb" | "12.2Mb" | "12.5Mb" | "12.9Mb" | "13.2Mb" | "13.6Mb" | "14.0Mb" | "14.3Mb" | "14.7Mb" | "15.0Mb" | "15.4Mb" | "15.8Mb" | "16.1Mb" | "16.5Mb" | "16.8Mb" | "17.2Mb" | "17.5Mb" | "17.9Mb" | "18.3Mb" | "18.6Mb" | "19.0Mb" | "19.3Mb" | "19.7Mb" | "20.0Mb" | "20.4Mb" | "20.8Mb" | "21.1Mb" | "21.5Mb" | "21.8Mb" | "22.2Mb" | "22.6Mb" | "22.9Mb" | "23.3Mb" | "23.6Mb" | "24.0Mb" | "24.3Mb" | "24.7Mb" | "25.1Mb" | "25.4Mb" | "25.8Mb" | "26.1Mb" | "26.5Mb" | "26.9Mb" | "27.2Mb" | "27.6Mb" | "27.9Mb" | "28.3Mb" | "28.6Mb" | "29.0Mb" | "29.4Mb" | "29.7Mb" | "30.1Mb" | "30.4Mb" | "30.8Mb" | "31.1Mb" | "31.5Mb" | "31.9Mb" | "32.2Mb" | "32.6Mb" | "32.9Mb" | "33.3Mb" | "33.7Mb" | "34.0Mb")
                                                   )
                                               )
                                           ).as(:oneline),
                                           "kentrox" (  /* Compatible with Kentrox CSU */
-                                              c(
+                                              sc(
                                                   "subrate" arg  /* Set subrate value (only for E3 IQ interfaces) */
                                               )
                                           ).as(:oneline)
@@ -21994,7 +21994,7 @@ rule(:juniper_dynamic_profile_object) do
                                       c(
                                           "ignore-all"  /* Ignore all control leads */,
                                           "dtr" (  /* Data Transmit Ready signal handling */
-                                              c(
+                                              sc(
                                                   c(
                                                     "assert"  /* Assert DTR signal */,
                                                     "de-assert"  /* Deassert DTR signal */,
@@ -22136,7 +22136,7 @@ rule(:juniper_dynamic_profile_object) do
                                             )
                                         ),
                                         "recovery-timeout" (  /* Recovery timeout for this interface */
-                                            c(
+                                            sc(
                                                   arg
                                             )
                                         ).as(:oneline),
@@ -22207,7 +22207,7 @@ rule(:juniper_dynamic_profile_object) do
                                 c(
                                   "no-auto-negotiation"  /* Disable auto-negotiation */,
                                   "auto-negotiation" (  /* Enable auto-negotiation */
-                                      c(
+                                      sc(
                                           "remote-fault" (
                                             ("local-interface-offline" | "local-interface-online")
                                           )
@@ -22394,7 +22394,7 @@ rule(:juniper_dynamic_profile_object) do
                                             )
                                         ),
                                         "fec-ber" (  /* Optics Errored Seconds Threshold crossing defect trigger */
-                                            c(
+                                            sc(
                                                 "enable-tca"  /* Enable the Optics errored seconds threshold crossing alert */,
                                                 "no-enable-tca"  /* Don't enable the Optics errored seconds threshold crossing alert */,
                                                 "threshold" arg  /* TCA threshold for BER value in format: xe-n, x is an integer or decimal number, n = 0..9 */,
@@ -22836,7 +22836,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "redundancy" (  /* Container interface redundancy options */
                                     c(
                                         "hold-time" (  /* Hold time for link up and link down */
-                                            c(
+                                            sc(
                                                 "up" arg  /* Link up hold time */,
                                                 "down" arg  /* Link down hold time */
                                             )
@@ -22869,7 +22869,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "proxy-macip-advertisement"  /* Proxy advertisement of type 2 MAC+IP route for EVPN */,
                                 "virtual-gateway-accept-data"  /* Accept packets destined for virtual gateway address */,
                                 "peer-psd" (  /* Peer psd */
-                                    c(
+                                    sc(
                                         arg  /* Peer psd name */
                                     )
                                 ).as(:oneline),
@@ -22923,7 +22923,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "routing-services"  /* Enable routing services */,
                                 "no-routing-services"  /* Don't enable routing services */,
                                 "arp-resp" (  /* Knob to control ARP response on the interface, default is restricted */
-                                    c(
+                                    sc(
                                         c(
                                           "unrestricted"  /* Enable unrestricted ARP respone on the interface */,
                                           "restricted"  /* Enable restricted proxy ARP response on the interface */
@@ -22931,7 +22931,7 @@ rule(:juniper_dynamic_profile_object) do
                                     )
                                 ).as(:oneline),
                                 "proxy-arp" (  /* Enable proxy ARP on the interface, default is unrestricted */
-                                    c(
+                                    sc(
                                         c(
                                           "unrestricted"  /* Enable unrestricted proxy ARP on the interface */,
                                           "restricted"  /* Enable restricted proxy ARP on the interface */
@@ -22947,7 +22947,7 @@ rule(:juniper_dynamic_profile_object) do
                                   "vlan-id-list" arg  /* List of VLAN identifiers */,
                                   "vlan-tag" arg  /* IEEE 802.1q tag list for VLAN tagged frames */,
                                   "vlan-tags" (  /* IEEE 802.1q tags */
-                                      c(
+                                      sc(
                                           "outer" (  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */
                                             ("$junos-stacked-vlan-id" | "$junos-vlan-id" | arg)
                                           ),
@@ -22998,7 +22998,7 @@ rule(:juniper_dynamic_profile_object) do
                                   "psn-vpi" arg  /* PSN VPI */
                                 ),
                                 "atm-l2circuit-mode" (  /* Select ATM Layer 2 circuit transport mode */
-                                    c(
+                                    sc(
                                         c(
                                           "cell"  /* ATM Layer 2 circuit cell mode */,
                                           "aal5"  /* ATM Layer 2 circuit AAL5 mode */
@@ -23006,7 +23006,7 @@ rule(:juniper_dynamic_profile_object) do
                                     )
                                 ).as(:oneline),
                                 "vci-range" (  /* ATM VCI range start <start-vci> end <end-vci> */
-                                    c(
+                                    sc(
                                         "start" arg  /* ATM VCI range's start value */,
                                         "end" arg  /* ATM VCI range's end value */
                                     )
@@ -23019,7 +23019,7 @@ rule(:juniper_dynamic_profile_object) do
                                   dcd_shaping_config  /* Virtual circuit traffic-shaping options */
                                 ),
                                 "oam-period" (  /* OAM cell period */
-                                    c(
+                                    sc(
                                         c(
                                             arg,
                                           "disable"  /* Disable F5 OAM loopback */.as(:oneline)
@@ -23083,13 +23083,13 @@ rule(:juniper_dynamic_profile_object) do
                                                   ("q0" | "q1" | "q2" | "q3")
                                                 ),
                                                 "port" (  /* UDP destination ports reserved for RTP packets */
-                                                    c(
+                                                    sc(
                                                         "minimum" arg,
                                                         "maximum" arg
                                                     )
                                                 ).as(:oneline),
                                                 "maximum-contexts" (  /* Maximum number of simultaneous RTP contexts */
-                                                    c(
+                                                    sc(
                                                           arg
                                                     )
                                                 ).as(:oneline)
@@ -23221,7 +23221,7 @@ rule(:juniper_dynamic_profile_object) do
                                                     c(
                                                         "fail-filter" arg  /* Name of filter applied to packets failing RPF check */,
                                                         "mode" (  /* Mode for reverse path forwarding */
-                                                            c(
+                                                            sc(
                                                                 "loose"  /* Reverse-path-forwarding loose mode */
                                                             )
                                                         ).as(:oneline)
@@ -23244,7 +23244,7 @@ rule(:juniper_dynamic_profile_object) do
                                                     c(
                                                         c(
                                                           "input" (  /* Filter to be applied to received packets */
-                                                              c(
+                                                              sc(
                                                                   arg  /* Name of the filter */,
                                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                   "precedence" arg  /* Precedence of the filter */
@@ -23254,7 +23254,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         ),
                                                         c(
                                                           "output" (  /* Filter to be applied to transmitted packets */
-                                                              c(
+                                                              sc(
                                                                   arg  /* Name of the filter */,
                                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                   "precedence" arg  /* Precedence of the filter */
@@ -23348,7 +23348,7 @@ rule(:juniper_dynamic_profile_object) do
                                                                   dcd_shaping_config  /* Virtual circuit traffic-shaping options */
                                                                 ),
                                                                 "oam-period" (  /* OAM cell period */
-                                                                    c(
+                                                                    sc(
                                                                         c(
                                                                             arg,
                                                                           "disable"  /* Disable OAM loopback */.as(:oneline)
@@ -23369,7 +23369,7 @@ rule(:juniper_dynamic_profile_object) do
                                                             )
                                                         ),
                                                         "arp" arg (  /* Static Address Resolution Protocol entries */
-                                                            c(
+                                                            sc(
                                                                 "l2-interface" (  /* Layer 2 interface name for ARP entry */
                                                                   interface_name  /* Layer 2 interface name for ARP entry */
                                                                 ),
@@ -23400,7 +23400,7 @@ rule(:juniper_dynamic_profile_object) do
                                                     )
                                                 ),
                                                 "unnumbered-address" (  /* Unnumbered interface address/destination prefix */
-                                                    c(
+                                                    sc(
                                                           interface_unit  /* Interface from which to take local address */,
                                                         "preferred-source-address" (  /* Preferred address on the donor interface */
                                                           ("$junos-preferred-source-address" | arg)
@@ -23437,7 +23437,7 @@ rule(:juniper_dynamic_profile_object) do
                                                             )
                                                         ),
                                                         "client-identifier" (  /* DHCP Server identifies a client by client-identifier value  */
-                                                            c(
+                                                            sc(
                                                                 "duid-type" (  /* DUID identifying a client */
                                                                   ("duid-llt" | "vendor" | "duid-ll")
                                                                 )
@@ -23469,7 +23469,7 @@ rule(:juniper_dynamic_profile_object) do
                                                     c(
                                                         "fail-filter" arg  /* Name of filter applied to packets failing RPF check */,
                                                         "mode" (  /* Mode for reverse path forwarding */
-                                                            c(
+                                                            sc(
                                                                 "loose"  /* Reverse-path-forwarding loose mode */
                                                             )
                                                         ).as(:oneline)
@@ -23509,7 +23509,7 @@ rule(:juniper_dynamic_profile_object) do
                                                     c(
                                                         c(
                                                           "input" (  /* Filter to be applied to received packets */
-                                                              c(
+                                                              sc(
                                                                   arg  /* Name of the filter */,
                                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                   "precedence" arg  /* Precedence of the filter */
@@ -23519,7 +23519,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         ),
                                                         c(
                                                           "output" (  /* Filter to be applied to transmitted packets */
-                                                              c(
+                                                              sc(
                                                                   arg  /* Name of the filter */,
                                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                   "precedence" arg  /* Precedence of the filter */
@@ -23587,7 +23587,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         "preferred"  /* Preferred address on interface */,
                                                         "master-only"  /* Master management IP address for router */,
                                                         "ndp" arg (  /* Static Neighbor Discovery Protocol  entries */
-                                                            c(
+                                                            sc(
                                                                 "l2-interface" (  /* Layer 2 interface name for NDP entry */
                                                                   interface_name  /* Layer 2 interface name for NDP entry */
                                                                 ),
@@ -23621,7 +23621,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 "demux-source"  /* Demux based on source prefix */,
                                                 "demux-destination"  /* Demux based on destination prefix */,
                                                 "unnumbered-address" (  /* Unnumbered interface address/destination prefix */
-                                                    c(
+                                                    sc(
                                                           interface_unit  /* Interface from which to take local address */,
                                                         "preferred-source-address" (  /* Preferred address on the donor interface */
                                                           ("$junos-preferred-source-ipv6-address" | arg)
@@ -23755,7 +23755,7 @@ rule(:juniper_dynamic_profile_object) do
                                                     c(
                                                         c(
                                                           "input" (  /* Filter to be applied to received packets */
-                                                              c(
+                                                              sc(
                                                                   arg  /* Name of the filter */,
                                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                   "precedence" arg  /* Precedence of the filter */
@@ -23765,7 +23765,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         ),
                                                         c(
                                                           "output" (  /* Filter to be applied to transmitted packets */
-                                                              c(
+                                                              sc(
                                                                   arg  /* Name of the filter */,
                                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                                   "precedence" arg  /* Precedence of the filter */
@@ -23894,14 +23894,14 @@ rule(:juniper_dynamic_profile_object) do
                             )
                         ),
                         "no-partition" (  /* Use channelizable interface as clear channel */
-                            c(
+                            sc(
                                 "interface-type" (  /* Interface type */
                                   ("e1" | "t1" | "at" | "t3" | "e3" | "ct3" | "so" | "cau4")
                                 )
                             )
                         ).as(:oneline),
                         "partition" arg (  /* Channelized interface partition */
-                            c(
+                            sc(
                                 "oc-slice" arg  /* Range of SONET/SDH slices (for example, 1, 7-9) */,
                                 "timeslots" arg  /* Timeslots [(1..24) for T1, (1..31) for E1]; for example, 1-3,4,9,22-24 (no spaces) */,
                                 "interface-type" (  /* Sublevel interface type */
@@ -23930,7 +23930,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "spid2" arg  /* Additional service profile identifier */,
                                 "calling-number" arg  /* Calling number included in outgoing calls */,
                                 "incoming-called-number" arg (  /* Incoming called number to be screened */
-                                    c(
+                                    sc(
                                         "reject"  /* Reject the called number */
                                     )
                                 ).as(:oneline),
@@ -23947,7 +23947,7 @@ rule(:juniper_dynamic_profile_object) do
                         "dialer-options" (  /* Dialer options */
                             c(
                                 "pool" arg (  /* Dialer pool */
-                                    c(
+                                    sc(
                                         "priority" arg  /* Dialer pool priority */
                                     )
                                 ).as(:oneline)
@@ -23964,12 +23964,12 @@ rule(:juniper_dynamic_profile_object) do
                                 "sim" arg (  /* SIM slot to connect LTE network */
                                     c(
                                         "select-profile" (  /* Profile to be applied */
-                                            c(
+                                            sc(
                                                 "profile-id" arg  /* Profile to be used for data calls */
                                             )
                                         ).as(:oneline),
                                         "radio-access" (  /* Select radio access technology */
-                                            c(
+                                            sc(
                                                 c(
                                                   "automatic"  /* Automatically selects radio access type */,
                                                   "umts-3g-only"  /* 3G only */,
@@ -24005,7 +24005,7 @@ rule(:juniper_dynamic_profile_object) do
                                   trace_file_type  /* Trace file options */
                                 ),
                                 "flag" enum(("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                    c(
+                                    sc(
                                         "send"  /* Trace transmitted packets */,
                                         "receive"  /* Trace received packets */,
                                         "detail"  /* Trace detailed information */,
@@ -24060,7 +24060,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "group-threshold" arg  /* Percentage of limit at which to generate warnings */,
                                 "log-interval" arg  /* Time between consecutive log messages */,
                                 "passive" (  /* Suppress sending and receiving IGMP messages */
-                                    c(
+                                    sc(
                                         "allow-receive"  /* Allow receiving IGMP messages */,
                                         "send-general-query"  /* Send IGMP general query messages */,
                                         "send-group-query"  /* Send IGMP group query messages */
@@ -24112,7 +24112,7 @@ rule(:juniper_dynamic_profile_object) do
                                             c(
                                                 "no-remote-trace"  /* Disable remote tracing */,
                                                 "file" (  /* Trace file information */
-                                                    c(
+                                                    sc(
                                                           arg,
                                                         "size" arg  /* Maximum trace file size */,
                                                         "files" arg  /* Maximum number of trace files */,
@@ -24229,7 +24229,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 "clear-action" (
                                                     c(
                                                         "interface-down" (  /* Mark the interface as down */
-                                                            c(
+                                                            sc(
                                                                 "peer-interface"  /* Mark the interface as down */
                                                             )
                                                         ).as(:oneline),
@@ -24266,7 +24266,7 @@ rule(:juniper_dynamic_profile_object) do
                                                 "virtual-switch" arg (  /* Virtual switch Bridge-domain information for the default maintenance domain */
                                                     c(
                                                         "bridge-domain" arg (
-                                                            c(
+                                                            sc(
                                                                 "vlan-id" arg  /* VLAN id */
                                                             )
                                                         ).as(:oneline)
@@ -24316,7 +24316,7 @@ rule(:juniper_dynamic_profile_object) do
                                                         "mep" arg (  /* Maintenance association endpoint configuration */
                                                             c(
                                                                 "interface" (  /* Name of interface */
-                                                                    c(
+                                                                    sc(
                                                                           interface_unit,
                                                                         "vlan" arg  /* Trunk port interface VLAN identifier */,
                                                                         c(
@@ -24376,10 +24376,10 @@ rule(:juniper_dynamic_profile_object) do
                                 "evcs" arg (  /* Ethernet virtual circuits configuration */
                                     c(
                                         "evc-protocol" (  /* Signaling protocol to monitor EVC status */
-                                            c(
+                                            sc(
                                                 c(
                                                   "cfm" (  /* Connectivity fault management */
-                                                      c(
+                                                      sc(
                                                           "maintenance-domain" arg  /* Maintenance domain name */,
                                                           "maintenance-association" arg  /* Maintenance association name */,
                                                           "mep" arg  /* Identifier for maintenance association endpoint */,
@@ -24387,7 +24387,7 @@ rule(:juniper_dynamic_profile_object) do
                                                       )
                                                   ).as(:oneline),
                                                   "vpls" (  /* Virtual private LAN service (BGP/LDP) */
-                                                      c(
+                                                      sc(
                                                           "routing-instance" arg  /* Routing instance name */
                                                       )
                                                   ).as(:oneline),
@@ -24407,7 +24407,7 @@ rule(:juniper_dynamic_profile_object) do
                                             c(
                                                 "no-remote-trace"  /* Disable remote tracing */,
                                                 "file" (  /* Trace file information */
-                                                    c(
+                                                    sc(
                                                           arg,
                                                         "size" arg  /* Maximum trace file size */,
                                                         "files" arg  /* Maximum number of trace files */,
@@ -24470,7 +24470,7 @@ rule(:juniper_dynamic_profile_object) do
                                     c(
                                         "no-remote-trace"  /* Disable remote tracing */,
                                         "file" (  /* Trace file information */
-                                            c(
+                                            sc(
                                                   arg,
                                                 "size" arg  /* Maximum trace file size */,
                                                 "files" arg  /* Maximum number of trace files */,
@@ -24502,7 +24502,7 @@ rule(:juniper_dynamic_profile_object) do
                                   trace_file_type  /* Trace file options */
                                 ),
                                 "flag" enum(("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                    c(
+                                    sc(
                                         "send"  /* Trace transmitted packets */,
                                         "receive"  /* Trace received packets */,
                                         "detail"  /* Trace detailed information */,
@@ -24556,7 +24556,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "accounting"  /* Enable join and leave event notification */,
                                 "no-accounting"  /* Don't enable join and leave event notification */,
                                 "passive" (  /* Suppress sending and receiving mld messages */
-                                    c(
+                                    sc(
                                         "allow-receive"  /* Allow receiving mld messages */,
                                         "send-general-query"  /* Send mld general query messages */,
                                         "send-group-query"  /* Send mld group query messages */
@@ -24843,7 +24843,7 @@ rule(:juniper_dynamic_profile_object) do
                                     )
                                 ),
                                 "static-route" (  /* Static route Status */
-                                    c(
+                                    sc(
                                         "bfd-admin-down" (  /* Static route State on BFD ADMIN DOWN */
                                           ("active" | "passive")
                                         )
@@ -25004,7 +25004,7 @@ rule(:juniper_dynamic_profile_object) do
                         ),
                         c(
                           "maximum-routes" (  /* Maximum number of routes */
-                              c(
+                              sc(
                                     arg,
                                   c(
                                     "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -25014,7 +25014,7 @@ rule(:juniper_dynamic_profile_object) do
                               )
                           ).as(:oneline),
                           "maximum-paths" (  /* Maximum number of paths */
-                              c(
+                              sc(
                                     arg,
                                   c(
                                     "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -25025,7 +25025,7 @@ rule(:juniper_dynamic_profile_object) do
                           ).as(:oneline)
                         ),
                         "maximum-prefixes" (  /* Maximum number of prefixes */
-                            c(
+                            sc(
                                   arg,
                                 c(
                                   "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -25037,7 +25037,7 @@ rule(:juniper_dynamic_profile_object) do
                         "multipath" (  /* Protocol-independent load balancing */
                             c(
                                 "vpn-unequal-cost" (  /* Include VPN routes with unequal IGP metrics */
-                                    c(
+                                    sc(
                                         "equal-external-internal"  /* Include external and internal VPN routes */
                                     )
                                 ).as(:oneline),
@@ -25045,7 +25045,7 @@ rule(:juniper_dynamic_profile_object) do
                             )
                         ),
                         "protect" (  /* Protocol-independent protection */
-                            c(
+                            sc(
                                 "core"  /* Protect against unreachability to service-edge router */
                             )
                         ).as(:oneline),
@@ -25202,7 +25202,7 @@ rule(:juniper_dynamic_profile_object) do
                                   trace_file_type  /* Trace file options */
                                 ),
                                 "flag" enum(("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                    c(
+                                    sc(
                                         "disable"  /* Disable this trace flag */
                                     )
                                 ).as(:oneline)
@@ -25228,7 +25228,7 @@ rule(:juniper_dynamic_profile_object) do
                                   policy_algebra  /* Policy for matched flows */
                                 ),
                                 "bandwidth" (  /* Bandwidth properties for matched flows */
-                                    c(
+                                    sc(
                                         arg  /* Static or default bandwidth for the matched flows */,
                                         "adaptive"  /* Auto-sense bandwidth for matched flows */
                                     )
@@ -25239,7 +25239,7 @@ rule(:juniper_dynamic_profile_object) do
                                 "forwarding-cache" (  /* Forwarding cache properties for matched flows */
                                     c(
                                         "timeout" (  /* Timeout properties for matched flows */
-                                            c(
+                                            sc(
                                                 c(
                                                     arg,
                                                   "never" (  /* Forwarding cache entries never time out */
@@ -25516,12 +25516,12 @@ rule(:access_cac_interface_options) do
   arg.as(:arg) (
     c(
         "multicast-video-bandwidth" (  /* Maximum multicast bandwidth for the interface */
-            c(
+            sc(
                 arg  /* Bandwidth used in access cac configuration */
             )
         ).as(:oneline),
         "video-bandwidth" (  /* Maximum video bandwidth for the interface */
-            c(
+            sc(
                 arg  /* Bandwidth used in access cac configuration */
             )
         ).as(:oneline),
@@ -25585,7 +25585,7 @@ rule(:cfm_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -25701,13 +25701,13 @@ rule(:flow_dep_traceoptions) do
           trace_file_type  /* Trace file options */
         ),
         "flag" enum(("resolution" | "flash" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-            c(
+            sc(
                 "send"  /* Trace transmitted packets */,
                 "receive"  /* Trace received packets */,
                 "detail"  /* Trace detailed information */,
                 "disable"  /* Disable this trace flag */,
                 "filter" (  /* Filter to apply to tracing */
-                    c(
+                    sc(
                         "match-on" (  /* Argument on which to match */
                           ("prefix" | "route-attribute")
                         ),
@@ -25899,7 +25899,7 @@ rule(:juniper_forwarding_options) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -25921,7 +25921,7 @@ rule(:juniper_forwarding_options) do
                         "if-rtsdb" (  /* Trace interface hierarchy rtsdb */
                             c(
                                 "flag" enum(("init" | "routing-socket" | "map" | "all")) (  /* Tracing parameters */
-                                    c(
+                                    sc(
                                         "disable"  /* Disable this trace flag */
                                     )
                                 ).as(:oneline)
@@ -25933,11 +25933,11 @@ rule(:juniper_forwarding_options) do
                     c(
                         "description" arg  /* Text description of server */,
                         "server" (  /* Server information */
-                            c(
+                            sc(
                                   ipv4addr  /* Name or address of server to which to forward */,
                                 c(
                                   "logical-system" (  /* Logical system of server to which to forward */
-                                      c(
+                                      sc(
                                           arg  /* Name of logical system */,
                                           "routing-instance" arg  /* Routing instance of server to which to forward */
                                       )
@@ -25952,11 +25952,11 @@ rule(:juniper_forwarding_options) do
                                 "broadcast"  /* If the layer 2 interface is unknown then broadcast */,
                                 "description" arg  /* Text description of server */,
                                 "server" (  /* Server information */
-                                    c(
+                                    sc(
                                           ipv4addr  /* Name or address of server to which to forward */,
                                         c(
                                           "logical-system" (  /* Logical system of server to which to forward */
-                                              c(
+                                              sc(
                                                   arg  /* Name of logical system */,
                                                   "routing-instance" arg  /* Routing instance of server to which to forward */
                                               )
@@ -25973,11 +25973,11 @@ rule(:juniper_forwarding_options) do
                     c(
                         "description" arg  /* Text description of server */,
                         "server" (  /* Server information */
-                            c(
+                            sc(
                                   ipv4addr  /* Name or address of server to which to forward */,
                                 c(
                                   "logical-system" (  /* Logical system of server to which to forward */
-                                      c(
+                                      sc(
                                           arg  /* Name of logical system */,
                                           "routing-instance" arg  /* Routing instance of server to which to forward */
                                       )
@@ -25992,11 +25992,11 @@ rule(:juniper_forwarding_options) do
                                 "broadcast"  /* If the layer 2 interface is unknown then broadcast */,
                                 "description" arg  /* Text description of server */,
                                 "server" (  /* Server information */
-                                    c(
+                                    sc(
                                           ipv4addr  /* Name or address of server to which to forward */,
                                         c(
                                           "logical-system" (  /* Logical system of server to which to forward */
-                                              c(
+                                              sc(
                                                   arg  /* Name of logical system */,
                                                   "routing-instance" arg  /* Routing instance of server to which to forward */
                                               )
@@ -26019,7 +26019,7 @@ rule(:juniper_forwarding_options) do
                         "server" arg (  /* Server information */
                             c(
                                 "logical-system" arg (  /* Logical system of server to which to forward */
-                                    c(
+                                    sc(
                                         "routing-instance" arg  /* Routing instance of server to which to forward */
                                     )
                                 ).as(:oneline),
@@ -26040,7 +26040,7 @@ rule(:juniper_forwarding_options) do
                                 "server" arg (  /* Server information */
                                     c(
                                         "logical-system" arg (  /* Logical system of server to which to forward */
-                                            c(
+                                            sc(
                                                 "routing-instance" arg  /* Routing instance of server to which to forward */
                                             )
                                         ).as(:oneline),
@@ -26067,7 +26067,7 @@ rule(:juniper_forwarding_options) do
                             c(
                                 c(
                                   "logical-system" (  /* Logical system of server to which to forward */
-                                      c(
+                                      sc(
                                           arg  /* Name of logical system */,
                                           "routing-instance" arg  /* Routing instance of server to which to forward */
                                       )
@@ -26085,7 +26085,7 @@ rule(:juniper_forwarding_options) do
                                     c(
                                         c(
                                           "logical-system" (  /* Logical system of server to which to forward */
-                                              c(
+                                              sc(
                                                   arg  /* Name of logical system */,
                                                   "routing-instance" arg  /* Routing instance of server to which to forward */
                                               )
@@ -26320,7 +26320,7 @@ rule(:jdhcp_relay_type) do
           jdhcp_traceoptions_type  /* DHCP relay trace options */
         ),
         "persistent-storage" (  /* Trigger to enable flat file storage */
-            c(
+            sc(
                 "automatic"  /* Trigger automatically */
             )
         ).as(:oneline),
@@ -26336,7 +26336,7 @@ rule(:jdhcp_relay_type) do
         ),
         "arp-inspection"  /* Enable Dynamic ARP Inspection */,
         "forward-snooped-clients" (  /* Forward snooped (unicast) packets */
-            c(
+            sc(
                 c(
                   "configured-interfaces"  /* Forward snooped (unicast) packets on configured interfaces */,
                   "non-configured-interfaces"  /* Forward snooped (unicast) packets on non-configured interfaces */,
@@ -26356,7 +26356,7 @@ rule(:jdhcp_relay_type) do
         "service-profile" arg  /* Dynamic profile to use for default service activation */,
         "access-profile" arg  /* Access profile to use for AAA services */,
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -26418,7 +26418,7 @@ rule(:jdhcp_relay_type) do
             c(
                 "lease-time-threshold" arg  /* Threshold for lease time violation in seconds */,
                 "violation-action" (  /* Lease time validation violation action */
-                    c(
+                    sc(
                         "drop"  /* Drop dhcpv4 offer and ack packets */
                     )
                 ).as(:oneline)
@@ -26446,7 +26446,7 @@ rule(:authentication_type) do
                 "user-prefix" arg  /* Add user defined prefix */,
                 "mac-address"  /* Include MAC address */,
                 "option-82" (  /* Include option 82 */
-                    c(
+                    sc(
                         "circuit-id"  /* Include option 82 circuit-id (sub option 1) */,
                         "remote-id"  /* Include option 82 remote-id (sub option 2) */
                     )
@@ -26493,7 +26493,7 @@ rule(:dhcp_dual_stack_group) do
           jdhcp_dual_stack_protocol_mstr_type  /* Select family as protocol master */
         ).as(:oneline),
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -26569,7 +26569,7 @@ rule(:dhcp_group) do
           override_type  /* DHCP override processing */
         ),
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -26625,7 +26625,7 @@ rule(:dhcp_group) do
                 "service-profile" arg  /* Dynamic profile to use for default service activation */,
                 "access-profile" arg  /* Access profile to use for AAA services */,
                 "short-cycle-protection" (  /* Short cycle lockout configuration */
-                    c(
+                    sc(
                         "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                         "lockout-max-time" arg  /* Short cycle lockout time in seconds */
                     )
@@ -26639,7 +26639,7 @@ rule(:dhcp_group) do
             c(
                 "lease-time-threshold" arg  /* Threshold for lease time violation in seconds */,
                 "violation-action" (  /* Lease time validation violation action */
-                    c(
+                    sc(
                         "drop"  /* Drop dhcpv4 offer and ack packets */
                     )
                 ).as(:oneline)
@@ -26779,7 +26779,7 @@ rule(:dhcpv6_relay_type) do
           dhcpv6_authentication_type  /* DHCPv6 authentication */
         ),
         "persistent-storage" (  /* Trigger to enable flat file storage */
-            c(
+            sc(
                 "automatic"  /* Trigger automatically */
             )
         ).as(:oneline),
@@ -26792,7 +26792,7 @@ rule(:dhcpv6_relay_type) do
         "service-profile" arg  /* Dynamic profile to use for default service activation */,
         "access-profile" arg  /* Access profile to use for AAA services */,
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -26837,7 +26837,7 @@ rule(:dhcpv6_relay_type) do
         ),
         "forward-only-replies"  /* Forward-only replies from server to appropriate logical-system:routing-instance based on options */,
         "forward-snooped-clients" (  /* Forward snooped (unicast) packets */
-            c(
+            sc(
                 c(
                   "configured-interfaces"  /* Forward snooped (unicast) packets on configured interfaces */,
                   "non-configured-interfaces"  /* Forward snooped (unicast) packets on non-configured interfaces */,
@@ -26868,7 +26868,7 @@ rule(:dhcpv6_relay_type) do
             c(
                 "lease-time-threshold" arg  /* Threshold for lease time violation in seconds */,
                 "violation-action" (  /* Lease time validation violation action */
-                    c(
+                    sc(
                         "drop"  /* Drop dhcpv6 advertise and reply packets */
                     )
                 ).as(:oneline)
@@ -27014,7 +27014,7 @@ rule(:dhcpv6_override_relay_type) do
         "dual-stack" arg  /* Dual stack group to use. */,
         "no-bind-on-request"  /* Do not bind if stray DHCPv6 RENEW, REBIND is received */,
         "client-negotiation-match" (  /* Use secondary match criteria for SOLICIT PDU */
-            c(
+            sc(
                 c(
                   "incoming-interface"  /* Use incoming interface */
                 )
@@ -27052,7 +27052,7 @@ rule(:dhcpv6_relay_group) do
         "service-profile" arg  /* Dynamic profile to use for default service activation */,
         "access-profile" arg  /* Access profile to use for AAA services */,
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -27095,7 +27095,7 @@ rule(:dhcpv6_relay_group) do
                 "service-profile" arg  /* Dynamic profile to use for default service activation */,
                 "access-profile" arg  /* Access profile to use for AAA services */,
                 "short-cycle-protection" (  /* Short cycle lockout configuration */
-                    c(
+                    sc(
                         "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                         "lockout-max-time" arg  /* Short cycle lockout time in seconds */
                     )
@@ -27106,7 +27106,7 @@ rule(:dhcpv6_relay_group) do
             c(
                 "lease-time-threshold" arg  /* Threshold for lease time violation in seconds */,
                 "violation-action" (  /* Lease time validation violation action */
-                    c(
+                    sc(
                         "drop"  /* Drop dhcpv6 advertise and reply packets */
                     )
                 ).as(:oneline)
@@ -27231,7 +27231,7 @@ rule(:jdhcp_interface_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -27250,7 +27250,7 @@ rule(:jdhcp_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -27455,7 +27455,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -27474,7 +27474,7 @@ rule(:juniper_logical_system) do
             )
         ),
         "access-profile" (  /* Access profile for this instance */
-            c(
+            sc(
                 arg  /* Profile name */
             )
         ).as(:oneline),
@@ -27846,7 +27846,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -28138,7 +28138,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -28322,7 +28322,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -28386,7 +28386,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -28472,7 +28472,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -28615,7 +28615,7 @@ rule(:juniper_logical_system) do
                         "traceoptions" (  /* Data-plane firewall authentication tracing options */
                             c(
                                 "flag" enum(("authentication" | "proxy" | "all")) (  /* Events to include in trace output */
-                                    c(
+                                    sc(
                                         c(
                                           "terse"  /* Include terse amount of output in trace */,
                                           "detail"  /* Include detailed amount of output in trace */,
@@ -28630,7 +28630,7 @@ rule(:juniper_logical_system) do
                 "screen" (  /* Configure screen feature */
                     c(
                         "trap" (  /* Configure trap interval */
-                            c(
+                            sc(
                                 "interval" arg  /* Trap interval */
                             )
                         ).as(:oneline),
@@ -28641,7 +28641,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -28705,7 +28705,7 @@ rule(:juniper_logical_system) do
                         "traceoptions" (  /* Traceoptions for resource manager */
                             c(
                                 "flag" enum(("client" | "group" | "resource" | "gate" | "session" | "chassis cluster" | "messaging" | "service pinhole" | "error" | "all")) (  /* Resource manager objects and events to include in trace */
-                                    c(
+                                    sc(
                                         c(
                                           "terse"  /* Set trace verbosity level to terse */,
                                           "detail"  /* Set trace verbosity level to detail */,
@@ -28726,7 +28726,7 @@ rule(:juniper_logical_system) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -28747,7 +28747,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -28761,7 +28761,7 @@ rule(:juniper_logical_system) do
                             )
                         ),
                         "capture-file" (  /* Packet capture options */
-                            c(
+                            sc(
                                 arg  /* Capture file name */,
                                 "format" (  /* Capture file format */
                                   ("pcap")
@@ -28787,7 +28787,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -28835,7 +28835,7 @@ rule(:juniper_logical_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -29528,7 +29528,7 @@ rule(:juniper_logical_system) do
                                     c(
                                         "no-remote-trace"  /* Disable remote tracing */,
                                         "file" (  /* Trace file information */
-                                            c(
+                                            sc(
                                                   arg,
                                                 "size" arg  /* Maximum trace file size */,
                                                 "files" arg  /* Maximum number of trace files */,
@@ -29594,14 +29594,14 @@ rule(:juniper_logical_system) do
                                         "limit" (  /* Packet limits */
                                             c(
                                                 "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "others" | arg)) (  /* Payload Rate limit */
-                                                    c(
+                                                    sc(
                                                         "rate" arg  /* Rate limit */
                                                     )
                                                 ).as(:oneline),
                                                 "address" arg (  /* Rate limit for a list of IP addresses */
                                                     c(
                                                         "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "others" | arg)) (  /* Payload Rate limit */
-                                                            c(
+                                                            sc(
                                                                 "rate" arg  /* Rate limit */
                                                             )
                                                         ).as(:oneline)
@@ -29649,7 +29649,7 @@ rule(:juniper_logical_system) do
                                     c(
                                         "no-remote-trace"  /* Disable remote tracing */,
                                         "file" (  /* Trace file information */
-                                            c(
+                                            sc(
                                                   arg,
                                                 "size" arg  /* Maximum trace file size */,
                                                 "files" arg  /* Maximum number of trace files */,
@@ -29825,7 +29825,7 @@ rule(:jdhcp_local_server_type) do
           jdhcp_duplicate_clients_in_subnet_type  /* Allow duplicate clients in a subnet */
         ).as(:oneline),
         "forward-snooped-clients" (  /* Forward snooped (unicast) packets */
-            c(
+            sc(
                 c(
                   "configured-interfaces"  /* Forward snooped (unicast) packets on configured interfaces */,
                   "non-configured-interfaces"  /* Forward snooped (unicast) packets on non-configured interfaces */,
@@ -29837,7 +29837,7 @@ rule(:jdhcp_local_server_type) do
           authentication_type  /* DHCP authentication */
         ),
         "persistent-storage" (  /* Trigger to enable flat file storage */
-            c(
+            sc(
                 "automatic"  /* Trigger automatically */
             )
         ).as(:oneline),
@@ -29856,7 +29856,7 @@ rule(:jdhcp_local_server_type) do
         "service-profile" arg  /* Dynamic profile to use for default service activation */,
         "access-profile" arg  /* Access profile to use for AAA services */,
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -29874,7 +29874,7 @@ rule(:jdhcp_local_server_type) do
             c(
                 "lease-time-threshold" arg  /* Threshold for lease time violation seconds */,
                 "violation-action" (  /* Lease time validation violation action */
-                    c(
+                    sc(
                         c(
                           "strict"  /* Reject discover and renew */,
                           "override-lease"  /* Override assigned lease time with threshold */
@@ -29895,7 +29895,7 @@ rule(:jdhcp_local_server_type) do
           dhcp_remote_id_mismatch_type  /* DHCP client remote-id mismatch */
         ),
         "reauthenticate" (  /* DHCP client reauthenticate processing */
-            c(
+            sc(
                 "lease-renewal"  /* Reauthenticate on each renew, rebind, DISCOVER or SOLICIT */,
                 "remote-id-mismatch"  /* Reauthenticate on remote-id mismatch for renew, rebind and re-negotiation */
             )
@@ -29929,13 +29929,13 @@ rule(:dhcp_local_server_dual_stack_group) do
           dhcp_liveness_detection_dualstack_type  /* DHCP client liveness detection processing */
         ),
         "reauthenticate" (  /* DHCP client reauthenticate processing */
-            c(
+            sc(
                 "lease-renewal"  /* Reauthenticate on each renew, rebind, DISCOVER or SOLICIT */,
                 "remote-id-mismatch"  /* Reauthenticate on remote-id mismatch for renew, rebind and re-negotiation */
             )
         ).as(:oneline),
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -29965,7 +29965,7 @@ rule(:dhcp_local_server_group) do
         "service-profile" arg  /* Dynamic profile to use for default service activation */,
         "access-profile" arg  /* Access profile to use for AAA services */,
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -29989,7 +29989,7 @@ rule(:dhcp_local_server_group) do
                 "service-profile" arg  /* Dynamic profile to use for default service activation */,
                 "access-profile" arg  /* Access profile to use for AAA services */,
                 "short-cycle-protection" (  /* Short cycle lockout configuration */
-                    c(
+                    sc(
                         "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                         "lockout-max-time" arg  /* Short cycle lockout time in seconds */
                     )
@@ -30000,7 +30000,7 @@ rule(:dhcp_local_server_group) do
             c(
                 "lease-time-threshold" arg  /* Threshold for lease time violation seconds */,
                 "violation-action" (  /* Lease time validation violation action */
-                    c(
+                    sc(
                         c(
                           "strict"  /* Reject discover and renew */,
                           "override-lease"  /* Override assigned lease time with threshold */
@@ -30013,7 +30013,7 @@ rule(:dhcp_local_server_group) do
           dhcp_remote_id_mismatch_type  /* DHCP client remote-id mismatch */
         ),
         "reauthenticate" (  /* DHCP client reauthenticate processing */
-            c(
+            sc(
                 "lease-renewal"  /* Reauthenticate on each renew, rebind, DISCOVER or SOLICIT */,
                 "remote-id-mismatch"  /* Reauthenticate on remote-id mismatch for renew, rebind and re-negotiation */
             )
@@ -30037,7 +30037,7 @@ rule(:dhcpv6_local_server_type) do
           dynamic_profile_type  /* Dynamic profile to use */
         ).as(:oneline),
         "forward-snooped-clients" (  /* Forward snooped (unicast) packets */
-            c(
+            sc(
                 c(
                   "configured-interfaces"  /* Forward snooped (unicast) packets on configured interfaces */,
                   "non-configured-interfaces"  /* Forward snooped (unicast) packets on non-configured interfaces */,
@@ -30048,7 +30048,7 @@ rule(:dhcpv6_local_server_type) do
         "service-profile" arg  /* Dynamic profile to use for default service activation */,
         "access-profile" arg  /* Access profile to use for AAA services */,
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -30066,7 +30066,7 @@ rule(:dhcpv6_local_server_type) do
             c(
                 "lease-time-threshold" arg  /* Threshold for lease time violation seconds */,
                 "violation-action" (  /* Lease time validation violation action */
-                    c(
+                    sc(
                         c(
                           "strict"  /* Reject solicit and renew */,
                           "override-lease"  /* Override assigned lease time with threshold */
@@ -30081,7 +30081,7 @@ rule(:dhcpv6_local_server_type) do
         ),
         "no-snoop"  /* Do not snoop DHCPV6 packets */,
         "persistent-storage" (  /* Trigger to enable flat file storage */
-            c(
+            sc(
                 "automatic"  /* Trigger automatically */
             )
         ).as(:oneline),
@@ -30092,7 +30092,7 @@ rule(:dhcpv6_local_server_type) do
           dhcp_remote_id_mismatch_type  /* DHCP client remote-id mismatch */
         ),
         "reauthenticate" (  /* DHCP client reauthenticate processing */
-            c(
+            sc(
                 "lease-renewal"  /* Reauthenticate on each renew, rebind, DISCOVER or SOLICIT */,
                 "remote-id-mismatch"  /* Reauthenticate on remote-id mismatch for renew, rebind and re-negotiation */
             )
@@ -30159,7 +30159,7 @@ rule(:dhcpv6_local_server_group) do
         "service-profile" arg  /* Dynamic profile to use for default service activation */,
         "access-profile" arg  /* Access profile to use for AAA services */,
         "short-cycle-protection" (  /* Short cycle lockout configuration */
-            c(
+            sc(
                 "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                 "lockout-max-time" arg  /* Short cycle lockout time in seconds */
             )
@@ -30186,7 +30186,7 @@ rule(:dhcpv6_local_server_group) do
                 "service-profile" arg  /* Dynamic profile to use for default service activation */,
                 "access-profile" arg  /* Access profile to use for AAA services */,
                 "short-cycle-protection" (  /* Short cycle lockout configuration */
-                    c(
+                    sc(
                         "lockout-min-time" arg  /* Short cycle lockout time in seconds */,
                         "lockout-max-time" arg  /* Short cycle lockout time in seconds */
                     )
@@ -30197,7 +30197,7 @@ rule(:dhcpv6_local_server_group) do
             c(
                 "lease-time-threshold" arg  /* Threshold for lease time violation seconds */,
                 "violation-action" (  /* Lease time validation violation action */
-                    c(
+                    sc(
                         c(
                           "strict"  /* Reject solicit and renew */,
                           "override-lease"  /* Override assigned lease time with threshold */
@@ -30210,7 +30210,7 @@ rule(:dhcpv6_local_server_group) do
           dhcp_remote_id_mismatch_type  /* DHCP client remote-id mismatch */
         ),
         "reauthenticate" (  /* DHCP client reauthenticate processing */
-            c(
+            sc(
                 "lease-renewal"  /* Reauthenticate on each renew, rebind, DISCOVER or SOLICIT */,
                 "remote-id-mismatch"  /* Reauthenticate on remote-id mismatch for renew, rebind and re-negotiation */
             )
@@ -30238,7 +30238,7 @@ rule(:dhcpv6_override_local_server_type) do
         "interface-client-limit" arg  /* Limit the number of clients allowed on an interface */,
         "rapid-commit"  /* Enable rapid commit processing */,
         "client-negotiation-match" (  /* Use secondary match criteria for SOLICIT PDU */
-            c(
+            sc(
                 c(
                   "incoming-interface"  /* Use incoming interface */
                 )
@@ -30490,7 +30490,7 @@ rule(:jsscd_group_type) do
           jsscd_authentication_type  /* Static Subscriber Client authentication */
         ),
         "interface" arg (  /* One or more interfaces */
-            c(
+            sc(
                 "upto" (  /* Interface up to */
                   interface_unit  /* Interface up to */
                 ),
@@ -30520,7 +30520,7 @@ rule(:juniper_bridge_domains) do
             ("all" | "none" | "inner-all" | arg)
           ),
           "vlan-tags" (  /* IEEE 802.1q VLAN tags for bridging domain */
-              c(
+              sc(
                   "outer" arg  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */,
                   "inner" arg  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */
               )
@@ -30593,7 +30593,7 @@ rule(:juniper_bd_protocols_igmp_snooping) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -30735,7 +30735,7 @@ rule(:juniper_bd_protocols_mld_snooping) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -30985,7 +30985,7 @@ rule(:juniper_multicast_snooping_options) do
                 "syslog" (  /* Set system logging level */
                     c(
                         "level" (  /* Logging level */
-                            c(
+                            sc(
                                 "emergency"  /* Emergency level */,
                                 "alert"  /* Alert level */,
                                 "critical"  /* Critical level */,
@@ -31010,7 +31010,7 @@ rule(:juniper_multicast_snooping_options) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "disable"  /* Disable this trace flag */
                     )
                 ).as(:oneline)
@@ -31091,7 +31091,7 @@ rule(:juniper_packet_capture_options) do
     c(
           ("disable"),
         "file" (  /* Parameters for file that contains captured packets */
-            c(
+            sc(
                 "filename" arg  /* Name of file */,
                 "files" arg  /* Maximum number of files */,
                 "size" arg  /* Maximum file size */,
@@ -31109,7 +31109,7 @@ rule(:juniper_pic_services_logging_options) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -31178,7 +31178,7 @@ rule(:juniper_policy_options) do
                 "defaults" (  /* Policy default behaviour */
                     c(
                         "route-filter" (  /* Set route filter behaviour */
-                            c(
+                            sc(
                                 c(
                                   "no-walkup"  /* Route filter walk up disable */,
                                   "walkup"  /* Route filter walk up enable */
@@ -31264,7 +31264,7 @@ rule(:juniper_policy_options) do
                                   control_source_address_filter_list_type  /* List of source-address-filter-lists of routes to match */
                                 ),
                                 "multicast-scope" (  /* Multicast scope to match */
-                                    c(
+                                    sc(
                                         c(
                                           "node-local"  /* Node-local scope */,
                                           "link-local"  /* Link-local scope */,
@@ -31440,12 +31440,12 @@ rule(:juniper_policy_options) do
                                           "add" arg  /* Add constant to attribute */,
                                           "subtract" arg  /* Subtract constant from attribute */,
                                           "igp" (  /* Track the IGP metric (BGP only) */
-                                              c(
+                                              sc(
                                                   arg  /* Metric offset for MED */
                                               )
                                           ).as(:oneline),
                                           "minimum-igp" (  /* Track the minimum IGP metric (BGP only) */
-                                              c(
+                                              sc(
                                                   arg  /* Metric offset for MED */
                                               )
                                           ).as(:oneline),
@@ -31550,7 +31550,7 @@ rule(:juniper_policy_options) do
                                   ("high" | "medium" | "low")
                                 ),
                                 "prefix-segment" (  /* Set prefix segment attributes */
-                                    c(
+                                    sc(
                                         "index" arg  /* Set prefix segment index  */,
                                         "node-segment"  /* Set node segment flag for this prefix segment */
                                     )
@@ -31559,7 +31559,7 @@ rule(:juniper_policy_options) do
                                   ("per-table" | "per-nexthop" | "per-table-localize")
                                 ),
                                 "add-path" (  /* Set BGP add-path attributes */
-                                    c(
+                                    sc(
                                         "send-count" arg  /* Number of add-paths sent */
                                     )
                                 ).as(:oneline),
@@ -31570,12 +31570,12 @@ rule(:juniper_policy_options) do
                                   ("igp" | "egp" | "incomplete")
                                 ),
                                 "aigp-originate" (  /* Originate a BGP AIGP attribute */
-                                    c(
+                                    sc(
                                         "distance" arg  /* AIGP distance */
                                     )
                                 ).as(:oneline),
                                 "aigp-adjust" (  /* Adjust a BGP AIGP attribute */
-                                    c(
+                                    sc(
                                         c(
                                           "add",
                                           "subtract",
@@ -31607,10 +31607,10 @@ rule(:juniper_policy_options) do
                                 "no-entropy-label-capability"  /* Don't advertise entropy label capability */,
                                 "as-path-prepend" arg  /* Prepend AS numbers to an AS path (BGP only) */,
                                 "as-path-expand" (  /* Prepend AS numbers prior to adding local-as (BGP only) */
-                                    c(
+                                    sc(
                                         c(
                                           "last-as" (  /* Prepend last AS */
-                                              c(
+                                              sc(
                                                   "count" arg  /* Repeat count */
                                               )
                                           ).as(:oneline),
@@ -31619,19 +31619,19 @@ rule(:juniper_policy_options) do
                                     )
                                 ).as(:oneline),
                                 "next-hop" (  /* Set the address of the next-hop router */
-                                    c(
+                                    sc(
                                         c(
                                           "self"  /* Use a local address as the next-hop address */,
                                           "peer-address"  /* Use the remote peer address as the next-hop address */,
-                                            ipaddr  /* Next-hop address */,
                                           "reject"  /* Use a reject next hop */,
                                           "discard"  /* Use a discard next hop */,
-                                          "next-table" arg  /* Perform a forwarding lookup in the specified table */
+                                          "next-table" arg  /* Perform a forwarding lookup in the specified table */,
+                                            ipaddr  /* Next-hop address */
                                         )
                                     )
                                 ).as(:oneline),
                                 "install-nexthop" (  /* Choose the next hop to be used for forwarding */
-                                    c(
+                                    sc(
                                         "strict"  /* Do not use any other available next hops */,
                                         c(
                                           "lsp" arg  /* Next-hop LSP name */,
@@ -31659,7 +31659,7 @@ rule(:juniper_policy_options) do
                                     )
                                 ),
                                 "load-balance" (  /* Type of load balancing in forwarding table */
-                                    c(
+                                    sc(
                                         c(
                                           "per-packet"  /* Load balance on a per-packet basis */,
                                           "random"  /* Load balance using packet random spray */,
@@ -31679,7 +31679,7 @@ rule(:juniper_policy_options) do
                                 "source-class" arg  /* Set source class in forwarding table */,
                                 "forwarding-class" arg  /* Set source or destination class in forwarding table */,
                                 "map-to-interface" (  /* Set output logical interface */
-                                    c(
+                                    sc(
                                         c(
                                           "self"  /* Map the interface to itself */,
                                             interface_name  /* Output logical interface */
@@ -31712,7 +31712,7 @@ rule(:juniper_policy_options) do
                                   "reject"  /* Reject a route */
                                 ),
                                 "bgp-output-queue-priority" (  /* Set the BGP Update output queue priority. */
-                                    c(
+                                    sc(
                                         c(
                                           "priority" arg  /* Output queue priority; higher is better */,
                                           "expedited"  /* Expedited queue; highest priority */
@@ -31799,7 +31799,7 @@ rule(:juniper_policy_options) do
                           control_source_address_filter_list_type  /* List of source-address-filter-lists of routes to match */
                         ),
                         "multicast-scope" (  /* Multicast scope to match */
-                            c(
+                            sc(
                                 c(
                                   "node-local"  /* Node-local scope */,
                                   "link-local"  /* Link-local scope */,
@@ -31975,12 +31975,12 @@ rule(:juniper_policy_options) do
                                   "add" arg  /* Add constant to attribute */,
                                   "subtract" arg  /* Subtract constant from attribute */,
                                   "igp" (  /* Track the IGP metric (BGP only) */
-                                      c(
+                                      sc(
                                           arg  /* Metric offset for MED */
                                       )
                                   ).as(:oneline),
                                   "minimum-igp" (  /* Track the minimum IGP metric (BGP only) */
-                                      c(
+                                      sc(
                                           arg  /* Metric offset for MED */
                                       )
                                   ).as(:oneline),
@@ -32085,7 +32085,7 @@ rule(:juniper_policy_options) do
                           ("high" | "medium" | "low")
                         ),
                         "prefix-segment" (  /* Set prefix segment attributes */
-                            c(
+                            sc(
                                 "index" arg  /* Set prefix segment index  */,
                                 "node-segment"  /* Set node segment flag for this prefix segment */
                             )
@@ -32094,7 +32094,7 @@ rule(:juniper_policy_options) do
                           ("per-table" | "per-nexthop" | "per-table-localize")
                         ),
                         "add-path" (  /* Set BGP add-path attributes */
-                            c(
+                            sc(
                                 "send-count" arg  /* Number of add-paths sent */
                             )
                         ).as(:oneline),
@@ -32105,12 +32105,12 @@ rule(:juniper_policy_options) do
                           ("igp" | "egp" | "incomplete")
                         ),
                         "aigp-originate" (  /* Originate a BGP AIGP attribute */
-                            c(
+                            sc(
                                 "distance" arg  /* AIGP distance */
                             )
                         ).as(:oneline),
                         "aigp-adjust" (  /* Adjust a BGP AIGP attribute */
-                            c(
+                            sc(
                                 c(
                                   "add",
                                   "subtract",
@@ -32142,10 +32142,10 @@ rule(:juniper_policy_options) do
                         "no-entropy-label-capability"  /* Don't advertise entropy label capability */,
                         "as-path-prepend" arg  /* Prepend AS numbers to an AS path (BGP only) */,
                         "as-path-expand" (  /* Prepend AS numbers prior to adding local-as (BGP only) */
-                            c(
+                            sc(
                                 c(
                                   "last-as" (  /* Prepend last AS */
-                                      c(
+                                      sc(
                                           "count" arg  /* Repeat count */
                                       )
                                   ).as(:oneline),
@@ -32154,19 +32154,19 @@ rule(:juniper_policy_options) do
                             )
                         ).as(:oneline),
                         "next-hop" (  /* Set the address of the next-hop router */
-                            c(
+                            sc(
                                 c(
                                   "self"  /* Use a local address as the next-hop address */,
                                   "peer-address"  /* Use the remote peer address as the next-hop address */,
-                                    ipaddr  /* Next-hop address */,
                                   "reject"  /* Use a reject next hop */,
                                   "discard"  /* Use a discard next hop */,
-                                  "next-table" arg  /* Perform a forwarding lookup in the specified table */
+                                  "next-table" arg  /* Perform a forwarding lookup in the specified table */,
+                                    ipaddr  /* Next-hop address */
                                 )
                             )
                         ).as(:oneline),
                         "install-nexthop" (  /* Choose the next hop to be used for forwarding */
-                            c(
+                            sc(
                                 "strict"  /* Do not use any other available next hops */,
                                 c(
                                   "lsp" arg  /* Next-hop LSP name */,
@@ -32194,7 +32194,7 @@ rule(:juniper_policy_options) do
                             )
                         ),
                         "load-balance" (  /* Type of load balancing in forwarding table */
-                            c(
+                            sc(
                                 c(
                                   "per-packet"  /* Load balance on a per-packet basis */,
                                   "random"  /* Load balance using packet random spray */,
@@ -32214,7 +32214,7 @@ rule(:juniper_policy_options) do
                         "source-class" arg  /* Set source class in forwarding table */,
                         "forwarding-class" arg  /* Set source or destination class in forwarding table */,
                         "map-to-interface" (  /* Set output logical interface */
-                            c(
+                            sc(
                                 c(
                                   "self"  /* Map the interface to itself */,
                                     interface_name  /* Output logical interface */
@@ -32247,7 +32247,7 @@ rule(:juniper_policy_options) do
                           "reject"  /* Reject a route */
                         ),
                         "bgp-output-queue-priority" (  /* Set the BGP Update output queue priority. */
-                            c(
+                            sc(
                                 c(
                                   "priority" arg  /* Output queue priority; higher is better */,
                                   "expedited"  /* Expedited queue; highest priority */
@@ -32262,7 +32262,7 @@ rule(:juniper_policy_options) do
         "defaults" (  /* Policy default behaviour */
             c(
                 "route-filter" (  /* Set route filter behaviour */
-                    c(
+                    sc(
                         "walkup"  /* Route filter walk up enable */
                     )
                 ).as(:oneline)
@@ -32287,7 +32287,7 @@ rule(:juniper_policy_options) do
         "as-path-group" arg (  /* Group a set of AS paths */
             c(
                 "as-path" arg (  /* BGP autonomous system path regular expression */
-                    c(
+                    sc(
                         arg  /* AS path regular expression */
                     )
                 ).as(:oneline)
@@ -32315,8 +32315,8 @@ rule(:juniper_policy_options) do
                                   c(
                                     "inet" (  /* Route to match corresponds to an inet/inet6 prefix */
                                         c(
-                                              ipprefix  /* Exact address of the route */,
-                                            "table" arg  /* Routing table in which route should exist */
+                                            "table" arg  /* Routing table in which route should exist */,
+                                              ipprefix  /* Exact address of the route */
                                         )
                                     ),
                                     "ccc" (  /* Route to match corresponds to a ccc prefix */
@@ -32330,8 +32330,8 @@ rule(:juniper_policy_options) do
                                   )
                               )
                           ),
-                            ipprefix  /* Exact address of the route */,
-                          "table" arg  /* Routing table in which route should exist */
+                          "table" arg  /* Routing table in which route should exist */,
+                            ipprefix  /* Exact address of the route */
                       )
                   )
                 )
@@ -32352,7 +32352,7 @@ rule(:application_map_object) do
   arg.as(:arg) (
     c(
         "application" arg (  /* Name of the application */
-            c(
+            sc(
                 "code-points" arg  /* List of code point bit strings */
             )
         ).as(:oneline)
@@ -32412,12 +32412,12 @@ rule(:control_prefix_list_filter_type) do
                   "add" arg  /* Add constant to attribute */,
                   "subtract" arg  /* Subtract constant from attribute */,
                   "igp" (  /* Track the IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
                   "minimum-igp" (  /* Track the minimum IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
@@ -32522,7 +32522,7 @@ rule(:control_prefix_list_filter_type) do
           ("high" | "medium" | "low")
         ),
         "prefix-segment" (  /* Set prefix segment attributes */
-            c(
+            sc(
                 "index" arg  /* Set prefix segment index  */,
                 "node-segment"  /* Set node segment flag for this prefix segment */
             )
@@ -32531,7 +32531,7 @@ rule(:control_prefix_list_filter_type) do
           ("per-table" | "per-nexthop" | "per-table-localize")
         ),
         "add-path" (  /* Set BGP add-path attributes */
-            c(
+            sc(
                 "send-count" arg  /* Number of add-paths sent */
             )
         ).as(:oneline),
@@ -32542,12 +32542,12 @@ rule(:control_prefix_list_filter_type) do
           ("igp" | "egp" | "incomplete")
         ),
         "aigp-originate" (  /* Originate a BGP AIGP attribute */
-            c(
+            sc(
                 "distance" arg  /* AIGP distance */
             )
         ).as(:oneline),
         "aigp-adjust" (  /* Adjust a BGP AIGP attribute */
-            c(
+            sc(
                 c(
                   "add",
                   "subtract",
@@ -32579,10 +32579,10 @@ rule(:control_prefix_list_filter_type) do
         "no-entropy-label-capability"  /* Don't advertise entropy label capability */,
         "as-path-prepend" arg  /* Prepend AS numbers to an AS path (BGP only) */,
         "as-path-expand" (  /* Prepend AS numbers prior to adding local-as (BGP only) */
-            c(
+            sc(
                 c(
                   "last-as" (  /* Prepend last AS */
-                      c(
+                      sc(
                           "count" arg  /* Repeat count */
                       )
                   ).as(:oneline),
@@ -32591,19 +32591,19 @@ rule(:control_prefix_list_filter_type) do
             )
         ).as(:oneline),
         "next-hop" (  /* Set the address of the next-hop router */
-            c(
+            sc(
                 c(
                   "self"  /* Use a local address as the next-hop address */,
                   "peer-address"  /* Use the remote peer address as the next-hop address */,
-                    ipaddr  /* Next-hop address */,
                   "reject"  /* Use a reject next hop */,
                   "discard"  /* Use a discard next hop */,
-                  "next-table" arg  /* Perform a forwarding lookup in the specified table */
+                  "next-table" arg  /* Perform a forwarding lookup in the specified table */,
+                    ipaddr  /* Next-hop address */
                 )
             )
         ).as(:oneline),
         "install-nexthop" (  /* Choose the next hop to be used for forwarding */
-            c(
+            sc(
                 "strict"  /* Do not use any other available next hops */,
                 c(
                   "lsp" arg  /* Next-hop LSP name */,
@@ -32631,7 +32631,7 @@ rule(:control_prefix_list_filter_type) do
             )
         ),
         "load-balance" (  /* Type of load balancing in forwarding table */
-            c(
+            sc(
                 c(
                   "per-packet"  /* Load balance on a per-packet basis */,
                   "random"  /* Load balance using packet random spray */,
@@ -32651,7 +32651,7 @@ rule(:control_prefix_list_filter_type) do
         "source-class" arg  /* Set source class in forwarding table */,
         "forwarding-class" arg  /* Set source or destination class in forwarding table */,
         "map-to-interface" (  /* Set output logical interface */
-            c(
+            sc(
                 c(
                   "self"  /* Map the interface to itself */,
                     interface_name  /* Output logical interface */
@@ -32684,7 +32684,7 @@ rule(:control_prefix_list_filter_type) do
           "reject"  /* Reject a route */
         ),
         "bgp-output-queue-priority" (  /* Set the BGP Update output queue priority. */
-            c(
+            sc(
                 c(
                   "priority" arg  /* Output queue priority; higher is better */,
                   "expedited"  /* Expedited queue; highest priority */
@@ -32724,12 +32724,12 @@ rule(:control_route_filter_type) do
                   "add" arg  /* Add constant to attribute */,
                   "subtract" arg  /* Subtract constant from attribute */,
                   "igp" (  /* Track the IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
                   "minimum-igp" (  /* Track the minimum IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
@@ -32834,7 +32834,7 @@ rule(:control_route_filter_type) do
           ("high" | "medium" | "low")
         ),
         "prefix-segment" (  /* Set prefix segment attributes */
-            c(
+            sc(
                 "index" arg  /* Set prefix segment index  */,
                 "node-segment"  /* Set node segment flag for this prefix segment */
             )
@@ -32843,7 +32843,7 @@ rule(:control_route_filter_type) do
           ("per-table" | "per-nexthop" | "per-table-localize")
         ),
         "add-path" (  /* Set BGP add-path attributes */
-            c(
+            sc(
                 "send-count" arg  /* Number of add-paths sent */
             )
         ).as(:oneline),
@@ -32854,12 +32854,12 @@ rule(:control_route_filter_type) do
           ("igp" | "egp" | "incomplete")
         ),
         "aigp-originate" (  /* Originate a BGP AIGP attribute */
-            c(
+            sc(
                 "distance" arg  /* AIGP distance */
             )
         ).as(:oneline),
         "aigp-adjust" (  /* Adjust a BGP AIGP attribute */
-            c(
+            sc(
                 c(
                   "add",
                   "subtract",
@@ -32891,10 +32891,10 @@ rule(:control_route_filter_type) do
         "no-entropy-label-capability"  /* Don't advertise entropy label capability */,
         "as-path-prepend" arg  /* Prepend AS numbers to an AS path (BGP only) */,
         "as-path-expand" (  /* Prepend AS numbers prior to adding local-as (BGP only) */
-            c(
+            sc(
                 c(
                   "last-as" (  /* Prepend last AS */
-                      c(
+                      sc(
                           "count" arg  /* Repeat count */
                       )
                   ).as(:oneline),
@@ -32903,19 +32903,19 @@ rule(:control_route_filter_type) do
             )
         ).as(:oneline),
         "next-hop" (  /* Set the address of the next-hop router */
-            c(
+            sc(
                 c(
                   "self"  /* Use a local address as the next-hop address */,
                   "peer-address"  /* Use the remote peer address as the next-hop address */,
-                    ipaddr  /* Next-hop address */,
                   "reject"  /* Use a reject next hop */,
                   "discard"  /* Use a discard next hop */,
-                  "next-table" arg  /* Perform a forwarding lookup in the specified table */
+                  "next-table" arg  /* Perform a forwarding lookup in the specified table */,
+                    ipaddr  /* Next-hop address */
                 )
             )
         ).as(:oneline),
         "install-nexthop" (  /* Choose the next hop to be used for forwarding */
-            c(
+            sc(
                 "strict"  /* Do not use any other available next hops */,
                 c(
                   "lsp" arg  /* Next-hop LSP name */,
@@ -32943,7 +32943,7 @@ rule(:control_route_filter_type) do
             )
         ),
         "load-balance" (  /* Type of load balancing in forwarding table */
-            c(
+            sc(
                 c(
                   "per-packet"  /* Load balance on a per-packet basis */,
                   "random"  /* Load balance using packet random spray */,
@@ -32963,7 +32963,7 @@ rule(:control_route_filter_type) do
         "source-class" arg  /* Set source class in forwarding table */,
         "forwarding-class" arg  /* Set source or destination class in forwarding table */,
         "map-to-interface" (  /* Set output logical interface */
-            c(
+            sc(
                 c(
                   "self"  /* Map the interface to itself */,
                     interface_name  /* Output logical interface */
@@ -32996,7 +32996,7 @@ rule(:control_route_filter_type) do
           "reject"  /* Reject a route */
         ),
         "bgp-output-queue-priority" (  /* Set the BGP Update output queue priority. */
-            c(
+            sc(
                 c(
                   "priority" arg  /* Output queue priority; higher is better */,
                   "expedited"  /* Expedited queue; highest priority */
@@ -33035,12 +33035,12 @@ rule(:control_source_address_filter_type) do
                   "add" arg  /* Add constant to attribute */,
                   "subtract" arg  /* Subtract constant from attribute */,
                   "igp" (  /* Track the IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
                   "minimum-igp" (  /* Track the minimum IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
@@ -33145,7 +33145,7 @@ rule(:control_source_address_filter_type) do
           ("high" | "medium" | "low")
         ),
         "prefix-segment" (  /* Set prefix segment attributes */
-            c(
+            sc(
                 "index" arg  /* Set prefix segment index  */,
                 "node-segment"  /* Set node segment flag for this prefix segment */
             )
@@ -33154,7 +33154,7 @@ rule(:control_source_address_filter_type) do
           ("per-table" | "per-nexthop" | "per-table-localize")
         ),
         "add-path" (  /* Set BGP add-path attributes */
-            c(
+            sc(
                 "send-count" arg  /* Number of add-paths sent */
             )
         ).as(:oneline),
@@ -33165,12 +33165,12 @@ rule(:control_source_address_filter_type) do
           ("igp" | "egp" | "incomplete")
         ),
         "aigp-originate" (  /* Originate a BGP AIGP attribute */
-            c(
+            sc(
                 "distance" arg  /* AIGP distance */
             )
         ).as(:oneline),
         "aigp-adjust" (  /* Adjust a BGP AIGP attribute */
-            c(
+            sc(
                 c(
                   "add",
                   "subtract",
@@ -33202,10 +33202,10 @@ rule(:control_source_address_filter_type) do
         "no-entropy-label-capability"  /* Don't advertise entropy label capability */,
         "as-path-prepend" arg  /* Prepend AS numbers to an AS path (BGP only) */,
         "as-path-expand" (  /* Prepend AS numbers prior to adding local-as (BGP only) */
-            c(
+            sc(
                 c(
                   "last-as" (  /* Prepend last AS */
-                      c(
+                      sc(
                           "count" arg  /* Repeat count */
                       )
                   ).as(:oneline),
@@ -33214,19 +33214,19 @@ rule(:control_source_address_filter_type) do
             )
         ).as(:oneline),
         "next-hop" (  /* Set the address of the next-hop router */
-            c(
+            sc(
                 c(
                   "self"  /* Use a local address as the next-hop address */,
                   "peer-address"  /* Use the remote peer address as the next-hop address */,
-                    ipaddr  /* Next-hop address */,
                   "reject"  /* Use a reject next hop */,
                   "discard"  /* Use a discard next hop */,
-                  "next-table" arg  /* Perform a forwarding lookup in the specified table */
+                  "next-table" arg  /* Perform a forwarding lookup in the specified table */,
+                    ipaddr  /* Next-hop address */
                 )
             )
         ).as(:oneline),
         "install-nexthop" (  /* Choose the next hop to be used for forwarding */
-            c(
+            sc(
                 "strict"  /* Do not use any other available next hops */,
                 c(
                   "lsp" arg  /* Next-hop LSP name */,
@@ -33254,7 +33254,7 @@ rule(:control_source_address_filter_type) do
             )
         ),
         "load-balance" (  /* Type of load balancing in forwarding table */
-            c(
+            sc(
                 c(
                   "per-packet"  /* Load balance on a per-packet basis */,
                   "random"  /* Load balance using packet random spray */,
@@ -33274,7 +33274,7 @@ rule(:control_source_address_filter_type) do
         "source-class" arg  /* Set source class in forwarding table */,
         "forwarding-class" arg  /* Set source or destination class in forwarding table */,
         "map-to-interface" (  /* Set output logical interface */
-            c(
+            sc(
                 c(
                   "self"  /* Map the interface to itself */,
                     interface_name  /* Output logical interface */
@@ -33307,7 +33307,7 @@ rule(:control_source_address_filter_type) do
           "reject"  /* Reject a route */
         ),
         "bgp-output-queue-priority" (  /* Set the BGP Update output queue priority. */
-            c(
+            sc(
                 c(
                   "priority" arg  /* Output queue priority; higher is better */,
                   "expedited"  /* Expedited queue; highest priority */
@@ -33540,7 +33540,7 @@ rule(:juniper_protocols) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("error" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -33559,7 +33559,7 @@ rule(:juniper_protocols) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -33614,7 +33614,7 @@ rule(:juniper_protocols) do
                         "group-threshold" arg  /* Percentage of limit at which to generate warnings */,
                         "log-interval" arg  /* Time between consecutive log messages */,
                         "passive" (  /* Suppress sending and receiving IGMP messages */
-                            c(
+                            sc(
                                 "allow-receive"  /* Allow receiving IGMP messages */,
                                 "send-general-query"  /* Send IGMP general query messages */,
                                 "send-group-query"  /* Send IGMP group query messages */
@@ -33664,7 +33664,7 @@ rule(:juniper_protocols) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("packets" | "query" | "report" | "leave" | "mtrace" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -33718,7 +33718,7 @@ rule(:juniper_protocols) do
                         "accounting"  /* Enable join and leave event notification */,
                         "no-accounting"  /* Don't enable join and leave event notification */,
                         "passive" (  /* Suppress sending and receiving mld messages */
-                            c(
+                            sc(
                                 "allow-receive"  /* Allow receiving mld messages */,
                                 "send-general-query"  /* Send mld general query messages */,
                                 "send-group-query"  /* Send mld group query messages */
@@ -33800,7 +33800,7 @@ rule(:juniper_protocols) do
             c(
                   ("disable"),
                 "listen" arg (  /* Address for SAP and SDP to listen on */
-                    c(
+                    sc(
                         "port" arg  /* Port to listen for session advertisements */
                     )
                 ).as(:oneline)
@@ -33824,7 +33824,7 @@ rule(:juniper_protocols) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("route" | "poison" | "packets" | "probe" | "report" | "neighbor" | "prune" | "graft" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -33877,7 +33877,7 @@ rule(:juniper_protocols) do
                                   trace_file_type  /* Trace file options */
                                 ),
                                 "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "post-convergence-lfa" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                    c(
+                                    sc(
                                         "send"  /* Trace transmitted packets */,
                                         "receive"  /* Trace received packets */,
                                         "detail"  /* Trace detailed information */,
@@ -34034,7 +34034,7 @@ rule(:juniper_protocols) do
                           ("iana" | "vendor")
                         ),
                         "domain-id" (  /* Configure domain ID */
-                            c(
+                            sc(
                                 c(
                                   arg  /* Domain ID */,
                                   "disable"  /* Disable domain ID */
@@ -34086,7 +34086,7 @@ rule(:juniper_protocols) do
                             c(
                                 c(
                                   "stub" (  /* Configure a stub area */
-                                      c(
+                                      sc(
                                           "default-metric" arg  /* Metric for the default route in this stub area */,
                                           "summaries"  /* Flood summary LSAs into this stub area */,
                                           "no-summaries"  /* Don't flood summary LSAs into this stub area */
@@ -34158,7 +34158,7 @@ rule(:juniper_protocols) do
                                             juniper_ospf_authentication
                                           ),
                                           "authentication-key" (  /* Authentication key */
-                                              c(
+                                              sc(
                                                     unreadable  /* Authentication key value */,
                                                   "key-id" arg  /* Key ID for MD5 authentication */
                                               )
@@ -34175,7 +34175,7 @@ rule(:juniper_protocols) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -34199,7 +34199,7 @@ rule(:juniper_protocols) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -34249,7 +34249,7 @@ rule(:juniper_protocols) do
                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                             c(
                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                    c(
+                                                    sc(
                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                     )
                                                 ).as(:oneline)
@@ -34271,7 +34271,7 @@ rule(:juniper_protocols) do
                                             juniper_ospf_authentication
                                           ),
                                           "authentication-key" (  /* Authentication key */
-                                              c(
+                                              sc(
                                                     unreadable  /* Authentication key value */,
                                                   "key-id" arg  /* Key ID for MD5 authentication */
                                               )
@@ -34288,7 +34288,7 @@ rule(:juniper_protocols) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -34335,7 +34335,7 @@ rule(:juniper_protocols) do
                                         "dynamic-neighbors"  /* Learn neighbors dynamically on a p2mp interface */,
                                         "no-advertise-adjacency-segment"  /* Do not advertise an adjacency segment for this interface */,
                                         "neighbor" arg (  /* NBMA neighbor */
-                                            c(
+                                            sc(
                                                 "eligible"  /* Eligible to be DR on an NBMA network */
                                             )
                                         ).as(:oneline),
@@ -34357,7 +34357,7 @@ rule(:juniper_protocols) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -34380,7 +34380,7 @@ rule(:juniper_protocols) do
                                             juniper_ospf_authentication
                                           ),
                                           "authentication-key" (  /* Authentication key */
-                                              c(
+                                              sc(
                                                     unreadable  /* Authentication key value */,
                                                   "key-id" arg  /* Key ID for MD5 authentication */
                                               )
@@ -34402,7 +34402,7 @@ rule(:juniper_protocols) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "post-convergence-lfa" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -34559,7 +34559,7 @@ rule(:juniper_protocols) do
                   ("iana" | "vendor")
                 ),
                 "domain-id" (  /* Configure domain ID */
-                    c(
+                    sc(
                         c(
                           arg  /* Domain ID */,
                           "disable"  /* Disable domain ID */
@@ -34611,7 +34611,7 @@ rule(:juniper_protocols) do
                     c(
                         c(
                           "stub" (  /* Configure a stub area */
-                              c(
+                              sc(
                                   "default-metric" arg  /* Metric for the default route in this stub area */,
                                   "summaries"  /* Flood summary LSAs into this stub area */,
                                   "no-summaries"  /* Don't flood summary LSAs into this stub area */
@@ -34683,7 +34683,7 @@ rule(:juniper_protocols) do
                                     juniper_ospf_authentication
                                   ),
                                   "authentication-key" (  /* Authentication key */
-                                      c(
+                                      sc(
                                             unreadable  /* Authentication key value */,
                                           "key-id" arg  /* Key ID for MD5 authentication */
                                       )
@@ -34700,7 +34700,7 @@ rule(:juniper_protocols) do
                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                             c(
                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                    c(
+                                                    sc(
                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                     )
                                                 ).as(:oneline)
@@ -34724,7 +34724,7 @@ rule(:juniper_protocols) do
                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                             c(
                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                    c(
+                                                    sc(
                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                     )
                                                 ).as(:oneline)
@@ -34774,7 +34774,7 @@ rule(:juniper_protocols) do
                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                     c(
                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                            c(
+                                            sc(
                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                             )
                                         ).as(:oneline)
@@ -34796,7 +34796,7 @@ rule(:juniper_protocols) do
                                     juniper_ospf_authentication
                                   ),
                                   "authentication-key" (  /* Authentication key */
-                                      c(
+                                      sc(
                                             unreadable  /* Authentication key value */,
                                           "key-id" arg  /* Key ID for MD5 authentication */
                                       )
@@ -34813,7 +34813,7 @@ rule(:juniper_protocols) do
                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                             c(
                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                    c(
+                                                    sc(
                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                     )
                                                 ).as(:oneline)
@@ -34860,7 +34860,7 @@ rule(:juniper_protocols) do
                                 "dynamic-neighbors"  /* Learn neighbors dynamically on a p2mp interface */,
                                 "no-advertise-adjacency-segment"  /* Do not advertise an adjacency segment for this interface */,
                                 "neighbor" arg (  /* NBMA neighbor */
-                                    c(
+                                    sc(
                                         "eligible"  /* Eligible to be DR on an NBMA network */
                                     )
                                 ).as(:oneline),
@@ -34882,7 +34882,7 @@ rule(:juniper_protocols) do
                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                             c(
                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                    c(
+                                                    sc(
                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                     )
                                                 ).as(:oneline)
@@ -34905,7 +34905,7 @@ rule(:juniper_protocols) do
                                     juniper_ospf_authentication
                                   ),
                                   "authentication-key" (  /* Authentication key */
-                                      c(
+                                      sc(
                                             unreadable  /* Authentication key value */,
                                           "key-id" arg  /* Key ID for MD5 authentication */
                                       )
@@ -34981,7 +34981,7 @@ rule(:juniper_protocols) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -35014,7 +35014,7 @@ rule(:juniper_protocols) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("error" | "topology" | "fec" | "connections" | "oam" | "egress-protection" | "auto-sensing" | "sdb" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -35066,7 +35066,7 @@ rule(:juniper_protocols) do
                                 ),
                                 "switchover-delay" arg  /* Layer 2 circuit switchover delay */,
                                 "revert-time" (  /* Enable pseudowire redundancy reversion */
-                                    c(
+                                    sc(
                                           arg,
                                         "maximum" arg  /* Maximum reversion interval to add over revert-time delay */
                                     )
@@ -35097,7 +35097,7 @@ rule(:juniper_protocols) do
                                             interface_name  /* Name of the protector interface for local protection */
                                           ),
                                           "protector-pe" (  /* Address of the protector PE */
-                                              c(
+                                              sc(
                                                     ipv4addr  /* Address of the protector PE */,
                                                   "context-identifier" (  /* Identifier of the context used for this protection */
                                                     ipv4addr  /* Identifier of the context used for this protection */
@@ -35107,7 +35107,7 @@ rule(:juniper_protocols) do
                                           ).as(:oneline)
                                         ),
                                         "protected-l2circuit" (  /* Primary Layer 2 circuit to be protected */
-                                            c(
+                                            sc(
                                                 arg  /* Name of the protected Layer 2 circuit */,
                                                 "ingress-pe" (  /* Ingress PE address of the protected Layer 2 circuit */
                                                   ipv4addr  /* Ingress PE address of the protected Layer 2 circuit */
@@ -35194,7 +35194,7 @@ rule(:juniper_protocols) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("error" | "topology" | "nlri" | "connections" | "automatic-site" | "oam" | "mac-database" | "nsr" | "egress-protection" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -35238,7 +35238,7 @@ rule(:juniper_protocols) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -35364,7 +35364,7 @@ rule(:juniper_protocols) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -35386,7 +35386,7 @@ rule(:juniper_protocols) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -35416,7 +35416,7 @@ rule(:juniper_protocols) do
                                     c(
                                         "no-remote-trace"  /* Disable remote tracing */,
                                         "file" (  /* Trace file information */
-                                            c(
+                                            sc(
                                                   arg,
                                                 "size" arg  /* Maximum trace file size */,
                                                 "files" arg  /* Maximum number of trace files */,
@@ -35533,7 +35533,7 @@ rule(:juniper_protocols) do
                                         "clear-action" (
                                             c(
                                                 "interface-down" (  /* Mark the interface as down */
-                                                    c(
+                                                    sc(
                                                         "peer-interface"  /* Mark the interface as down */
                                                     )
                                                 ).as(:oneline),
@@ -35570,7 +35570,7 @@ rule(:juniper_protocols) do
                                         "virtual-switch" arg (  /* Virtual switch Bridge-domain information for the default maintenance domain */
                                             c(
                                                 "bridge-domain" arg (
-                                                    c(
+                                                    sc(
                                                         "vlan-id" arg  /* VLAN id */
                                                     )
                                                 ).as(:oneline)
@@ -35620,7 +35620,7 @@ rule(:juniper_protocols) do
                                                 "mep" arg (  /* Maintenance association endpoint configuration */
                                                     c(
                                                         "interface" (  /* Name of interface */
-                                                            c(
+                                                            sc(
                                                                   interface_unit,
                                                                 "vlan" arg  /* Trunk port interface VLAN identifier */,
                                                                 c(
@@ -35680,10 +35680,10 @@ rule(:juniper_protocols) do
                         "evcs" arg (  /* Ethernet virtual circuits configuration */
                             c(
                                 "evc-protocol" (  /* Signaling protocol to monitor EVC status */
-                                    c(
+                                    sc(
                                         c(
                                           "cfm" (  /* Connectivity fault management */
-                                              c(
+                                              sc(
                                                   "maintenance-domain" arg  /* Maintenance domain name */,
                                                   "maintenance-association" arg  /* Maintenance association name */,
                                                   "mep" arg  /* Identifier for maintenance association endpoint */,
@@ -35691,7 +35691,7 @@ rule(:juniper_protocols) do
                                               )
                                           ).as(:oneline),
                                           "vpls" (  /* Virtual private LAN service (BGP/LDP) */
-                                              c(
+                                              sc(
                                                   "routing-instance" arg  /* Routing instance name */
                                               )
                                           ).as(:oneline),
@@ -35711,7 +35711,7 @@ rule(:juniper_protocols) do
                                     c(
                                         "no-remote-trace"  /* Disable remote tracing */,
                                         "file" (  /* Trace file information */
-                                            c(
+                                            sc(
                                                   arg,
                                                 "size" arg  /* Maximum trace file size */,
                                                 "files" arg  /* Maximum number of trace files */,
@@ -35774,7 +35774,7 @@ rule(:juniper_protocols) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -35860,7 +35860,7 @@ rule(:juniper_protocols) do
                                             c(
                                                 c(
                                                   "ieee-802.3" (  /* PTP over 802.3 frames */
-                                                      c(
+                                                      sc(
                                                           "link-local"  /* Use link local 802.3 MAC address */
                                                       )
                                                   ).as(:oneline),
@@ -35936,7 +35936,7 @@ rule(:juniper_protocols) do
                                             c(
                                                 c(
                                                   "ieee-802.3" (  /* PTP over 802.3 frames */
-                                                      c(
+                                                      sc(
                                                           "link-local"  /* Use link local 802.3 MAC address */
                                                       )
                                                   ).as(:oneline),
@@ -35966,7 +35966,7 @@ rule(:juniper_protocols) do
                                             c(
                                                 c(
                                                   "ieee-802.3" (  /* PTP over 802.3 frames */
-                                                      c(
+                                                      sc(
                                                           "link-local"  /* Use link local 802.3 MAC address */
                                                       )
                                                   ).as(:oneline)
@@ -36004,7 +36004,7 @@ rule(:juniper_protocols) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -36050,7 +36050,7 @@ rule(:juniper_protocols) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("all" | "configuration" | "rtsock" | "packet" | "protocol" | "interface" | "vlan" | "snmp" | "jvision")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "disable"  /* Disable this trace flag */
                             )
                         ).as(:oneline)
@@ -36147,7 +36147,7 @@ rule(:juniper_protocols) do
                 "pce-group" arg (  /* PCE group definition */
                     c(
                         "pce-type" (  /* Type of the PCE (e.g. stateful or stateless) */
-                            c(
+                            sc(
                                 "active"  /* The PCE can modify delegated LSPs */,
                                 c(
                                   "stateful"  /* The PCE is stateful */
@@ -36170,7 +36170,7 @@ rule(:juniper_protocols) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -36205,7 +36205,7 @@ rule(:juniper_protocols) do
                         ),
                         "authentication-key-chain" arg  /* Key chain name */,
                         "pce-type" (  /* Type of the PCE (e.g. stateful or stateless) */
-                            c(
+                            sc(
                                 "active"  /* The PCE can modify delegated LSPs */,
                                 c(
                                   "stateful"  /* The PCE is stateful */
@@ -36228,7 +36228,7 @@ rule(:juniper_protocols) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -36279,7 +36279,7 @@ rule(:juniper_protocols) do
                 ),
                 "server-port" arg  /* R2CP server port number */,
                 "client-port" (  /* R2CP client port number */
-                    c(
+                    sc(
                         c(
                             arg,
                           c(
@@ -36364,7 +36364,7 @@ rule(:clksync_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -36396,7 +36396,7 @@ rule(:juniper_default_ri_protocols_igmp_snooping) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "route" | "normal" | "general" | "state" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -36505,7 +36505,7 @@ rule(:juniper_default_ri_protocols_mld_snooping) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -36582,7 +36582,7 @@ rule(:juniper_ospf_authentication) do
             unreadable  /* Authentication key */
           ),
           "md5" arg (  /* MD5 authentication key */
-              c(
+              sc(
                   "key" (  /* MD5 authentication key value */
                     unreadable  /* MD5 authentication key value */
                   ),
@@ -36603,7 +36603,7 @@ rule(:juniper_protocols_amt) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("packets" | "errors" | "tunnels" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -36760,7 +36760,7 @@ rule(:juniper_protocols_bd) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -36835,7 +36835,7 @@ rule(:juniper_protocols_bgp) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -36849,16 +36849,16 @@ rule(:juniper_protocols_bgp) do
         ),
         "description" arg  /* Text description */,
         "metric-out" (  /* Route metric sent in MED */
-            c(
+            sc(
                 c(
                     arg,
                   "minimum-igp" (  /* Track the minimum IGP metric */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
                   "igp" (  /* Track the IGP metric */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */,
                           "delay-med-update"  /* Delay updating MED when IGP metric increases */
                       )
@@ -36889,7 +36889,7 @@ rule(:juniper_protocols_bgp) do
         "advertise-peer-as"  /* Advertise routes received from the same autonomous system */,
         "no-advertise-peer-as"  /* Don't advertise routes received from the same autonomous system */,
         "advertise-external" (  /* Advertise best external routes */
-            c(
+            sc(
                 "conditional"  /* Route matches active route upto med-comparison rule */
             )
         ).as(:oneline),
@@ -37110,9 +37110,9 @@ rule(:juniper_protocols_bgp) do
         "remove-private" (  /* Remove well-known private AS numbers */
             c(
                 "all" (  /* Remove all private AS numbers and do not stop at the first public AS number */
-                    c(
+                    sc(
                         "replace" (  /* Replace private AS numbers with the BGP Group's local AS number */
-                            c(
+                            sc(
                                 "nearest"  /* Use closest public AS number to replace a private AS number */
                             )
                         ).as(:oneline)
@@ -37127,7 +37127,7 @@ rule(:juniper_protocols_bgp) do
         "no-client-reflect"  /* Disable intracluster route redistribution */,
         "peer-as" arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */,
         "local-as" (  /* Local autonomous system number */
-            c(
+            sc(
                 arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */,
                 "loops" arg  /* Maximum number of times this AS can be in an AS path */,
                 "private"  /* Hide this local AS in paths learned from this peering */,
@@ -37164,7 +37164,7 @@ rule(:juniper_protocols_bgp) do
         ),
         "include-mp-next-hop"  /* Include NEXT-HOP attribute in multiprotocol updates */,
         "idle-after-switch-over" (  /* Stop peer session from coming up after nonstop-routing switch-over */
-            c(
+            sc(
                 c(
                   "forever"  /* Idle the peer until the user intervenes */,
                     arg
@@ -37210,12 +37210,12 @@ rule(:juniper_protocols_bgp) do
                     c(
                         "none"  /* Do not send route montoring messages */,
                         "pre-policy" (  /* Send pre policy route montoring messages */
-                            c(
+                            sc(
                                 "exclude-non-feasible"  /* Exclude looped routes, etc */
                             )
                         ).as(:oneline),
                         "post-policy" (  /* Send post policy route montoring messages */
-                            c(
+                            sc(
                                 "exclude-non-eligible"  /* Exclude unresolved routes, etc. */
                             )
                         ).as(:oneline)
@@ -37291,12 +37291,12 @@ rule(:juniper_protocols_bgp) do
         "output-queue-priority" (  /* BGP output queue priority scheduler for updates */
             c(
                 "expedited" (  /* Expedited queue; highest priority */
-                    c(
+                    sc(
                         "update-tokens" arg  /* Number of tokens */
                     )
                 ).as(:oneline),
                 "priority" arg (  /* Output queue priority 1..16; higher is better */
-                    c(
+                    sc(
                         "update-tokens" arg  /* Number of tokens */
                     )
                 ).as(:oneline),
@@ -37329,7 +37329,7 @@ rule(:juniper_protocols_bgp) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -37343,16 +37343,16 @@ rule(:juniper_protocols_bgp) do
                 ),
                 "description" arg  /* Text description */,
                 "metric-out" (  /* Route metric sent in MED */
-                    c(
+                    sc(
                         c(
                             arg,
                           "minimum-igp" (  /* Track the minimum IGP metric */
-                              c(
+                              sc(
                                   arg  /* Metric offset for MED */
                               )
                           ).as(:oneline),
                           "igp" (  /* Track the IGP metric */
-                              c(
+                              sc(
                                   arg  /* Metric offset for MED */,
                                   "delay-med-update"  /* Delay updating MED when IGP metric increases */
                               )
@@ -37383,7 +37383,7 @@ rule(:juniper_protocols_bgp) do
                 "advertise-peer-as"  /* Advertise routes received from the same autonomous system */,
                 "no-advertise-peer-as"  /* Don't advertise routes received from the same autonomous system */,
                 "advertise-external" (  /* Advertise best external routes */
-                    c(
+                    sc(
                         "conditional"  /* Route matches active route upto med-comparison rule */
                     )
                 ).as(:oneline),
@@ -37604,9 +37604,9 @@ rule(:juniper_protocols_bgp) do
                 "remove-private" (  /* Remove well-known private AS numbers */
                     c(
                         "all" (  /* Remove all private AS numbers and do not stop at the first public AS number */
-                            c(
+                            sc(
                                 "replace" (  /* Replace private AS numbers with the BGP Group's local AS number */
-                                    c(
+                                    sc(
                                         "nearest"  /* Use closest public AS number to replace a private AS number */
                                     )
                                 ).as(:oneline)
@@ -37621,7 +37621,7 @@ rule(:juniper_protocols_bgp) do
                 "no-client-reflect"  /* Disable intracluster route redistribution */,
                 "peer-as" arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */,
                 "local-as" (  /* Local autonomous system number */
-                    c(
+                    sc(
                         arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */,
                         "loops" arg  /* Maximum number of times this AS can be in an AS path */,
                         "private"  /* Hide this local AS in paths learned from this peering */,
@@ -37658,7 +37658,7 @@ rule(:juniper_protocols_bgp) do
                 ),
                 "include-mp-next-hop"  /* Include NEXT-HOP attribute in multiprotocol updates */,
                 "idle-after-switch-over" (  /* Stop peer session from coming up after nonstop-routing switch-over */
-                    c(
+                    sc(
                         c(
                           "forever"  /* Idle the peer until the user intervenes */,
                             arg
@@ -37704,12 +37704,12 @@ rule(:juniper_protocols_bgp) do
                             c(
                                 "none"  /* Do not send route montoring messages */,
                                 "pre-policy" (  /* Send pre policy route montoring messages */
-                                    c(
+                                    sc(
                                         "exclude-non-feasible"  /* Exclude looped routes, etc */
                                     )
                                 ).as(:oneline),
                                 "post-policy" (  /* Send post policy route montoring messages */
-                                    c(
+                                    sc(
                                         "exclude-non-eligible"  /* Exclude unresolved routes, etc. */
                                     )
                                 ).as(:oneline)
@@ -37839,7 +37839,7 @@ rule(:juniper_protocols_bgp) do
                                   trace_file_type  /* Trace file options */
                                 ),
                                 "flag" enum(("damping" | "packets" | "open" | "update" | "keepalive" | "refresh" | "nsr-synchronization" | "bfd" | "4byte-as" | "add-path" | "graceful-restart" | "egress-te" | "thread-io" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                    c(
+                                    sc(
                                         "send"  /* Trace transmitted packets */,
                                         "receive"  /* Trace received packets */,
                                         "detail"  /* Trace detailed information */,
@@ -37853,16 +37853,16 @@ rule(:juniper_protocols_bgp) do
                         ),
                         "description" arg  /* Text description */,
                         "metric-out" (  /* Route metric sent in MED */
-                            c(
+                            sc(
                                 c(
                                     arg,
                                   "minimum-igp" (  /* Track the minimum IGP metric */
-                                      c(
+                                      sc(
                                           arg  /* Metric offset for MED */
                                       )
                                   ).as(:oneline),
                                   "igp" (  /* Track the IGP metric */
-                                      c(
+                                      sc(
                                           arg  /* Metric offset for MED */,
                                           "delay-med-update"  /* Delay updating MED when IGP metric increases */
                                       )
@@ -37893,7 +37893,7 @@ rule(:juniper_protocols_bgp) do
                         "advertise-peer-as"  /* Advertise routes received from the same autonomous system */,
                         "no-advertise-peer-as"  /* Don't advertise routes received from the same autonomous system */,
                         "advertise-external" (  /* Advertise best external routes */
-                            c(
+                            sc(
                                 "conditional"  /* Route matches active route upto med-comparison rule */
                             )
                         ).as(:oneline),
@@ -38114,9 +38114,9 @@ rule(:juniper_protocols_bgp) do
                         "remove-private" (  /* Remove well-known private AS numbers */
                             c(
                                 "all" (  /* Remove all private AS numbers and do not stop at the first public AS number */
-                                    c(
+                                    sc(
                                         "replace" (  /* Replace private AS numbers with the BGP Group's local AS number */
-                                            c(
+                                            sc(
                                                 "nearest"  /* Use closest public AS number to replace a private AS number */
                                             )
                                         ).as(:oneline)
@@ -38131,7 +38131,7 @@ rule(:juniper_protocols_bgp) do
                         "no-client-reflect"  /* Disable intracluster route redistribution */,
                         "peer-as" arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */,
                         "local-as" (  /* Local autonomous system number */
-                            c(
+                            sc(
                                 arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */,
                                 "loops" arg  /* Maximum number of times this AS can be in an AS path */,
                                 "private"  /* Hide this local AS in paths learned from this peering */,
@@ -38168,7 +38168,7 @@ rule(:juniper_protocols_bgp) do
                         ),
                         "include-mp-next-hop"  /* Include NEXT-HOP attribute in multiprotocol updates */,
                         "idle-after-switch-over" (  /* Stop peer session from coming up after nonstop-routing switch-over */
-                            c(
+                            sc(
                                 c(
                                   "forever"  /* Idle the peer until the user intervenes */,
                                     arg
@@ -38214,12 +38214,12 @@ rule(:juniper_protocols_bgp) do
                                     c(
                                         "none"  /* Do not send route montoring messages */,
                                         "pre-policy" (  /* Send pre policy route montoring messages */
-                                            c(
+                                            sc(
                                                 "exclude-non-feasible"  /* Exclude looped routes, etc */
                                             )
                                         ).as(:oneline),
                                         "post-policy" (  /* Send post policy route montoring messages */
-                                            c(
+                                            sc(
                                                 "exclude-non-eligible"  /* Exclude unresolved routes, etc. */
                                             )
                                         ).as(:oneline)
@@ -38536,7 +38536,7 @@ rule(:bgp_afi_inet6_labeled) do
             )
         ),
         "explicit-null" (  /* Advertise explicit null */
-            c(
+            sc(
                 "connected-only"  /* Advertise explicit null only for connected routes */
             )
         ).as(:oneline),
@@ -38695,7 +38695,7 @@ rule(:bgp_afi_labeled) do
             )
         ),
         "explicit-null" (  /* Advertise explicit null */
-            c(
+            sc(
                 "connected-only"  /* Advertise explicit null only for connected routes */
             )
         ).as(:oneline),
@@ -38993,10 +38993,10 @@ rule(:bgpaf_accepted_prefix_limit) do
     c(
         "maximum" arg  /* Maximum number of prefixes accepted from a peer */,
         "teardown" (  /* Clear peer connection on reaching limit */
-            c(
+            sc(
                   arg,
                 "idle-timeout" (  /* Timeout before attempting to restart peer */
-                    c(
+                    sc(
                         c(
                           "forever"  /* Idle the peer until the user intervenes */,
                             arg
@@ -39024,10 +39024,10 @@ rule(:bgpaf_prefix_limit) do
     c(
         "maximum" arg  /* Maximum number of prefixes from a peer */,
         "teardown" (  /* Clear peer connection on reaching limit */
-            c(
+            sc(
                   arg,
                 "idle-timeout" (  /* Timeout before attempting to restart peer */
-                    c(
+                    sc(
                         c(
                           "forever"  /* Idle the peer until the user intervenes */,
                             arg
@@ -39055,7 +39055,7 @@ rule(:juniper_protocols_bridge) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -39083,7 +39083,7 @@ rule(:juniper_protocols_bridge) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -39169,7 +39169,7 @@ rule(:juniper_protocols_dlsw) do
         "traceoptions" (  /* Trace options */
             c(
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -39181,7 +39181,7 @@ rule(:juniper_protocols_dlsw) do
             )
         ),
         "load-balance" (  /* Load balance circuits among remote peers */
-            c(
+            sc(
                 c(
                   "circuit-weight"  /* Load balance circuits based on circuit weight configured */
                 )
@@ -39208,7 +39208,7 @@ rule(:juniper_protocols_dot1x) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("dot1x-debug" | "parse" | "esw-if" | "eapol" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "vlan" | "all" | "dot1x-ipc" | "dot1x-event" | "iccp")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "disable"  /* Disable this trace flag */
                     )
                 ).as(:oneline)
@@ -39287,7 +39287,7 @@ rule(:juniper_protocols_dot1x) do
                         "guest-vlan" arg  /* VLAN name or 802.1q tag for unauthenticated or non-responsive hosts */,
                         "guest-bridge-domain" arg  /* Bridge-domain name or 802.1q tag for unauthenticated or non-responsive hosts */,
                         "server-reject-vlan" (  /* VLAN name or 802.1q tag for authentication rejected clients */
-                            c(
+                            sc(
                                 arg  /* VLAN name or VLAN Tag (1..4095) */,
                                 "block-interval" arg  /* Interval for authenticator to ignore the EAP-Start packets. */,
                                 "eapol-block"  /* Force the authenticator to ignore EAPOL-Start packets. */
@@ -39307,7 +39307,7 @@ rule(:juniper_protocols_dot1x) do
                         ),
                         "lldp-med-bypass"  /* Bypass dot1x authentication, use lldp-med based authentication */,
                         "server-fail" (  /* Action to be taken when server is inaccessible */
-                            c(
+                            sc(
                                 c(
                                   "deny"  /* Force client authentication to fail */,
                                   "permit"  /* Force client authentication to succeed */,
@@ -39336,7 +39336,7 @@ rule(:juniper_protocols_esis) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("error" | "esh" | "ish" | "graceful-restart" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -39347,7 +39347,7 @@ rule(:juniper_protocols_esis) do
         ),
         "preference" arg  /* Preference of routes */,
         "graceful-restart" (  /* ES-IS graceful restart options */
-            c(
+            sc(
                   ("disable"),
                 "restart-duration" arg  /* Maximum time for graceful restart to finish */
             )
@@ -39371,7 +39371,7 @@ rule(:juniper_protocols_isis) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("error" | "spf" | "packets" | "hello" | "lsp" | "psn" | "csn" | "layer2-map" | "lsp-generation" | "graceful-restart" | "ldp-synchronization" | "nsr-synchronization" | "spring" | "traffic-statistics" | "prefix-sid" | "adj-sid" | "post-convergence-lfa" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -39489,7 +39489,7 @@ rule(:juniper_protocols_isis) do
             )
         ),
         "graceful-restart" (  /* IS-IS graceful restart options */
-            c(
+            sc(
                   ("disable"),
                 "helper-disable"  /* Disable graceful restart helper capability */,
                 "restart-duration" arg  /* Maximum time for graceful restart to finish */
@@ -39505,20 +39505,20 @@ rule(:juniper_protocols_isis) do
                 "sensor-based-stats" (  /* Configure sensor based stats in SPRING */
                     c(
                         "per-interface-per-member-link" (  /* Configure sensor based stats per nexthop */
-                            c(
+                            sc(
                                 "ingress"  /* Enable sensor based stats on ingress interface */,
                                 "egress"  /* Enable sensor based stats on egress interface */
                             )
                         ).as(:oneline),
                         "per-sid" (  /* Configure sensor based stats per spring route */
-                            c(
+                            sc(
                                 "ingress"  /* Enable sensor based stats for per-sid ingress accounting */
                             )
                         ).as(:oneline)
                     )
                 ),
                 "srgb" (  /* Set the SRGB global block in SPRING */
-                    c(
+                    sc(
                         "start-label" arg  /* Start range for SRGB label block */,
                         "index-range" arg  /* Index to the SRGB start label block */
                     )
@@ -39608,7 +39608,7 @@ rule(:juniper_protocols_isis) do
                 "max-hello-size" arg  /* Maximum size allowed for ISIS Hello PDUs */,
                 "lsp-interval" arg  /* Interval between LSP transmissions */,
                 "csnp-interval" (  /* Rate of CSN packets (for LAN interfaces only) */
-                    c(
+                    sc(
                         c(
                             arg,
                           "disable"  /* Do not send CSN packets on this interface */
@@ -39616,7 +39616,7 @@ rule(:juniper_protocols_isis) do
                     )
                 ).as(:oneline),
                 "mesh-group" (  /* Add the interface to a mesh group */
-                    c(
+                    sc(
                         c(
                           arg  /* Mesh group number for this interface */,
                           "blocked"  /* Do not flood new LSPs on this interface */
@@ -39743,7 +39743,7 @@ rule(:juniper_protocols_isis) do
                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                     c(
                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                            c(
+                                            sc(
                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                             )
                                         ).as(:oneline)
@@ -39780,10 +39780,10 @@ rule(:juniper_protocols_isis) do
                         "ipv4-adjacency-segment" (  /* Configure ipv4 adjacency segment */
                             c(
                                 "protected" (  /* Adjacency SID is eligible for protection */
-                                    c(
+                                    sc(
                                         c(
                                           "index" (  /* Adjacency SID indexed from SRGB */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -39793,10 +39793,10 @@ rule(:juniper_protocols_isis) do
                                     )
                                 ).as(:oneline),
                                 "unprotected" (  /* Adjacency SID uneligible for protection */
-                                    c(
+                                    sc(
                                         c(
                                           "index" (  /* Adjacency SID indexed from SRGB */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -39810,10 +39810,10 @@ rule(:juniper_protocols_isis) do
                         "ipv6-adjacency-segment" (  /* Configure ipv6 adjacency segment */
                             c(
                                 "protected" (  /* Adjacency SID is eligible for protection */
-                                    c(
+                                    sc(
                                         c(
                                           "index" (  /* Adjacency SID indexed from SRGB */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -39823,10 +39823,10 @@ rule(:juniper_protocols_isis) do
                                     )
                                 ).as(:oneline),
                                 "unprotected" (  /* Adjacency SID uneligible for protection */
-                                    c(
+                                    sc(
                                         c(
                                           "index" (  /* Adjacency SID indexed from SRGB */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -39842,10 +39842,10 @@ rule(:juniper_protocols_isis) do
                                 "ipv4-adjacency-segment" (  /* Configure ipv4 adjacency segment */
                                     c(
                                         "protected" (  /* Adjacency SID is eligible for protection */
-                                            c(
+                                            sc(
                                                 c(
                                                   "index" (  /* Adjacency SID indexed from SRGB */
-                                                      c(
+                                                      sc(
                                                             arg
                                                       )
                                                   ).as(:oneline),
@@ -39855,10 +39855,10 @@ rule(:juniper_protocols_isis) do
                                             )
                                         ).as(:oneline),
                                         "unprotected" (  /* Adjacency SID uneligible for protection */
-                                            c(
+                                            sc(
                                                 c(
                                                   "index" (  /* Adjacency SID indexed from SRGB */
-                                                      c(
+                                                      sc(
                                                             arg
                                                       )
                                                   ).as(:oneline),
@@ -39872,10 +39872,10 @@ rule(:juniper_protocols_isis) do
                                 "ipv6-adjacency-segment" (  /* Configure ipv6 adjacency segment */
                                     c(
                                         "protected" (  /* Adjacency SID is eligible for protection */
-                                            c(
+                                            sc(
                                                 c(
                                                   "index" (  /* Adjacency SID indexed from SRGB */
-                                                      c(
+                                                      sc(
                                                             arg
                                                       )
                                                   ).as(:oneline),
@@ -39885,10 +39885,10 @@ rule(:juniper_protocols_isis) do
                                             )
                                         ).as(:oneline),
                                         "unprotected" (  /* Adjacency SID uneligible for protection */
-                                            c(
+                                            sc(
                                                 c(
                                                   "index" (  /* Adjacency SID indexed from SRGB */
-                                                      c(
+                                                      sc(
                                                             arg
                                                       )
                                                   ).as(:oneline),
@@ -39904,7 +39904,7 @@ rule(:juniper_protocols_isis) do
                     )
                 ),
                 "link-degradation-threshold" (  /* Link up and down thresholds (in %) for proactive link protection */
-                    c(
+                    sc(
                         "link-down" arg  /* Signal degradation threshold above which link marked down */,
                         "link-up" arg  /* Signal degradation threshold below which link is marked up. */
                     )
@@ -39926,7 +39926,7 @@ rule(:juniper_protocols_isis) do
                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                     c(
                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                            c(
+                                            sc(
                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                             )
                                         ).as(:oneline)
@@ -39937,10 +39937,10 @@ rule(:juniper_protocols_isis) do
                         "ipv4-adjacency-segment" (  /* Configure ipv4 adjacency segment */
                             c(
                                 "protected" (  /* Adjacency SID is eligible for protection */
-                                    c(
+                                    sc(
                                         c(
                                           "index" (  /* Adjacency SID indexed from SRGB */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -39950,10 +39950,10 @@ rule(:juniper_protocols_isis) do
                                     )
                                 ).as(:oneline),
                                 "unprotected" (  /* Adjacency SID uneligible for protection */
-                                    c(
+                                    sc(
                                         c(
                                           "index" (  /* Adjacency SID indexed from SRGB */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -39967,10 +39967,10 @@ rule(:juniper_protocols_isis) do
                         "ipv6-adjacency-segment" (  /* Configure ipv6 adjacency segment */
                             c(
                                 "protected" (  /* Adjacency SID is eligible for protection */
-                                    c(
+                                    sc(
                                         c(
                                           "index" (  /* Adjacency SID indexed from SRGB */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -39980,10 +39980,10 @@ rule(:juniper_protocols_isis) do
                                     )
                                 ).as(:oneline),
                                 "unprotected" (  /* Adjacency SID uneligible for protection */
-                                    c(
+                                    sc(
                                         c(
                                           "index" (  /* Adjacency SID indexed from SRGB */
-                                              c(
+                                              sc(
                                                     arg
                                               )
                                           ).as(:oneline),
@@ -40034,7 +40034,7 @@ rule(:juniper_protocols_l2control) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("parse" | "regex-parse" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "ppmlite" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "disable"  /* Disable this trace flag */
                     )
                 ).as(:oneline)
@@ -40090,7 +40090,7 @@ rule(:juniper_protocols_ldp) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("error" | "event" | "packet-dump" | "packets" | "periodic" | "initialization" | "notification" | "address" | "label" | "binding" | "path" | "ppmd" | "nsr-synchronization" | "link-protection" | "p2mp-nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -40181,7 +40181,7 @@ rule(:juniper_protocols_ldp) do
             )
         ),
         "transport-address" (  /* Address used for TCP sessions */
-            c(
+            sc(
                 c(
                   "router-id"  /* Use router ID for TCP connections */,
                   "interface"  /* Use interface address for TCP connections */,
@@ -40235,7 +40235,7 @@ rule(:juniper_protocols_ldp) do
             )
         ),
         "session-protection" (  /* Configure session protection */
-            c(
+            sc(
                 "timeout" arg  /* Session protection timeout */
             )
         ).as(:oneline),
@@ -40247,7 +40247,7 @@ rule(:juniper_protocols_ldp) do
         "log-updown" (  /* Logging actions for LSP up/down events */
             c(
                 "trap" (  /* SNMP traps options */
-                    c(
+                    sc(
                           ("disable")
                     )
                 ).as(:oneline)
@@ -40306,7 +40306,7 @@ rule(:juniper_protocols_ldp) do
                                   ),
                                   "ecmp"  /* Enable equal cost multipath (ECMP) support for BFD */,
                                   "failure-action" (  /* Action to take when BFD session goes down */
-                                      c(
+                                      sc(
                                           c(
                                             "remove-route"  /* Remove LDP route from the ribs */,
                                             "remove-nexthop"  /* Remove LDP nexthop from the route */
@@ -40362,7 +40362,7 @@ rule(:juniper_protocols_ldp) do
                         ),
                         "ecmp"  /* Enable equal cost multipath (ECMP) support for BFD */,
                         "failure-action" (  /* Action to take when BFD session goes down */
-                            c(
+                            sc(
                                 c(
                                   "remove-route"  /* Remove LDP route from the ribs */,
                                   "remove-nexthop"  /* Remove LDP nexthop from the route */
@@ -40517,7 +40517,7 @@ rule(:juniper_protocols_lmp) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("init" | "show" | "route-socket" | "parse" | "process" | "server" | "routing" | "packets" | "hello-packets" | "state" | "nsr-synchronization" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -40783,7 +40783,7 @@ rule(:juniper_protocols_mpls) do
                 "ldp-tunneling"  /* Allow LDP to use this LSP for tunneling */,
                 "soft-preemption"  /* Attempt make-before-break service while preempting this LSP */,
                 "install" arg (  /* Install prefix */
-                    c(
+                    sc(
                         "active"  /* Install prefix into forwarding table */
                     )
                 ).as(:oneline),
@@ -40882,7 +40882,7 @@ rule(:juniper_protocols_mpls) do
                     )
                 ),
                 "p2mp" (  /* Point-to-multipoint label-switched path */
-                    c(
+                    sc(
                         arg  /* Name of point-to-multipoint LSP */
                     )
                 ).as(:oneline),
@@ -41029,7 +41029,7 @@ rule(:juniper_protocols_mpls) do
                     )
                 ),
                 "policing" (  /* Traffic policing for this LSP */
-                    c(
+                    sc(
                         "filter" arg  /* Name of filter to use for policing LSP traffic */,
                         "no-auto-policing"  /* Turn off automatic policing for this LSP */
                     )
@@ -41112,7 +41112,7 @@ rule(:juniper_protocols_mpls) do
         ),
         "path" arg (  /* Route of a label-switched path */
             c(
-                    c(
+                    sc(
                         "abstract"  /* Next system in path is abstract */,
                         c(
                           "loose"  /* Next hop might not be adjacent */,
@@ -41144,7 +41144,7 @@ rule(:juniper_protocols_mpls) do
                           "bandwidth" arg  /* Bandwidth to reserve */,
                           "description" arg  /* Text description of label-switched path */,
                           "link-protection" (  /* Bypass link protection */
-                              c(
+                              sc(
                                   "bypass-name" arg  /* Bypass label-switched path name */
                               )
                           ).as(:oneline),
@@ -41155,7 +41155,7 @@ rule(:juniper_protocols_mpls) do
                             interface_unit  /* AE member interface name */
                           ),
                           "node-protection" (  /* Bypass node protection */
-                              c(
+                              sc(
                                   "bypass-name" arg  /* Bypass label-switched path name */,
                                   "next-next-label" arg  /* Label expected by next-next-hop */
                               )
@@ -41173,7 +41173,7 @@ rule(:juniper_protocols_mpls) do
                           "class-of-service" arg  /* Class-of-service value */,
                           "description" arg  /* Text description of label-switched path */,
                           "install" arg (  /* Install prefix */
-                              c(
+                              sc(
                                   "active"  /* Install prefix into forwarding table */
                               )
                           ).as(:oneline),
@@ -41182,19 +41182,19 @@ rule(:juniper_protocols_mpls) do
                             ipv4addr_or_interface  /* IPv4 address or interface of next-hop router */
                           ),
                           "link-protection" (  /* Bypass link protection */
-                              c(
+                              sc(
                                   "bypass-name" arg  /* Bypass label-switched path name */
                               )
                           ).as(:oneline),
                           "node-protection" (  /* Bypass node protection */
-                              c(
+                              sc(
                                   "bypass-name" arg  /* Bypass label-switched path name */,
                                   "next-next-label" arg  /* Label expected by next-next-hop */
                               )
                           ).as(:oneline),
                           "no-install-to-address"  /* Don't install host route 'to' address into routing tables */,
                           "policing" (  /* Traffic policing for this LSP */
-                              c(
+                              sc(
                                   "filter" arg  /* Name of filter to use for policing LSP traffic */,
                                   "no-auto-policing"  /* Turn off automatic policing for this LSP */
                               )
@@ -41295,22 +41295,22 @@ rule(:juniper_protocols_mpls) do
         "label-range" (  /* MPLS labels ranges */
             c(
                 "lsi-label-range" arg (  /* LSI-label-range */
-                    c(
+                    sc(
                           arg
                     )
                 ).as(:oneline),
                 "block-label-range" arg (  /* Block-label-range */
-                    c(
+                    sc(
                           arg
                     )
                 ).as(:oneline),
                 "dynamic-label-range" arg (  /* Dynamic-label-range */
-                    c(
+                    sc(
                           arg
                     )
                 ).as(:oneline),
                 "static-label-range" arg (  /* Static-label-range */
-                    c(
+                    sc(
                           arg
                     )
                 ).as(:oneline),
@@ -41366,7 +41366,7 @@ rule(:juniper_protocols_msdp) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -41393,7 +41393,7 @@ rule(:juniper_protocols_msdp) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -41453,7 +41453,7 @@ rule(:juniper_protocols_msdp) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -41480,7 +41480,7 @@ rule(:juniper_protocols_msdp) do
                                   trace_file_type  /* Trace file options */
                                 ),
                                 "flag" enum(("packets" | "route" | "nsr-synchronization" | "source-active" | "source-active-request" | "source-active-response" | "keepalive" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                    c(
+                                    sc(
                                         "send"  /* Trace transmitted packets */,
                                         "receive"  /* Trace received packets */,
                                         "detail"  /* Trace detailed information */,
@@ -41559,7 +41559,7 @@ rule(:juniper_protocols_mvpn) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("error" | "nlri" | "topology" | "tunnel" | "umh" | "intra-as-ad" | "inter-as-ad" | "spmsi-ad" | "leaf-ad" | "source-active" | "cmcast-join" | "mdt-safi-ad" | "mvpn-limit" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -41661,7 +41661,7 @@ rule(:juniper_protocols_mvpn) do
                 "import-target" (  /* Target communities used when importing routes */
                     c(
                         "unicast" (  /* Use the same target community as configured for unicast */
-                            c(
+                            sc(
                                 c(
                                   "receiver"  /* Target community used when importing receiver site routes */,
                                   "sender"  /* Target community used when importing sender site routes */
@@ -41669,7 +41669,7 @@ rule(:juniper_protocols_mvpn) do
                             )
                         ).as(:oneline),
                         "target" (  /* Target community */
-                            c(
+                            sc(
                                 arg,
                                 c(
                                   "receiver"  /* Target community used when importing receiver site routes */,
@@ -41845,7 +41845,7 @@ rule(:juniper_protocols_ospf) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "post-convergence-lfa" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -42002,7 +42002,7 @@ rule(:juniper_protocols_ospf) do
           ("iana" | "vendor")
         ),
         "domain-id" (  /* Configure domain ID */
-            c(
+            sc(
                 c(
                   arg  /* Domain ID */,
                   "disable"  /* Disable domain ID */
@@ -42054,7 +42054,7 @@ rule(:juniper_protocols_ospf) do
             c(
                 c(
                   "stub" (  /* Configure a stub area */
-                      c(
+                      sc(
                           "default-metric" arg  /* Metric for the default route in this stub area */,
                           "summaries"  /* Flood summary LSAs into this stub area */,
                           "no-summaries"  /* Don't flood summary LSAs into this stub area */
@@ -42126,7 +42126,7 @@ rule(:juniper_protocols_ospf) do
                             juniper_ospf_authentication
                           ),
                           "authentication-key" (  /* Authentication key */
-                              c(
+                              sc(
                                     unreadable  /* Authentication key value */,
                                   "key-id" arg  /* Key ID for MD5 authentication */
                               )
@@ -42143,7 +42143,7 @@ rule(:juniper_protocols_ospf) do
                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                     c(
                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                            c(
+                                            sc(
                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                             )
                                         ).as(:oneline)
@@ -42167,7 +42167,7 @@ rule(:juniper_protocols_ospf) do
                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                     c(
                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                            c(
+                                            sc(
                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                             )
                                         ).as(:oneline)
@@ -42217,7 +42217,7 @@ rule(:juniper_protocols_ospf) do
                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                             c(
                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                    c(
+                                    sc(
                                         "metric" arg  /* Metric associated with specified bandwidth */
                                     )
                                 ).as(:oneline)
@@ -42239,7 +42239,7 @@ rule(:juniper_protocols_ospf) do
                             juniper_ospf_authentication
                           ),
                           "authentication-key" (  /* Authentication key */
-                              c(
+                              sc(
                                     unreadable  /* Authentication key value */,
                                   "key-id" arg  /* Key ID for MD5 authentication */
                               )
@@ -42256,7 +42256,7 @@ rule(:juniper_protocols_ospf) do
                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                     c(
                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                            c(
+                                            sc(
                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                             )
                                         ).as(:oneline)
@@ -42303,7 +42303,7 @@ rule(:juniper_protocols_ospf) do
                         "dynamic-neighbors"  /* Learn neighbors dynamically on a p2mp interface */,
                         "no-advertise-adjacency-segment"  /* Do not advertise an adjacency segment for this interface */,
                         "neighbor" arg (  /* NBMA neighbor */
-                            c(
+                            sc(
                                 "eligible"  /* Eligible to be DR on an NBMA network */
                             )
                         ).as(:oneline),
@@ -42325,7 +42325,7 @@ rule(:juniper_protocols_ospf) do
                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                     c(
                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                            c(
+                                            sc(
                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                             )
                                         ).as(:oneline)
@@ -42348,7 +42348,7 @@ rule(:juniper_protocols_ospf) do
                             juniper_ospf_authentication
                           ),
                           "authentication-key" (  /* Authentication key */
-                              c(
+                              sc(
                                     unreadable  /* Authentication key value */,
                                   "key-id" arg  /* Key ID for MD5 authentication */
                               )
@@ -42370,7 +42370,7 @@ rule(:juniper_protocols_overlayd) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -42392,7 +42392,7 @@ rule(:juniper_protocols_pgm) do
         "traceoptions" (  /* PGM trace options */
             c(
                 "flag" enum(("init" | "show" | "route-socket" | "parse" | "state" | "packets" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -42437,7 +42437,7 @@ rule(:juniper_protocols_pim) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("route" | "packets" | "hello" | "register" | "join" | "prune" | "graft" | "bootstrap" | "rp" | "autorp" | "assert" | "mdt" | "nsr-synchronization" | "bidirectional-df-election" | "mofrr" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -42452,7 +42452,7 @@ rule(:juniper_protocols_pim) do
         "dense-groups" (  /* Dense mode groups for sparse-dense mode */
             c(
                 "dynamic-reject"  /* Reject dynamic autorp negative dense-mode prefixes learnt from network */,
-                    c(
+                    sc(
                           ("reject" | "announce")
                     ).as(:oneline)
             )
@@ -43078,7 +43078,7 @@ rule(:juniper_protocols_rip) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("auth" | "error" | "expiration" | "holddown" | "packets" | "request" | "trigger" | "update" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -43095,7 +43095,7 @@ rule(:juniper_protocols_rip) do
         ),
         "metric-in" arg  /* Metric value to add to incoming routes */,
         "send" (  /* Configure RIP send options */
-            c(
+            sc(
                 c(
                   "broadcast"  /* Broadcast RIPv2 packets (RIPv1 compatible) */,
                   "multicast"  /* Multicast RIPv2 packets */,
@@ -43105,7 +43105,7 @@ rule(:juniper_protocols_rip) do
             )
         ).as(:oneline),
         "receive" (  /* Configure RIP receive options */
-            c(
+            sc(
                 c(
                   "both"  /* Accept both RIPv1 and RIPv2 packets */,
                   "none"  /* Do not receive RIP packets */,
@@ -43188,7 +43188,7 @@ rule(:juniper_protocols_rip) do
                         "peer" arg  /* P2MP peer */.as(:oneline),
                         "metric-in" arg  /* Metric value to add to incoming routes */,
                         "send" (  /* Configure RIP send options */
-                            c(
+                            sc(
                                 c(
                                   "broadcast"  /* Broadcast RIPv2 packets (RIPv1 compatible) */,
                                   "multicast"  /* Multicast RIPv2 packets */,
@@ -43198,7 +43198,7 @@ rule(:juniper_protocols_rip) do
                             )
                         ).as(:oneline),
                         "receive" (  /* Configure RIP receive options */
-                            c(
+                            sc(
                                 c(
                                   "both"  /* Accept both RIPv1 and RIPv2 packets */,
                                   "none"  /* Do not receive RIP packets */,
@@ -43277,7 +43277,7 @@ rule(:juniper_protocols_ripng) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("error" | "expiration" | "holddown" | "packets" | "request" | "trigger" | "update" | "nsr-synchronization" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -43288,14 +43288,14 @@ rule(:juniper_protocols_ripng) do
         ),
         "metric-in" arg  /* Metric value to add to incoming routes */,
         "send" (  /* Configure RIPng send options */
-            c(
+            sc(
                 c(
                   "none"  /* Do not send RIPng updates */
                 )
             )
         ).as(:oneline),
         "receive" (  /* Configure RIPng receive options */
-            c(
+            sc(
                 c(
                   "none"  /* Do not receive RIPng packets */
                 )
@@ -43325,14 +43325,14 @@ rule(:juniper_protocols_ripng) do
                         "update-interval" arg  /* Interval between regular route updates */,
                         "metric-in" arg  /* Metric value to add to incoming routes */,
                         "send" (  /* Configure RIPng send options */
-                            c(
+                            sc(
                                 c(
                                   "none"  /* Do not send RIPng updates */
                                 )
                             )
                         ).as(:oneline),
                         "receive" (  /* Configure RIPng receive options */
-                            c(
+                            sc(
                                 c(
                                   "none"  /* Do not receive RIPng packets */
                                 )
@@ -43418,7 +43418,7 @@ rule(:juniper_protocols_rsvp) do
         "hello-acknowledgements"  /* Acknowledge Hellos on RSVP interfaces not having sessions */,
         "no-hello-acknowledgements"  /* Do not ack Hellos on RSVP interfaces not having sessions */,
         "node-hello" (  /* Enable node-ID based Hellos on all RSVP interfaces */
-            c(
+            sc(
                 "hello-interval" arg  /* Hello interval */
             )
         ).as(:oneline),
@@ -43442,7 +43442,7 @@ rule(:juniper_protocols_rsvp) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("io-event" | "io-packets" | "packets" | "path" | "resv" | "pathtear" | "resvtear" | "state" | "error" | "route" | "lmp" | "event" | "nsr-synchronization" | "lsp-prefix" | "enhanced-frr" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -43522,7 +43522,7 @@ rule(:juniper_protocols_rsvp) do
                             )
                         ),
                         "path" arg (  /* Explicit route of bypass path */
-                            c(
+                            sc(
                                 c(
                                   "loose"  /* Next hop might not be adjacent */,
                                   "strict"  /* Next hop must be adjacent */
@@ -43552,7 +43552,7 @@ rule(:juniper_protocols_rsvp) do
                                 "no-cspf"  /* Disable automatic path computation */,
                                 "exclude-srlg"  /* Exclude SRLG links */,
                                 "path" arg (  /* Explicit route of bypass path */
-                                    c(
+                                    sc(
                                         c(
                                           "loose"  /* Next hop might not be adjacent */,
                                           "strict"  /* Next hop must be adjacent */
@@ -43598,7 +43598,7 @@ rule(:juniper_protocols_rsvp) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("io-event" | "io-packets" | "packets" | "path" | "resv" | "pathtear" | "resvtear" | "state" | "error" | "route" | "lmp" | "event" | "nsr-synchronization" | "lsp-prefix" | "enhanced-frr" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -43727,7 +43727,7 @@ rule(:juniper_routing_instance) do
           ("one-to-one")
         ),
         "vtep-source-interface" (  /* Source layer-3 IFL for VXLAN */
-            c(
+            sc(
                   interface_unit,
                 c(
                   "inet"  /* IPv4 source */,
@@ -43780,7 +43780,7 @@ rule(:juniper_routing_instance) do
             ("all" | "none" | "inner-all" | arg)
           ),
           "vlan-tags" (  /* IEEE 802.1q VLAN tags for bridging domain */
-              c(
+              sc(
                   "outer" arg  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */,
                   "inner" arg  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */
               )
@@ -43812,7 +43812,7 @@ rule(:juniper_routing_instance) do
             )
         ),
         "access-profile" (  /* Access profile for this instance */
-            c(
+            sc(
                 arg  /* Profile name */
             )
         ).as(:oneline),
@@ -43856,7 +43856,7 @@ rule(:juniper_routing_instance) do
         "qualified-bum-pruning-mode"  /* Enable BUM pruning for VPLS instance */,
         "no-irb-layer-2-copy"  /* Disable transmission of layer-2 copy of packets of irb routing-interface */,
         "route-distinguisher" (  /* Route distinguisher for this instance */
-            c(
+            sc(
                 arg  /* Number in (16 bit:32 bit) or (32 bit 'L':16 bit) or (IP address:16 bit) format */
             )
         ).as(:oneline),
@@ -44423,7 +44423,7 @@ rule(:juniper_routing_instance) do
             )
         ),
         "vrf-table-label" (  /* Advertise a single VPN label for all routes in the VRF */
-            c(
+            sc(
                 "static" arg  /* Specify label value to be used */,
                 "source-class-usage"  /* Enable source class usage */
             )
@@ -44468,7 +44468,7 @@ rule(:juniper_routing_instance) do
                                           trace_file_type  /* Trace file options */
                                         ),
                                         "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "post-convergence-lfa" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                            c(
+                                            sc(
                                                 "send"  /* Trace transmitted packets */,
                                                 "receive"  /* Trace received packets */,
                                                 "detail"  /* Trace detailed information */,
@@ -44625,7 +44625,7 @@ rule(:juniper_routing_instance) do
                                   ("iana" | "vendor")
                                 ),
                                 "domain-id" (  /* Configure domain ID */
-                                    c(
+                                    sc(
                                         c(
                                           arg  /* Domain ID */,
                                           "disable"  /* Disable domain ID */
@@ -44677,7 +44677,7 @@ rule(:juniper_routing_instance) do
                                     c(
                                         c(
                                           "stub" (  /* Configure a stub area */
-                                              c(
+                                              sc(
                                                   "default-metric" arg  /* Metric for the default route in this stub area */,
                                                   "summaries"  /* Flood summary LSAs into this stub area */,
                                                   "no-summaries"  /* Don't flood summary LSAs into this stub area */
@@ -44749,7 +44749,7 @@ rule(:juniper_routing_instance) do
                                                     juniper_ospf_authentication
                                                   ),
                                                   "authentication-key" (  /* Authentication key */
-                                                      c(
+                                                      sc(
                                                             unreadable  /* Authentication key value */,
                                                           "key-id" arg  /* Key ID for MD5 authentication */
                                                       )
@@ -44766,7 +44766,7 @@ rule(:juniper_routing_instance) do
                                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                             c(
                                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                                    c(
+                                                                    sc(
                                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                                     )
                                                                 ).as(:oneline)
@@ -44790,7 +44790,7 @@ rule(:juniper_routing_instance) do
                                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                             c(
                                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                                    c(
+                                                                    sc(
                                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                                     )
                                                                 ).as(:oneline)
@@ -44840,7 +44840,7 @@ rule(:juniper_routing_instance) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -44862,7 +44862,7 @@ rule(:juniper_routing_instance) do
                                                     juniper_ospf_authentication
                                                   ),
                                                   "authentication-key" (  /* Authentication key */
-                                                      c(
+                                                      sc(
                                                             unreadable  /* Authentication key value */,
                                                           "key-id" arg  /* Key ID for MD5 authentication */
                                                       )
@@ -44879,7 +44879,7 @@ rule(:juniper_routing_instance) do
                                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                             c(
                                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                                    c(
+                                                                    sc(
                                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                                     )
                                                                 ).as(:oneline)
@@ -44926,7 +44926,7 @@ rule(:juniper_routing_instance) do
                                                 "dynamic-neighbors"  /* Learn neighbors dynamically on a p2mp interface */,
                                                 "no-advertise-adjacency-segment"  /* Do not advertise an adjacency segment for this interface */,
                                                 "neighbor" arg (  /* NBMA neighbor */
-                                                    c(
+                                                    sc(
                                                         "eligible"  /* Eligible to be DR on an NBMA network */
                                                     )
                                                 ).as(:oneline),
@@ -44948,7 +44948,7 @@ rule(:juniper_routing_instance) do
                                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                             c(
                                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                                    c(
+                                                                    sc(
                                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                                     )
                                                                 ).as(:oneline)
@@ -44971,7 +44971,7 @@ rule(:juniper_routing_instance) do
                                                     juniper_ospf_authentication
                                                   ),
                                                   "authentication-key" (  /* Authentication key */
-                                                      c(
+                                                      sc(
                                                             unreadable  /* Authentication key value */,
                                                           "key-id" arg  /* Key ID for MD5 authentication */
                                                       )
@@ -44993,7 +44993,7 @@ rule(:juniper_routing_instance) do
                                   trace_file_type  /* Trace file options */
                                 ),
                                 "flag" enum(("spf" | "error" | "event" | "packet-dump" | "flooding" | "lsa-analysis" | "packets" | "hello" | "database-description" | "lsa-request" | "lsa-update" | "lsa-ack" | "ldp-synchronization" | "on-demand" | "nsr-synchronization" | "graceful-restart" | "restart-signaling" | "backup-spf" | "source-packet-routing" | "post-convergence-lfa" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                    c(
+                                    sc(
                                         "send"  /* Trace transmitted packets */,
                                         "receive"  /* Trace received packets */,
                                         "detail"  /* Trace detailed information */,
@@ -45150,7 +45150,7 @@ rule(:juniper_routing_instance) do
                           ("iana" | "vendor")
                         ),
                         "domain-id" (  /* Configure domain ID */
-                            c(
+                            sc(
                                 c(
                                   arg  /* Domain ID */,
                                   "disable"  /* Disable domain ID */
@@ -45202,7 +45202,7 @@ rule(:juniper_routing_instance) do
                             c(
                                 c(
                                   "stub" (  /* Configure a stub area */
-                                      c(
+                                      sc(
                                           "default-metric" arg  /* Metric for the default route in this stub area */,
                                           "summaries"  /* Flood summary LSAs into this stub area */,
                                           "no-summaries"  /* Don't flood summary LSAs into this stub area */
@@ -45274,7 +45274,7 @@ rule(:juniper_routing_instance) do
                                             juniper_ospf_authentication
                                           ),
                                           "authentication-key" (  /* Authentication key */
-                                              c(
+                                              sc(
                                                     unreadable  /* Authentication key value */,
                                                   "key-id" arg  /* Key ID for MD5 authentication */
                                               )
@@ -45291,7 +45291,7 @@ rule(:juniper_routing_instance) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -45315,7 +45315,7 @@ rule(:juniper_routing_instance) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -45365,7 +45365,7 @@ rule(:juniper_routing_instance) do
                                         "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                             c(
                                                 "bandwidth" arg (  /* Bandwidth threshold */
-                                                    c(
+                                                    sc(
                                                         "metric" arg  /* Metric associated with specified bandwidth */
                                                     )
                                                 ).as(:oneline)
@@ -45387,7 +45387,7 @@ rule(:juniper_routing_instance) do
                                             juniper_ospf_authentication
                                           ),
                                           "authentication-key" (  /* Authentication key */
-                                              c(
+                                              sc(
                                                     unreadable  /* Authentication key value */,
                                                   "key-id" arg  /* Key ID for MD5 authentication */
                                               )
@@ -45404,7 +45404,7 @@ rule(:juniper_routing_instance) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -45451,7 +45451,7 @@ rule(:juniper_routing_instance) do
                                         "dynamic-neighbors"  /* Learn neighbors dynamically on a p2mp interface */,
                                         "no-advertise-adjacency-segment"  /* Do not advertise an adjacency segment for this interface */,
                                         "neighbor" arg (  /* NBMA neighbor */
-                                            c(
+                                            sc(
                                                 "eligible"  /* Eligible to be DR on an NBMA network */
                                             )
                                         ).as(:oneline),
@@ -45473,7 +45473,7 @@ rule(:juniper_routing_instance) do
                                                 "bandwidth-based-metrics" (  /* Configure bandwidth based metrics */
                                                     c(
                                                         "bandwidth" arg (  /* Bandwidth threshold */
-                                                            c(
+                                                            sc(
                                                                 "metric" arg  /* Metric associated with specified bandwidth */
                                                             )
                                                         ).as(:oneline)
@@ -45496,7 +45496,7 @@ rule(:juniper_routing_instance) do
                                             juniper_ospf_authentication
                                           ),
                                           "authentication-key" (  /* Authentication key */
-                                              c(
+                                              sc(
                                                     unreadable  /* Authentication key value */,
                                                   "key-id" arg  /* Key ID for MD5 authentication */
                                               )
@@ -45616,7 +45616,7 @@ rule(:juniper_protocols_l2vpn) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("error" | "topology" | "nlri" | "connections" | "automatic-site" | "oam" | "mac-database" | "nsr" | "egress-protection" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -45772,7 +45772,7 @@ rule(:juniper_protocols_l2vpn) do
                           "new-site-wait-time" arg  /* Time to wait before claiming a site identifier */,
                           "collision-detect-time" arg  /* Time to wait for detecting a collision */,
                           "reclaim-wait-time" (  /* Time to wait for reclaiming a site identifier */
-                              c(
+                              sc(
                                   "minimum" arg  /* Minimum wait time */,
                                   "maximum" arg  /* Maximum wait time */
                               )
@@ -45808,7 +45808,7 @@ rule(:juniper_protocols_l2vpn) do
                 "ignore-mtu-mismatch"  /* Allow different MTU values on local and remote end */,
                 "mesh-group" arg  /* Mesh-groups that are part of this site */,
                 "active-interface" (  /* Configure interface to designate as active */
-                    c(
+                    sc(
                         c(
                           "any"  /* One configured interface is designated active at random */,
                           "primary" (  /* Interface to designate as active if it is operational */
@@ -45912,7 +45912,7 @@ rule(:juniper_protocols_l2vpn) do
                 ),
                 "switchover-delay" arg  /* Pseudowire switchover delay  */,
                 "revert-time" (  /* Enable pseudowire redundancy reversion (seconds) */
-                    c(
+                    sc(
                           arg,
                         "maximum" arg  /* Maximum reversion interval to add over revert-time delay */
                     )
@@ -46087,7 +46087,7 @@ rule(:juniper_protocols_pim_snooping) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("packets" | "hello" | "join" | "prune" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -46113,7 +46113,7 @@ rule(:juniper_ri_protocols_igmp_snooping) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -46294,7 +46294,7 @@ rule(:juniper_ri_protocols_mld_snooping) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("packets" | "query" | "report" | "leave" | "group" | "client-notification" | "host-notification" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "send"  /* Trace transmitted packets */,
                         "receive"  /* Trace received packets */,
                         "detail"  /* Trace detailed information */,
@@ -46463,7 +46463,7 @@ rule(:juniper_routing_instance_pbb_options) do
     c(
         "peer-instance" arg  /* Set the peer-pbbn routing instance */,
         "vlan-id" arg (  /* Set B-VLAN to ISID mapping */
-            c(
+            sc(
                 "isid-list" arg  /* Configure ISID(Valid Range:256..16777214) for the B-VLAN */
             )
         ).as(:oneline),
@@ -46480,7 +46480,7 @@ rule(:juniper_routing_instance_service_groups) do
         "pbb-service-options" (  /* Provider backbone instance service options */
             c(
                 "isid" arg (  /* ISID to S-VLAN configuration */
-                    c(
+                    sc(
                         c(
                           "vlan-id-list" arg  /* List of S-VLANs */,
                           "interface" (  /* Point to point interface name */
@@ -46642,7 +46642,7 @@ rule(:juniper_routing_instance_switch_options) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -46673,7 +46673,7 @@ rule(:juniper_routing_options) do
                 ),
                 "authentication-key-chain" arg  /* Key chain name */,
                 "hold-down" (
-                    c(
+                    sc(
                           arg,
                         "flaps" arg  /* Number of flaps before damping */,
                         "period" arg  /* Time period for flaps */
@@ -46697,12 +46697,12 @@ rule(:juniper_routing_options) do
                     c(
                         "none"  /* Do not send route montoring messages */,
                         "pre-policy" (  /* Send pre policy route montoring messages */
-                            c(
+                            sc(
                                 "exclude-non-feasible"  /* Exclude looped routes, etc */
                             )
                         ).as(:oneline),
                         "post-policy" (  /* Send post policy route montoring messages */
-                            c(
+                            sc(
                                 "exclude-non-eligible"  /* Exclude unresolved routes, etc. */
                             )
                         ).as(:oneline)
@@ -46722,7 +46722,7 @@ rule(:juniper_routing_options) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("packets" | "up" | "down" | "statistics" | "route-monitoring" | "event" | "error" | "write" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Trace flag information */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -46739,7 +46739,7 @@ rule(:juniper_routing_options) do
                         ),
                         "authentication-key-chain" arg  /* Key chain name */,
                         "hold-down" (
-                            c(
+                            sc(
                                   arg,
                                 "flaps" arg  /* Number of flaps before damping */,
                                 "period" arg  /* Time period for flaps */
@@ -46763,12 +46763,12 @@ rule(:juniper_routing_options) do
                             c(
                                 "none"  /* Do not send route montoring messages */,
                                 "pre-policy" (  /* Send pre policy route montoring messages */
-                                    c(
+                                    sc(
                                         "exclude-non-feasible"  /* Exclude looped routes, etc */
                                     )
                                 ).as(:oneline),
                                 "post-policy" (  /* Send post policy route montoring messages */
-                                    c(
+                                    sc(
                                         "exclude-non-eligible"  /* Exclude unresolved routes, etc. */
                                     )
                                 ).as(:oneline)
@@ -46788,7 +46788,7 @@ rule(:juniper_routing_options) do
                                   trace_file_type  /* Trace file options */
                                 ),
                                 "flag" enum(("packets" | "up" | "down" | "statistics" | "route-monitoring" | "event" | "error" | "write" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Trace flag information */
-                                    c(
+                                    sc(
                                         "send"  /* Trace transmitted packets */,
                                         "receive"  /* Trace received packets */,
                                         "detail"  /* Trace detailed information */,
@@ -46835,7 +46835,7 @@ rule(:juniper_routing_options) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("all" | "timer" | "state")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -46895,7 +46895,7 @@ rule(:juniper_routing_options) do
                 "trace-events" (  /* Trace events configuration */
                     c(
                         "logging" arg (  /* Logging trace events */
-                            c(
+                            sc(
                                 "disable"  /* Disable these trace events */,
                                 "memtrace"  /* Memtrace logging */
                             )
@@ -46903,7 +46903,7 @@ rule(:juniper_routing_options) do
                     )
                 ),
                 "flag" enum(("parse" | "regex-parse" | "config-internal" | "nsr-synchronization" | "condition-manager" | "graceful-restart" | "session" | "hfrr-fsm" | "hfrr-route" | "statistics-id-group" | "route-record" | "jvision-lsp" | "dyn-nh-template" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "disable"  /* Disable this trace flag */
                     )
                 ).as(:oneline)
@@ -46916,7 +46916,7 @@ rule(:juniper_routing_options) do
                 "syslog" (  /* Set system logging level */
                     c(
                         "level" (  /* Logging level */
-                            c(
+                            sc(
                                 "emergency"  /* Emergency level */,
                                 "alert"  /* Alert level */,
                                 "critical"  /* Critical level */,
@@ -47171,7 +47171,7 @@ rule(:juniper_routing_options) do
                             )
                         ),
                         "static-route" (  /* Static route Status */
-                            c(
+                            sc(
                                 "bfd-admin-down" (  /* Static route State on BFD ADMIN DOWN */
                                   ("active" | "passive")
                                 )
@@ -47332,7 +47332,7 @@ rule(:juniper_routing_options) do
                 ),
                 c(
                   "maximum-routes" (  /* Maximum number of routes */
-                      c(
+                      sc(
                             arg,
                           c(
                             "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -47342,7 +47342,7 @@ rule(:juniper_routing_options) do
                       )
                   ).as(:oneline),
                   "maximum-paths" (  /* Maximum number of paths */
-                      c(
+                      sc(
                             arg,
                           c(
                             "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -47353,7 +47353,7 @@ rule(:juniper_routing_options) do
                   ).as(:oneline)
                 ),
                 "maximum-prefixes" (  /* Maximum number of prefixes */
-                    c(
+                    sc(
                           arg,
                         c(
                           "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -47365,7 +47365,7 @@ rule(:juniper_routing_options) do
                 "multipath" (  /* Protocol-independent load balancing */
                     c(
                         "vpn-unequal-cost" (  /* Include VPN routes with unequal IGP metrics */
-                            c(
+                            sc(
                                 "equal-external-internal"  /* Include external and internal VPN routes */
                             )
                         ).as(:oneline),
@@ -47373,7 +47373,7 @@ rule(:juniper_routing_options) do
                     )
                 ),
                 "protect" (  /* Protocol-independent protection */
-                    c(
+                    sc(
                         "core"  /* Protect against unreachability to service-edge router */
                     )
                 ).as(:oneline),
@@ -47693,7 +47693,7 @@ rule(:juniper_routing_options) do
                     )
                 ),
                 "static-route" (  /* Static route Status */
-                    c(
+                    sc(
                         "bfd-admin-down" (  /* Static route State on BFD ADMIN DOWN */
                           ("active" | "passive")
                         )
@@ -47854,7 +47854,7 @@ rule(:juniper_routing_options) do
         ),
         c(
           "maximum-routes" (  /* Maximum number of routes */
-              c(
+              sc(
                     arg,
                   c(
                     "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -47864,7 +47864,7 @@ rule(:juniper_routing_options) do
               )
           ).as(:oneline),
           "maximum-paths" (  /* Maximum number of paths */
-              c(
+              sc(
                     arg,
                   c(
                     "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -47875,7 +47875,7 @@ rule(:juniper_routing_options) do
           ).as(:oneline)
         ),
         "maximum-prefixes" (  /* Maximum number of prefixes */
-            c(
+            sc(
                   arg,
                 c(
                   "threshold" arg  /* Percentage of limit at which to start generating warnings */,
@@ -47887,7 +47887,7 @@ rule(:juniper_routing_options) do
         "multipath" (  /* Protocol-independent load balancing */
             c(
                 "vpn-unequal-cost" (  /* Include VPN routes with unequal IGP metrics */
-                    c(
+                    sc(
                         "equal-external-internal"  /* Include external and internal VPN routes */
                     )
                 ).as(:oneline),
@@ -47895,7 +47895,7 @@ rule(:juniper_routing_options) do
             )
         ),
         "protect" (  /* Protocol-independent protection */
-            c(
+            sc(
                 "core"  /* Protect against unreachability to service-edge router */
             )
         ).as(:oneline),
@@ -48026,19 +48026,19 @@ rule(:juniper_routing_options) do
           ipv4addr  /* Identifier used in route distinguishers for routing instances */
         ),
         "autonomous-system" (  /* Autonomous system number */
-            c(
+            sc(
                 arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */,
                 "loops" arg  /* Maximum number of times this AS can be in an AS path */,
                 "asdot-notation"  /* Use AS-Dot notation to display true 4 byte AS numbers */,
                 "independent-domain" (  /* Independent autonomous-system domain from master instance */
-                    c(
+                    sc(
                         "no-attrset"  /* Do not tunnel ce bgp attributes across provider network */
                     )
                 ).as(:oneline)
             )
         ).as(:oneline),
         "confederation" (  /* Confederation autonomous system number */
-            c(
+            sc(
                 arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */,
                 "members" arg  /*  Autonomous system number in plain number or 'higher 16bits'.'Lower 16 bits' (asdot notation) format */
             )
@@ -48072,7 +48072,7 @@ rule(:juniper_routing_options) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("event" | "flash" | "kernel" | "indirect" | "task" | "igp-frr" | "igp-frr-extensive" | "tunnel" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -48118,7 +48118,7 @@ rule(:juniper_routing_options) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("parse" | "config-internal" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "disable"  /* Disable this trace flag */
                             )
                         ).as(:oneline)
@@ -48144,7 +48144,7 @@ rule(:juniper_routing_options) do
                           policy_algebra  /* Policy for matched flows */
                         ),
                         "bandwidth" (  /* Bandwidth properties for matched flows */
-                            c(
+                            sc(
                                 arg  /* Static or default bandwidth for the matched flows */,
                                 "adaptive"  /* Auto-sense bandwidth for matched flows */
                             )
@@ -48155,7 +48155,7 @@ rule(:juniper_routing_options) do
                         "forwarding-cache" (  /* Forwarding cache properties for matched flows */
                             c(
                                 "timeout" (  /* Timeout properties for matched flows */
-                                    c(
+                                    sc(
                                         c(
                                             arg,
                                           "never" (  /* Forwarding cache entries never time out */
@@ -48267,7 +48267,7 @@ rule(:juniper_routing_options) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("export" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -48300,7 +48300,7 @@ rule(:juniper_routing_options) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("debug" | "parse" | "route" | "normal" | "general" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -48410,7 +48410,7 @@ rule(:juniper_routing_options) do
                           trace_file_type  /* Trace file options */
                         ),
                         "flag" enum(("error" | "packets" | "keepalive" | "update" | "nsr-synchronization" | "state" | "policy" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                            c(
+                            sc(
                                 "send"  /* Trace transmitted packets */,
                                 "receive"  /* Trace received packets */,
                                 "detail"  /* Trace detailed information */,
@@ -48431,7 +48431,7 @@ rule(:juniper_routing_options) do
                                           trace_file_type  /* Trace file options */
                                         ),
                                         "flag" enum(("error" | "packets" | "keepalive" | "update" | "state" | "task" | "timer" | "all")) (  /* Tracing parameters */
-                                            c(
+                                            sc(
                                                 "send"  /* Trace transmitted packets */,
                                                 "receive"  /* Trace received packets */,
                                                 "detail"  /* Trace detailed information */,
@@ -48730,7 +48730,7 @@ rule(:jflow_service_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -48757,7 +48757,7 @@ rule(:juniper_services_captive_portal) do
                   trace_file_type  /* Trace file options */
                 ),
                 "flag" enum(("dot1x-debug" | "parse" | "esw-if" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "all" | "dot1x-ipc" | "dot1x-event")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "disable"  /* Disable this trace flag */
                     )
                 ).as(:oneline)
@@ -48826,7 +48826,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -48854,7 +48854,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -48974,7 +48974,7 @@ rule(:juniper_system) do
                     )
                 ),
                 "configuration-servers" arg (  /* Servers to retrieve configuration files from */
-                    c(
+                    sc(
                         "password" (  /* Password for authentication with the configuration server */
                           unreadable  /* Password for authentication with the configuration server */
                         )
@@ -48993,7 +48993,7 @@ rule(:juniper_system) do
         "domain-search" arg  /* List of domain names to search */,
         "no-hidden-commands"  /* Deny hidden commands for all users except root */,
         "backup-router" (  /* IPv4 router to use while booting */
-            c(
+            sc(
                   ipv4addr  /* Address of router to use while booting */,
                 "destination" (  /* Destination network reachable through the router */
                   ipv4prefix  /* Destination network reachable through the router */
@@ -49001,11 +49001,11 @@ rule(:juniper_system) do
             )
         ).as(:oneline),
         "inet6-backup-router" (  /* IPv6 router to use while booting */
-            c(
-                  ipv6addr  /* Address of router to use while booting */,
+            sc(
                 "destination" (  /* Destination network reachable through the router */
                   ipv6prefix  /* Destination network reachable through the router */
-                )
+                ),
+                  ipv6addr  /* Address of router to use while booting */
             )
         ).as(:oneline),
         "time-zone" arg  /* Time zone name or POSIX-compliant time zone string */,
@@ -49057,7 +49057,7 @@ rule(:juniper_system) do
         ),
         "mirror-flash-on-disk"  /* Mirror contents of the flash drive onto hard drive */,
         "icmp-rate-limit" (  /* Rate-limiting parameters for ICMP messages */
-            c(
+            sc(
                 "packet-rate" arg  /* ICMP rate-limiting packets earned per second */,
                 "bucket-size" arg  /* ICMP rate-limiting maximum bucket size */
             )
@@ -49072,13 +49072,13 @@ rule(:juniper_system) do
         "internet-options" (  /* Tunable options for Internet operation */
             c(
                 "icmpv4-rate-limit" (  /* Rate-limiting parameters for ICMPv4 messages */
-                    c(
+                    sc(
                         "packet-rate" arg  /* ICMP rate-limiting packets earned per second */,
                         "bucket-size" arg  /* ICMP rate-limiting maximum bucket size */
                     )
                 ).as(:oneline),
                 "icmpv6-rate-limit" (  /* Rate-limiting parameters for ICMPv6 messages */
-                    c(
+                    sc(
                         "packet-rate" arg  /* ICMPv6 rate-limiting packets earned per second */,
                         "bucket-size" arg  /* ICMPv6 rate-limiting maximum bucket size */
                     )
@@ -49191,7 +49191,7 @@ rule(:juniper_system) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -49429,7 +49429,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -49466,7 +49466,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -49513,7 +49513,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -49559,7 +49559,7 @@ rule(:juniper_system) do
                                     )
                                 ),
                                 "cache" arg (  /* Configure DNS proxy static cache entries */
-                                    c(
+                                    sc(
                                         "inet" (  /* Host's IPv4 address */
                                           ipaddr  /* Host's IPv4 address */
                                         )
@@ -49604,7 +49604,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -49626,7 +49626,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -49846,7 +49846,7 @@ rule(:juniper_system) do
                           ipv4addr  /* DHCP server identifier advertised to clients */
                         ),
                         "option" arg (  /* DHCP option */
-                            c(
+                            sc(
                                 c(
                                   "flag" (  /* Boolean flag value */
                                     ("true" | "false" | "on" | "off")
@@ -49894,7 +49894,7 @@ rule(:juniper_system) do
                         "pool" arg (  /* DHCP address pool */
                             c(
                                 "address-range" (  /* Range of addresses to choose from */
-                                    c(
+                                    sc(
                                         "low" (  /* Lowest address in the range */
                                           ipv4addr  /* Lowest address in the range */
                                         ),
@@ -49924,7 +49924,7 @@ rule(:juniper_system) do
                                   ipv4addr  /* DHCP server identifier advertised to clients */
                                 ),
                                 "option" arg (  /* DHCP option */
-                                    c(
+                                    sc(
                                         c(
                                           "flag" (  /* Boolean flag value */
                                             ("true" | "false" | "on" | "off")
@@ -49977,7 +49977,7 @@ rule(:juniper_system) do
                                 "fixed-address" arg  /* Possible IP addresses to assign to host */,
                                 "host-name" arg  /* Hostname for this client */,
                                 "client-identifier" (  /* Client identifier option */
-                                    c(
+                                    sc(
                                         c(
                                           "ascii" arg  /* Client identifier as an ASCII string */,
                                           "hexadecimal" arg  /* Client identifier as a hexadecimal string */
@@ -49998,7 +49998,7 @@ rule(:juniper_system) do
                                   ipv4addr  /* DHCP server identifier advertised to clients */
                                 ),
                                 "option" arg (  /* DHCP option */
-                                    c(
+                                    sc(
                                         c(
                                           "flag" (  /* Boolean flag value */
                                             ("true" | "false" | "on" | "off")
@@ -50178,7 +50178,7 @@ rule(:juniper_system) do
                     )
                 ),
                 "console" enum(("any" | "authorization" | "daemon" | "ftp" | "ntp" | "security" | "kernel" | "user" | "dfc" | "external" | "firewall" | "pfe" | "conflict-log" | "change-log" | "interactive-commands")) (  /* Console logging */
-                    c(
+                    sc(
                         c(
                           "any"  /* All levels */,
                           "emergency"  /* Panic conditions */,
@@ -50193,7 +50193,7 @@ rule(:juniper_system) do
                     )
                 ).as(:oneline),
                 "time-format" (  /* Additional information to include in system log timestamp */
-                    c(
+                    sc(
                         "year"  /* Include year in timestamp */,
                         "millisecond"  /* Include milliseconds in timestamp */
                     )
@@ -50214,11 +50214,11 @@ rule(:juniper_system) do
             )
         ),
         "tracing" (  /* System wide option for remote tracing */
-            c(
+            sc(
                 "destination-override" (  /* Override tracing destination */
-                    c(
+                    sc(
                         "syslog" (  /* Send trace messages to remote syslog server */
-                            c(
+                            sc(
                                 "host" (  /* IPv4 address of remote syslog server */
                                   ipv4addr  /* IPv4 address of remote syslog server */
                                 )
@@ -50242,7 +50242,7 @@ rule(:juniper_system) do
                           "transfer-on-commit"  /* Transfer after each commit */
                         ),
                         "archive-sites" arg (  /* List of archive destinations */
-                            c(
+                            sc(
                                 "password" (  /* Password for login into the archive site */
                                   unreadable  /* Password for login into the archive site */
                                 )
@@ -50257,7 +50257,7 @@ rule(:juniper_system) do
                 "providers" arg (
                     c(
                         "license-type" arg (
-                            c(
+                            sc(
                                 "deployment-scope" arg
                             )
                         ).as(:oneline)
@@ -50411,7 +50411,7 @@ rule(:juniper_system) do
         "processes" (  /* Process control */
             c(
                 "routing" (  /* Routing process */
-                    c(
+                    sc(
                           ("disable"),
                         "failover" (  /* How to handle failure of routing process */
                           ("other-routing-engine" | "alternate-media")
@@ -50426,13 +50426,13 @@ rule(:juniper_system) do
                 "software-forwarding"  /* Software forwarding process */.as(:oneline),
                 "packet-forwarding-engine"  /* Packet forwarding engine process */.as(:oneline),
                 "chassis-control" (  /* Chassis control process */
-                    c(
+                    sc(
                           ("disable"),
                         "failover" arg  /* How to handle failure of chassis control process */
                     )
                 ).as(:oneline),
                 "service-pics" (  /* Service PICs process */
-                    c(
+                    sc(
                           ("disable"),
                         "failover" (  /* How to handle failure of service PICs process */
                           ("other-routing-engine" | "alternate-media")
@@ -50440,7 +50440,7 @@ rule(:juniper_system) do
                     )
                 ).as(:oneline),
                 "ntp" (  /* Network time process */
-                    c(
+                    sc(
                           ("disable"),
                         "failover" (  /* How to handle failure of network time process */
                           ("other-routing-engine" | "alternate-media")
@@ -50448,7 +50448,7 @@ rule(:juniper_system) do
                     )
                 ).as(:oneline),
                 "watchdog" (  /* Watchdog timer */
-                    c(
+                    sc(
                           ("enable" | "disable"),
                         "timeout" arg  /* Watchdog timer value */
                     )
@@ -50470,7 +50470,7 @@ rule(:juniper_system) do
                     )
                 ),
                 "routing-socket-proxy" (  /* Routing socket proxy process */
-                    c(
+                    sc(
                           ("disable"),
                         "failover" (  /* How to handle failure of routing socket proxy process */
                           ("other-routing-engine" | "alternate-media")
@@ -50478,7 +50478,7 @@ rule(:juniper_system) do
                     )
                 ).as(:oneline),
                 "web-management" (  /* Web management process */
-                    c(
+                    sc(
                           ("disable"),
                         "failover" (  /* How to handle failure of web management process */
                           ("other-routing-engine" | "alternate-media")
@@ -50494,7 +50494,7 @@ rule(:juniper_system) do
                     )
                 ),
                 "cfm" (  /* Ethernet OAM connectivity fault management process */
-                    c(
+                    sc(
                           ("disable")
                     )
                 ).as(:oneline),
@@ -50505,7 +50505,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50601,7 +50601,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50646,7 +50646,7 @@ rule(:juniper_system) do
                     )
                 ),
                 "send" (  /* Secure Neighbor Discovery Protocol process */
-                    c(
+                    sc(
                           ("disable")
                     )
                 ).as(:oneline),
@@ -50665,13 +50665,13 @@ rule(:juniper_system) do
                 "kernel-offload-service"  /* Kernel offload Service */,
                   daemon_process,
                 "video-monitoring" (  /* Video Monitoring Process */
-                    c(
+                    sc(
                           ("disable"),
                         "traceoptions" (  /* Trace options for VMOND */
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50699,7 +50699,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50722,7 +50722,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50747,7 +50747,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50770,7 +50770,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50787,17 +50787,17 @@ rule(:juniper_system) do
                     )
                 ),
                 "network-security" (  /* Network security process */
-                    c(
+                    sc(
                           ("disable")
                     )
                 ).as(:oneline),
                 "firewall-authentication-service" (  /* Firewall authentication service process */
-                    c(
+                    sc(
                           ("disable")
                     )
                 ).as(:oneline),
                 "jsrp-service" (  /* Juniper stateful redundancy process */
-                    c(
+                    sc(
                           ("disable")
                     )
                 ).as(:oneline),
@@ -50808,7 +50808,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50825,7 +50825,7 @@ rule(:juniper_system) do
                     )
                 ),
                 "smtpd-service" (  /* SMTP mail client service process */
-                    c(
+                    sc(
                           ("disable")
                     )
                 ).as(:oneline),
@@ -50836,7 +50836,7 @@ rule(:juniper_system) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -50876,12 +50876,12 @@ rule(:juniper_system) do
                   ipaddr  /* Server to query during boot sequence */
                 ),
                 "interval-range" (  /* Set the minpoll and maxpoll interval range */
-                    c(
+                    sc(
                           arg
                     )
                 ).as(:oneline),
                 "authentication-key" arg (  /* Authentication key information */
-                    c(
+                    sc(
                         "type" (  /* Authentication key type */
                           ("md5" | "des" | "sha1" | "sha256")
                         ),
@@ -50891,14 +50891,14 @@ rule(:juniper_system) do
                     )
                 ).as(:oneline),
                 "peer" arg (  /* Peer parameters */
-                    c(
+                    sc(
                         "key" arg  /* Authentication key */,
                         "version" arg  /* NTP version to use */,
                         "prefer"  /* Prefer this peer_serv */
                     )
                 ).as(:oneline),
                 "server" arg (  /* Server parameters */
-                    c(
+                    sc(
                         "key" arg  /* Authentication key */,
                         "version" arg  /* NTP version to use */,
                         "prefer"  /* Prefer this peer_serv */,
@@ -50906,7 +50906,7 @@ rule(:juniper_system) do
                     )
                 ).as(:oneline),
                 "broadcast" arg (  /* Broadcast parameters */
-                    c(
+                    sc(
                         "routing-instance-name" arg  /* Routing intance name in which interface has address in broadcast subnet */,
                         "key" arg  /* Authentication key */,
                         "version" arg  /* NTP version to use */,
@@ -50915,13 +50915,13 @@ rule(:juniper_system) do
                 ).as(:oneline),
                 "broadcast-client"  /* Listen to broadcast NTP */,
                 "multicast-client" (  /* Listen to multicast NTP */
-                    c(
+                    sc(
                           ipaddr  /* Multicast address to listen to */
                     )
                 ).as(:oneline),
                 "trusted-key" arg  /* List of trusted authentication keys */,
                 "threshold" (  /* Set the maximum threshold(sec) allowed for NTP adjustment */
-                    c(
+                    sc(
                           arg,
                         "action" (  /* Select actions for NTP abnormal adjustment */
                           ("accept" | "reject")
@@ -50929,7 +50929,7 @@ rule(:juniper_system) do
                     )
                 ).as(:oneline),
                 "source-address" arg (  /* Source-Address parameters */
-                    c(
+                    sc(
                         "routing-instance" arg  /* Routing intance name in which source address is defined */
                     )
                 ).as(:oneline)
@@ -50997,7 +50997,7 @@ rule(:archive_object) do
           time  /* Start time for file transmission (yyyy-mm-dd.hh:mm) */
         ),
         "archive-sites" arg (
-            c(
+            sc(
                 "password" (  /* Password for login into the archive site */
                   unreadable  /* Password for login into the archive site */
                 ),
@@ -51013,22 +51013,22 @@ rule(:authentication_object) do
         "encrypted-password" arg  /* Encrypted password string */,
         "no-public-keys"  /* Disables ssh public key based authentication */,
         "ssh-rsa" arg (  /* Secure shell (ssh) RSA public key string */
-            c(
+            sc(
                 "from" arg  /* Pattern-list of allowed hosts */
             )
         ).as(:oneline),
         "ssh-dsa" arg (  /* Secure shell (ssh) DSA public key string */
-            c(
+            sc(
                 "from" arg  /* Pattern-list of allowed hosts */
             )
         ).as(:oneline),
         "ssh-ecdsa" arg (  /* Secure shell (ssh) ECDSA public key string */
-            c(
+            sc(
                 "from" arg  /* Pattern-list of allowed hosts */
             )
         ).as(:oneline),
         "ssh-ed25519" arg (  /* Secure shell (ssh) ED25519 public key string */
-            c(
+            sc(
                 "from" arg  /* Pattern-list of allowed hosts */
             )
         ).as(:oneline)
@@ -51039,7 +51039,7 @@ rule(:autoconf_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -51069,7 +51069,7 @@ rule(:bdbrepd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -51098,7 +51098,7 @@ rule(:datapath_traced_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -51120,7 +51120,7 @@ rule(:dhcp_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -51148,7 +51148,7 @@ rule(:httpd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -51170,7 +51170,7 @@ rule(:jdhcp_interface_traceoptions_level_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -51192,7 +51192,7 @@ rule(:jdhcp_traceoptions_level_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -51436,7 +51436,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -51728,7 +51728,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -51912,7 +51912,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -51976,7 +51976,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -52062,7 +52062,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -52205,7 +52205,7 @@ rule(:juniper_tenant) do
                         "traceoptions" (  /* Data-plane firewall authentication tracing options */
                             c(
                                 "flag" enum(("authentication" | "proxy" | "all")) (  /* Events to include in trace output */
-                                    c(
+                                    sc(
                                         c(
                                           "terse"  /* Include terse amount of output in trace */,
                                           "detail"  /* Include detailed amount of output in trace */,
@@ -52220,7 +52220,7 @@ rule(:juniper_tenant) do
                 "screen" (  /* Configure screen feature */
                     c(
                         "trap" (  /* Configure trap interval */
-                            c(
+                            sc(
                                 "interval" arg  /* Trap interval */
                             )
                         ).as(:oneline),
@@ -52231,7 +52231,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -52295,7 +52295,7 @@ rule(:juniper_tenant) do
                         "traceoptions" (  /* Traceoptions for resource manager */
                             c(
                                 "flag" enum(("client" | "group" | "resource" | "gate" | "session" | "chassis cluster" | "messaging" | "service pinhole" | "error" | "all")) (  /* Resource manager objects and events to include in trace */
-                                    c(
+                                    sc(
                                         c(
                                           "terse"  /* Set trace verbosity level to terse */,
                                           "detail"  /* Set trace verbosity level to detail */,
@@ -52316,7 +52316,7 @@ rule(:juniper_tenant) do
                     c(
                         "no-remote-trace"  /* Disable remote tracing */,
                         "file" (  /* Trace file information */
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum trace file size */,
                                 "files" arg  /* Maximum number of trace files */,
@@ -52337,7 +52337,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -52351,7 +52351,7 @@ rule(:juniper_tenant) do
                             )
                         ),
                         "capture-file" (  /* Packet capture options */
-                            c(
+                            sc(
                                 arg  /* Capture file name */,
                                 "format" (  /* Capture file format */
                                   ("pcap")
@@ -52377,7 +52377,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -52425,7 +52425,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -53118,7 +53118,7 @@ rule(:juniper_tenant) do
                                     c(
                                         "no-remote-trace"  /* Disable remote tracing */,
                                         "file" (  /* Trace file information */
-                                            c(
+                                            sc(
                                                   arg,
                                                 "size" arg  /* Maximum trace file size */,
                                                 "files" arg  /* Maximum number of trace files */,
@@ -53184,14 +53184,14 @@ rule(:juniper_tenant) do
                                         "limit" (  /* Packet limits */
                                             c(
                                                 "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "others" | arg)) (  /* Payload Rate limit */
-                                                    c(
+                                                    sc(
                                                         "rate" arg  /* Rate limit */
                                                     )
                                                 ).as(:oneline),
                                                 "address" arg (  /* Rate limit for a list of IP addresses */
                                                     c(
                                                         "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "others" | arg)) (  /* Payload Rate limit */
-                                                            c(
+                                                            sc(
                                                                 "rate" arg  /* Rate limit */
                                                             )
                                                         ).as(:oneline)
@@ -53239,7 +53239,7 @@ rule(:juniper_tenant) do
                                     c(
                                         "no-remote-trace"  /* Disable remote tracing */,
                                         "file" (  /* Trace file information */
-                                            c(
+                                            sc(
                                                   arg,
                                                 "size" arg  /* Maximum trace file size */,
                                                 "files" arg  /* Maximum number of trace files */,
@@ -53328,7 +53328,7 @@ rule(:juniper_tenant) do
                             c(
                                 "no-remote-trace"  /* Disable remote tracing */,
                                 "file" (  /* Trace file information */
-                                    c(
+                                    sc(
                                           arg,
                                         "size" arg  /* Maximum trace file size */,
                                         "files" arg  /* Maximum number of trace files */,
@@ -53356,7 +53356,7 @@ rule(:juniper_unified_edge_cos_options) do
             c(
                 "description" arg  /* Text description of classifier profile */,
                 "qos-class-identifier" arg (  /* QCI mapping to forwarding class and loss priority */
-                    c(
+                    sc(
                         "forwarding-class" arg  /* Forwarding class */,
                         "loss-priority" (  /* Loss priority value */
                           ("low" | "high")
@@ -53428,14 +53428,14 @@ rule(:juniper_unified_edge_cos_options) do
             c(
                 "description" arg  /* Text description of cos policy */,
                 "default-bearer-qci" (  /* Default bearer qci value */
-                    c(
+                    sc(
                           arg,
                         "upgrade"  /* Override qci value */,
                         "reject"  /* Reject calls with numerially lower qci */
                     )
                 ).as(:oneline),
                 "allocation-retention-priority" (  /* ARP local policy */
-                    c(
+                    sc(
                           arg,
                         "reject"  /* Reject calls with higher priority value */
                     )
@@ -53443,14 +53443,14 @@ rule(:juniper_unified_edge_cos_options) do
                 "aggregated-qos-control" (  /* Aggregated qos control policy */
                     c(
                         "maximum-bit-rate-uplink" (  /* Maximum bit rate uplink */
-                            c(
+                            sc(
                                   arg,
                                 "upgrade"  /* Override maximum-bit-rate uplink value */,
                                 "reject"  /* Reject calls with higher uplink maximum-bit-rate */
                             )
                         ).as(:oneline),
                         "maximum-bit-rate-downlink" (  /* Maximum bit rate downlink */
-                            c(
+                            sc(
                                   arg,
                                 "upgrade"  /* Override maximum-bit-rate downlink value */,
                                 "reject"  /* Reject calls with higher downlink maximum-bit-rate */
@@ -53461,28 +53461,28 @@ rule(:juniper_unified_edge_cos_options) do
                 "pdp-qos-control" (  /* PDP qos control */
                     c(
                         "maximum-bit-rate-uplink" (  /* Maximum bit rate uplink */
-                            c(
+                            sc(
                                   arg,
                                 "upgrade"  /* Override maximum-bit-rate uplink value */,
                                 "reject"  /* Reject calls with higher uplink maximum-bit-rate */
                             )
                         ).as(:oneline),
                         "maximum-bit-rate-downlink" (  /* Maximum bit rate downlink */
-                            c(
+                            sc(
                                   arg,
                                 "upgrade"  /* Override maximum-bit-rate downlink value */,
                                 "reject"  /* Reject calls with higher downlink maximum-bit-rate */
                             )
                         ).as(:oneline),
                         "guaranteed-bit-rate-uplink" (  /* Guaranteed bit rate uplink */
-                            c(
+                            sc(
                                   arg,
                                 "upgrade"  /* Override guaranteed-bit-rate uplink value */,
                                 "reject"  /* Reject calls with higher uplink guaranteed-bit-rate */
                             )
                         ).as(:oneline),
                         "guaranteed-bit-rate-downlink" (  /* Guaranteed bit rate downlink */
-                            c(
+                            sc(
                                   arg,
                                 "upgrade"  /* Override guaranteed-bit-rate downlink value */,
                                 "reject"  /* Reject calls with higher downlink guaranteed-bit-rate */
@@ -53491,14 +53491,14 @@ rule(:juniper_unified_edge_cos_options) do
                         "qci" arg (  /* PDP qos control per qci */
                             c(
                                 "maximum-bit-rate-uplink" (  /* Maximum bit rate uplink */
-                                    c(
+                                    sc(
                                           arg,
                                         "upgrade"  /* Override maximum-bit-rate uplink value */,
                                         "reject"  /* Reject calls with higher uplink maximum-bit-rate */
                                     )
                                 ).as(:oneline),
                                 "maximum-bit-rate-downlink" (  /* Maximum bit rate downlink */
-                                    c(
+                                    sc(
                                           arg,
                                         "upgrade"  /* Override maximum-bit-rate downlink value */,
                                         "reject"  /* Reject calls with higher downlink maximum-bit-rate */
@@ -53538,7 +53538,7 @@ rule(:juniper_accounting_options) do
     c(
         "selective-aggregate-interface-stats"  /* Toggle selective aggregate interface statistics collection */.as(:oneline),
         "periodic-refresh" (  /* Toggle periodic statistics collection */
-            c(
+            sc(
                   ("disable")
             )
         ).as(:oneline),
@@ -53562,7 +53562,7 @@ rule(:juniper_accounting_options) do
                 ),
                 "push-backup-to-master"  /* Push backup files to master RE */,
                 "archive-sites" arg (  /* List of archive destinations */
-                    c(
+                    sc(
                         "password" (  /* Password for login into the archive site */
                           unreadable  /* Password for login into the archive site */
                         )
@@ -53918,7 +53918,7 @@ rule(:license_object) do
         "autoupdate" (  /* Autoupdate license keys from license servers */
             c(
                 "url" arg (  /* URL of a license server */
-                    c(
+                    sc(
                         "password" (  /* Password of URL for a license server */
                           unreadable  /* Password of URL for a license server */
                         )
@@ -53927,7 +53927,7 @@ rule(:license_object) do
             )
         ),
         "renew" (  /* License renew lead time and checking interval */
-            c(
+            sc(
                 "before-expiration" arg  /* License renew lead time before expiration in days */,
                 "interval" arg  /* License checking interval in hours */
             )
@@ -53936,7 +53936,7 @@ rule(:license_object) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -54133,7 +54133,7 @@ rule(:lr_interfaces_type) do
                 "proxy-macip-advertisement"  /* Proxy advertisement of type 2 MAC+IP route for EVPN */,
                 "virtual-gateway-accept-data"  /* Accept packets destined for virtual gateway address */,
                 "peer-psd" (  /* Peer psd */
-                    c(
+                    sc(
                         arg  /* Peer psd name */
                     )
                 ).as(:oneline),
@@ -54187,7 +54187,7 @@ rule(:lr_interfaces_type) do
                 "routing-services"  /* Enable routing services */,
                 "no-routing-services"  /* Don't enable routing services */,
                 "arp-resp" (  /* Knob to control ARP response on the interface, default is restricted */
-                    c(
+                    sc(
                         c(
                           "unrestricted"  /* Enable unrestricted ARP respone on the interface */,
                           "restricted"  /* Enable restricted proxy ARP response on the interface */
@@ -54195,7 +54195,7 @@ rule(:lr_interfaces_type) do
                     )
                 ).as(:oneline),
                 "proxy-arp" (  /* Enable proxy ARP on the interface, default is unrestricted */
-                    c(
+                    sc(
                         c(
                           "unrestricted"  /* Enable unrestricted proxy ARP on the interface */,
                           "restricted"  /* Enable restricted proxy ARP on the interface */
@@ -54211,7 +54211,7 @@ rule(:lr_interfaces_type) do
                   "vlan-id-list" arg  /* List of VLAN identifiers */,
                   "vlan-tag" arg  /* IEEE 802.1q tag list for VLAN tagged frames */,
                   "vlan-tags" (  /* IEEE 802.1q tags */
-                      c(
+                      sc(
                           "outer" (  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */
                             ("$junos-stacked-vlan-id" | "$junos-vlan-id" | arg)
                           ),
@@ -54262,7 +54262,7 @@ rule(:lr_interfaces_type) do
                   "psn-vpi" arg  /* PSN VPI */
                 ),
                 "atm-l2circuit-mode" (  /* Select ATM Layer 2 circuit transport mode */
-                    c(
+                    sc(
                         c(
                           "cell"  /* ATM Layer 2 circuit cell mode */,
                           "aal5"  /* ATM Layer 2 circuit AAL5 mode */
@@ -54270,7 +54270,7 @@ rule(:lr_interfaces_type) do
                     )
                 ).as(:oneline),
                 "vci-range" (  /* ATM VCI range start <start-vci> end <end-vci> */
-                    c(
+                    sc(
                         "start" arg  /* ATM VCI range's start value */,
                         "end" arg  /* ATM VCI range's end value */
                     )
@@ -54283,7 +54283,7 @@ rule(:lr_interfaces_type) do
                   dcd_shaping_config  /* Virtual circuit traffic-shaping options */
                 ),
                 "oam-period" (  /* OAM cell period */
-                    c(
+                    sc(
                         c(
                             arg,
                           "disable"  /* Disable F5 OAM loopback */.as(:oneline)
@@ -54347,13 +54347,13 @@ rule(:lr_interfaces_type) do
                                   ("q0" | "q1" | "q2" | "q3")
                                 ),
                                 "port" (  /* UDP destination ports reserved for RTP packets */
-                                    c(
+                                    sc(
                                         "minimum" arg,
                                         "maximum" arg
                                     )
                                 ).as(:oneline),
                                 "maximum-contexts" (  /* Maximum number of simultaneous RTP contexts */
-                                    c(
+                                    sc(
                                           arg
                                     )
                                 ).as(:oneline)
@@ -54485,7 +54485,7 @@ rule(:lr_interfaces_type) do
                                     c(
                                         "fail-filter" arg  /* Name of filter applied to packets failing RPF check */,
                                         "mode" (  /* Mode for reverse path forwarding */
-                                            c(
+                                            sc(
                                                 "loose"  /* Reverse-path-forwarding loose mode */
                                             )
                                         ).as(:oneline)
@@ -54508,7 +54508,7 @@ rule(:lr_interfaces_type) do
                                     c(
                                         c(
                                           "input" (  /* Filter to be applied to received packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -54518,7 +54518,7 @@ rule(:lr_interfaces_type) do
                                         ),
                                         c(
                                           "output" (  /* Filter to be applied to transmitted packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -54612,7 +54612,7 @@ rule(:lr_interfaces_type) do
                                                   dcd_shaping_config  /* Virtual circuit traffic-shaping options */
                                                 ),
                                                 "oam-period" (  /* OAM cell period */
-                                                    c(
+                                                    sc(
                                                         c(
                                                             arg,
                                                           "disable"  /* Disable OAM loopback */.as(:oneline)
@@ -54633,7 +54633,7 @@ rule(:lr_interfaces_type) do
                                             )
                                         ),
                                         "arp" arg (  /* Static Address Resolution Protocol entries */
-                                            c(
+                                            sc(
                                                 "l2-interface" (  /* Layer 2 interface name for ARP entry */
                                                   interface_name  /* Layer 2 interface name for ARP entry */
                                                 ),
@@ -54664,7 +54664,7 @@ rule(:lr_interfaces_type) do
                                     )
                                 ),
                                 "unnumbered-address" (  /* Unnumbered interface address/destination prefix */
-                                    c(
+                                    sc(
                                           interface_unit  /* Interface from which to take local address */,
                                         "preferred-source-address" (  /* Preferred address on the donor interface */
                                           ("$junos-preferred-source-address" | arg)
@@ -54701,7 +54701,7 @@ rule(:lr_interfaces_type) do
                                             )
                                         ),
                                         "client-identifier" (  /* DHCP Server identifies a client by client-identifier value  */
-                                            c(
+                                            sc(
                                                 "duid-type" (  /* DUID identifying a client */
                                                   ("duid-llt" | "vendor" | "duid-ll")
                                                 )
@@ -54733,7 +54733,7 @@ rule(:lr_interfaces_type) do
                                     c(
                                         "fail-filter" arg  /* Name of filter applied to packets failing RPF check */,
                                         "mode" (  /* Mode for reverse path forwarding */
-                                            c(
+                                            sc(
                                                 "loose"  /* Reverse-path-forwarding loose mode */
                                             )
                                         ).as(:oneline)
@@ -54773,7 +54773,7 @@ rule(:lr_interfaces_type) do
                                     c(
                                         c(
                                           "input" (  /* Filter to be applied to received packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -54783,7 +54783,7 @@ rule(:lr_interfaces_type) do
                                         ),
                                         c(
                                           "output" (  /* Filter to be applied to transmitted packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -54851,7 +54851,7 @@ rule(:lr_interfaces_type) do
                                         "preferred"  /* Preferred address on interface */,
                                         "master-only"  /* Master management IP address for router */,
                                         "ndp" arg (  /* Static Neighbor Discovery Protocol  entries */
-                                            c(
+                                            sc(
                                                 "l2-interface" (  /* Layer 2 interface name for NDP entry */
                                                   interface_name  /* Layer 2 interface name for NDP entry */
                                                 ),
@@ -54885,7 +54885,7 @@ rule(:lr_interfaces_type) do
                                 "demux-source"  /* Demux based on source prefix */,
                                 "demux-destination"  /* Demux based on destination prefix */,
                                 "unnumbered-address" (  /* Unnumbered interface address/destination prefix */
-                                    c(
+                                    sc(
                                           interface_unit  /* Interface from which to take local address */,
                                         "preferred-source-address" (  /* Preferred address on the donor interface */
                                           ("$junos-preferred-source-ipv6-address" | arg)
@@ -55019,7 +55019,7 @@ rule(:lr_interfaces_type) do
                                     c(
                                         c(
                                           "input" (  /* Filter to be applied to received packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -55029,7 +55029,7 @@ rule(:lr_interfaces_type) do
                                         ),
                                         c(
                                           "output" (  /* Filter to be applied to transmitted packets */
-                                              c(
+                                              sc(
                                                   arg  /* Name of the filter */,
                                                   "shared-name" arg  /* Filter shared-name of instances of interface-shared filter */,
                                                   "precedence" arg  /* Precedence of the filter */
@@ -55449,7 +55449,7 @@ end
 rule(:metric_expression_type) do
     c(
         "metric" (  /* Parameters for metric attribute */
-            c(
+            sc(
                 "multiplier" (  /* Coefficient for metric attribute */
                   float  /* Coefficient for metric attribute */
                 ),
@@ -55457,7 +55457,7 @@ rule(:metric_expression_type) do
             )
         ).as(:oneline),
         "metric2" (  /* Parameters for metric2 attribute */
-            c(
+            sc(
                 "multiplier" (  /* Coefficient for metric2 attribute */
                   float  /* Coefficient for metric2 attribute */
                 ),
@@ -55791,7 +55791,7 @@ rule(:mrp_trace_options) do
           trace_file_type  /* Trace file options */
         ),
         "flag" enum(("events" | "pdu" | "timers" | "state-machine" | "socket" | "error" | "all")) (  /* Tracing parameters */
-            c(
+            sc(
                 "disable"  /* Disable this trace flag */
             )
         ).as(:oneline)
@@ -55840,7 +55840,7 @@ rule(:multicast_interface_options_type) do
   arg.as(:arg) (
     c(
         "maximum-bandwidth" (  /* Maximum multicast bandwidth for the interface */
-            c(
+            sc(
                 arg  /* Maximum multicast bandwidth on the interface */
             )
         ).as(:oneline),
@@ -55890,7 +55890,6 @@ rule(:address_type) do
     c(
         "description" arg  /* Text description of address */,
         c(
-            ipprefix  /* Numeric IPv4 or IPv6 address with prefix */,
           "dns-name" (  /* DNS address name */
             dns_name_type  /* DNS address name */
           ),
@@ -55899,7 +55898,8 @@ rule(:address_type) do
           ),
           "range-address" (  /* Address range */
             range_address_type  /* Address range */
-          )
+          ),
+            ipprefix  /* Numeric IPv4 or IPv6 address with prefix */
         )
     )
   )
@@ -55961,7 +55961,7 @@ rule(:nat_object) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -55973,7 +55973,7 @@ rule(:nat_object) do
                     )
                 ).as(:oneline),
                 "flag" enum(("configuration" | "flow" | "routing-socket" | "routing-protocol" | "all" | "source-nat-re" | "source-nat-rt" | "source-nat-pfe" | "destination-nat-re" | "destination-nat-rt" | "destination-nat-pfe" | "static-nat-re" | "static-nat-rt" | "static-nat-pfe" | "nat-svc-set-re")) (  /* Tracing parameters */
-                    c(
+                    sc(
                         "syslog"  /* Write NAT flow traces to system log also */
                     )
                 ).as(:oneline)
@@ -56020,7 +56020,7 @@ rule(:nat_pool_object) do
                       )
                   ),
                   "range" (  /* Range of ports */
-                      c(
+                      sc(
                           "low" arg  /* Lower limit of port range */,
                           "high" arg  /* Upper limit of port range */,
                           "random-allocation"  /* Allocate ports randomly */
@@ -56029,14 +56029,14 @@ rule(:nat_pool_object) do
                 ),
                 c(
                   "secured-port-block-allocation" (  /* Secured Port block allocation */
-                      c(
+                      sc(
                           "block-size" arg  /* Number of port per block. */,
                           "max-blocks-per-address" arg  /* Max block per address */,
                           "active-block-timeout" arg  /* Active block timeout */
                       )
                   ).as(:oneline),
                   "deterministic-port-block-allocation" (  /* Deterministic Port Block Allocation */
-                      c(
+                      sc(
                           "block-size" arg  /* Number of ports per block */,
                           "include-boundary-addresses"  /* Include network and broadcast in 'from' src-addresses */
                       )
@@ -56059,7 +56059,7 @@ rule(:nat_pool_object) do
         "snmp-trap-thresholds" (  /* Define snmp traps for service sets */
             c(
                 "address-port" (  /* Nat pool address and port usage trap threshold range */
-                    c(
+                    sc(
                         "low" arg  /* Lower limit of pool trap threshold */,
                         "high" arg  /* Upper limit of pool trap threshold */
                     )
@@ -56167,7 +56167,7 @@ rule(:nat_rule_object) do
                                         "endpoint-independent" (  /* Endpoint independent filtering */
                                             c(
                                                 "prefix-list" arg (  /* One or more named lists of source prefixes to match */
-                                                    c(
+                                                    sc(
                                                         "except"  /* Name of prefix list not to match against */
                                                     )
                                                 ).as(:oneline)
@@ -56364,11 +56364,11 @@ rule(:otn_options_type) do
         "trigger" (  /* Defect triggers */
             c(
                 "oc-los" (  /* OC Loss Of Signal defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56377,11 +56377,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "oc-lof" (  /* OC Loss Of Frame defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56390,11 +56390,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "oc-lom" (  /* OC Loss Of Multiframe defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56403,11 +56403,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "oc-wavelength-lock" (  /* OC Wavelength Lock defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56416,11 +56416,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "oc-tsf" (  /* Oc tsf defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56429,11 +56429,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-ais" (  /* OTU Alarm Indication Signal defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56442,11 +56442,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-bdi" (  /* OTU Backward Defect Indication defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56455,11 +56455,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-iae" (  /* OTU Incoming Alignment defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56468,11 +56468,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-ttim" (  /* OTU Trail Trace Identifier Mismatch defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56481,11 +56481,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-sd" (  /* OTU Signal Degrade defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56494,11 +56494,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-fec-deg" (  /* OTU FEC Degrade defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56507,11 +56507,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-fec-exe" (  /* OTU FEC Excessive Error defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56520,11 +56520,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-ais" (  /* ODU Alarm Indication Signal defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56533,11 +56533,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-bdi" (  /* ODU Backward Defect Indication defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56546,11 +56546,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-iae" (  /* Odu iae defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56559,11 +56559,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-bei" (  /* Odu backward error indication defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56572,11 +56572,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-oci" (  /* ODU Open Connection Indication defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56585,11 +56585,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-lck" (  /* ODU Locked defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56598,11 +56598,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-ttim" (  /* ODU Trail Trace Identifier Mismatch defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56611,11 +56611,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-sd" (  /* ODU Signal Degrade defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56624,11 +56624,11 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "opu-ptim" (  /* Payload Type Mismatch defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before clearing or raising the alarm for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before clearing the alarm when the defect is absent */,
                                   "down" arg  /* Delay before raising the alarm when the defect occurs */
                               )
@@ -56641,7 +56641,7 @@ rule(:otn_options_type) do
         "tca" (  /* TCA - threshold crossing alerts */
             c(
                 "otu-tca-es" (  /* OTU Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU errored seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU errored seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for OTU errored seconds in 15 minutes */,
@@ -56649,7 +56649,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-tca-ses" (  /* OTU Severely Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU severely errored seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU severely errored seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for OTU severely errored seconds in 15 minutes */,
@@ -56657,7 +56657,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-tca-uas" (  /* OTU Unavailable Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU unavailable seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU unavailable seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for OTU unavailable seconds in 15 minutes */,
@@ -56665,7 +56665,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-tca-bbe" (  /* OTU Background Block Error Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU BBE threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU BBE threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for OTU BBE in 15 minutes */,
@@ -56673,7 +56673,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-tca-es-fe" (  /* OTU far-end Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU far-end errored seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU far-end errored seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for OTU far-end errored seconds in 15 minutes */,
@@ -56681,7 +56681,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-tca-ses-fe" (  /* OTU far-end Severely Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU far-end Unavailable Seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU far-end Unavailable Seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for OTU far-end severely errored seconds in 15 minutes */,
@@ -56689,7 +56689,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-tca-uas-fe" (  /* OTU far-end Unavailable Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU far end unavailabe second threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU far end unavailabe second threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for OTU far-end unavailable seconds in 15 minutes */,
@@ -56697,7 +56697,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-tca-bbe-fe" (  /* OTU far-end Background Block Error (BEI) Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU BBE (BEI) threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU BBE (BEI) threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for OTU far-end BBE (BEI) in 15 minutes */,
@@ -56705,7 +56705,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-tca-es" (  /* ODU Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the ODU errored seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the ODU errored seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for ODU errored seconds in 15 minutes */,
@@ -56713,7 +56713,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-tca-ses" (  /* ODU Severely Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the ODU severely errored seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the ODU severely errored seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for ODU severely errored seconds in 15 minutes */,
@@ -56721,7 +56721,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-tca-uas" (  /* ODU Unavailable Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the ODU unavailable seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the ODU unavailable seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for ODU unavailable seconds in 15 minutes */,
@@ -56729,7 +56729,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-tca-bbe" (  /* ODU Background Block Error Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the ODU BBE threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the ODU BBE threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for ODU BBE in 15 minutes */,
@@ -56737,7 +56737,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-tca-es-fe" (  /* ODU far-end Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the ODU far-end errored seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the ODU far-end errored seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for ODU far-end errored seconds in 15 minutes */,
@@ -56745,7 +56745,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-tca-ses-fe" (  /* ODU far-end Severely Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the ODU far-end Unavailable Seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the ODU far-end Unavailable Seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for ODU far-end severely errored seconds in 15 minutes */,
@@ -56753,7 +56753,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-tca-uas-fe" (  /* ODU far-end Unavailable Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the ODU far end unavailabe second threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the ODU far end unavailabe second threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for ODU far-end unavailable seconds in 15 minutes */,
@@ -56761,7 +56761,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "odu-tca-bbe-fe" (  /* ODU far-end Background Block Error (BEI) Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the ODU BBE (BEI) threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the ODU BBE (BEI) threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for ODU far-end BBE (BEI) in 15 minutes */,
@@ -56769,7 +56769,7 @@ rule(:otn_options_type) do
                     )
                 ).as(:oneline),
                 "otu-tca-fec-ber" (  /* OTU Errored Seconds Threshold crossing defect trigger */
-                    c(
+                    sc(
                         "enable-tca"  /* Enable the OTU errored seconds threshold crossing alert */,
                         "no-enable-tca"  /* Don't enable the OTU errored seconds threshold crossing alert */,
                         "threshold" arg  /* TCA threshold for BER value in format: xe-n, x is an integer or decimal number, n = 0..9 */,
@@ -56881,7 +56881,7 @@ rule(:override_type) do
         "proxy-mode"  /* Put the relay in proxy mode */.as(:oneline),
         "asymmetric-lease-time" arg  /* Use a reduced lease time for the client. In seconds */,
         "replace-ip-source-with" (  /* Replace IP source address in request and release packets */
-            c(
+            sc(
                 c(
                   "giaddr"  /* Replace IP source address with giaddr */
                 )
@@ -56975,7 +56975,7 @@ rule(:pccd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -57106,7 +57106,7 @@ rule(:periodic_oam) do
                     )
                 ),
                 "failure-action" (  /* Action to take when BFD session goes down */
-                    c(
+                    sc(
                         c(
                           "teardown"  /* Teardown label switched path and resignal */,
                           "make-before-break" (  /* Resignal the label switched path before teardown */
@@ -57203,7 +57203,7 @@ rule(:periodic_oam) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -57288,7 +57288,7 @@ rule(:pmond_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -57312,7 +57312,7 @@ rule(:policy_object_type) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -57353,7 +57353,7 @@ rule(:policy_object_type) do
             )
         ),
         "policy-rematch" (  /* Re-evaluate the policy when changed */
-            c(
+            sc(
                 "extensive"  /* Perform policy extensive rematch */
             )
         ).as(:oneline),
@@ -57612,7 +57612,7 @@ rule(:ppp_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -57665,7 +57665,7 @@ rule(:ppp_options_type) do
         ),
         "authentication"  /* Order in which PPP authentication protocols are negotiated */,
         "compression" (  /* Set compression options */
-            c(
+            sc(
                 "acfc"  /* Negotiate Address/Control field compression */,
                 "pfc"  /* Negotiate Protocol field compression */
             )
@@ -57717,7 +57717,7 @@ rule(:pppoe_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -58188,7 +58188,7 @@ rule(:r2cp_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -58277,7 +58277,7 @@ rule(:ragw_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -58338,7 +58338,7 @@ rule(:relay_bulk_leasequery_v6_type) do
         "attempts" arg  /* Number of retry attempts */,
         "timeout" arg  /* Number of seconds */,
         "trigger" (  /* Trigger for bulk leasequery */
-            c(
+            sc(
                 "automatic"  /* Trigger automatically */
             )
         ).as(:oneline)
@@ -58549,7 +58549,7 @@ rule(:res_cleanupd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -58613,7 +58613,7 @@ rule(:resource_monitor_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -58825,7 +58825,7 @@ rule(:rmopd_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -58863,12 +58863,12 @@ rule(:route_filter_list_items) do
                   "add" arg  /* Add constant to attribute */,
                   "subtract" arg  /* Subtract constant from attribute */,
                   "igp" (  /* Track the IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
                   "minimum-igp" (  /* Track the minimum IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
@@ -58973,7 +58973,7 @@ rule(:route_filter_list_items) do
           ("high" | "medium" | "low")
         ),
         "prefix-segment" (  /* Set prefix segment attributes */
-            c(
+            sc(
                 "index" arg  /* Set prefix segment index  */,
                 "node-segment"  /* Set node segment flag for this prefix segment */
             )
@@ -58982,7 +58982,7 @@ rule(:route_filter_list_items) do
           ("per-table" | "per-nexthop" | "per-table-localize")
         ),
         "add-path" (  /* Set BGP add-path attributes */
-            c(
+            sc(
                 "send-count" arg  /* Number of add-paths sent */
             )
         ).as(:oneline),
@@ -58993,12 +58993,12 @@ rule(:route_filter_list_items) do
           ("igp" | "egp" | "incomplete")
         ),
         "aigp-originate" (  /* Originate a BGP AIGP attribute */
-            c(
+            sc(
                 "distance" arg  /* AIGP distance */
             )
         ).as(:oneline),
         "aigp-adjust" (  /* Adjust a BGP AIGP attribute */
-            c(
+            sc(
                 c(
                   "add",
                   "subtract",
@@ -59030,10 +59030,10 @@ rule(:route_filter_list_items) do
         "no-entropy-label-capability"  /* Don't advertise entropy label capability */,
         "as-path-prepend" arg  /* Prepend AS numbers to an AS path (BGP only) */,
         "as-path-expand" (  /* Prepend AS numbers prior to adding local-as (BGP only) */
-            c(
+            sc(
                 c(
                   "last-as" (  /* Prepend last AS */
-                      c(
+                      sc(
                           "count" arg  /* Repeat count */
                       )
                   ).as(:oneline),
@@ -59042,19 +59042,19 @@ rule(:route_filter_list_items) do
             )
         ).as(:oneline),
         "next-hop" (  /* Set the address of the next-hop router */
-            c(
+            sc(
                 c(
                   "self"  /* Use a local address as the next-hop address */,
                   "peer-address"  /* Use the remote peer address as the next-hop address */,
-                    ipaddr  /* Next-hop address */,
                   "reject"  /* Use a reject next hop */,
                   "discard"  /* Use a discard next hop */,
-                  "next-table" arg  /* Perform a forwarding lookup in the specified table */
+                  "next-table" arg  /* Perform a forwarding lookup in the specified table */,
+                    ipaddr  /* Next-hop address */
                 )
             )
         ).as(:oneline),
         "install-nexthop" (  /* Choose the next hop to be used for forwarding */
-            c(
+            sc(
                 "strict"  /* Do not use any other available next hops */,
                 c(
                   "lsp" arg  /* Next-hop LSP name */,
@@ -59082,7 +59082,7 @@ rule(:route_filter_list_items) do
             )
         ),
         "load-balance" (  /* Type of load balancing in forwarding table */
-            c(
+            sc(
                 c(
                   "per-packet"  /* Load balance on a per-packet basis */,
                   "random"  /* Load balance using packet random spray */,
@@ -59102,7 +59102,7 @@ rule(:route_filter_list_items) do
         "source-class" arg  /* Set source class in forwarding table */,
         "forwarding-class" arg  /* Set source or destination class in forwarding table */,
         "map-to-interface" (  /* Set output logical interface */
-            c(
+            sc(
                 c(
                   "self"  /* Map the interface to itself */,
                     interface_name  /* Output logical interface */
@@ -59135,7 +59135,7 @@ rule(:route_filter_list_items) do
           "reject"  /* Reject a route */
         ),
         "bgp-output-queue-priority" (  /* Set the BGP Update output queue priority. */
-            c(
+            sc(
                 c(
                   "priority" arg  /* Output queue priority; higher is better */,
                   "expedited"  /* Expedited queue; highest priority */
@@ -59151,7 +59151,7 @@ rule(:route_record_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -59410,7 +59410,7 @@ rule(:sampling_instance_inet_global_output_type) do
         "flow-inactive-timeout" arg  /* Interval of inactivity that marks a flow inactive */,
         "flow-active-timeout" arg  /* Interval after which an active flow is exported */,
         "file" (  /* Configure parameters for dumping sampled packets */
-            c(
+            sc(
                   ("disable"),
                 "filename" arg  /* Name of file to contain sampled packet dumps */,
                 "files" arg  /* Maximum number of sampled packet dump files */,
@@ -59637,7 +59637,7 @@ rule(:sampling_output_type) do
         "flow-inactive-timeout" arg  /* Interval of inactivity that marks a flow inactive */,
         "flow-active-timeout" arg  /* Interval after which an active flow is exported */,
         "file" (  /* Configure parameters for dumping sampled packets */
-            c(
+            sc(
                   ("disable"),
                 "filename" arg  /* Name of file to contain sampled packet dumps */,
                 "files" arg  /* Maximum number of sampled packet dump files */,
@@ -59711,7 +59711,7 @@ rule(:sampling_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -59967,7 +59967,7 @@ rule(:sbc_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -60083,7 +60083,7 @@ rule(:script_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -60233,7 +60233,7 @@ rule(:sdk_mgmtd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -60255,7 +60255,7 @@ rule(:sdk_vmmd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -60399,7 +60399,7 @@ rule(:secintel_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -60548,7 +60548,7 @@ rule(:gvpn_member_ike) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -60588,7 +60588,7 @@ rule(:gvpn_member_ike) do
                   ipv4addr  /* Server Addresses upto 4 */
                 ),
                 "local-identity" (  /* Set the local IKE identity */
-                    c(
+                    sc(
                         c(
                           "inet" (  /* Use an IPv4 address */
                               c(
@@ -60609,7 +60609,7 @@ rule(:gvpn_member_ike) do
                     )
                 ).as(:oneline),
                 "remote-identity" (  /* Set the remote IKE identity */
-                    c(
+                    sc(
                         c(
                           "inet" (  /* Use an IPv4 address */
                               c(
@@ -60647,7 +60647,7 @@ rule(:gvpn_ike_policy) do
         "description" arg  /* Text description of IKE policy */,
         "proposals" arg,
         "pre-shared-key" (  /* Define a preshared key */
-            c(
+            sc(
                 c(
                   "ascii-text" arg  /* Format as text */,
                   "hexadecimal" arg  /* Format as hexadecimal */
@@ -60802,7 +60802,7 @@ rule(:gvpn_server_ike) do
                     )
                 ),
                 "local-identity" (  /* Set the local IKE identity */
-                    c(
+                    sc(
                         c(
                           "inet" (  /* Use an IPv4 address */
                               c(
@@ -60823,7 +60823,7 @@ rule(:gvpn_server_ike) do
                     )
                 ).as(:oneline),
                 "remote-identity" (  /* Set the remote IKE identity */
-                    c(
+                    sc(
                         c(
                           "inet" (  /* Use an IPv4 address */
                               c(
@@ -60926,7 +60926,7 @@ rule(:gvpn_server_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -61021,7 +61021,7 @@ rule(:security_ike) do
           security_traceoptions  /* Trace options for IPSec key management */
         ),
         "respond-bad-spi" (  /* Respond to IPSec packets with bad SPI values */
-            c(
+            sc(
                   arg
             )
         ).as(:oneline),
@@ -61078,7 +61078,7 @@ rule(:security_ike) do
                 "no-nat-traversal"  /* Disable IPSec NAT traversal */,
                 "nat-keepalive" arg  /* Interval at which to send NAT keepalives */,
                 "local-identity" (  /* Set the local IKE identity */
-                    c(
+                    sc(
                         c(
                           "inet" (  /* Use an IPv4 address */
                               c(
@@ -61110,7 +61110,7 @@ rule(:security_ike) do
                     )
                 ).as(:oneline),
                 "remote-identity" (  /* Set the remote IKE identity */
-                    c(
+                    sc(
                         c(
                           "inet" (  /* Use an IPv4 address */
                               c(
@@ -61156,7 +61156,7 @@ rule(:security_ike) do
                     c(
                         "access-profile" arg  /* Access profile that contains authentication information */,
                         "client" (  /* AAA client info for authentication */
-                            c(
+                            sc(
                                 "username" arg  /* AAA client username with 1 to 128 characters */,
                                 "password" arg  /* AAA client password with 1 to 128 characters */
                             )
@@ -61167,7 +61167,7 @@ rule(:security_ike) do
                     c(
                         "access-profile" arg  /* Access profile that contains authentication information */,
                         "client" (  /* Xauth client info for authentication */
-                            c(
+                            sc(
                                 "username" arg  /* XAuth client username with 1 to 128 characters */,
                                 "password" arg  /* XAuth client password with 1 to 128 characters */
                             )
@@ -61224,7 +61224,7 @@ rule(:ike_policy) do
             c(
                 "local-certificate" arg  /* Local certificate identifier */,
                 "trusted-ca" (  /* Specify the CA to use */
-                    c(
+                    sc(
                         c(
                           arg  /* Index of the preferred CA to use */,
                           "use-all"  /* Use all configured CAs */,
@@ -61243,7 +61243,7 @@ rule(:ike_policy) do
           ("basic" | "compatible" | "standard" | "suiteb-gcm-128" | "suiteb-gcm-256")
         ),
         "pre-shared-key" (  /* Define a preshared key */
-            c(
+            sc(
                 c(
                   "ascii-text" arg  /* Format as text */,
                   "hexadecimal" arg  /* Format as hexadecimal */
@@ -61336,7 +61336,7 @@ rule(:ipsec_internal_sa) do
                           ("enable")
                         ),
                         "key" (  /* Define an encryption key */
-                            c(
+                            sc(
                                 c(
                                   "ascii-text" (  /* Format as text */
                                     unreadable  /* Format as text */
@@ -61457,7 +61457,7 @@ rule(:ipsec_vpn_template) do
                             ("hmac-md5-96" | "hmac-sha1-96" | "hmac-sha-256-128" | "hmac-sha-256-96")
                           ),
                           "key" (  /* Define an authentication key */
-                              c(
+                              sc(
                                   c(
                                     "ascii-text" arg  /* Format as text */,
                                     "hexadecimal" arg  /* Format as hexadecimal */
@@ -61472,7 +61472,7 @@ rule(:ipsec_vpn_template) do
                             ("des-cbc" | "3des-cbc" | "aes-128-cbc" | "aes-192-cbc" | "aes-256-cbc" | "aes-128-gcm" | "aes-256-gcm")
                           ),
                           "key" (  /* Define an encryption key */
-                              c(
+                              sc(
                                   c(
                                     "ascii-text" arg  /* Format as text */,
                                     "hexadecimal" arg  /* Format as hexadecimal */
@@ -61513,7 +61513,7 @@ rule(:ipsec_vpn_template) do
         "match-direction" arg  /* Direction for which the rule match is applied */,
         "tunnel-mtu" arg  /* Maximum transmit packet size */,
         "udp-encapsulate" (  /* UDP encapsulation of IPsec data traffic */
-            c(
+            sc(
                 "dest-port" arg  /* UDP destination port */
             )
         ).as(:oneline)
@@ -61567,7 +61567,7 @@ rule(:security_association_manual) do
                           ("hmac-md5-96" | "hmac-sha1-96")
                         ),
                         "key" (  /* Define an authentication key */
-                            c(
+                            sc(
                                 c(
                                   "ascii-text" arg  /* Format as text */,
                                   "hexadecimal" arg  /* Format as hexadecimal */
@@ -61582,7 +61582,7 @@ rule(:security_association_manual) do
                           ("des-cbc" | "3des-cbc")
                         ),
                         "key" (  /* Define an encryption key */
-                            c(
+                            sc(
                                 c(
                                   "ascii-text" arg  /* Format as text */,
                                   "hexadecimal" arg  /* Format as hexadecimal */
@@ -61775,7 +61775,7 @@ rule(:security_pki) do
                         "crl" (  /* Certificate revocation list configuration */
                             c(
                                 "disable" (
-                                    c(
+                                    sc(
                                         "on-download-failure"  /* Check revocation status with existing CRL file if present, otherwise skip. This feature must be enabled for manual CRL download. */
                                     )
                                 ).as(:oneline),
@@ -61879,7 +61879,7 @@ rule(:security_pki) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -61900,7 +61900,7 @@ rule(:security_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -62054,7 +62054,7 @@ rule(:service_set_syslog_object) do
     c(
         "host" arg (
             c(
-                    c(
+                    sc(
                         c(
                           "any"  /* All levels */,
                           "emergency"  /* Panic conditions */,
@@ -62090,7 +62090,7 @@ rule(:service_set_syslog_object) do
                         ),
                         "ids-logs"  /* Allow syslog messages for IDS events */,
                         "pcp-logs" (  /* PCP logs */
-                            c(
+                            sc(
                                 "map"  /* Allow syslog messages for PCP */,
                                 "debug"  /* Allow PCP debug syslogs */
                             )
@@ -62136,7 +62136,7 @@ rule(:sfw_match_object) do
             c(
                 c(
                   "range" (  /* Range of ports */
-                      c(
+                      sc(
                           "low" arg  /* Lower limit of port range */,
                           "high" arg  /* Upper limit of port range */
                       )
@@ -62154,7 +62154,7 @@ rule(:sfw_match_object) do
             )
         ).as(:oneline),
         "source-prefix-list" arg (  /* One or more named lists of source prefixes to match */
-            c(
+            sc(
                 "except"  /* Name of prefix list not to match against */
             )
         ).as(:oneline),
@@ -62168,7 +62168,7 @@ rule(:sfw_match_object) do
             )
         ).as(:oneline),
         "destination-prefix-list" arg (  /* One or more named lists of destination prefixes to match */
-            c(
+            sc(
                 "except"  /* Name of prefix list not to match against */
             )
         ).as(:oneline),
@@ -62267,7 +62267,7 @@ rule(:smid_type) do
                             )
                         ),
                         "file" (
-                            c(
+                            sc(
                                   arg,
                                 "size" arg  /* Maximum file size */,
                                 "files" arg  /* Maximum number of  files */
@@ -62321,7 +62321,7 @@ rule(:smid_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -62348,7 +62348,7 @@ rule(:smihelperd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -62543,7 +62543,7 @@ rule(:softwires_object) do
             c(
                 "no-remote-trace"  /* Disable remote tracing */,
                 "file" (  /* Trace file information */
-                    c(
+                    sc(
                           arg,
                         "size" arg  /* Maximum trace file size */,
                         "files" arg  /* Maximum number of trace files */,
@@ -62598,11 +62598,11 @@ rule(:sonet_options_type) do
         "trigger" (  /* Defect triggers */
             c(
                 "lol" (  /* LOL defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62611,11 +62611,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "pll" (  /* PLL defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62624,11 +62624,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "lof" (  /* LOF defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62637,11 +62637,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "los" (  /* LOS defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62650,11 +62650,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "ais-l" (  /* AIS-L defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62663,11 +62663,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "rfi-l" (  /* RFI-L defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62680,7 +62680,7 @@ rule(:sonet_options_type) do
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62693,7 +62693,7 @@ rule(:sonet_options_type) do
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62702,11 +62702,11 @@ rule(:sonet_options_type) do
                     )
                 ),
                 "ais-p" (  /* AIS-P defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62715,11 +62715,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "lop-p" (  /* LOP-P defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62728,11 +62728,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "rfi-p" (  /* RFI-P defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62741,11 +62741,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "uneq-p" (  /* UNEQ-P defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62754,11 +62754,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "plm-p" (  /* PLM-P defect trigger */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62767,11 +62767,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "locd" (  /* LOCD defect trigger (ATM only) */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62780,11 +62780,11 @@ rule(:sonet_options_type) do
                     )
                 ).as(:oneline),
                 "lcdp" (  /* LCD-P defect trigger (Ethernet WAN only) */
-                    c(
+                    sc(
                         c(
                           "ignore"  /* Ignore the defect */,
                           "hold-time" (  /* Delay before marking interface up or down for defect */
-                              c(
+                              sc(
                                   "up" arg  /* Delay before marking interface up when defect is absent */,
                                   "down" arg  /* Delay before marking interface down when defect occurs */
                               )
@@ -62799,7 +62799,7 @@ rule(:sonet_options_type) do
         ),
         c(
           "payload-scrambler" (  /* Enable payload scrambling */
-              c(
+              sc(
                     arg
               )
           ).as(:oneline),
@@ -62885,12 +62885,12 @@ rule(:source_address_filter_list_items) do
                   "add" arg  /* Add constant to attribute */,
                   "subtract" arg  /* Subtract constant from attribute */,
                   "igp" (  /* Track the IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
                   "minimum-igp" (  /* Track the minimum IGP metric (BGP only) */
-                      c(
+                      sc(
                           arg  /* Metric offset for MED */
                       )
                   ).as(:oneline),
@@ -62995,7 +62995,7 @@ rule(:source_address_filter_list_items) do
           ("high" | "medium" | "low")
         ),
         "prefix-segment" (  /* Set prefix segment attributes */
-            c(
+            sc(
                 "index" arg  /* Set prefix segment index  */,
                 "node-segment"  /* Set node segment flag for this prefix segment */
             )
@@ -63004,7 +63004,7 @@ rule(:source_address_filter_list_items) do
           ("per-table" | "per-nexthop" | "per-table-localize")
         ),
         "add-path" (  /* Set BGP add-path attributes */
-            c(
+            sc(
                 "send-count" arg  /* Number of add-paths sent */
             )
         ).as(:oneline),
@@ -63015,12 +63015,12 @@ rule(:source_address_filter_list_items) do
           ("igp" | "egp" | "incomplete")
         ),
         "aigp-originate" (  /* Originate a BGP AIGP attribute */
-            c(
+            sc(
                 "distance" arg  /* AIGP distance */
             )
         ).as(:oneline),
         "aigp-adjust" (  /* Adjust a BGP AIGP attribute */
-            c(
+            sc(
                 c(
                   "add",
                   "subtract",
@@ -63052,10 +63052,10 @@ rule(:source_address_filter_list_items) do
         "no-entropy-label-capability"  /* Don't advertise entropy label capability */,
         "as-path-prepend" arg  /* Prepend AS numbers to an AS path (BGP only) */,
         "as-path-expand" (  /* Prepend AS numbers prior to adding local-as (BGP only) */
-            c(
+            sc(
                 c(
                   "last-as" (  /* Prepend last AS */
-                      c(
+                      sc(
                           "count" arg  /* Repeat count */
                       )
                   ).as(:oneline),
@@ -63064,19 +63064,19 @@ rule(:source_address_filter_list_items) do
             )
         ).as(:oneline),
         "next-hop" (  /* Set the address of the next-hop router */
-            c(
+            sc(
                 c(
                   "self"  /* Use a local address as the next-hop address */,
                   "peer-address"  /* Use the remote peer address as the next-hop address */,
-                    ipaddr  /* Next-hop address */,
                   "reject"  /* Use a reject next hop */,
                   "discard"  /* Use a discard next hop */,
-                  "next-table" arg  /* Perform a forwarding lookup in the specified table */
+                  "next-table" arg  /* Perform a forwarding lookup in the specified table */,
+                    ipaddr  /* Next-hop address */
                 )
             )
         ).as(:oneline),
         "install-nexthop" (  /* Choose the next hop to be used for forwarding */
-            c(
+            sc(
                 "strict"  /* Do not use any other available next hops */,
                 c(
                   "lsp" arg  /* Next-hop LSP name */,
@@ -63104,7 +63104,7 @@ rule(:source_address_filter_list_items) do
             )
         ),
         "load-balance" (  /* Type of load balancing in forwarding table */
-            c(
+            sc(
                 c(
                   "per-packet"  /* Load balance on a per-packet basis */,
                   "random"  /* Load balance using packet random spray */,
@@ -63124,7 +63124,7 @@ rule(:source_address_filter_list_items) do
         "source-class" arg  /* Set source class in forwarding table */,
         "forwarding-class" arg  /* Set source or destination class in forwarding table */,
         "map-to-interface" (  /* Set output logical interface */
-            c(
+            sc(
                 c(
                   "self"  /* Map the interface to itself */,
                     interface_name  /* Output logical interface */
@@ -63157,7 +63157,7 @@ rule(:source_address_filter_list_items) do
           "reject"  /* Reject a route */
         ),
         "bgp-output-queue-priority" (  /* Set the BGP Update output queue priority. */
-            c(
+            sc(
                 c(
                   "priority" arg  /* Output queue priority; higher is better */,
                   "expedited"  /* Expedited queue; highest priority */
@@ -63173,7 +63173,7 @@ rule(:ssd_traceoptions_type) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -63205,8 +63205,7 @@ rule(:ssg_destination_nat_object) do
                     )
                 ),
                 "address" (  /* Add address or address range to pool */
-                    c(
-                          ipprefix  /* IPv4 or IPv6 address or address range */,
+                    sc(
                         c(
                           "to" (  /* Upper limit of address range */
                               c(
@@ -63214,7 +63213,8 @@ rule(:ssg_destination_nat_object) do
                               )
                           ),
                           "port" arg  /* Specify the port value */
-                        )
+                        ),
+                          ipprefix  /* IPv4 or IPv6 address or address range */
                     )
                 ).as(:oneline)
             )
@@ -63234,7 +63234,7 @@ rule(:ssg_destination_nat_object) do
             c(
                 "description" arg  /* Text description of rule set */,
                 "from" (  /* Where is the traffic from */
-                    c(
+                    sc(
                         c(
                           "routing-instance" (  /* Source routing instance list */
                                 ("default" | arg)
@@ -63269,18 +63269,18 @@ rule(:dest_nat_rule_object) do
                 "source-address-name" arg  /* Address/address-set from address book */,
                 c(
                   "destination-address" (  /* Destination address */
-                      c(
+                      sc(
                             ipprefix  /* IPv4 or IPv6 destination address */
                       )
                   ).as(:oneline),
                   "destination-address-name" (  /* Address from address book */
-                      c(
+                      sc(
                             arg
                       )
                   ).as(:oneline)
                 ),
                 "destination-port" arg (  /* Destination port */
-                    c(
+                    sc(
                         "to" (  /* Port range upper limit */
                             c(
                                 arg  /* Upper limit of port range */
@@ -63344,7 +63344,7 @@ rule(:ssg_interface_object) do
   arg.as(:arg) (
     c(
         "address" arg (  /* Proxy ARP address */
-            c(
+            sc(
                 "to" (  /* Upper limit of address range */
                     c(
                           ipv4prefix  /* Upper limit of address range */
@@ -63368,7 +63368,7 @@ rule(:ssg_proxy_ndp_interface_object) do
   arg.as(:arg) (
     c(
         "address" arg (  /* Proxy ndp address */
-            c(
+            sc(
                 "to" (  /* Upper limit of address range */
                     c(
                           ipv6addr  /* Upper limit of address range */
@@ -63391,7 +63391,7 @@ rule(:ssg_source_nat_object) do
                     )
                 ),
                 "address" arg (  /* Add address to pool */
-                    c(
+                    sc(
                         "to" (  /* Upper limit of address range */
                             c(
                                   ipprefix  /* IPv4 or IPv6 upper limit of address range */
@@ -63400,7 +63400,7 @@ rule(:ssg_source_nat_object) do
                     )
                 ).as(:oneline),
                 "host-address-base" (  /* The base of host address */
-                    c(
+                    sc(
                           ipprefix  /* IPv4 or IPv6 base address */
                     )
                 ).as(:oneline),
@@ -63449,7 +63449,7 @@ rule(:ssg_source_nat_object) do
                     )
                 ),
                 "overflow-pool" (  /* Specify an overflow pool */
-                    c(
+                    sc(
                         c(
                             arg,
                           "interface"  /* Allow interface pool to support overflow */
@@ -63458,7 +63458,7 @@ rule(:ssg_source_nat_object) do
                 ).as(:oneline),
                 "address-shared"  /* Allow multiple hosts to share an externel address */,
                 "address-pooling" (  /* Specify the address-pooling behavior */
-                    c(
+                    sc(
                         c(
                           "paired"  /* Allow address-pooling paired for a source pool with port translation */,
                           "no-paired"  /* Allow address-pooling no-paired for a source pool without port translation */
@@ -63466,9 +63466,9 @@ rule(:ssg_source_nat_object) do
                     )
                 ).as(:oneline),
                 "address-persistent" (  /* Specify the address-persistent behavior */
-                    c(
+                    sc(
                         "subscriber" (  /* Configure address persistent for subscriber */
-                            c(
+                            sc(
                                 "ipv6-prefix-length" arg  /* Ipv6 prefix length for address persistent */
                             )
                         ).as(:oneline)
@@ -63489,7 +63489,7 @@ rule(:ssg_source_nat_object) do
           source_nat_pool_utilization_alarm_object  /* Configure pool utilization alarm */
         ).as(:oneline),
         "port-randomization" (  /* Configure Source NAT port randomization */
-            c(
+            sc(
                   ("disable")
             )
         ).as(:oneline),
@@ -63497,7 +63497,7 @@ rule(:ssg_source_nat_object) do
         "port-scaling-enlargement"  /* Configure source port scaling to 2.4G only for NGSPC */,
         "pool-distribution"  /* Configure Source pool distribution, the APPCP bottleneck of NAT CPS can be alleviated. */,
         "pool-default-port-range" (  /* Configure Source NAT default port range */
-            c(
+            sc(
                   arg,
                 "to" (  /* Port range upper limit */
                     c(
@@ -63507,7 +63507,7 @@ rule(:ssg_source_nat_object) do
             )
         ).as(:oneline),
         "pool-default-twin-port-range" (  /* Configure Source NAT default twin port range */
-            c(
+            sc(
                   arg,
                 "to" (  /* Twin port range upper limit */
                     c(
@@ -63520,7 +63520,7 @@ rule(:ssg_source_nat_object) do
             c(
                 c(
                   "port-overloading" (  /* Configure port overloading */
-                      c(
+                      sc(
                           "off"  /* Turn off interface port over-loading */
                       )
                   ).as(:oneline),
@@ -63532,7 +63532,7 @@ rule(:ssg_source_nat_object) do
             c(
                 "description" arg  /* Text description of rule set */,
                 "from" (  /* Where is the traffic from */
-                    c(
+                    sc(
                         c(
                           "routing-instance" (  /* Source routing instance list */
                                 ("default" | arg)
@@ -63545,7 +63545,7 @@ rule(:ssg_source_nat_object) do
                     )
                 ).as(:oneline),
                 "to" (  /* Where is the traffic to */
-                    c(
+                    sc(
                         c(
                           "routing-instance" (  /* Destination routing instance list */
                                 ("default" | arg)
@@ -63576,7 +63576,7 @@ rule(:block_allocation_object) do
         "interim-logging-interval" arg  /* Interim Logging interval */,
         "last-block-recycle-timeout" arg  /* Last Block recycle timeout interval */,
         "log" (  /* Configure port block log */
-            c(
+            sc(
                   ("disable")
             )
         ).as(:oneline)
@@ -63588,7 +63588,7 @@ rule(:deterministic_object) do
         "block-size" arg  /* Block size */,
         "det-nat-configuration-log-interval" arg  /* Deterministic nat configuration logging interval */,
         "host" (  /* Host address */
-            c(
+            sc(
                 "address" (  /* Host ip address */
                   ipprefix  /* Host ip address */
                 ),
@@ -63617,7 +63617,7 @@ rule(:src_nat_rule_object) do
                 ),
                 "source-address-name" arg  /* Address/address-set from address book */,
                 "source-port" arg (  /* Source port */
-                    c(
+                    sc(
                         "to" (  /* Port range upper limit */
                             c(
                                 arg  /* Upper limit of port range */
@@ -63630,7 +63630,7 @@ rule(:src_nat_rule_object) do
                 ),
                 "destination-address-name" arg  /* Address/address-set from address book */,
                 "destination-port" arg (  /* Destination port */
-                    c(
+                    sc(
                         "to" (  /* Port range upper limit */
                             c(
                                 arg  /* Upper limit of port range */
@@ -63673,15 +63673,15 @@ rule(:src_nat_rule_object) do
                           nat_rule_session_count_alarm_object  /* Config rule-session-count-alarm to source rule */
                         ).as(:oneline),
                         "mapping-type" (  /* Source nat mapping type */
-                            c(
+                            sc(
                                 "endpoint-independent"  /* Endpoint independent mapping */
                             )
                         ).as(:oneline),
                         "secure-nat-mapping" (  /* Mapping options for enhanced security */
-                            c(
+                            sc(
                                 "eif-flow-limit" arg  /* Number of inbound flows to be allowed for a EIF mapping */,
                                 "mapping-refresh" (  /* Enable timer refresh option */
-                                    c(
+                                    sc(
                                         c(
                                           "inbound"  /* Enable timer refresh for inbound connections only */,
                                           "outbound"  /* Enable timer refresh for outbound connections only */,
@@ -63696,7 +63696,7 @@ rule(:src_nat_rule_object) do
                                 "endpoint-independent" (  /* Endpoint independent filtering */
                                     c(
                                         "prefix-list" arg (  /* One or more named lists of source prefixes to match */
-                                            c(
+                                            sc(
                                                 "except"  /* Name of prefix list not to match against */
                                             )
                                         ).as(:oneline)
@@ -63715,7 +63715,7 @@ end
 rule(:persistent_nat_object) do
     c(
         "permit" (  /* Persistent NAT permit configure */
-            c(
+            sc(
                 c(
                   "any-remote-host"  /* Permit any remote host */,
                   "target-host"  /* Permit target host */,
@@ -63735,7 +63735,7 @@ rule(:ssg_static_nat_object) do
             c(
                 "description" arg  /* Text description of rule set */,
                 "from" (  /* Where is the traffic from */
-                    c(
+                    sc(
                         c(
                           "routing-instance" (  /* Source routing instance list */
                                 ("default" | arg)
@@ -63881,7 +63881,7 @@ rule(:ssl_traceoptions) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -63910,7 +63910,7 @@ rule(:static_nat_rule_object) do
                 ),
                 "source-address-name" arg  /* Address from address book */,
                 "source-port" arg (  /* Source port */
-                    c(
+                    sc(
                         "to" (  /* Port range upper limit */
                             c(
                                 arg  /* Upper limit of port range */
@@ -63920,18 +63920,18 @@ rule(:static_nat_rule_object) do
                 ).as(:oneline),
                 c(
                   "destination-address" (  /* Destination address */
-                      c(
+                      sc(
                             ipprefix  /* IPv4 or IPv6 Destination address prefix */
                       )
                   ).as(:oneline),
                   "destination-address-name" (  /* Address from address book */
-                      c(
+                      sc(
                             arg
                       )
                   ).as(:oneline)
                 ),
                 "destination-port" (  /* Destination port */
-                    c(
+                    sc(
                         arg  /* Port or lower limit of port range */,
                         "to" (  /* Port range upper limit */
                             c(
@@ -63956,13 +63956,13 @@ rule(:static_nat_rule_object) do
                           ),
                           "prefix" (  /* Address prefix */
                               c(
-                                    ipprefix  /* IPv4 or IPv6 address prefix value */,
                                   "mapped-port" (  /* Mapped port */
                                     static_nat_rule_mapped_port_object  /* Mapped port */
                                   ).as(:oneline),
                                   "routing-instance" (  /* Routing instance */
                                     ("default" | arg)
-                                  )
+                                  ),
+                                    ipprefix  /* IPv4 or IPv6 address prefix value */
                               )
                           ),
                           "prefix-name" (  /* Address from address book */
@@ -63978,10 +63978,10 @@ rule(:static_nat_rule_object) do
                           ),
                           "nptv6-prefix" (  /* NPTv6 address prefix, the longest prefix will be supported is /64 */
                               c(
-                                    ipprefix  /* IPv6 address prefix value, the longest prefix will be supported is /64 */,
                                   "routing-instance" (  /* Routing instance */
                                     ("default" | arg)
-                                  )
+                                  ),
+                                    ipprefix  /* IPv6 address prefix value, the longest prefix will be supported is /64 */
                               )
                           ),
                           "nptv6-prefix-name" (  /* NPTv6 address from address book */
@@ -64043,7 +64043,7 @@ rule(:stp_trace_options) do
           trace_file_type  /* Trace file options */
         ),
         "flag" enum(("events" | "bpdu" | "timers" | "port-information-state-machine" | "port-receive-state-machine" | "port-role-select-state-machine" | "port-role-transit-state-machine" | "port-state-transit-state-machine" | "port-migration-state-machine" | "port-transmit-state-machine" | "topology-change-state-machine" | "bridge-detection-state-machine" | "state-machine-variables" | "ppmd" | "all-failures" | "all")) (  /* Tracing parameters */
-            c(
+            sc(
                 "disable"  /* Disable this trace flag */
             )
         ).as(:oneline)
@@ -64286,7 +64286,7 @@ rule(:tdir_netmon_traceoptions_object) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -64398,7 +64398,7 @@ rule(:tdir_traceoptions_object) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -64420,7 +64420,7 @@ rule(:tdir_traceoptions_object) do
             )
         ),
         "in-memory-tracing" (
-            c(
+            sc(
                 "max-lines" arg  /* Number of max lines in memory tracing */
             )
         ).as(:oneline)
@@ -64739,7 +64739,7 @@ rule(:dns_filter_object) do
           ipaddr  /* One or more DNS servers addresses */
         ),
         "hash-key" (  /* Define hash key for domains key */
-            c(
+            sc(
                 c(
                   "ascii-text" arg  /* Format as text */,
                   "hexadecimal" arg  /* Format as hexadecimal */
@@ -64860,7 +64860,7 @@ rule(:urlf_traceoptions_object) do
     c(
         "no-remote-trace"  /* Disable remote tracing */,
         "file" (  /* Trace file information */
-            c(
+            sc(
                   arg,
                 "size" arg  /* Maximum trace file size */,
                 "files" arg  /* Maximum number of trace files */,
@@ -65188,7 +65188,7 @@ rule(:vlan_types) do
           ),
           "vlan-id-list" arg  /* Create VLAN for each of the vlan-id specified in the vlan-id-list */,
           "vlan-tags" (  /* IEEE 802.1q VLAN tags for VLANs */
-              c(
+              sc(
                   "outer" arg  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */,
                   "inner" arg  /* [tpid.]vlan-id, tpid format is 0xNNNN and is optional */
               )
@@ -65702,7 +65702,7 @@ rule(:vrrp_group) do
                 "interface" arg (  /* Interface to track in VRRP group */
                     c(
                         "bandwidth-threshold" arg (  /* Track bandwidth of interface */
-                            c(
+                            sc(
                                 "priority-cost" arg  /* Value subtracted from priority when bandwidth is below threshold */
                             )
                         ).as(:oneline),
