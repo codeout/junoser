@@ -137,6 +137,8 @@ module Junoser
       str.gsub!(/"icmp"(.*\s*.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
       str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
       str.gsub!(/"ospf"(.*\s*.*)"ospf3"/) { %["ospf3"#$1"ospf"] }
+      str.gsub! '"tls1" | "tls11" | "tls12"', '"tls11" | "tls12" | "tls1"'
+      str.gsub!(/("group1" \| "group2" \| "group5") \| ([^\)]+)/) { "#{$2} | #{$1}"}
 
       %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
         str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#$1"ethernet"] }
@@ -211,6 +213,12 @@ module Junoser
 
       # Fix .xsd: "members" accepts [ foo bar ]
       str.gsub! '"members" arg', '"members" any'
+
+      # Fix .xsd: "term_object" accepts multiple conditions
+      str.gsub!(/^(rule\(:term_object\) do\s*arg\.as\(:arg\) \(\s*)c\(/) { "#{$1}sc(" }
+
+      # Fix .xsd: keywords "dest-nat-rule-match", "src-nat-rule-match", "static-nat-rule-match" are wrong
+      str.gsub!(/"(dest|src|static)-nat-rule-match"/) { '"match"' }
 
       str
     end

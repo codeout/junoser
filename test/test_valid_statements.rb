@@ -126,6 +126,19 @@ class TestValidStatements < Test::Unit::TestCase
       set forwarding-options rpf-loose-mode-discard family inet6
       set policy-options policy-statement BGP_Customer_out term aggregates6 from protocol ospf3
       set policy-options policy-statement BGP_aggregate_contributors term internal_only from protocol ospf3
+
+      set virtual-chassis vcp-snmp-statistics
+
+      set services ssl initiation profile syslog-tls-profile protocol-version tls12
+
+      set applications application idrac-app1 term t1 protocol tcp destination-port 5900
+
+      set security log stream syslog-tls-stream host port 6514
+      set security log stream syslog-tls-stream-eqiad host port 6514
+      set security address-book global address pypi.python.org dns-name pypi.python.org
+      set security nat static rule-set static-nat rule foo match destination-address xxx/32
+      set security nat source rule-set foo-nat rule foo match source-address-name bar
+      set security nat source rule-set foo-nat rule foo match destination-address-name bar
     EOS
 
     config.split("\n").each do |l|
