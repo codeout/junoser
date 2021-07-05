@@ -217,6 +217,9 @@ module Junoser
       # Fix .xsd: "term_object" accepts multiple conditions
       str.gsub!(/^(rule\(:term_object\) do\s*arg\.as\(:arg\) \(\s*)c\(/) { "#{$1}sc(" }
 
+      # Fix .xsd: keywords "dest-nat-rule-match", "src-nat-rule-match", "static-nat-rule-match" are wrong
+      str.gsub!(/"(dest|src|static)-nat-rule-match"/) { '"match"' }
+
       str
     end
 

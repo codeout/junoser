@@ -136,6 +136,9 @@ class TestValidStatements < Test::Unit::TestCase
       set security log stream syslog-tls-stream host port 6514
       set security log stream syslog-tls-stream-eqiad host port 6514
       set security address-book global address pypi.python.org dns-name pypi.python.org
+      set security nat static rule-set static-nat rule foo match destination-address xxx/32
+      set security nat source rule-set foo-nat rule foo match source-address-name bar
+      set security nat source rule-set foo-nat rule foo match destination-address-name bar
     EOS
 
     config.split("\n").each do |l|
