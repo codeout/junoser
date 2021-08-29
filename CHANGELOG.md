@@ -1,3 +1,18 @@
+## [0.4.2] - 2021-08-30
+
+### Added
+
+* Newly supported syntax
+  * "virtual-chassis vcp-snmp-statistics"
+  * "application_object"
+
+### Fixed
+
+* Keywords "tls", "group", "dest-nat-rule-match", "src-nat-rule-match", and "static-nat-rule-match" might be marked as invalid in some hierarchies
+* "applications application xxx term xxx"
+* "security"
+
+
 ## [0.4.1] - 2021-06-06
 
 ### Added
@@ -7,7 +22,7 @@
 
 ### Fixed
 
-* "scpf-link", "https", "inet6", "icmp6", "icmpv6", "ospf3", and "snmptrap" keywords might be marked as invalid in some hierarchies
+* Keywords "scpf-link", "https", "inet6", "icmp6", "icmpv6", "ospf3", and "snmptrap" might be marked as invalid in some hierarchies
 * "policy-options community xxx members"
 * "policy-options route-distinguisher xxx members"
 * "routing-options confederation members"
