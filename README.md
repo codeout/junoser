@@ -1,6 +1,6 @@
 # Junoser
 
-[![Build Status](https://travis-ci.org/codeout/junoser.svg)](https://travis-ci.org/codeout/junoser)
+[![Test on Ubuntu](https://github.com/codeout/junoser/actions/workflows/test-linux.yaml/badge.svg)](https://github.com/codeout/junoser/actions/workflows/test-linux.yaml)
 [![Code Climate](https://codeclimate.com/github/codeout/junoser.png)](https://codeclimate.com/github/codeout/junoser)
 [![Inline docs](http://inch-ci.org/github/codeout/junoser.svg)](http://inch-ci.org/github/codeout/junoser)
 
