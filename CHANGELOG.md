@@ -1,3 +1,10 @@
+## [0.4.3] - 2021-09-28
+
+### Fixed
+
+* A Nokogiri's [security vulnerability](https://github.com/advisories/GHSA-2rr5-8q37-2w7h)
+
+
 ## [0.4.2] - 2021-08-30
 
 ### Added
