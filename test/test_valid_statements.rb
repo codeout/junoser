@@ -89,6 +89,8 @@ class TestValidStatements < Test::Unit::TestCase
 
       set snmp contact "foo bar"
       set snmp location "foo bar"
+      set snmp name foo
+      set snmp name "foo bar"
 
       set protocols bgp minimum-hold-time 10
       set system dump-on-panic

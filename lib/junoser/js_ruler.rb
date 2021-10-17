@@ -168,6 +168,8 @@ module Junoser
       str.gsub! 'policy | Define a policy context from this zone', 'from-zone | Define a policy context from this zone'
       # "to-zone-name | Destination zone" -> "to-zone | Destination zone"
       str.gsub! 'to-zone-name | Destination zone', 'to-zone | Destination zone'
+      # "system-name | System name override" -> "name | System name override"
+      str.gsub! 'system-name | System name override', 'name | System name override'
 
       fix_route_filter(str)
 
