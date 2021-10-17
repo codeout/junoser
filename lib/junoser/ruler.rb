@@ -221,6 +221,9 @@ module Junoser
       str.gsub!(/"(dest|src|static)-nat-rule-match"/) { '"match"' }
 
       str
+
+      # Fix .xsd: "snmp system-name" should be "snmp name"
+      str.gsub! '"system-name" arg', '"name" (quote | arg)'
     end
 
     def format(str, offset = OFFSET)
