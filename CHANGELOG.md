@@ -1,3 +1,10 @@
+## [0.4.4] - 2022-02-26
+
+### Fixed
+
+* "snmp name" instead of "snmp system-name"
+
+
 ## [0.4.3] - 2021-09-28
 
 ### Fixed
