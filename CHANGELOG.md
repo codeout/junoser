@@ -1,3 +1,10 @@
+## [0.4.5] - 2022-04-27
+
+### Fixed
+
+* Ignore "replace:" tag in structured form
+
+
 ## [0.4.4] - 2022-02-26
 
 ### Fixed
