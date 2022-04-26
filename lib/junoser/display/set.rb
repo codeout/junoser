@@ -59,11 +59,15 @@ module Junoser
         current_statement = ''
 
         current_stack.each do |stack|
+          stack.gsub! 'replace: ', ''
+
           if stack.gsub!('inactive: ', '')
             statements << "deactivate #{current_statement}#{stack}"
           end
           current_statement << "#{stack} "
         end
+
+        str.gsub! 'replace: ', ''
 
         if str.gsub!('inactive: ', '')
           statements << "deactivate #{current_statement}#{str}"
