@@ -63,7 +63,7 @@ module Junoser
                 '    quote | arg'], $1)
       end
 
-      str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
+      str.gsub!(/^rule\(:regular_expression\) do\s.*?\s*end/) do
         <<~EOS
           rule(:regular_expression) do
             (quote | arg).as(:arg)
