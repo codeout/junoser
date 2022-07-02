@@ -1,0 +1,21 @@
+# TypeProf 0.21.2
+
+# Classes
+module Junoser
+  class Ruler
+    OFFSET: String
+    @rule: untyped
+
+    def initialize: (untyped input) -> void
+    def to_rule: -> String
+    def rule: -> untyped
+
+    private
+    def remove_comments: (untyped str) -> untyped
+    def process_line: (untyped str) -> untyped
+    def process_reserved_element: (untyped str) -> untyped
+    def format: (Array[String?] | String str, ?String? offset) -> String?
+    def rule_header: -> String
+    def rule_footer: -> String
+  end
+end

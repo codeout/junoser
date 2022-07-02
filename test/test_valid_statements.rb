@@ -141,6 +141,19 @@ class TestValidStatements < Test::Unit::TestCase
       set security nat static rule-set static-nat rule foo match destination-address xxx/32
       set security nat source rule-set foo-nat rule foo match source-address-name bar
       set security nat source rule-set foo-nat rule foo match destination-address-name bar
+
+      set system license keys key foo
+      set system license keys key "bar baz"
+
+      set protocols bgp group foo family inet unicast prefix-limit teardown
+      set protocols bgp group foo family inet unicast prefix-limit teardown
+      set protocols bgp group foo family inet unicast prefix-limit teardown idle-timeout
+      set protocols bgp group foo family inet unicast prefix-limit teardown idle-timeout 60
+      set protocols bgp group foo family inet unicast prefix-limit teardown idle-timeout forever
+      set protocols bgp group foo family inet unicast prefix-limit teardown 80
+      set protocols bgp group foo family inet unicast prefix-limit teardown 80 idle-timeout
+      set protocols bgp group foo family inet unicast prefix-limit teardown 80 idle-timeout 60
+      set protocols bgp group foo family inet unicast prefix-limit teardown 80 idle-timeout forever
     EOS
 
     config.split("\n").each do |l|

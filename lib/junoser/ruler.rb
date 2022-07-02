@@ -14,7 +14,7 @@ module Junoser
       str = @rule.read
       str = remove_comments(str)
       str = process_reserved_element(str)
-      str = str.split(/\n/).map { |l| format(process_line(l)) }.join("\n")
+      str.split(/\n/).map { |l| format(process_line(l)) }.join("\n")
     end
 
     private
@@ -26,16 +26,16 @@ module Junoser
     def process_line(str)
       return str if str =~ /^(.* do|end)$/
 
-      str.gsub!(/("[^"]+")/) { "str(#$1)" } # "foo" -> str("foo")
+      str.gsub!(/("[^"]+")/) { "str(#{$1})" } # "foo" -> str("foo")
 
-      str.gsub!(/^(\s*)arg(\.as\(:\S+\))? \($/) { "#{$1}b(arg#$2," } # arg ( -> b(arg,
-      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+)(\.as\(:\S+\))?(,?)$/) { "#{$1}a(#$2, #$3)#$4#$5" } # str("foo") bar -> a(str("foo"), bar)
-      str.gsub!(/^(\s*)(str\(\S+\)) (enum)?\((.*)\)(,?)$/) { "#{$1}a(#$2, #$3#$4)#$5" } # str("foo") (a | b) -> a(str("foo"), a | b)
+      str.gsub!(/^(\s*)arg(\.as\(:\S+\))? \($/) { "#{$1}b(arg#{$2}," } # arg ( -> b(arg,
+      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f(|,]+)(\.as\(:\S+\))?(,?)$/) { "#{$1}a(#{$2}, #{$3})#{$4}#{$5}" } # str("foo") bar -> a(str("foo"), bar)
+      str.gsub!(/^(\s*)(str\(\S+\)) (enum)?\((.*)\)(,?)$/) { "#{$1}a(#{$2}, #{$3}#{$4})#{$5}" } # str("foo") (a | b) -> a(str("foo"), a | b)
 
-      str.gsub!(/^(\s*)(str\(\S+\)) \($/) { "#{$1}b(#$2," } # str("foo") ( -> b(str("foo"),
-      str.gsub!(/^(\s*)(enum)?(\(.*\))(\.as\(:\S\))? \($/) { "#{$1}b(#$2#$3#$4," } # (a | b) ( -> b((a | b),
-      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f\(|,]+) \($/) { "#{$1}b(a(#$2, #$3)," } # str("foo") bar ( -> b(a(str("foo"), bar),
-      str.gsub!(/^(\s*)(str\(\S+\)) (enum)?\((.*)\) \($/) { "#{$1}a(#$2, #$3#$4," } # str("foo") (a | b) ( -> a(str("foo"), a | b,
+      str.gsub!(/^(\s*)(str\(\S+\)) \($/) { "#{$1}b(#{$2}," } # str("foo") ( -> b(str("foo"),
+      str.gsub!(/^(\s*)(enum)?(\(.*\))(\.as\(:\S\))? \($/) { "#{$1}b(#{$2}#{$3}#{$4}," } # (a | b) ( -> b((a | b),
+      str.gsub!(/^(\s*)(str\(\S+\)) ([^ \t\n\r\f(|,]+) \($/) { "#{$1}b(a(#{$2}, #{$3})," } # str("foo") bar ( -> b(a(str("foo"), bar),
+      str.gsub!(/^(\s*)(str\(\S+\)) (enum)?\((.*)\) \($/) { "#{$1}a(#{$2}, #{$3}#{$4}," } # str("foo") (a | b) ( -> a(str("foo"), a | b,
 
       str
     end
@@ -52,7 +52,7 @@ module Junoser
       #
       # Statements can be quoted
       #
-      str.gsub!(/("ssh-\S+") arg/) { "#$1 (quote | arg)" }
+      str.gsub!(/("ssh-\S+") arg/) { "#{$1} (quote | arg)" }
       str.gsub! '"message" arg', '"message" (quote | arg)'
       str.gsub! '"description" arg', '"description" (quote | arg)'
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
@@ -63,7 +63,7 @@ module Junoser
                 '    quote | arg'], $1)
       end
 
-      str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
+      str.gsub!(/^rule\(:regular_expression\) do\s.*?\s*end/) do
         <<~EOS
           rule(:regular_expression) do
             (quote | arg).as(:arg)
@@ -99,7 +99,7 @@ module Junoser
       #
       # "arg" matches anything so move to the end
       #
-      str.gsub!(/arg \| (".*")/) { "#$1 | arg" }
+      str.gsub!(/arg \| (".*")/) { "#{$1} | arg" }
       str.gsub!(/^(\s*)c\(\s*arg,$/) { "#{$1}ca(" }
       str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
       str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
@@ -130,18 +130,18 @@ module Junoser
       #
       #   "inet",
       #   "inet6"
-      str.gsub!(/"cspf"(.*\s*.*)"cspf-link"/) { %["cspf-link"#$1"cspf"] }
-      str.gsub!(/"http"(.*\s*.*)"https"/) { %["https"#$1"http"] }
-      str.gsub!(/"inet"(.*\s*.*)"inet6"/) { %["inet6"#$1"inet"] }
-      str.gsub!(/"icmp"(.*\s*.*)"icmp6"/) { %["icmp6"#$1"icmp"] }
-      str.gsub!(/"icmp"(.*\s*.*)"icmpv6"/) { %["icmpv6"#$1"icmp"] }
-      str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#$1"snmp"] }
-      str.gsub!(/"ospf"(.*\s*.*)"ospf3"/) { %["ospf3"#$1"ospf"] }
+      str.gsub!(/"cspf"(.*\s*.*)"cspf-link"/) { %["cspf-link"#{$1}"cspf"] }
+      str.gsub!(/"http"(.*\s*.*)"https"/) { %["https"#{$1}"http"] }
+      str.gsub!(/"inet"(.*\s*.*)"inet6"/) { %["inet6"#{$1}"inet"] }
+      str.gsub!(/"icmp"(.*\s*.*)"icmp6"/) { %["icmp6"#{$1}"icmp"] }
+      str.gsub!(/"icmp"(.*\s*.*)"icmpv6"/) { %["icmpv6"#{$1}"icmp"] }
+      str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#{$1}"snmp"] }
+      str.gsub!(/"ospf"(.*\s*.*)"ospf3"/) { %["ospf3"#{$1}"ospf"] }
       str.gsub! '"tls1" | "tls11" | "tls12"', '"tls11" | "tls12" | "tls1"'
-      str.gsub!(/("group1" \| "group2" \| "group5") \| ([^\)]+)/) { "#{$2} | #{$1}"}
+      str.gsub!(/("group1" \| "group2" \| "group5") \| ([^)]+)/) { "#{$2} | #{$1}"}
 
       %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
-        str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#$1"ethernet"] }
+        str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#{$1}"ethernet"] }
       end
 
       str.gsub!(/^(\s*)"path" arg \(\s*c\(\s*sc\(\s*"abstract",\s*c\(\s*"loose",\s*"loose-link",\s*"strict"\s*\)\s*\)\.as\(:oneline\)/) do
@@ -163,9 +163,9 @@ module Junoser
       #
       # Fix .xsd: Elements without "nokeyword" flag
       #
-      str.gsub!(/\((.*) \| "name"\)/) { "(#$1 | arg)" }
+      str.gsub!(/\((.*) \| "name"\)/) { "(#{$1} | arg)" }
       str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
-      str.gsub!(/\((.*) \| "vlan-id"\)/) { "(#$1 | arg)" }
+      str.gsub!(/\((.*) \| "vlan-id"\)/) { "(#{$1} | arg)" }
 
       %w[filename].each do |key|
         str.gsub! %["#{key}" arg], 'arg'
@@ -220,10 +220,18 @@ module Junoser
       # Fix .xsd: keywords "dest-nat-rule-match", "src-nat-rule-match", "static-nat-rule-match" are wrong
       str.gsub!(/"(dest|src|static)-nat-rule-match"/) { '"match"' }
 
-      str
-
       # Fix .xsd: "snmp system-name" should be "snmp name"
       str.gsub! '"system-name" arg', '"name" (quote | arg)'
+
+      # Fix .xsd: argument of "system license keys key" can be quoted
+      str.gsub!(/^(rule\(:license_object\) do.*?"key") arg/m) { "#{$1} (quote | arg)"}
+
+      # Fix .xsd: "prefix-limit teardown"
+      str.gsub!(/^(\s*)"teardown" (\(.*?as\(:oneline\)\s*\)\s*\))/m) do
+        "#{$1}\"teardown\" arg #{$2},\n#{$1}\"teardown\""
+      end
+
+      str
     end
 
     def format(str, offset = OFFSET)
