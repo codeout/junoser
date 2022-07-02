@@ -223,6 +223,9 @@ module Junoser
       # Fix .xsd: "snmp system-name" should be "snmp name"
       str.gsub! '"system-name" arg', '"name" (quote | arg)'
 
+      # Fix .xsd: argument of "system license keys key" can be quoted
+      str.gsub!(/^(rule\(:license_object\) do.*?"key") arg/m) { "#{$1} (quote | arg)"}
+
       str
     end
 

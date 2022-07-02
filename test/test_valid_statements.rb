@@ -141,6 +141,9 @@ class TestValidStatements < Test::Unit::TestCase
       set security nat static rule-set static-nat rule foo match destination-address xxx/32
       set security nat source rule-set foo-nat rule foo match source-address-name bar
       set security nat source rule-set foo-nat rule foo match destination-address-name bar
+
+      set system license keys key foo
+      set system license keys key "bar baz"
     EOS
 
     config.split("\n").each do |l|
