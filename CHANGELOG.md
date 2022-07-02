@@ -1,3 +1,11 @@
+## [0.4.6] - 2022-07-02
+
+### Fixed
+
+* Accept quoted strings under "system license keys key"
+* "protocols bgp ... prefix-limit teardown"
+
+
 ## [0.4.5] - 2022-04-27
 
 ### Fixed
