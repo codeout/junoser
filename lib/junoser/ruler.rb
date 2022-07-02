@@ -226,6 +226,11 @@ module Junoser
       # Fix .xsd: argument of "system license keys key" can be quoted
       str.gsub!(/^(rule\(:license_object\) do.*?"key") arg/m) { "#{$1} (quote | arg)"}
 
+      # Fix .xsd: "prefix-limit teardown"
+      str.gsub!(/^(\s*)"teardown" (\(.*?as\(:oneline\)\s*\)\s*\))/m) do
+        "#{$1}\"teardown\" arg #{$2},\n#{$1}\"teardown\""
+      end
+
       str
     end
 
