@@ -14,7 +14,7 @@ module Junoser
     def remove_comments: (untyped str) -> untyped
     def process_line: (untyped str) -> untyped
     def process_reserved_element: (untyped str) -> untyped
-    def format: (Array[String?] str, ?String? offset) -> String?
+    def format: (Array[String?] | String str, ?String? offset) -> String?
     def rule_header: -> String
     def rule_footer: -> String
   end
