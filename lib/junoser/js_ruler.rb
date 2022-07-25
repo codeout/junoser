@@ -164,6 +164,9 @@ module Junoser
       # ieee-802.3ad  -> 802.3ad
       str.gsub! 'ieee-802.3ad', '802.3ad'
 
+      # end-range -> to
+      str.gsub! '"end-range"', '"to"'
+
       # "policy | Define a policy context from this zone" -> "from-zone | Define a policy context from this zone"
       str.gsub! 'policy | Define a policy context from this zone', 'from-zone | Define a policy context from this zone'
       # "to-zone-name | Destination zone" -> "to-zone | Destination zone"
