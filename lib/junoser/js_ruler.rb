@@ -161,7 +161,7 @@ module Junoser
     end
 
     def process_reserved_word(str)
-      # ieee-802.3ad  -> 802.3ad
+      # ieee-802.3ad -> 802.3ad
       str.gsub! 'ieee-802.3ad', '802.3ad'
 
       # end-range -> to
