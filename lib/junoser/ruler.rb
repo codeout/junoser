@@ -180,6 +180,9 @@ module Junoser
       # Fix .xsd: "icmpv6" is also acceptable
       str.gsub! '"icmp6" |', '"icmp6" | "icmpv6" |'
 
+      # Fix .xsd: "end-range" of "member-range"
+      str.gsub! '"end-range"', '"to"'
+
       #
       # Fix .xsd: "arg" is missing
       #

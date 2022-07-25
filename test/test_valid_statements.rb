@@ -154,6 +154,8 @@ class TestValidStatements < Test::Unit::TestCase
       set protocols bgp group foo family inet unicast prefix-limit teardown 80 idle-timeout
       set protocols bgp group foo family inet unicast prefix-limit teardown 80 idle-timeout 60
       set protocols bgp group foo family inet unicast prefix-limit teardown 80 idle-timeout forever
+
+      set interfaces interface-range foo member-range ge-0/0/0 to ge-0/0/2
     EOS
 
     config.split("\n").each do |l|
