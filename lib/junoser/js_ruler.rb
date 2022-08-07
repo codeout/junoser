@@ -174,6 +174,9 @@ module Junoser
       # "system-name | System name override" -> "name | System name override"
       str.gsub! 'system-name | System name override', 'name | System name override'
 
+      # "set class-of-service interfaces all unit"
+      str.gsub! '"unit(*)"', '"unit(*|arg)"'
+
       fix_route_filter(str)
 
       str
