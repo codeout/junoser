@@ -47,7 +47,7 @@ class TestValidStatements < Test::Unit::TestCase
       set forwarding-options sampling family inet output interface ms-0/0/0.0 source-address 10.0.0.1
       set forwarding-options sampling family mpls output flow-server 10.0.0.1 port 2055
       set forwarding-options sampling family mpls output flow-server 10.0.0.1 version9 template xxx
-      set forwarding-options sampling family mpls output interface ms-/0/0.0 source-address 10.0.0.1
+      set forwarding-options sampling family mpls output interface ms-0/0/0.0 source-address 10.0.0.1
 
       set chassis fpc xxx error
       set interfaces ge-0/0/0 unit 0 family bridge storm-control
