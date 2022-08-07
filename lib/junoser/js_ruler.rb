@@ -176,6 +176,8 @@ module Junoser
 
       # "set class-of-service interfaces all unit"
       str.gsub! '"unit(*)"', '"unit(*|arg)"'
+      # "classifiers xxx"
+      str.gsub! '["default"]', '["default", "arg"]'
 
       fix_route_filter(str)
 
