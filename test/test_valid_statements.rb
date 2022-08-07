@@ -56,6 +56,7 @@ class TestValidStatements < Test::Unit::TestCase
 
       set class-of-service shared-buffer
       set class-of-service interfaces all unit * classifiers exp foo
+      set class-of-service interfaces all unit 1 classifiers exp foo
       set routing-options dynamic-tunnels foo udp
 
       set protocols sflow agent-id 10.0.0.1
