@@ -16,6 +16,7 @@ module Junoser
 
     def rule
       str = @rule.read
+      str = process_lines(str)
       str = str.split(/\n/).map {|l|
         process_line(l) unless l =~ /^ *#/  # Skip additional comment lines
       }.compact.join("\n")
@@ -196,6 +197,15 @@ module Junoser
 
       # "foo": ...  /* doc */,  ->  "foo | doc": ...,
       str.gsub!(%r|^(\s*)"([^"]+)": (.*)  /\* (.*) \*/(,?)$|) {"#$1\"#$2 | #$4\": #$3#$5"}
+
+      str
+    end
+
+    def process_lines(str)
+      # "set protocols mpls path"
+      str.gsub!(/("path" arg \(.*Route of a label-switched path.*)(\s*)c\(/) do
+        "#{$1}#{$2}s(#{$2}ipaddr,"
+      end
 
       str
     end
