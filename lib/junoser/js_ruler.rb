@@ -180,6 +180,9 @@ module Junoser
       # "classifiers xxx"
       str.gsub! '["default"]', '["default", "arg"]'
 
+      # keywords "dest-nat-rule-match", "src-nat-rule-match", "static-nat-rule-match" are wrong
+      str.gsub!(/"(dest|src|static)-nat-rule-match/) { '"match' }
+
       fix_route_filter(str)
 
       str
