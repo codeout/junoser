@@ -183,6 +183,10 @@ module Junoser
       # keywords "dest-nat-rule-match", "src-nat-rule-match", "static-nat-rule-match" are wrong
       str.gsub!(/"(dest|src|static)-nat-rule-match/) { '"match' }
 
+      # faster interface speed support
+      str.gsub! '"40g", "oc3"', '"40g", "100g", "200g", "400g", "800g", "oc3"'
+      str.gsub! '"100G"', '"100G", "200G", "400G", "800G"'
+
       fix_route_filter(str)
 
       str
