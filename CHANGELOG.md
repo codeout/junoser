@@ -1,3 +1,15 @@
+## [0.4.7] - 2022-09-20
+
+### Added
+
+* Faster interface speed up to 800g
+
+### Fixed
+
+* "interfaces interface-range xxx member-range"
+* "classifiers" for QoS
+
+
 ## [0.4.6] - 2022-07-02
 
 ### Fixed
