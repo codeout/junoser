@@ -200,12 +200,11 @@ module Junoser
       # Fix .xsd: "ieee-802.3ad" is invalid
       str.gsub! '"ieee-802.3ad"', '"802.3ad"'
 
-      # Fix .xsd: "class-of-service interfaces all unit * classifiers exp foo"
-      str.gsub!(/^(\s*)sc\(\s*\("default"\)\s*\)/) do
-        format(['c(',
-                '  ("default" | arg)',
-                ')'], $1)
-      end
+      # Fix .xsd: "classifiers"
+      str.gsub! '("default")', '("default" | arg)'
+
+      # Fix .xsd: "class-of-service interfaces xxx unit x"
+      str.gsub! '"*"', 'arg'
 
       # Fix .xsd: "from-zone" arg is also required
       str.gsub!(/^(\s*)"policy" \(\s*s\(\s*arg,\s*"to-zone-name" arg,\s*c\(\s*"policy" \(\s*policy_type\s*\)\s*\)/) do
@@ -233,6 +232,10 @@ module Junoser
       str.gsub!(/^(\s*)"teardown" (\(.*?as\(:oneline\)\s*\)\s*\))/m) do
         "#{$1}\"teardown\" arg #{$2},\n#{$1}\"teardown\""
       end
+
+      # Fix .xsd: faster interface speed support
+      str.gsub! '"40g" | "oc3"', '"40g" | "100g" | "200g" | "400g" | "800g" | "oc3"'
+      str.gsub! '"100G"', '"100G" | "200G" | "400G" | "800G"'
 
       str
     end
