@@ -16,8 +16,9 @@ module Junoser
 
     def rule
       str = @rule.read
+      str = process_lines(str)
       str = str.split(/\n/).map {|l|
-        format(process_line(l)) unless l =~ /^ *#/  # Skip additional comment lines
+        process_line(l) unless l =~ /^ *#/  # Skip additional comment lines
       }.compact.join("\n")
       finalize(str)
     end
@@ -174,6 +175,14 @@ module Junoser
       # "system-name | System name override" -> "name | System name override"
       str.gsub! 'system-name | System name override', 'name | System name override'
 
+      # "set class-of-service interfaces all unit"
+      str.gsub! '"unit(*)"', '"unit(*|arg)"'
+      # "classifiers xxx"
+      str.gsub! '["default"]', '["default", "arg"]'
+
+      # keywords "dest-nat-rule-match", "src-nat-rule-match", "static-nat-rule-match" are wrong
+      str.gsub!(/"(dest|src|static)-nat-rule-match/) { '"match' }
+
       fix_route_filter(str)
 
       str
@@ -191,6 +200,15 @@ module Junoser
 
       # "foo": ...  /* doc */,  ->  "foo | doc": ...,
       str.gsub!(%r|^(\s*)"([^"]+)": (.*)  /\* (.*) \*/(,?)$|) {"#$1\"#$2 | #$4\": #$3#$5"}
+
+      str
+    end
+
+    def process_lines(str)
+      # "set protocols mpls path"
+      str.gsub!(/("path" arg \(.*Route of a label-switched path.*)(\s*)c\(/) do
+        "#{$1}#{$2}s(#{$2}ipaddr,"
+      end
 
       str
     end
