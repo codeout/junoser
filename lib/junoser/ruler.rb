@@ -234,8 +234,8 @@ module Junoser
       end
 
       # Fix .xsd: faster interface speed support
-      str.gsub! '"40g" | "oc3"', '"40g" | "100g" | "200g" | "400g" | "800g" | "oc3"'
-      str.gsub! '"100G"', '"100G" | "200G" | "400G" | "800G"'
+      str.gsub! '"400g" | "oc', '"400g" | "800g" | "oc'
+      str.gsub! '"400G"', '"400G" | "800G"'
 
       str
     end

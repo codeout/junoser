@@ -163,7 +163,6 @@ class TestValidStatements < Test::Unit::TestCase
       set interfaces et-0/0/0 speed 400g
       set interfaces et-0/0/0 speed 800g
       set chassis fpc 0 pic 0 pic-mode 100G
-      set chassis fpc 0 pic 0 pic-mode 200G
       set chassis fpc 0 pic 0 pic-mode 400G
       set chassis fpc 0 pic 0 pic-mode 800G
     EOS

@@ -2102,14 +2102,14 @@ rule(:configuration) do
                   "pki" (  /* PKI service configuration */
                     security_pki  /* PKI service configuration */
                   ),
-                  "ike" (  /* IKE configuration */
-                    security_ike  /* IKE configuration */
+                  "group-vpn" (  /* Group VPN configuration */
+                    security_group_vpn  /* Group VPN configuration */
                   ),
                   "ipsec" (  /* IPSec configuration */
                     security_ipsec_vpn  /* IPSec configuration */
                   ),
-                  "group-vpn" (  /* Group VPN configuration */
-                    security_group_vpn  /* Group VPN configuration */
+                  "ike" (  /* IKE configuration */
+                    security_ike  /* IKE configuration */
                   ),
                   "ipsec-policy" (  /* IPSec policy configuration */
                     security_ipsec_policies  /* IPSec policy configuration */
@@ -2140,9 +2140,11 @@ rule(:configuration) do
                                     ipv4addr  /* Source address to be used for sending download request */
                                   ),
                                   "proxy-profile" arg  /* Proxy profile of security package download */,
+                                  "routing-instance" arg  /* Routing instance for security-package download */,
                                   "install" (  /* Configure install command */
                                       c(
-                                          "ignore-version-check"  /* Skip version check  when attack database gets installed */
+                                          "ignore-version-check"  /* Skip version check  when attack database gets installed */,
+                                          "ignore-appid-failure"  /* Continue idp installation even if appid installation fails */
                                       )
                                   ),
                                   "automatic" (  /* Scheduled download and update */
@@ -2227,7 +2229,19 @@ rule(:configuration) do
                                           "session-steering"  /* Session steering for session anticipation */,
                                           "idp-bypass-cpu-usg-overload"  /* Enable IDP bypass of sessions/packets on CPU usage overload */,
                                           "idp-bypass-cpu-threshold" arg  /* Threshold of CPU usage in percentage for IDP bypass */,
-                                          "idp-bypass-cpu-tolerance" arg  /* Tolerance of CPU usage in percentage for IDP bypass */
+                                          "idp-bypass-cpu-tolerance" arg  /* Tolerance of CPU usage in percentage for IDP bypass */,
+                                          "idp-bypass-cpu-tolerance" arg  /* Tolerance of CPU usage in percentage for IDP bypass */,
+                                          "intel-inspect-enable"  /* Minimizes IDP processing during system overload */,
+                                          "intel-inspect-cpu-usg-threshold" arg  /* CPU usage threshold percentage for intelligent inspection */,
+                                          "intel-inspect-cpu-usg-tolerance" arg  /* CPU usage tolerance percentage for intelligent inspection */,
+                                          "intel-inspect-free-mem-threshold" arg  /* Free memory threshold percentage for intelligent inspection */,
+                                          "intel-inspect-mem-tolerance" arg  /* Memory tolerance percentage for intelligent inspection */,
+                                          "intel-inspect-disable-content-decompress"  /* Disables payload content decompression */,
+                                          "intel-inspect-session-bytes-depth" arg  /* Session bytes scanning depth */,
+                                          "intel-inspect-protocols" arg  /* Protocols to be processed in Intelligent Inspection mode */,
+                                          "intel-inspect-signature-severity" (  /* Signature severities to be considered for IDP processing */
+                                            ("minor" | "major" | "critical")
+                                          )
                                       )
                                   ),
                                   "re-assembler" (  /* Re-assembler configuration */
@@ -2274,11 +2288,16 @@ rule(:configuration) do
                                       c(
                                           "enable-packet-pool"  /* Enable packet pool */,
                                           "no-enable-packet-pool"  /* Don't enable packet pool */,
+                                          "log-xff-header"  /* Log xff header */,
                                           "enable-all-qmodules"  /* Enable all qmodules */,
                                           "no-enable-all-qmodules"  /* Don't enable all qmodules */,
                                           "policy-lookup-cache"  /* Policy lookup cache */,
                                           "no-policy-lookup-cache"  /* Don't policy lookup cache */,
-                                          "memory-limit-percent" arg  /* Memory limit percentage */
+                                          "memory-limit-percent" arg  /* Memory limit percentage */,
+                                          "disable-idp-processing"  /* Flag to disable IDP processing */,
+                                          "intelligent-offload" (  /* Intelligently offload the flow */
+                                            ("disable" | "conservative")
+                                          )
                                       )
                                   ),
                                   "detector" (  /* Detector Configuration */
@@ -2316,7 +2335,10 @@ rule(:configuration) do
                           "logical-system" (  /* Configure max IDP sessions for the logial system */
                             logical_system_type  /* Configure max IDP sessions for the logial system */
                           ),
-                          "processes"  /* Configure IDP Processes */
+                          "processes"  /* Configure IDP Processes */,
+                          "tenant-system" (  /* Configure max IDP sessions for the tenant */
+                            tenant_system_type  /* Configure max IDP sessions for the tenant */
+                          )
                       )
                   ),
                   "address-book" (  /* Security address book */
@@ -8652,7 +8674,7 @@ rule(:application_object) do
           term_object  /* Define individual application protocols */
         ),
         "application-protocol" (  /* Application protocol type */
-          ("bootp" | "dce-rpc" | "dce-rpc-portmap" | "dns" | "exec" | "ftp" | "ftp-data" | "gprs-gtp-c" | "gprs-gtp-u" | "gprs-gtp-v0" | "gprs-sctp" | "h323" | "icmp" | "icmpv6" | "ignore" | "iiop" | "ike-esp-nat" | "ip" | "login" | "mgcp-ca" | "mgcp-ua" | "ms-rpc" | "netbios" | "netshow" | "none" | "pptp" | "q931" | "ras" | "realaudio" | "rpc" | "rpc-portmap" | "rsh" | "rtsp" | "sccp" | "sip" | "shell" | "snmp" | "sqlnet" | "sqlnet-v2" | "sun-rpc" | "talk" | "tftp" | "traceroute" | "http" | "winframe" | "https" | "imap" | "smtp" | "ssh" | "telnet" | "twamp")
+          ("bootp" | "dce-rpc" | "dce-rpc-portmap" | "dns" | "exec" | "ftp" | "ftp-data" | "gprs-gtp-c" | "gprs-gtp-u" | "gprs-gtp-v0" | "gprs-sctp" | "h323" | "icmp" | "icmpv6" | "ignore" | "iiop" | "ike-esp-nat" | "ip" | "login" | "mgcp-ca" | "mgcp-ua" | "ms-rpc" | "netbios" | "netshow" | "none" | "pptp" | "q931" | "ras" | "realaudio" | "rpc" | "rpc-portmap" | "rsh" | "rtsp" | "sccp" | "sip" | "shell" | "snmp" | "sqlnet" | "sqlnet-v2" | "sun-rpc" | "talk" | "tftp" | "traceroute" | "http" | "winframe" | "https" | "imap" | "smtp" | "ssh" | "telnet" | "twamp" | "pop3" | "smtps" | "imaps" | "pop3s")
         ),
         "protocol" (  /* Match IP protocol type */
           ("icmp" | "igmp" | "ipip" | "tcp" | "egp" | "udp" | "rsvp" | "gre" | "esp" | "ah" | "icmp6" | "ospf" | "pim" | "sctp" | arg)
@@ -8664,7 +8686,9 @@ rule(:application_object) do
           ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
         ),
         "ether-type" arg  /* Match ether type */,
-        "snmp-command" arg  /* Match SNMP command */,
+        "snmp-command" (  /* Match SNMP command */
+          ("get" | "get-next" | "get-response" | "set" | "trap")
+        ),
         "icmp-type" (  /* Match ICMP message type */
           ("echo-request" | "echo-reply" | "unreachable" | "source-quench" | "redirect" | "router-advertisement" | "router-solicit" | "time-exceeded" | "parameter-problem" | "timestamp" | "timestamp-reply" | "info-request" | "info-reply" | "mask-request" | "mask-reply" | arg)
         ),
@@ -10466,7 +10490,17 @@ rule(:custom_attack_type) do
                 "count" arg  /* Number of times this attack is to be triggered */,
                 "scope" (  /* Scope within which the count occurs */
                   ("peer" | "source" | "destination")
-                )
+                ),
+                "interval" arg  /* Maximum time-gap between two instances of the attack. Format : MMm-SSs */
+            )
+        ),
+        "detection-filter" (  /* Detection filter params */
+            c(
+                "count" arg  /* Number of matches for this attack to be triggered. Must be greater than 0 */,
+                "scope" (  /* Scope within which the count occurs */
+                  ("session" | "source" | "destination")
+                ),
+                "interval" arg  /* Time period over which count is accrued. Format : MMm-SSs. Minimum value is 1 second */
             )
         ),
         "attack-type" (  /* Type of attack */
@@ -10515,6 +10549,155 @@ rule(:custom_attack_type) do
                         "context" arg  /* Context */,
                         "pattern" arg  /* Pattern is the signature of the attack you want to detect */,
                         "pattern-pcre" arg  /* Attack signature pattern in PCRE format */,
+                        "content" (  /* Mention the match-modifire parameters to enhance pattern matching */
+                            c(
+                                "pattern" arg  /* Specify match-modifier pattern */,
+                                "pcre" arg  /* PCRE expression */,
+                                "depth" (  /* Maximum depth to search pattern within a packet. Depth is not relative */
+                                    c(
+                                        "depth-value" arg  /* Specify the value of 'depth' */,
+                                        "depth-variable" arg  /* Specify the variable name from which 'depth' should be extracted */
+                                    )
+                                ),
+                                "offset" (  /* Where to start searching for a pattern within a packet. Offset value is not relative */
+                                    c(
+                                        "offset-value" arg  /* Specify the value of 'offset' */,
+                                        "offset-variable" arg  /* Specify the variable name from which 'offset' should be extracted */
+                                    )
+                                ),
+                                "within" (  /* Maximum Number of bytes present between two conjugative pattern match. within is  relative */
+                                    c(
+                                        "within-value" arg  /* Specify the value of 'within' */,
+                                        "within-variable" arg  /* Specify the variable name from which 'within' should be extracted */
+                                    )
+                                ),
+                                "distance" (  /* Maximum Length to ignore before searching next pattern match. Distance is  relative */
+                                    c(
+                                        "distance-value" arg  /* Specify the value of 'distance' */,
+                                        "distance-variable" arg  /* Specify the variable name from which 'distance' should be extracted */
+                                    )
+                                ),
+                                "byte-extract" (  /* Mention the byte-extract parameters for signature in length encoded protocols */
+                                    c(
+                                        "bytes" arg  /* Specify the number of bytes to extract from packet */,
+                                        "offset" arg  /* Specify the number of bytes in to payload to start processing */,
+                                        "var-name" arg  /* Specify the name of the variable to reference in other rule options */,
+                                        "relative"  /* Specify whether to use an offset relative to last pattern match or not */,
+                                        "multiplier" arg  /* Specify the value to be multiplied against the bytes read */,
+                                        "endianness" (  /* Specify the endianness with which bytes read should be processed */
+                                          ("Little" | "Big")
+                                        ),
+                                        "align" (  /* Specify the byte alignment */
+                                          ("2-byte" | "4-byte")
+                                        ),
+                                        "string" (  /* Specify the data type in which string data should be parsed */
+                                          ("hex" | "dec" | "oct")
+                                        ),
+                                        "bitmask" arg  /* Specify the bitmask (1-4 bytes) for AND operation in hexadecimal format */
+                                    )
+                                ),
+                                "byte-test" (  /* Mention the byte-test parameters for signature in length encoded protocols */
+                                    c(
+                                        "bytes" arg  /* Specify the number of bytes to extract from packet */,
+                                        "offset" (  /* Mention the offset variable name or offset value to be used */
+                                            c(
+                                                "offset-value" arg  /* Specify the number of bytes in to payload to start processing */,
+                                                "offset-variable" arg  /* Specify the name of the offset variable */
+                                            )
+                                        ),
+                                        "rvalue" (  /* Specify the rvalue to test the converted value against */
+                                            c(
+                                                "rvalue-value" arg  /* Specify the value */,
+                                                "rvalue-variable" arg  /* Specify the variable name */
+                                            )
+                                        ),
+                                        "relative"  /* Specify whether to use an offset relative to last pattern match or not */,
+                                        "operator" (  /* Specify the operation to perform on extracted value */
+                                          ("less-than" | "greater-than" | "less-than-or-equal" | "greater-than-or-equal" | "equal" | "bitwise-AND" | "bitwise-XOR")
+                                        ),
+                                        "negate"  /* Check if the operator is not true */,
+                                        "endianness" (  /* Specify the endianness with which bytes read should be processed */
+                                          ("Little" | "Big")
+                                        ),
+                                        "string" (  /* Specify the data type in which string data should be parsed */
+                                          ("hex" | "dec" | "oct")
+                                        ),
+                                        "bitmask" arg  /* Specify the bitmask (1-4 bytes) for AND operation in hexadecimal format */
+                                    )
+                                ),
+                                "byte-math" (  /* Mention the byte-math parameters for signature in length encoded protocols */
+                                    c(
+                                        "bytes" arg  /* Specify the number of bytes to extract from packet */,
+                                        "offset" arg  /* Specify the number of bytes in to payload to start processing */,
+                                        "rvalue" (  /* Specify the value to use mathematical operation against */
+                                            c(
+                                                "rvalue-value" arg  /* Specify the value */,
+                                                "rvalue-variable" arg  /* Specify the variable name */
+                                            )
+                                        ),
+                                        "relative"  /* Specify whether to use an offset relative to last pattern match or not */,
+                                        "operator" (  /* Specify the operation to perform on extracted value */
+                                          ("addition" | "subtraction" | "multiplication" | "division" | "right-shift" | "left-shift")
+                                        ),
+                                        "endianness" (  /* Specify the endianness with which bytes read should be processed */
+                                          ("Little" | "Big")
+                                        ),
+                                        "string" (  /* Specify the data type in which string data should be parsed */
+                                          ("hex" | "dec" | "oct")
+                                        ),
+                                        "bitmask" arg  /* Specify the bitmask (1-4 bytes) for AND operation in hexadecimal format */,
+                                        "result" arg  /* Specify the variable name to which result should be stored */
+                                    )
+                                ),
+                                "byte-jump" (  /* Mention the byte-jump parameters for signature in length encoded protocols */
+                                    c(
+                                        "bytes" arg  /* Specify the number of bytes to extract from packet */,
+                                        "offset" (  /* Mention the offset variable name or offset value to be used */
+                                            c(
+                                                "offset-value" arg  /* Specify the number of bytes in to payload to start processing */,
+                                                "offset-variable" arg  /* Specify the name of the offset variable */
+                                            )
+                                        ),
+                                        "relative"  /* Specify whether to use an offset relative to last pattern match or not */,
+                                        "multiplier" arg  /* Specify the value to be multiplied against the bytes read */,
+                                        "endianness" (  /* Specify the endianness with which bytes read should be processed */
+                                          ("Little" | "Big")
+                                        ),
+                                        "align" (  /* Specify the endianness with which bytes read should be processed */
+                                          ("4-byte")
+                                        ),
+                                        "string" (  /* Specify the data type in which string data should be parsed */
+                                          ("hex" | "dec" | "oct")
+                                        ),
+                                        "bitmask" arg  /* Specify the bitmask (1-4 bytes) for AND operation in hexadecimal format */,
+                                        "from-beginning"  /* Enable jump from the beginning of the payload */,
+                                        "from-end"  /* Enable jump from the end of the payload */,
+                                        "post-offset" arg  /* Specify the number of bytes to skip forward or backward */
+                                    )
+                                ),
+                                "is-data-at" (  /* Mention the is-data-at parameters for signature in length encoded protocols */
+                                    c(
+                                        "offset" (  /* Mention the offset variable name or offset value to be used */
+                                            c(
+                                                "offset-value" arg  /* Specify the number of bytes in to payload to start processing */,
+                                                "offset-variable" arg  /* Specify the name of the offset variable */
+                                            )
+                                        ),
+                                        "relative"  /* Specify whether to use an offset relative to last pattern match or not */,
+                                        "negate"  /* Negates the results of the isdataat test */
+                                    )
+                                )
+                            )
+                        ),
+                        "optional-parameters" (  /* Mention the optional parameters to enhance pattern matching */
+                            c(
+                                "min-offset" arg  /* Minimum offset in data at which pattern-match can end */,
+                                "max-offset" arg  /* Maximum offset in data at which pattern-match can end */,
+                                "min-length" arg  /* Minimum match length required to match the pattern */,
+                                "edit-distance" arg  /* Match the pattern within this edit distance */,
+                                "hamming-distance" arg  /* Match the pattern within this hamming distance */
+                            )
+                        ),
                         "regexp" arg  /* Regular expression used for matching repetition of patterns */,
                         "negate"  /* Trigger the attack if condition is not met */,
                         "direction" (  /* Connection direction of the attack */
@@ -12030,6 +12213,13 @@ rule(:dynamic_attack_group_type) do
                         "values" arg  /* Values for vulnariability-type field */
                     )
                 ),
+                "excluded"  /* Excluded Attacks */,
+                "no-excluded"  /* Don't excluded Attacks */,
+                "attack-prefix" (  /* Prefix match for attack names */
+                    c(
+                        "values" arg  /* Values for attack name prefix match */
+                    )
+                ),
                 "cvss-score" ("greater-than" | "less-than") (  /* CVSS score of Attack  */
                     c(
                         "value" arg  /* Match value */
@@ -13211,8 +13401,12 @@ rule(:idp_policy_type) do
                                   "source-except" (  /* Don't match source address */
                                     (arg)
                                   ),
-                                  "source-prefix"  /* Match source address */,
-                                  "source-prefix-except"  /* Don't match source address */
+                                  "source-prefix" (  /* Match source address */
+                                    ipv4prefix  /* Match source address */
+                                  ),
+                                  "source-prefix-except" (  /* Don't match source address */
+                                    ipv4prefix  /* Don't match source address */
+                                  )
                                 ),
                                 "to-zone" (  /* Match to zone */
                                   ("any" | arg)
@@ -13224,8 +13418,12 @@ rule(:idp_policy_type) do
                                   "destination-except" (  /* Don't match destination address */
                                     (arg)
                                   ),
-                                  "destination-prefix"  /* Match destination address */,
-                                  "destination-prefix-except"  /* Don't match destination address */
+                                  "destination-prefix" (  /* Match destination address */
+                                    ipv4prefix  /* Match destination address */
+                                  ),
+                                  "destination-prefix-except" (  /* Don't match destination address */
+                                    ipv4prefix  /* Don't match destination address */
+                                  )
                                 ),
                                 "application" (  /* Specify application or application-set name to match */
                                   ("any" | "default" | arg)
@@ -13302,6 +13500,16 @@ rule(:idp_policy_type) do
                                 ),
                                 "severity" (  /* Set rule severity level */
                                   ("info" | "warning" | "minor" | "major" | "critical")
+                                ),
+                                "application-services" (  /* Enable application services for this rule */
+                                    c(
+                                        "security-intelligence" (  /* Generate security intellegence feeds */
+                                            c(
+                                                "add-attacker-ip-to-feed" arg  /* Specify the desired feed-name */,
+                                                "add-target-ip-to-feed" arg  /* Specify the desired feed-name */
+                                            )
+                                        )
+                                    )
                                 )
                             )
                         ),
@@ -13327,8 +13535,12 @@ rule(:idp_policy_type) do
                                   "source-except" (  /* Don't match source address */
                                     (arg)
                                   ),
-                                  "source-prefix"  /* Match source address */,
-                                  "source-prefix-except"  /* Don't match source address */
+                                  "source-prefix" (  /* Match source address */
+                                    ipv4prefix  /* Match source address */
+                                  ),
+                                  "source-prefix-except" (  /* Don't match source address */
+                                    ipv4prefix  /* Don't match source address */
+                                  )
                                 ),
                                 "to-zone" (  /* Match to zone */
                                   ("any" | arg)
@@ -13340,8 +13552,12 @@ rule(:idp_policy_type) do
                                   "destination-except" (  /* Don't match destination address */
                                     (arg)
                                   ),
-                                  "destination-prefix"  /* Match destination address */,
-                                  "destination-prefix-except"  /* Don't match destination address */
+                                  "destination-prefix" (  /* Match destination address */
+                                    ipv4prefix  /* Match destination address */
+                                  ),
+                                  "destination-prefix-except" (  /* Don't match destination address */
+                                    ipv4prefix  /* Don't match destination address */
+                                  )
                                 ),
                                 "attacks" (  /* Match attack objects */
                                     c(
@@ -55982,6 +56198,11 @@ rule(:nat_object) do
         "pool" (  /* Define a NAT pool */
           nat_pool_object  /* Define a NAT pool */
         ),
+        "ipv6-multicast-interfaces" ("all" | "interface-name") (  /* Enable IPv6 multicast filter for IPv6 NAT */
+            c(
+                "disable"  /* Disable IPv6 multicast filter for IPv6 NAT */
+            )
+        ),
         "ipv6-multicast-interfaces"  /* Enable IPv6 multicast filter for IPv6 NAT */,
         "allow-overlapping-nat-pools"  /* Allow usage of overlapping and same nat pools in multiple service sets */,
         "rule" (  /* Define a NAT rule */
@@ -55990,16 +56211,31 @@ rule(:nat_object) do
         "port-forwarding" (  /* Define a port-forwarding pool */
           pf_mapping  /* Define a port-forwarding pool */
         ),
-        "rule-set"  /* Defines a set of NAT rules */
+        "rule-set" arg (  /* Defines a set of NAT rules */
+            c(
+                "rule" arg  /* Rule to be included in this rule set */
+            )
+        )
     )
 end
 
 rule(:nat_pool_object) do
   arg.as(:arg) (
     c(
-        "pgcp"  /* NAT pool should be used exclusive by the pgcp service */,
+        "pgcp" (  /* NAT pool should be used exclusive by the pgcp service */
+            c(
+                "remotely-controlled"  /* Remotely controlled NAT pool allocation */,
+                "ports-per-session" arg  /* Number of ports to allocate in each call setup */,
+                "hint" arg  /* NAT hints */,
+                  ("tcp" | "udp" | "rtp-avp")
+            )
+        ),
         "address" arg  /* Address or address prefix for NAT */,
-        "interface"  /* Interface for nat pool */.as(:oneline),
+        "interface" (  /* Interface for nat pool */
+            sc(
+                  interface_unit
+            )
+        ).as(:oneline),
         "address-overload"  /* Nat pool address overload with JunOS */,
         "address-range" (  /* Range of addresses for NAT */
             s(
@@ -60449,10 +60685,22 @@ rule(:security_authentication_key_chains) do
                           time  /* Start time for key transmission (YYYY-MM-DD.HH:MM) */
                         ),
                         "algorithm" (  /* Authentication algorithm */
-                          ("md5" | "hmac-sha-1")
+                          ("md5" | "hmac-sha-1" | "ao")
                         ),
                         "options" (  /* Protocol's transmission encoding format */
                           ("basic" | "isis-enhanced")
+                        ),
+                        "ao-attribute" (  /* TCP Authentication option attributes */
+                            c(
+                                "send-id" arg  /* Send id for TCP-AO entry */,
+                                "recv-id" arg  /* Recv id for TCP-AO entry */,
+                                "tcp-ao-option" (  /* Include TCP-AO option within message header */
+                                  ("enabled" | "disabled")
+                                ),
+                                "cryptographic-algorithm" (  /* Cryptographic algorithm for TCP-AO Traffic key and MAC digest generation */
+                                  ("hmac-sha-1-96" | "aes-128-cmac-96")
+                                )
+                            )
                         )
                     )
                 )
@@ -61071,6 +61319,7 @@ rule(:security_ike) do
                           "probe-idle-tunnel"  /* Send probes same as in optimized mode and also when there is no outgoing & incoming data traffic */,
                           "always-send"  /* Send probes periodically regardless of incoming and outgoing data traffic  */
                         ),
+                        "always-send"  /* Send DPD messages periodically, regardless of traffic */,
                         "interval" arg  /* The time between DPD probe messages  Default :10 */,
                         "threshold" arg  /* Maximum number of DPD retransmissions Default :5 */
                     )
@@ -61319,6 +61568,21 @@ rule(:security_ipsec_vpn) do
         ),
         "security-association" (  /* Define a manual control plane SA  */
           ipsec_sa  /* Define a manual control plane SA  */
+        ),
+        "internal" (  /* Define an IPSec SA for internal RE-RE communication */
+            c(
+                "security-association" (  /* Define an IPSec security association */
+                  ipsec_internal_sa  /* Define an IPSec security association */
+                )
+            )
+        ),
+        "trusted-channel" (  /* Define an IPSec SA for trusted-channel communication */
+            c(
+                "security-association" (  /* Define an IPSec security association */
+                  ipsec_trusted_channel_sa  /* Define an IPSec security association */
+                ),
+                "port-exclusion-list" arg  /* Define port exlusion list */
+            )
         )
     )
 end
@@ -61603,20 +61867,50 @@ rule(:security_macsec) do
         ),
         "connectivity-association" arg (  /* Configure connectivity association properties */
             c(
-                "cipher-suite" arg  /* Cipher suite to be used for encryption */,
+                "cipher-suite" (  /* Cipher suite to be used for encryption */
+                  ("gcm-aes-128" | "gcm-aes-256" | "gcm-aes-xpn-128" | "gcm-aes-xpn-256")
+                ),
                 "security-mode" (  /* Connectivity association mode */
                   ("dynamic" | "static-sak" | "static-cak")
                 ),
-                "secure-channel"  /* Configure secure channel properties */,
+                "sak-hash-128"  /* Configure to generate 128bit SAK hash to program HW */,
+                "secure-channel" arg (  /* Configure secure channel properties */
+                    c(
+                        "id" (  /* Secure channel identifier */
+                            c(
+                                "mac-address" (  /* MAC addresses */
+                                  mac_addr  /* MAC addresses */
+                                ),
+                                "port-id" arg  /* Port identifier */
+                            )
+                        ),
+                        "direction" (  /* Secure channel direction */
+                          ("inbound" | "outbound")
+                        ),
+                        "encryption"  /* Enable Encryption */,
+                        "offset" (  /* Confidentiality offset */
+                          ("0" | "30" | "50")
+                        ),
+                        "include-sci"  /* Include secure channel identifier in MAC Security PDU */,
+                        "security-association" arg (  /* Security association */
+                            c(
+                                "key" arg  /* Security association key in hexadecimal format of length 32 */
+                            )
+                        )
+                    )
+                ),
                 "mka" (  /* Configure MAC Security Key Agreement protocol properties */
                     c(
                         "transmit-interval" arg  /* Configure MKA periodic transmit interval */,
+                        "sak-rekey-interval" arg  /* Configure SAK rekeying interval */,
                         "bounded-delay"  /* Configure Bounded Hello Time */,
+                        "suspend-on-request"  /* Configure on key-server to accept suspend-on-request during gres or issu */,
+                        "suspend-for"  /* Configure to suspend MKA during gres or issu */,
                         "key-server-priority" arg  /* Configure MKA key server priority */,
                         "must-secure"  /* Allow only secure dot1x traffic */,
                         "should-secure"  /* Configure fail open mode for MKA protocol */,
                         "eapol-address" (  /* Configure EAPOL destination group address */
-                          ("pae" | "provider-bridge" | "lldp-multicast")
+                          ("pae" | "provider-bridge" | "lldp-multicast" | arg)
                         )
                     )
                 ),
@@ -61626,6 +61920,7 @@ rule(:security_macsec) do
                     )
                 ),
                 "no-encryption"  /* Disable encryption */,
+                "disable-preceding-key"  /* Disable CA preceding key duing key switch-over */,
                 "offset" (  /* Confidentiality offset */
                   ("0" | "30" | "50")
                 ),
@@ -61633,14 +61928,35 @@ rule(:security_macsec) do
                 "pre-shared-key" (  /* Configure pre-shared connectivity association key */
                     c(
                         "ckn" arg  /* Connectivity association key name in hexadecimal format */,
-                        "cak" arg  /* Connectivity association key in hexadecimal format (max_length = 64) */
+                        "cak" arg  /* Connectivity association key in hexadecimal format */
+                    )
+                ),
+                "fallback-key" (  /* Configure fallback key for connectivity association */
+                    c(
+                        "ckn" arg  /* Connectivity association fallback key name in hexadecimal format */,
+                        "cak" arg  /* Connectivity association fallback key secret in hexadecimal format */
                     )
                 ),
                 "pre-shared-key-chain" arg  /* Pre-shared key chain name for connectivity association */,
                 "exclude-protocol" enum(("cdp" | "lldp" | "lacp"))  /* Configure protocols to exclude from MAC Security */.as(:oneline)
             )
         ),
-        "interfaces"  /* Interfaces on which macsec configuration is applied */,
+        "interfaces" arg (  /* Interfaces on which macsec configuration is applied */
+            c(
+                "unit" arg (  /* Logical interface */
+                    c(
+                        "connectivity-association" arg  /* Connectivity association name */,
+                        "traceoptions" (  /* Tracing options of MKA protocol */
+                          mka_trace_options  /* Tracing options of MKA protocol */
+                        )
+                    )
+                ),
+                "connectivity-association" arg  /* Connectivity association name */,
+                "traceoptions" (  /* Tracing options of MKA protocol */
+                  mka_trace_options  /* Tracing options of MKA protocol */
+                )
+            )
+        ),
         "cluster-control-port" arg (  /* Cluster control port on which macsec configuration is applied */
             c(
                 "connectivity-association" arg  /* Connectivity association name */,
@@ -61803,6 +62119,25 @@ rule(:security_pki) do
                 "ca-profiles" arg  /* Name of the CA profiles (maximum 20) */
             )
         ),
+        "trap" (  /* Trap options for PKI certificates */
+            c(
+                "certificate-id" arg (  /* Local certificate identifier */
+                    c(
+                          arg
+                    )
+                ),
+                "ca-identity" arg (  /* CA identity */
+                    c(
+                          arg
+                    )
+                ),
+                "all-certificates" (  /* Trap config for all certificates */
+                    c(
+                          arg
+                    )
+                )
+            )
+        ),
         "auto-re-enrollment" (  /* Auto re-enroll of certificate */
             c(
                 "cmpv2" (  /* CMPv2 auto re-enrollment configuration */
@@ -61912,8 +62247,16 @@ rule(:security_traceoptions) do
             )
         ).as(:oneline),
         "rate-limit" arg  /* Limit the incoming rate of trace messages */,
-        "filter"  /* Filter parameters for IKE traceoptions */,
-        "flag" enum(("timer" | "routing-socket" | "parse" | "config" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "thread" | "high-availability" | "next-hop-tunnels" | "all"))  /* Tracing parameters for IKE */.as(:oneline)
+        "filter" (  /* Filter parameters for IKE traceoptions */
+            c(
+                "fpc" arg  /* FPC slot number */,
+                "pic" arg  /* PIC slot number */
+            )
+        ),
+        "flag" enum(("timer" | "routing-socket" | "parse" | "config" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "thread" | "high-availability" | "next-hop-tunnels" | "all" | "ams" | "lic"))  /* Tracing parameters */.as(:oneline),
+        "level" (  /* Level of debugging output */
+          ("error" | "warning" | "notice" | "info" | "verbose" | "all")
+        )
     )
 end
 
@@ -65982,3 +66325,10 @@ rule(:zone_system_services_object_type) do
   )
 end
 
+rule(:tenant_system_type) do
+  arg.as(:arg) (
+    c(
+        "max-sessions" arg  /* Max number of IDP sessions */
+    )
+  )
+end
