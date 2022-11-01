@@ -1,3 +1,10 @@
+## [0.5.0] - 2022-11-02
+
+### Added
+
+* Recreate parser based on MX 21.2R3-S2.9 xsd
+
+
 ## [0.4.7] - 2022-09-20
 
 ### Added
