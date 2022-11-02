@@ -243,6 +243,11 @@ module Junoser
         "#{$1}).as(:oneline)#{$2}sc(#{$3}.as(:oneline)"
       end
 
+      # Fix .xsd: support "set protocols iccp peer xxx liveness-detection single-hop"
+      str.gsub!(/(^rule\(:peer_group\) do.*?\n(\s*)"detection-time" \(\s*c\(\s*"threshold" arg\s*\)\s*\))/m) do
+        "#{$1},\n#{format('"single-hop"', $2)}"
+      end
+
       str
     end
 
