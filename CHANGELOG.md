@@ -1,3 +1,15 @@
+## [0.5.1] - 2022-11-xx
+
+### Added
+
+* Support "protocols iccp peer xxx liveness-detection single-hop"
+
+### Fixed
+
+* Support one-line form of "poe interface xxx" and "poe fpc xxx"
+* "interfaces xxx ether-options speed"
+
+
 ## [0.5.0] - 2022-11-02
 
 ### Added
