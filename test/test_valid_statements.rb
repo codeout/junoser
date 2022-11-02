@@ -165,6 +165,11 @@ class TestValidStatements < Test::Unit::TestCase
       set chassis fpc 0 pic 0 pic-mode 100G
       set chassis fpc 0 pic 0 pic-mode 400G
       set chassis fpc 0 pic 0 pic-mode 800G
+
+      set poe interface ge-0/0/0 priority high telemetries duration 24
+      set poe interface ge-0/0/1
+      set poe interface ge-0/0/5 maximum-power 18.6
+      set poe interface ge-5/0/7 disable
     EOS
 
     config.split("\n").each do |l|

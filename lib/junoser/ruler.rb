@@ -237,6 +237,12 @@ module Junoser
       str.gsub! '"400g" | "oc', '"400g" | "800g" | "oc'
       str.gsub! '"400G"', '"400G" | "800G"'
 
+      # Fix .xsd: "poe"
+      str.gsub!(/^(\s*"interface" \("all" \| "all-extended" \| arg\) \(\s*)c\(/) { "#{$1}sc("}
+      str.gsub!(/^(\s*)\)(,\s*"fpc" enum\(\("all" \| "fpc-slot-number"\)\) \(\s*)c\((.*"lldp-priority"\s*\)\s*\))/m) do
+        "#{$1}).as(:oneline)#{$2}sc(#{$3}.as(:oneline)"
+      end
+
       str
     end
 
