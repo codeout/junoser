@@ -248,6 +248,9 @@ module Junoser
         "#{$1},\n#{format('"single-hop"', $2)}"
       end
 
+      # Fix .xsd: support "set interfaces xxx ether-options speed"
+      str.gsub! '"ethernet-1', '"1'
+
       str
     end
 
