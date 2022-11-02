@@ -138,7 +138,7 @@ module Junoser
       str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#{$1}"snmp"] }
       str.gsub!(/"ospf"(.*\s*.*)"ospf3"/) { %["ospf3"#{$1}"ospf"] }
       str.gsub! '"tls1" | "tls11" | "tls12"', '"tls11" | "tls12" | "tls1"'
-      str.gsub!(/("group1" \| "group2" \| "group5") \| ([^)]+)/) { "#{$2} | #{$1}"}
+      str.gsub!(/("group1" \| "group2" \| "group5") \| ([^)]+)/) { "#{$2} | #{$1}" }
 
       %w[ccc ethernet-over-atm tcc vpls bridge].each do |encap|
         str.gsub!(/"ethernet"(.*)"ethernet-#{encap}"/) { %["ethernet-#{encap}"#{$1}"ethernet"] }
@@ -226,7 +226,7 @@ module Junoser
       str.gsub! '"system-name" arg', '"name" (quote | arg)'
 
       # Fix .xsd: argument of "system license keys key" can be quoted
-      str.gsub!(/^(rule\(:license_object\) do.*?"key") arg/m) { "#{$1} (quote | arg)"}
+      str.gsub!(/^(rule\(:license_object\) do.*?"key") arg/m) { "#{$1} (quote | arg)" }
 
       # Fix .xsd: "prefix-limit teardown"
       str.gsub!(/^(\s*)"teardown" (\(.*?as\(:oneline\)\s*\)\s*\))/m) do
@@ -238,7 +238,7 @@ module Junoser
       str.gsub! '"400G"', '"400G" | "800G"'
 
       # Fix .xsd: "poe"
-      str.gsub!(/^(\s*"interface" \("all" \| "all-extended" \| arg\) \(\s*)c\(/) { "#{$1}sc("}
+      str.gsub!(/^(\s*"interface" \("all" \| "all-extended" \| arg\) \(\s*)c\(/) { "#{$1}sc(" }
       str.gsub!(/^(\s*)\)(,\s*"fpc" enum\(\("all" \| "fpc-slot-number"\)\) \(\s*)c\((.*"lldp-priority"\s*\)\s*\))/m) do
         "#{$1}).as(:oneline)#{$2}sc(#{$3}.as(:oneline)"
       end
