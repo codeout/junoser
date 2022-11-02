@@ -172,6 +172,9 @@ class TestValidStatements < Test::Unit::TestCase
       set poe interface ge-5/0/7 disable
 
       set protocols iccp peer 10.9.8.54 liveness-detection single-hop
+
+      set interfaces ge-0/0/0 ether-options speed auto-negotiation
+      set interfaces ge-0/0/0 ether-options speed 100m
     EOS
 
     config.split("\n").each do |l|
