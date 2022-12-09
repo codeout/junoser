@@ -1,4 +1,11 @@
-## [0.5.1] - 2022-11-xx
+## [0.5.2] - 2022-12-10
+
+### Fixed
+
+* "system services ssh root-login deny-password"
+
+
+## [0.5.1] - 2022-11-02
 
 ### Added
 
