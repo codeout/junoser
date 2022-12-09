@@ -175,6 +175,8 @@ class TestValidStatements < Test::Unit::TestCase
 
       set interfaces ge-0/0/0 ether-options speed auto-negotiation
       set interfaces ge-0/0/0 ether-options speed 100m
+
+      set system services ssh root-login deny-password
     EOS
 
     config.split("\n").each do |l|
