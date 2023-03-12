@@ -2,7 +2,7 @@
 
 ### Fixed
 
-* "system services ssh root-login deny-password"
+* "system services ssh root-login deny-password" was unexpectedly marked as invalid
 
 
 ## [0.5.1] - 2022-11-02
@@ -14,7 +14,7 @@
 ### Fixed
 
 * Support one-line form of "poe interface xxx" and "poe fpc xxx"
-* "interfaces xxx ether-options speed"
+* "interfaces xxx ether-options speed" was unexpectedly marked as invalid
 
 
 ## [0.5.0] - 2022-11-02
