@@ -26,13 +26,13 @@ module Junoser
     private
 
     def process_line(str)
-      remove_undefined_variables(str)
-      process_common_syntax(str)
-      process_argument_syntax(str)
-      process_structural_syntax(str)
-      process_word(str)
-      process_reserved_word(str)
-      process_comment(str)
+      str = remove_undefined_variables(str)
+      str = process_common_syntax(str)
+      str = process_argument_syntax(str)
+      str = process_structural_syntax(str)
+      str = process_word(str)
+      str = process_reserved_word(str)
+      str = process_comment(str)
 
       str
     end
