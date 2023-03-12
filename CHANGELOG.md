@@ -9,11 +9,12 @@
 
 ### Added
 
-* Support "protocols iccp peer xxx liveness-detection single-hop"
+* Newly supported syntax
+  * "protocols iccp peer xxx liveness-detection single-hop"
+  * "poe" based on EX 18.1R3-S6.1
 
 ### Fixed
 
-* Support one-line form of "poe interface xxx" and "poe fpc xxx"
 * "interfaces xxx ether-options speed" was unexpectedly marked as invalid
 
 
