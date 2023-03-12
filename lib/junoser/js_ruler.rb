@@ -187,6 +187,9 @@ module Junoser
       str.gsub! '"40g", "oc3"', '"40g", "100g", "200g", "400g", "800g", "oc3"'
       str.gsub! '"100G"', '"100G", "200G", "400G", "800G"'
 
+      # support "set interfaces xxx ether-options speed"
+      str.gsub! '"ethernet-1', '"1'
+
       fix_route_filter(str)
 
       str
