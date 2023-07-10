@@ -1,3 +1,12 @@
+## [0.5.3] - 2023-07-10
+
+### Added
+
+* Newly supported syntax
+  * "chassis cluster" (by porting the hierarchy from vSRX 18.3R1.9)
+  * "security log stream xxx transport"
+
+
 ## [0.5.2] - 2022-12-10
 
 ### Fixed
