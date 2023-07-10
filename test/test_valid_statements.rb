@@ -179,6 +179,10 @@ class TestValidStatements < Test::Unit::TestCase
       set system services ssh root-login deny-password
 
       set forwarding-options dhcp-relay server-group DHCP_SERVER 192.168.0.1
+
+      set chassis cluster reth-count 2
+      set chassis cluster redundancy-group 1 node 0 priority 100
+      set chassis cluster redundancy-group 1 node 1 priority 50
     EOS
 
     config.split("\n").each do |l|
