@@ -211,12 +211,12 @@ module Junoser
     end
 
     def process_lines(str)
-      # "set protocols mpls path"
+      # set protocols mpls path
       str.gsub!(/("path" arg \(.*Route of a label-switched path.*)(\s*)c\(/) do
         "#{$1}#{$2}s(#{$2}ipaddr,"
       end
 
-      # support "set protocols iccp peer xxx liveness-detection single-hop"
+      # set protocols iccp peer xxx liveness-detection single-hop
       str.gsub!(/(^rule\(:peer_group\) do.*?\n(\s*)"detection-time" \(.*?c\(\s*"threshold" arg .*?\)\s*\))/m) do
         "#{$1},\n#{format('"single-hop"', $2)}"
       end
