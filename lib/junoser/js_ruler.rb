@@ -221,6 +221,11 @@ module Junoser
         "#{$1},\n#{format('"single-hop"', $2)}"
       end
 
+      # set forwarding-options dhcp-relay server-group
+      str.gsub!(/^(rule\(:(?:v6_)?server_group_type\) do)\n(.*?)\nend/m) do
+        "#{$1}\n  arg.as(:arg) (\n#{$2}\n  )\nend"
+      end
+
       str
     end
 

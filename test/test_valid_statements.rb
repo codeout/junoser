@@ -177,6 +177,8 @@ class TestValidStatements < Test::Unit::TestCase
       set interfaces ge-0/0/0 ether-options speed 100m
 
       set system services ssh root-login deny-password
+
+      set forwarding-options dhcp-relay server-group DHCP_SERVER 192.168.0.1
     EOS
 
     config.split("\n").each do |l|
