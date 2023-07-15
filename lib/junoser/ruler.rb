@@ -138,6 +138,7 @@ module Junoser
       str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#{$1}"snmp"] }
       str.gsub!(/"ospf"(.*\s*.*)"ospf3"/) { %["ospf3"#{$1}"ospf"] }
       str.gsub!(/"deny"(.*\s*.*)"deny-password"/) { %["deny-password"#{$1}"deny"] }
+      str.gsub!(/"no-redirects"(.*\s*.*)"no-redirects-ipv6"/) { %["no-redirects-ipv6"#{$1}"no-redirects"] }
       str.gsub! '"tls1" | "tls11" | "tls12"', '"tls11" | "tls12" | "tls1"'
       str.gsub!(/("group1" \| "group2" \| "group5") \| ([^)]+)/) { "#{$2} | #{$1}" }
 

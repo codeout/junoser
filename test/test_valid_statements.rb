@@ -186,6 +186,8 @@ class TestValidStatements < Test::Unit::TestCase
       set security log stream SYSLOG_SERVER transport protocol tcp
 
       set policy-options policy-statement foo from policy (! bar)
+      set system no-redirects
+      set system no-redirects-ipv6
     EOS
 
     config.split("\n").each do |l|
