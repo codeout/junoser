@@ -252,6 +252,9 @@ module Junoser
       # Fix .xsd: support "set interfaces xxx ether-options speed"
       str.gsub! '"ethernet-1', '"1'
 
+      # Fix .xsd: support "set policy-options policy-statement xxx from policy [expression]"
+      str.gsub!(/^rule\(:policy_algebra\) do(\s*)arg\.as\(:arg\)\send/) { "rule(:policy_algebra) do#{$1}any.as(:arg)\nend" }
+
       str
     end
 
