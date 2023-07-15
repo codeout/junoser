@@ -188,6 +188,7 @@ class TestValidStatements < Test::Unit::TestCase
       set policy-options policy-statement foo from policy (! bar)
       set system no-redirects
       set system no-redirects-ipv6
+      set chassis dump-on-panic
     EOS
 
     config.split("\n").each do |l|
