@@ -189,6 +189,7 @@ class TestValidStatements < Test::Unit::TestCase
       set system no-redirects
       set system no-redirects-ipv6
       set chassis dump-on-panic
+      set snmp trap-group foo categories chassis-cluster
     EOS
 
     config.split("\n").each do |l|
