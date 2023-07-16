@@ -190,6 +190,7 @@ class TestValidStatements < Test::Unit::TestCase
       set system no-redirects-ipv6
       set chassis dump-on-panic
       set snmp trap-group foo categories chassis-cluster
+      set class-of-service schedulers foo drop-profile-map loss-priority low protocol any drop-profile bar
     EOS
 
     config.split("\n").each do |l|

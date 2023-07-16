@@ -96,6 +96,19 @@ module Junoser
                 'prefix_list_items'], $1)
       end
 
+      str.gsub!(/^(\s*)"drop-profile-map" \(\s*s\(\s*"loss-priority" \(\s*(.*\s*\),)\s*"protocol" \(\s*(.*\s*\),)\s*c\(\s*"drop-profile" (.*)/) do
+        format([
+                 '"drop-profile-map" (',
+                 '  s(',
+                 '    s("loss-priority",',
+                 "      #{$2}",
+                 '    s("protocol",',
+                 "      #{$3}",
+                 '    s("drop-profile",',
+                 "      #{$4}"
+               ], $1)
+      end
+
       #
       # "arg" matches anything so move to the end
       #
