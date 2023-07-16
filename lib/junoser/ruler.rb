@@ -96,6 +96,19 @@ module Junoser
                 'prefix_list_items'], $1)
       end
 
+      str.gsub!(/^(\s*)"drop-profile-map" \(\s*s\(\s*"loss-priority" \(\s*(.*\s*\),)\s*"protocol" \(\s*(.*\s*\),)\s*c\(\s*"drop-profile" (.*)/) do
+        format([
+                 '"drop-profile-map" (',
+                 '  s(',
+                 '    s("loss-priority",',
+                 "      #{$2}",
+                 '    s("protocol",',
+                 "      #{$3}",
+                 '    s("drop-profile",',
+                 "      #{$4}"
+               ], $1)
+      end
+
       #
       # "arg" matches anything so move to the end
       #
@@ -138,6 +151,8 @@ module Junoser
       str.gsub!(/"snmp"(.*\s*.*)"snmptrap"/) { %["snmptrap"#{$1}"snmp"] }
       str.gsub!(/"ospf"(.*\s*.*)"ospf3"/) { %["ospf3"#{$1}"ospf"] }
       str.gsub!(/"deny"(.*\s*.*)"deny-password"/) { %["deny-password"#{$1}"deny"] }
+      str.gsub!(/"no-redirects"(.*\s*.*)"no-redirects-ipv6"/) { %["no-redirects-ipv6"#{$1}"no-redirects"] }
+      str.gsub!(/"chassis"([^()]*)"chassis-ha-reswatch"/m) { %["chassis-ha-reswatch"#{$1}"chassis"] }
       str.gsub! '"tls1" | "tls11" | "tls12"', '"tls11" | "tls12" | "tls1"'
       str.gsub!(/("group1" \| "group2" \| "group5") \| ([^)]+)/) { "#{$2} | #{$1}" }
 
@@ -251,6 +266,9 @@ module Junoser
 
       # Fix .xsd: support "set interfaces xxx ether-options speed"
       str.gsub! '"ethernet-1', '"1'
+
+      # Fix .xsd: support "set policy-options policy-statement xxx from policy [expression]"
+      str.gsub!(/^rule\(:policy_algebra\) do(\s*)arg\.as\(:arg\)\send/) { "rule(:policy_algebra) do#{$1}any.as(:arg)\nend" }
 
       str
     end

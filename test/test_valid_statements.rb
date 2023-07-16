@@ -184,6 +184,13 @@ class TestValidStatements < Test::Unit::TestCase
       set chassis cluster redundancy-group 1 node 0 priority 100
       set chassis cluster redundancy-group 1 node 1 priority 50
       set security log stream SYSLOG_SERVER transport protocol tcp
+
+      set policy-options policy-statement foo from policy (! bar)
+      set system no-redirects
+      set system no-redirects-ipv6
+      set chassis dump-on-panic
+      set snmp trap-group foo categories chassis-cluster
+      set class-of-service schedulers foo drop-profile-map loss-priority low protocol any drop-profile bar
     EOS
 
     config.split("\n").each do |l|
