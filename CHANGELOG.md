@@ -1,3 +1,18 @@
+## [0.5.4] - 2023-07-15
+
+### Added
+
+* Newly supported syntax
+  * "chassis dump-on-panic"
+
+### Fixed
+
+* "policy-options policy-statement xxx from policy" didn't accept `[ ... ]` or `( ... )` expressions
+* "system no-redirects-ipv6" was unexpectedly marked as invalid
+* "snmp trap-group xxx categories chassis-cluster" was unexpectedly marked as invalid
+* error when parsing "class-of-service schedulers foo drop-profile-map ..."
+
+
 ## [0.5.3] - 2023-07-10
 
 ### Added
