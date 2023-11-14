@@ -1,3 +1,10 @@
+## [0.5.5] - 2023-11-14
+
+### Fixed
+
+* junoser-squash unexpectedly removed non-idential lines
+
+
 ## [0.5.4] - 2023-07-15
 
 ### Added
