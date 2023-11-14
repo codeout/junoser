@@ -29,12 +29,12 @@ module Junoser
       end
 
       @lines.uniq!
-      remove_subcommand(@lines).map(&:strip).join("\n")
+      remove_command_context(@lines).map(&:strip).join("\n")
     end
 
     private
 
-    def remove_subcommand(lines)
+    def remove_command_context(lines)
       lines.each_with_index do |l, i|
         lines[i..-1].each do |l2|
           if l.include?(l2) and l != l2
