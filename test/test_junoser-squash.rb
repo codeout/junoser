@@ -18,6 +18,16 @@ set interfaces em100 unit 0 family inet
 set interfaces em100 unit 0 family inet address 192.0.2.1/32', Junoser::Squash.new(config).transform)
   end
 
+  test 'check argument order' do
+    config = <<-EOS
+set protocols bgp group foo neighbor 10.0.0.10
+set protocols bgp group foo neighbor 10.0.0.1
+    EOS
+
+    assert_equal('set protocols bgp group foo neighbor 10.0.0.10
+set protocols bgp group foo neighbor 10.0.0.1', Junoser::Squash.new(config).transform)
+  end
+
   test 'check delete function' do
     config = <<-EOS
 set interfaces em0 unit 0 family inet address 192.0.2.0/32

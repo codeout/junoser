@@ -37,8 +37,10 @@ module Junoser
     def remove_command_context(lines)
       lines.each_with_index do |l, i|
         lines[i..-1].each do |l2|
-          if l.include?(l2) and l != l2
-            lines.delete(l2)
+          if l2[-1] == " "  # l2 is a command context
+            lines.delete(l2) if l.include?(l2) and l != l2
+          else  # l2 has argument
+            lines.delete(l2) if l.include?("#{l2} ")
           end
         end
       end
