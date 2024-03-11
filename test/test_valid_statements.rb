@@ -191,6 +191,8 @@ class TestValidStatements < Test::Unit::TestCase
       set chassis dump-on-panic
       set snmp trap-group foo categories chassis-cluster
       set class-of-service schedulers foo drop-profile-map loss-priority low protocol any drop-profile bar
+
+      set firewall family inet filter protect-router term prevent-syn-attacks from tcp-flags "(syn & !ack) | fin | rst"
     EOS
 
     config.split("\n").each do |l|

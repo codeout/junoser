@@ -56,6 +56,7 @@ module Junoser
       str.gsub! '"message" arg', '"message" (quote | arg)'
       str.gsub! '"description" arg', '"description" (quote | arg)'
       str.gsub! '"as-path-prepend" arg', '"as-path-prepend" (quote | arg)'
+      str.gsub! '"tcp-flags" arg', '"tcp-flags" (quote | arg)'
 
       str.gsub!(/^(\s*)"as-path" arg \(\s*c\(\s*arg/) do
         format(['"as-path" arg (',
