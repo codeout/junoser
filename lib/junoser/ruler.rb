@@ -246,8 +246,8 @@ module Junoser
       str.gsub!(/^(rule\(:license_object\) do.*?"key") arg/m) { "#{$1} (quote | arg)" }
 
       # Fix .xsd: "prefix-limit teardown"
-      str.gsub!(/^(\s*)"teardown" (\(.*?as\(:oneline\)\s*\)\s*\))/m) do
-        "#{$1}\"teardown\" arg #{$2},\n#{$1}\"teardown\""
+      str.gsub!(/^((\s*)"maximum" arg,)\s*"teardown" (\(.*?as\(:oneline\)\s*\)\s*\))/m) do
+        "#{$1}\n#{$2}\"teardown\" arg #{$3},\n#{$2}\"teardown\""
       end
 
       # Fix .xsd: faster interface speed support
