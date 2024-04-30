@@ -13,6 +13,7 @@ module Junoser
 
       content = remove_blank_and_comment_line(content)
       content = unify_carriage_return(content)
+      content = unify_square_brackets(content)
     end
 
 
@@ -29,6 +30,26 @@ module Junoser
     def unify_carriage_return(str)
       str.gsub! /\r\n?/, "\n"
       str
+    end
+
+    # Statements or [ ... ] may be split into multiple lines. This method unifies them into one line.
+    def unify_square_brackets(str)
+      lines = []
+
+      open_brackets = 0
+      str.split("\n").each do |line|
+        raise "ERROR: invalid statement: #{line}" if open_brackets < 0
+
+        if open_brackets == 0
+          lines << line
+        else
+          lines.last << " " << line
+        end
+
+        open_brackets += line.count('[') - line.count(']')
+      end
+
+      lines.join("\n")
     end
   end
 end
