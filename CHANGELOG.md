@@ -1,3 +1,12 @@
+## [0.5.6] - 2024-05-01
+
+### Fixed
+
+* "teardown" may appear outside of "prefix-limit" block
+* "tcp-flags" should accept a quoted string as an argument
+* Structured config with square brackets ( `[ ... ]` ) should be parsed even when it's split into multiple lines
+
+
 ## [0.5.5] - 2023-11-14
 
 ### Fixed
