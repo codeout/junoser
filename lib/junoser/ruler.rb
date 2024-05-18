@@ -271,6 +271,11 @@ module Junoser
       # Fix .xsd: support "set policy-options policy-statement xxx from policy [expression]"
       str.gsub!(/^rule\(:policy_algebra\) do(\s*)arg\.as\(:arg\)\send/) { "rule(:policy_algebra) do#{$1}any.as(:arg)\nend" }
 
+      # Fix .xsd: support "set interfaces xxx enable"
+      str.gsub!(/^(rule\(:interfaces_type\) do\s*[^\n]*\s*c\()(\s*)/m) do
+        %[#{$1}#{$2}"enable",#{$2}]
+      end
+
       str
     end
 

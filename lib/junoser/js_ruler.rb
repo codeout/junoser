@@ -226,6 +226,11 @@ module Junoser
         "#{$1}\n  arg.as(:arg) (\n#{$2}\n  )\nend"
       end
 
+      # set interfaces xxx enable
+      str.gsub!(/^(rule\(:interfaces_type\) do\s*[^\n]*\s*c\()(\s*)/m) do
+        %[#{$1}#{$2}"enable",#{$2}]
+      end
+
       str
     end
 
