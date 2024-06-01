@@ -7,13 +7,13 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    mini_portile2 (2.8.6)
+    mini_portile2 (2.8.7)
     nokogiri (1.16.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     parslet (2.0.0)
     power_assert (2.0.3)
-    racc (1.7.3)
+    racc (1.8.0)
     rake (13.2.1)
     test-unit (3.6.2)
       power_assert
@@ -29,4 +29,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   2.4.1
+   2.5.9

@@ -195,6 +195,7 @@ class TestValidStatements < Test::Unit::TestCase
       set firewall family inet filter protect-router term prevent-syn-attacks from tcp-flags "(syn & !ack) | fin | rst"
 
       set interfaces ge-0/0/0 enable
+      set interfaces ge-0/0/0 unit 0 enable
     EOS
 
     config.split("\n").each do |l|
