@@ -66,6 +66,18 @@ task 'find-srx-methods' do
   end
 end
 
+namespace :rule do
+  desc 'Show rule tree'
+  task :tree, [:path] do |_, args|
+    if args.path
+      raise "File not found: #{args.path}" unless File.exist?(args.path)
+      Junoser::RuleTree::Parser.new(File.read(args.path)).print
+    else
+      Junoser::RuleTree::Parser.new($stdin.read).print
+    end
+  end
+end
+
 Rake::TestTask.new do |t|
   t.libs << 'test'
 

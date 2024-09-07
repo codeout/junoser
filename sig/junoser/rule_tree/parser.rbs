@@ -1,0 +1,21 @@
+module Junoser
+  module RuleTree
+    class Parser
+      @_content: String
+      @content: String
+      @path: String
+      @nodes: Hash[String, Node]
+      @root: Node?
+
+      def initialize: (String content) -> void
+
+      def parse: -> void
+
+      private
+
+      def content: -> String
+      def validate_uniq: (Array[String] rules)-> void
+      def validate_used: (Array[String], Array[String])-> untyped
+    end
+  end
+end
