@@ -7,10 +7,12 @@ module Junoser
     @rule: untyped
 
     def initialize: (untyped input) -> void
+
     def to_rule: -> String
     def rule: -> untyped
 
     private
+
     def remove_comments: (untyped str) -> untyped
     def process_line: (untyped str) -> untyped
     def process_reserved_element: (untyped str) -> untyped
