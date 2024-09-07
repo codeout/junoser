@@ -285,6 +285,8 @@ module Junoser
         str.empty? ? '' : offset + str
       when Array
         str.map { |s| s.empty? ? '' : offset + s.to_s }.join("\n")
+      else
+        ''
       end
     end
 

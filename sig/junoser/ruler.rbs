@@ -4,19 +4,19 @@
 module Junoser
   class Ruler
     OFFSET: String
-    @rule: untyped
+    @rule: String
 
-    def initialize: (untyped input) -> void
+    def initialize: (String input) -> void
 
     def to_rule: -> String
-    def rule: -> untyped
+    def rule: -> String
 
     private
 
-    def remove_comments: (untyped str) -> untyped
-    def process_line: (untyped str) -> untyped
-    def process_reserved_element: (untyped str) -> untyped
-    def format: (Array[String?] | String str, ?String? offset) -> String?
+    def remove_comments: (String str) -> String
+    def process_line: (String str) -> String
+    def process_reserved_element: (String str) -> String
+    def format: (Array[String?] | String str, ?String? offset) -> String
     def rule_header: -> String
     def rule_footer: -> String
   end
