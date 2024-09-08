@@ -224,10 +224,8 @@ module Junoser
       str.gsub! '"*"', 'arg'
 
       # Fix .xsd: "from-zone" arg is also required
-      str.gsub!(/^(\s*)"policy" \(\s*s\(\s*arg,\s*"to-zone-name" arg,\s*c\(\s*"policy" \(\s*policy_type\s*\)\s*\)/) do
-        format(['b(s("from-zone", arg, "to-zone", arg),',
-                '    b("policy", policy_type',
-               ], $1)
+      str.gsub!(/^        "policy" \(\s*s\(\s*arg,\s*"to-zone-name" arg,\s*(.*?)\s*\)\s*^        \),/m) do
+        format(['b(', '  s("from-zone", arg, "to-zone", arg),', "      #$1", '),'], '        ')
       end
 
       # Fix .xsd: "members" accepts [ foo bar ]
