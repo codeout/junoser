@@ -1,0 +1,17 @@
+module Junoser
+  module RuleTree
+    class Node
+      INDENT: String
+      @children: Array[Node]
+      @name: String
+
+      attr_reader children: Array[Node]
+      attr_reader name: String
+
+      def initialize: (String name) -> void
+
+      def <<: (Node child) -> void
+      def print: (Numeric level) -> void
+    end
+  end
+end

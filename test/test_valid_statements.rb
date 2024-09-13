@@ -196,6 +196,11 @@ class TestValidStatements < Test::Unit::TestCase
 
       set interfaces ge-0/0/0 enable
       set interfaces ge-0/0/0 unit 0 enable
+
+      set security address-book global address MY_ADDRESS 10.20.30.40/32
+      set security nat source pool SNAT_POOL address-name MY_ADDRESS
+      set groups mygroup security address-book global address MY_ADDRESS 10.20.30.40/32
+      set groups mygroup security nat source pool SNAT_POOL address-name MY_ADDRESS
     EOS
 
     config.split("\n").each do |l|

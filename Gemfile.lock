@@ -8,12 +8,12 @@ GEM
   remote: https://rubygems.org/
   specs:
     mini_portile2 (2.8.7)
-    nokogiri (1.16.5)
+    nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     parslet (2.0.0)
     power_assert (2.0.3)
-    racc (1.8.0)
+    racc (1.8.1)
     rake (13.2.1)
     test-unit (3.6.2)
       power_assert

@@ -20,7 +20,7 @@ def open_files(input, output, &block)
 end
 
 def move_wildcards(element)
-  ['ipaddr', 'ipv6addr', 'ipprefix'].each do |pattern|
+  %w[ipaddr ipv6addr ipprefix].each do |pattern|
     element.xpath(%[.//xsd:element[@type="#{pattern}"]/xsd:annotation/xsd:appinfo/flag[text()="nokeyword"]/../../..]).each do |wildcard|
       parent = wildcard.parent
       removed = wildcard.remove
@@ -60,9 +60,21 @@ task 'find-srx-methods' do
   vmx = File.read('lib/junoser/parser.rb')
 
   vsrx.scan(/^ +([0-9a-z_]+) *$/).flatten.uniq.sort.each do |method|
-    next if ['arg', 'end', 'ipaddr', 'time'].include?(method)
+    next if %w[arg end ipaddr time].include?(method)
 
     puts method unless vsrx =~ /rule\(:#{method}\)/m || vmx =~ /rule\(:#{method}\)/m
+  end
+end
+
+namespace :rule do
+  desc 'Show rule tree'
+  task :tree, [:path] do |_, args|
+    if args.path
+      raise "File not found: #{args.path}" unless File.exist?(args.path)
+      Junoser::RuleTree::Parser.new(File.read(args.path)).print
+    else
+      Junoser::RuleTree::Parser.new($stdin.read).print
+    end
   end
 end
 
