@@ -1,3 +1,17 @@
+## [0.6.0] - 2024-09-15
+
+### Added
+
+* Update vSRX syntax to 22.4R1.10
+  * "security"
+  * "chassis cluster"
+* Newly supported syntax
+  * "interfaces xxx enable"
+  * "interfaces xxx unit xxx enable"
+* Rake task
+  * `rule:tree` to show the dependency tree of rules
+
+
 ## [0.5.6] - 2024-05-01
 
 ### Fixed
