@@ -202,6 +202,15 @@ class TestValidStatements < Test::Unit::TestCase
       set groups mygroup security address-book global address MY_ADDRESS 10.20.30.40/32
       set groups mygroup security nat source pool SNAT_POOL address-name MY_ADDRESS
 
+      set groups foo when chassis lcc0
+      set groups foo when member member0
+      set groups foo when model mx240
+      set groups foo when node node0
+      set groups foo when peers bar
+      set groups foo when routing-engine re0
+      set groups foo when time 2024-01-01
+      set groups foo when time to 2024-01-01
+
       set snmp stats-cache-lifetime 20
     EOS
 
