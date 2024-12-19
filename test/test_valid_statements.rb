@@ -201,6 +201,8 @@ class TestValidStatements < Test::Unit::TestCase
       set security nat source pool SNAT_POOL address-name MY_ADDRESS
       set groups mygroup security address-book global address MY_ADDRESS 10.20.30.40/32
       set groups mygroup security nat source pool SNAT_POOL address-name MY_ADDRESS
+
+      set snmp stats-cache-lifetime 20
     EOS
 
     config.split("\n").each do |l|
