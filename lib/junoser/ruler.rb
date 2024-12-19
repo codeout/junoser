@@ -43,7 +43,29 @@ module Junoser
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
 
-      str.gsub! /"groups" \(\s*s\(\s*any\s*\)\s*\)/, 'a("groups", arg, configuration)'
+      str.gsub! /"groups" \(\s*s\(\s*any\s*\)\s*\)/, <<-EOS.strip
+          b(a("groups", arg),
+            c(
+              configuration,
+              "when" (
+                c(
+                  "chassis" arg,
+                  "member" arg,
+                  "model" arg,
+                  "node" arg,
+                  "peers" arg,
+                  "routing-engine" arg,
+                  "time" (
+                    c(
+                      "to" arg,
+                      arg
+                    )
+                  )
+                )
+              )
+            )
+          )
+      EOS
 
       str.gsub! '"equal-literal"', '"="'
       str.gsub! '"plus-literal"', '"+"'
