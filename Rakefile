@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'pathname'
 require 'rake/testtask'
 
-xsd_path = File.join(__dir__, 'tmp/junos-system-21.2.xsd')
+xsd_path = File.join(__dir__, 'tmp/junos-system-22.4.xsd')
 rule_path = File.join(__dir__, 'tmp/rule.rb')
 ruby_parser_path = File.join(__dir__, 'lib/junoser/parser.rb')
 js_parser_path = File.join(__dir__, 'tmp/junos.js')
