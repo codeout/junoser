@@ -25,6 +25,30 @@ module Junoser
 
     private
 
+    def process_lines(str)
+      # set protocols mpls path
+      str.gsub!(/("path" arg \(.*Route of a label-switched path.*)(\s*)c\(/) do
+        "#{$1}#{$2}s(#{$2}ipaddr,"
+      end
+
+      # set protocols iccp peer xxx liveness-detection single-hop
+      str.gsub!(/(^rule\(:peer_group\) do.*?\n(\s*)"detection-time" \(.*?c\(\s*"threshold" arg .*?\)\s*\))/m) do
+        "#{$1},\n#{format('"single-hop"', $2)}"
+      end
+
+      # set forwarding-options dhcp-relay server-group
+      str.gsub!(/^(rule\(:(?:v6_)?server_group_type\) do)\n(.*?)\nend/m) do
+        "#{$1}\n  arg.as(:arg) (\n#{$2}\n  )\nend"
+      end
+
+      # set interfaces xxx enable
+      str.gsub!(/^(rule\(:interfaces_type\) do\s*[^\n]*\s*c\()(\s*)/m) do
+        %[#{$1}#{$2}"enable",#{$2}]
+      end
+
+      str
+    end
+
     def process_line(str)
       str = remove_undefined_variables(str)
       str = process_common_syntax(str)
@@ -206,30 +230,6 @@ module Junoser
 
       # "foo": ...  /* doc */,  ->  "foo | doc": ...,
       str.gsub!(%r|^(\s*)"([^"]+)": (.*)  /\* (.*) \*/(,?)$|) { "#$1\"#$2 | #$4\": #$3#$5" }
-
-      str
-    end
-
-    def process_lines(str)
-      # set protocols mpls path
-      str.gsub!(/("path" arg \(.*Route of a label-switched path.*)(\s*)c\(/) do
-        "#{$1}#{$2}s(#{$2}ipaddr,"
-      end
-
-      # set protocols iccp peer xxx liveness-detection single-hop
-      str.gsub!(/(^rule\(:peer_group\) do.*?\n(\s*)"detection-time" \(.*?c\(\s*"threshold" arg .*?\)\s*\))/m) do
-        "#{$1},\n#{format('"single-hop"', $2)}"
-      end
-
-      # set forwarding-options dhcp-relay server-group
-      str.gsub!(/^(rule\(:(?:v6_)?server_group_type\) do)\n(.*?)\nend/m) do
-        "#{$1}\n  arg.as(:arg) (\n#{$2}\n  )\nend"
-      end
-
-      # set interfaces xxx enable
-      str.gsub!(/^(rule\(:interfaces_type\) do\s*[^\n]*\s*c\()(\s*)/m) do
-        %[#{$1}#{$2}"enable",#{$2}]
-      end
 
       str
     end
