@@ -1,3 +1,13 @@
+## [0.7.0] - 2024-12-19
+
+### Added
+
+* Recreate parser based on MX 22.4R3-S2.11 xsd
+* Newly supported syntax
+  * "groups xxx when"
+  * "snmp stats-cache-lifetime xxx"
+
+
 ## [0.6.0] - 2024-09-15
 
 ### Added
