@@ -91,8 +91,8 @@ module Junoser
     end
 
     def process_common_syntax(str)
-      # rule(:foo) do  ->  foo(...args) {
-      str.gsub!(/^rule\(:(\S+)\) do/) { "#$1(...args) { return_next_line" }
+      # rule(:foo) do  ->  foo(opts) {
+      str.gsub!(/^rule\(:(\S+)\) do/) { "#$1(opts) { return_next_line" }
       # end  ->  }
       str.gsub!(/^(\s*)end$/) { "#$1}" }
 
@@ -167,12 +167,12 @@ module Junoser
     end
 
     def process_structural_syntax(str)
-      # "foo" (  /* doc */  ->  "foo | doc": (...args) => {
+      # "foo" (  /* doc */  ->  "foo | doc": (opts) => {
       str.gsub!(%r|^(\s*)"(\S+)" \(  /\* (.*) \*/|) { "#$1\"#$2 | #$3\": {" }
-      # "foo" (  ->  "foo": (...args) => {
+      # "foo" (  ->  "foo": (opts) => {
       str.gsub!(%r|^(\s*)"(\S+)" \($|) { "#$1\"#$2\": {" }
 
-      # "foo" arg (  /* doc */  ->  "foo | doc": (...args) => {
+      # "foo" arg (  /* doc */  ->  "foo | doc": (opts) => {
       str.gsub!(%r|^(\s*)"(\S+)" arg \(  /\* (.*) \*/|) { "#$1\"#$2 | #$3\": {" }
 
       str
