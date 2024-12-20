@@ -29,17 +29,20 @@ module Junoser
       # set groups
       str.gsub! /"groups" \(.*\s*s\(\s*any\s*\)\s*\)/, <<-EOS.strip
           "groups" arg (  /* Configuration groups */
-            "when" (  /* Specify additional conditions for groups */
-              c(
-                "chassis" arg  /* Chassis id */,
-                "member" arg  /* Member of virtual chassis */,
-                "model" arg  /* Model name */,
-                "node" arg  /* Node of cluster */,
-                "peers" arg  /* Hosts on which this group should be effective */,
-                "routing-engine" arg  /* Routing Engine */,
-                "time" (  /* Time at which group should be effective */
-                  "to" arg  /* End time([yyyy-mm-dd.]hh:mm) */,
-                  arg
+            c(
+              this.configuration({ groups: false }),
+              "when" (  /* Specify additional conditions for groups */
+                c(
+                  "chassis" arg  /* Chassis id */,
+                  "member" arg  /* Member of virtual chassis */,
+                  "model" arg  /* Model name */,
+                  "node" arg  /* Node of cluster */,
+                  "peers" arg  /* Hosts on which this group should be effective */,
+                  "routing-engine" arg  /* Routing Engine */,
+                  "time" (  /* Time at which group should be effective */
+                    "to" arg  /* End time([yyyy-mm-dd.]hh:mm) */,
+                    arg
+                  )
                 )
               )
             )
@@ -286,6 +289,8 @@ module Junoser
 
       # "arg"  ->  "arg_1"
       lines.gsub('"arg":') { %["arg_#{sequence}":] }
+
+      conditional_groups(lines)
     end
 
     # }  ->  )
@@ -347,6 +352,17 @@ module Junoser
       lines.gsub!(/^( *)\)(,?)$/m) { "#$1})#$2" }
 
       lines
+    end
+
+    def conditional_groups(lines)
+      # "null_13264": this.configuration(false),
+      # ->
+      # (opts === undefined || opts?.configuration !== false) && { "null_13264": this.configuration(false) },
+      #
+      # ref: process_lines()
+      lines.gsub(/("groups\(arg\) \| .*":) {/) {
+        "#{$1} opts?.groups !== false && {"
+      }
     end
 
     def rule_header
