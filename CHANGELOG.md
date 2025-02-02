@@ -1,3 +1,11 @@
+## [0.7.1] - 2025-02-03
+
+### Added
+
+* Newly supported syntax for vSRX
+  * "system services web-management http"
+
+
 ## [0.7.0] - 2024-12-19
 
 ### Added
