@@ -12,7 +12,7 @@ GEM
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     parslet (2.0.0)
-    power_assert (2.0.4)
+    power_assert (2.0.5)
     racc (1.8.1)
     rake (13.2.1)
     test-unit (3.6.7)
@@ -29,4 +29,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   2.5.16
+   2.6.2
