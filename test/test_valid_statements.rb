@@ -212,6 +212,9 @@ class TestValidStatements < Test::Unit::TestCase
       set groups foo when time to 2024-01-01
 
       set snmp stats-cache-lifetime 20
+
+      set system services web-management http interface fxp0.0
+      set system services web-management http port 8080
     EOS
 
     config.split("\n").each do |l|
