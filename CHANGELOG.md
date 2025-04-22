@@ -1,3 +1,15 @@
+## [0.7.2] - 2025-04-22
+
+### Fixed
+
+* A Nokogiri's [security vulnerability](https://github.com/codeout/junoser/security/dependabot/19)
+* The argument of commands below should be a regular expression
+  * "system login class foo allow-commands-regexps"
+  * "system login class foo deny-commands-regexps"
+  * "system login class foo allow-configuration-regexps"
+  * "system login class foo deny-configuration-regexps"
+
+
 ## [0.7.1] - 2025-02-03
 
 ### Added
