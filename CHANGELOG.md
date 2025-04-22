@@ -1,3 +1,12 @@
+## [0.7.2] - 2025-04-22
+
+### Fixed
+
+* upgrade nokorigi
+* The argument of commands below should be a regular expression
+  * 
+
+
 ## [0.7.1] - 2025-02-03
 
 ### Added

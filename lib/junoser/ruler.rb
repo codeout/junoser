@@ -296,6 +296,9 @@ module Junoser
         %[#{$1}#{$2}"enable",#{$2}]
       end
 
+      # Fix .xsd: arg should be regular_expression
+      str.gsub!(/^(\s*"(allow|deny)-(commands|configuration)-regexps") arg/) { "#{$1} regular_expression" }
+
       str
     end
 
