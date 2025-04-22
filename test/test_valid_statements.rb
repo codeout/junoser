@@ -215,6 +215,11 @@ class TestValidStatements < Test::Unit::TestCase
 
       set system services web-management http interface fxp0.0
       set system services web-management http port 8080
+
+      set system login class foo allow-commands-regexps "xxx xxx"
+      set system login class foo deny-commands-regexps "xxx xxx"
+      set system login class foo allow-configuration-regexps "xxx xxx"
+      set system login class foo deny-configuration-regexps "xxx xxx"
     EOS
 
     config.split("\n").each do |l|
