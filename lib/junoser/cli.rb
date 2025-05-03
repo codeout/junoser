@@ -36,7 +36,9 @@ module Junoser
           config
         end
       end
-
+      def compare(io_or_string)
+        Junoser::Display::Compare.new(io_or_string).diff
+      end
 
       private
 

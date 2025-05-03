@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'pathname'
+
+$: << File.expand_path('../../lib', Pathname.new(__FILE__).realpath)
+require 'junoser'
+
+
+command = :compare
+opts = OptionParser.new do |opts|
+  opts.banner = 'junoser-compare: output difference between two configs'
+  opts.define_head 'Usage: junoser-compare [path] [path]'
+
+  opts.on_tail '-h', '--help', 'Show this message' do
+    puts opts
+    exit
+  end
+end
+opts.parse!
+case command
+  when :compare
+    puts Junoser::Cli.compare($<)
+  else
+    puts opts
+    abort
+end
