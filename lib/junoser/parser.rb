@@ -23779,6 +23779,162 @@ module Junoser
                     str("use-actual-mac-on-physical-interfaces"),
                     str("use-active-child-mac-on-reth")
                 )
+            ),
+            b(str("high-availability"),
+                c(
+                    str("hardware-upgrade"),
+                    b(str("local-id"),
+                        sc(
+                              arg,
+                            b(str("local-ip"),
+                              ipaddr
+                            )
+                        )
+                    ).as(:oneline),
+                    b(a(str("peer-id"), arg),
+                        c(
+                            a(str("desc"), arg),
+                            b(str("peer-ip"),
+                              ipaddr
+                            ),
+                            b(str("interface"),
+                              interface_name
+                            ),
+                            a(str("routing-instance"), arg),
+                            a(str("vpn-profile"), arg),
+                            b(str("liveness-detection"),
+                                c(
+                                    b(str("version"),
+                                      (str("0") | str("1") | str("automatic"))
+                                    ),
+                                    a(str("minimum-interval"), arg),
+                                    a(str("minimum-transmit-interval"), arg),
+                                    a(str("minimum-receive-interval"), arg),
+                                    a(str("multiplier"), arg),
+                                    c(
+                                      str("no-adaptation")
+                                    ),
+                                    b(str("transmit-interval"),
+                                        c(
+                                            a(str("minimum-interval"), arg),
+                                            a(str("threshold"), arg)
+                                        )
+                                    ),
+                                    b(str("detection-time"),
+                                        c(
+                                            a(str("threshold"), arg)
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    b(str("traceoptions"),
+                        c(
+                            str("no-remote-trace"),
+                            b(str("file"),
+                                sc(
+                                      arg,
+                                    a(str("size"), arg),
+                                    a(str("files"), arg),
+                                    str("world-readable"),
+                                    str("no-world-readable"),
+                                    b(str("match"),
+                                      regular_expression
+                                    )
+                                )
+                            ).as(:oneline),
+                            a(str("flag"), enum(str("cli") | str("configuration") | str("eventlib") | str("fsm") | str("heartbeat") | str("interface") | str("routing-socket") | str("uspipc") | str("init") | str("socket") | str("snmp") | str("ip-monitoring") | str("hw-monitoring") | str("fabric-monitoring") | str("health-monitoring") | str("schedule-monitoring") | str("heartbeat-tlv") | str("ha-peer") | str("srg") | str("all"))).as(:oneline),
+                            b(str("level"),
+                              (str("emergency") | str("alert") | str("critical") | str("error") | str("warning") | str("notice") | str("info") | str("debug") | str("all"))
+                            )
+                        )
+                    ),
+                    b(a(str("services-redundancy-group"), arg),
+                        c(
+                            a(str("shutdown-on-failure"), arg),
+                            b(str("deployment-type"),
+                              (str("cloud") | str("hybrid") | str("routing") | str("switching"))
+                            ),
+                            b(str("peer-id"),
+                                c(
+                                      arg
+                                )
+                            ),
+                            b(str("activeness-probe"),
+                                c(
+                                    b(str("dest-ip"),
+                                        c(
+                                            b(str("src-ip"),
+                                              ipaddr
+                                            ),
+                                            a(str("routing-instance"), arg),
+                                              ipaddr
+                                        )
+                                    ),
+                                    a(str("minimum-interval"), arg),
+                                    a(str("multiplier"), arg)
+                                )
+                            ),
+                            b(a(str("virtual-ip"), arg),
+                                c(
+                                    b(str("ip"),
+                                      ipprefix_mandatory
+                                    ),
+                                    b(str("interface"),
+                                      interface_name
+                                    ),
+                                    str("use-virtual-mac")
+                                )
+                            ),
+                            b(str("monitor"),
+                                c(
+                                    b(a(str("ip"), arg),
+                                        c(
+                                            a(str("routing-instance"), arg)
+                                        )
+                                    ),
+                                    b(a(str("bfd-liveliness"), arg),
+                                        c(
+                                            b(str("src-ip"),
+                                              ipv4addr
+                                            ),
+                                            a(str("routing-instance"), arg),
+                                            b(str("session-type"),
+                                              (str("singlehop") | str("multihop"))
+                                            ),
+                                            b(str("interface"),
+                                              interface_name
+                                            )
+                                        )
+                                    ),
+                                    a(str("interface"), arg)
+                                )
+                            ),
+                            b(str("active-signal-route"),
+                                c(
+                                      ipv4addr,
+                                    a(str("routing-instance"), arg)
+                                )
+                            ),
+                            b(str("backup-signal-route"),
+                                c(
+                                      ipv4addr,
+                                    a(str("routing-instance"), arg)
+                                )
+                            ),
+                            b(a(str("prefix-list"), arg),
+                                c(
+                                    a(str("routing-instance"), arg)
+                                )
+                            ),
+                            a(str("managed-services"), enum(str("ipsec"))).as(:oneline),
+                            str("preemption"),
+                            str("process-packet-on-backup"),
+                            a(str("activeness-priority"), arg)
+                        )
+                    )
+                )
             )
             # End of vSRX 22.4R1.10
         )
