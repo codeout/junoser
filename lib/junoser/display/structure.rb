@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/input'
 require 'junoser/display/config_store'
 require 'junoser/parser'
@@ -27,21 +29,19 @@ module Junoser
           end
 
           if line =~ /^deactivate *(.*)/
-            deactivated_lines << "#$1 #{apply_groups}".strip
+            deactivated_lines << "#{::Regexp.last_match(1)} #{apply_groups}".strip
             next
           end
 
           transformed = transform.apply(parser.parse(line))
           raise "ERROR: Failed to parse \"#{line}\"" unless transformed.is_a?(String)
 
-          if apply_groups
-            transformed << "\n#{apply_groups}"
-          end
+          transformed << "\n#{apply_groups}" if apply_groups
 
           @config << transformed
         end
 
-        deactivated_lines.each {|l| @config.deactivate l }
+        deactivated_lines.each { |l| @config.deactivate l }
 
         @config.to_s
       end
@@ -49,8 +49,8 @@ module Junoser
       private
 
       def trim_apply_groups(line)
-        line.gsub! /\s+(apply-groups(-except)?\s+.*)/, ''
-        return $1
+        line.gsub!(/\s+(apply-groups(-except)?\s+.*)/, '')
+        ::Regexp.last_match(1)
       end
     end
   end

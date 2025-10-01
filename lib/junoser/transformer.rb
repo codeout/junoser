@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'parslet'
 
 module Junoser
@@ -24,7 +26,7 @@ module Junoser
 
     rule(label: simple(:label), child: sequence(:children)) do
       Junoser::Transformer.remove_slash_asterisk children
-      %[#{label}\n#{children.join("\n")}]
+      %(#{label}\n#{children.join("\n")})
     end
 
     rule(statement: simple(:statement), argument: simple(:argument)) do
@@ -33,7 +35,7 @@ module Junoser
 
     rule(statement: simple(:statement), argument: sequence(:arguments)) do
       Junoser::Transformer.remove_slash_asterisk arguments
-      %[#{statement}\n#{arguments.join("\n")}]
+      %(#{statement}\n#{arguments.join("\n")})
     end
 
     rule(oneline: simple(:str)) do
@@ -52,15 +54,14 @@ module Junoser
       strs.join(' ')
     end
 
-
     def self.remove_slash_asterisk(array)
       open = array.index("arg(/*)\n")
-      close = array.index("arg(*/)")
+      close = array.index('arg(*/)')
 
-      if open && close
-        (open..close).reverse_each do |i|
-          array.delete_at i
-        end
+      return unless open && close
+
+      (open..close).reverse_each do |i|
+        array.delete_at i
       end
     end
   end

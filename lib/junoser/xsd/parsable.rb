@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/xsd/complex_type'
 require 'junoser/xsd/element'
 require 'nokogiri'

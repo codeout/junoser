@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/display/config_store'
 
 module Junoser
@@ -20,10 +22,10 @@ module Junoser
         value.in_then = true if key == 'then'
         value.in_group = true if key =~ /^group /
 
-        if in_from && ['next-header', 'port', 'protocol'].include?(key) ||
-            in_then && key == 'origin' ||
-            in_group && key == 'type'
-          str << Junoser::Display::ConfigStore::OFFSET * @depth << "#{key} #{value.to_enum};\n"
+        if (in_from && %w[next-header port protocol].include?(key)) ||
+           (in_then && key == 'origin') ||
+           (in_group && key == 'type')
+          str << (Junoser::Display::ConfigStore::OFFSET * @depth) << "#{key} #{value.to_enum};\n"
         else
           super
         end

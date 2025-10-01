@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'English'
 require 'optparse'
 require 'pathname'
 
-$: << File.expand_path('../../lib', Pathname.new(__FILE__).realpath)
+$LOAD_PATH << File.expand_path('../../lib', Pathname.new(__FILE__).realpath)
 require 'junoser/squash'
 
 command = :squash
@@ -17,9 +20,9 @@ opts = OptionParser.new do |opts|
 end
 opts.parse!
 case command
-  when :squash
-    puts Junoser::Squash.new($<).transform
-  else
-    puts opts
-    abort
+when :squash
+  puts Junoser::Squash.new($DEFAULT_INPUT).transform
+else
+  puts opts
+  abort
 end

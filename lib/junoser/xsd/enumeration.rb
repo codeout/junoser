@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/xsd/base'
 
 module Junoser
@@ -5,29 +7,28 @@ module Junoser
     class Enumeration
       include Base
 
-      def initialize(xml, options={})
+      def initialize(xml, options = {})
         super
       end
 
       def config
-        raise "ERROR: unknown Enumeration format" if children.size > 1
+        raise 'ERROR: unknown Enumeration format' if children.size > 1
 
-        has_match? ? ['arg'] : [%["#{xml['value']}"]]
+        has_match? ? ['arg'] : [%("#{xml['value']}")]
       end
 
       def to_s
         if nokeyword?
-          format(OFFSET + 'arg')
+          fmt("#{OFFSET}arg")
         else
-          format(OFFSET + config.first)
+          fmt(OFFSET + config.first)
         end
       end
 
-
       private
 
-      def has_match?
-        return true unless xml.xpath('.//match').empty?
+      def has_match? # rubocop:disable Naming/PredicatePrefix
+        true unless xml.xpath('.//match').empty?
       end
     end
   end

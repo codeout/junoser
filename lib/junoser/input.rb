@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Junoser
   class Input
     def initialize(io_or_string)
@@ -8,27 +10,26 @@ module Junoser
       content = if @io_or_string.respond_to?(:read)
                   @io_or_string.read
                 else
-                  @io_or_string.to_s
+                  +@io_or_string.to_s
                 end
 
       content = remove_blank_and_comment_line(content)
       content = unify_carriage_return(content)
-      content = unify_square_brackets(content)
+      unify_square_brackets(content)
     end
-
 
     private
 
     # As for comment line, a trailing comment after configuration will be processed by parslet
     def remove_blank_and_comment_line(str)
-      str.gsub! /^\s*#.*/, ''
-      str.gsub! /^\s*\/\*((?!\*\/).)*\*\//m, ''
-      str.gsub! /\n\s*/, "\n"
+      str.gsub!(/^\s*#.*/, '')
+      str.gsub!(%r{^\s*/\*((?!\*/).)*\*/}m, '')
+      str.gsub!(/\n\s*/, "\n")
       str.strip
     end
 
     def unify_carriage_return(str)
-      str.gsub! /\r\n?/, "\n"
+      str.gsub!(/\r\n?/, "\n")
       str
     end
 
@@ -38,12 +39,12 @@ module Junoser
 
       open_brackets = 0
       str.split("\n").each do |line|
-        raise "ERROR: invalid statement: #{line}" if open_brackets < 0
+        raise "ERROR: invalid statement: #{line}" if open_brackets.negative?
 
-        if open_brackets == 0
+        if open_brackets.zero?
           lines << line
         else
-          lines.last << " " << line
+          lines.last << ' ' << line
         end
 
         open_brackets += line.count('[') - line.count(']')
