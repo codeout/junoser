@@ -185,6 +185,17 @@ class TestValidStatements < Test::Unit::TestCase
       set chassis cluster redundancy-group 1 node 1 priority 50
       set security log stream SYSLOG_SERVER transport protocol tcp
 
+      set chassis high-availability local-id 1
+      set chassis high-availability local-id local-ip 10.0.3.10
+      set chassis high-availability peer-id 2 peer-ip 10.0.3.11
+      set chassis high-availability peer-id 2 interface ge-0/0/0.0
+      set chassis high-availability peer-id 2 liveness-detection minimum-interval 400
+      set chassis high-availability peer-id 2 liveness-detection multiplier 5
+      set chassis high-availability services-redundancy-group 1 deployment-type cloud
+      set chassis high-availability services-redundancy-group 1 peer-id 2
+      set chassis high-availability services-redundancy-group 1 preemption
+      set chassis high-availability services-redundancy-group 1 activeness-priority 200
+
       set policy-options policy-statement foo from policy (! bar)
       set system no-redirects
       set system no-redirects-ipv6
