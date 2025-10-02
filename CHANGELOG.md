@@ -1,3 +1,11 @@
+## [0.7.3] - 2025-10-02
+
+### Added
+
+* Newly supported syntax for vSRX
+  * "chassis high-availability"
+
+
 ## [0.7.2] - 2025-04-22
 
 ### Fixed
