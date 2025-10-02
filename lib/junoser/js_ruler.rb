@@ -248,9 +248,6 @@ module Junoser
     end
 
     def process_comment(str)
-      # %  ->  %%
-      str.gsub! '%', '' % %''
-
       # "foo": ...  /* doc */,  ->  "foo | doc": ...,
       str.gsub!(%r|^(\s*)"([^"]+)": (.*)  /\* (.*) \*/(,?)$|) { "#$1\"#$2 | #$4\": #$3#$5" }
 
