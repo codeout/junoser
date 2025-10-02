@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# rubocop:disable Style/PerlBackrefs -- to simplify
+
 module Junoser
   class JsRuler
-
     def initialize(input)
       @rule = input
       @sequence = 0
@@ -11,15 +14,15 @@ module Junoser
     end
 
     def to_rule
-      rule_header << rule.gsub(/^/, '  ') << rule_footer
+      +rule_header << rule.gsub(/^/, '  ') << rule_footer
     end
 
     def rule
       str = @rule.read
       str = process_lines(str)
-      str = str.split(/\n/).map { |l|
+      str = str.split("\n").map do |l|
         process_line(l) unless l =~ /^ *#/ # Skip additional comment lines
-      }.compact.join("\n")
+      end.compact.join("\n")
       finalize(str)
     end
 
@@ -27,7 +30,7 @@ module Junoser
 
     def process_lines(str)
       # set groups
-      str.gsub! /"groups" \(.*\s*s\(\s*any\s*\)\s*\)/, <<-EOS.strip
+      str.gsub!(/"groups" \(.*\s*s\(\s*any\s*\)\s*\)/, <<-REPLACE.strip)
           "groups" arg (  /* Configuration groups */
             c(
               this.configuration({ groups: false }),
@@ -47,7 +50,7 @@ module Junoser
               )
             )
           )
-      EOS
+      REPLACE
 
       # set protocols mpls path
       str.gsub!(/("path" arg \(.*Route of a label-switched path.*)(\s*)c\(/) do
@@ -56,7 +59,7 @@ module Junoser
 
       # set protocols iccp peer xxx liveness-detection single-hop
       str.gsub!(/(^rule\(:peer_group\) do.*?\n(\s*)"detection-time" \(.*?c\(\s*"threshold" arg .*?\)\s*\))/m) do
-        "#{$1},\n#{format('"single-hop"', $2)}"
+        %(#{$1},\n#{$2}"single-hop")
       end
 
       # set forwarding-options dhcp-relay server-group
@@ -66,7 +69,7 @@ module Junoser
 
       # set interfaces xxx enable
       str.gsub!(/^(rule\(:interfaces_type\) do\s*[^\n]*\s*c\()(\s*)/m) do
-        %[#{$1}#{$2}"enable",#{$2}]
+        %(#{$1}#{$2}"enable",#{$2})
       end
 
       str
@@ -79,30 +82,28 @@ module Junoser
       str = process_structural_syntax(str)
       str = process_word(str)
       str = process_reserved_word(str)
-      str = process_comment(str)
-
-      str
+      process_comment(str)
     end
 
     def remove_undefined_variables(str)
       str.gsub! '.as(:oneline)', ''
 
       # "$junos-interface-unit" |
-      str.gsub! /"\$[\w-]+" \| /, ''
+      str.gsub!(/"\$[\w-]+" \| /, '')
 
       str
     end
 
     def process_common_syntax(str)
       # rule(:foo) do  ->  foo(opts) {
-      str.gsub!(/^rule\(:(\S+)\) do/) { "#$1(opts) { return_next_line" }
+      str.gsub!(/^rule\(:(\S+)\) do/) { "#{$1}(opts) { return_next_line" }
       # end  ->  }
-      str.gsub!(/^(\s*)end$/) { "#$1}" }
+      str.gsub!(/^(\s*)end$/) { "#{$1}}" }
 
       # arg.as(:arg) (  ->  {"arg":
-      str.gsub! /arg\.as\(:arg\) \(/, '{"arg":'
+      str.gsub!('arg.as(:arg) (', '{"arg":')
       # arg.as(:arg)  ->  {"arg": null}
-      str.gsub! /arg.as\(:arg\)/, '{"arg": null}'
+      str.gsub!(/arg.as\(:arg\)/, '{"arg": null}')
       # ("foo" | "bar").as(:arg) (  ->  {"(bar|baz)":
       str.gsub!(/\(([^)]+)\)\.as\(:arg\) \(/) { "{\"(#{$1.gsub('"', '').split(' | ').join('|')})\":" }
       # enum(("foo" | "bar")).as(:arg) (  ->  {"(bar|baz)":  # TODO: support "enum" in the middle of line
@@ -111,15 +112,15 @@ module Junoser
       str.gsub! '.as(:arg)', ''
 
       # c(  ->  {
-      str.gsub!(/^(\s*)c\(/) { "#$1{" }
+      str.gsub!(/^(\s*)c\(/) { "#{$1}{" }
 
       # foo  /* doc */,  ->  foo()  /* doc */,
-      str.gsub!(%r|^(\s*)(?!arg)(\w+)(  /\* (.*) \*/,?)$|) { "#$1this.#$2()#$3" }
+      str.gsub!(%r{^(\s*)(?!arg)(\w+)(  /\* (.*) \*/,?)$}) { "#{$1}this.#{$2}()#{$3}" }
       # foo,  ->  foo(),
-      str.gsub!(%r|^(\s*)(?!arg)(\w+)(,?)$|) { "#$1this.#$2()#$3" }
+      str.gsub!(/^(\s*)(?!arg)(\w+)(,?)$/) { "#{$1}this.#{$2}()#{$3}" }
 
       # )  ->  }
-      str.gsub!(/^(\s+)\)/) { "#$1}" }
+      str.gsub!(/^(\s+)\)/) { "#{$1}}" }
 
       str
     end
@@ -127,56 +128,62 @@ module Junoser
     def process_argument_syntax(str)
       # "foo" (("bar" | "baz")) (  ->  "foo(bar|baz)": {
       # "foo" enum(("bar" | "baz")) (  ->  "foo(bar|baz)": {  # TODO: support "enum" in the middle of line
-      str.gsub!(/^(\s*)"(\S+)" (?:enum)?\(\((.*)\)\) \(/) { "#$1\"#$2(#{$3.gsub('"', '').split(' | ').join('|')})\": {" }
+      str.gsub!(/^(\s*)"(\S+)" (?:enum)?\(\((.*)\)\) \(/) do
+        "#{$1}\"#{$2}(#{$3.gsub('"', '').split(' | ').join('|')})\": {"
+      end
       # "foo" arg (  ->  "foo(arg)": {
-      str.gsub!(/^(\s*)"(\S+)" arg \(/) { "#$1\"#$2(arg)\": {" }
+      str.gsub!(/^(\s*)"(\S+)" arg \(/) { "#{$1}\"#{$2}(arg)\": {" }
 
       # "foo" (... | arg)  /* doc */  ->  "foo": "arg"
-      str.gsub!(%r|^(\s*)"(\S+)" \(.* \| arg ?.*\)  /\* (.*) \*/(,?)$|) { "#$1\"#$2 | #$3\": arg#$4" }
+      str.gsub!(%r{^(\s*)"(\S+)" \(.* \| arg ?.*\)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": arg#{$4}" }
 
       # "foo" (... | arg) (  /* doc */  ->  "foo(arg)": {
-      str.gsub!(%r|^(\s*)"(\S+)" \(.* \| arg ?.*\) \(  /\* (.*) \*/$|) { "#$1\"#$2(arg) | #$3\": {" }
+      str.gsub!(%r{^(\s*)"(\S+)" \(.* \| arg ?.*\) \(  /\* (.*) \*/$}) { "#{$1}\"#{$2}(arg) | #{$3}\": {" }
       # "foo" (... | arg) (  ->  "foo(arg)": {
-      str.gsub!(%r|^(\s*)"(\S+)" \(.* \| arg ?.*\) \($|) { "#$1\"#$2(arg)\": {" }
+      str.gsub!(/^(\s*)"(\S+)" \(.* \| arg ?.*\) \($/) { "#{$1}\"#{$2}(arg)\": {" }
 
       # "foo" (arg | ...)  /* doc */  ->  "foo": "arg"
-      str.gsub!(%r|^(\s*)"(\S+)" \(arg ?.*\)  /\* (.*) \*/(,?)$|) { "#$1\"#$2 | #$3\": arg#$4" }
+      str.gsub!(%r{^(\s*)"(\S+)" \(arg ?.*\)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": arg#{$4}" }
 
       # "foo" (arg | ...) (  /* doc */  ->  "foo(arg)": {
-      str.gsub!(%r|^(\s*)"(\S+)" \(arg ?.*\) \(  /\* (.*) \*/(,?)$|) { "#$1\"#$2(arg) | #$3\": {#$4" }
+      str.gsub!(%r{^(\s*)"(\S+)" \(arg ?.*\) \(  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2}(arg) | #{$3}\": {#{$4}" }
 
       # "foo" ("bar" | "baz") (  /* doc */  ->  "foo(bar|baz)": {
-      str.gsub!(%r|^(\s*)"(\S+)" \("([^)]+)"\) \(  /\* (.*) \*/$|) { "#$1\"#$2(#{$3.split('" | "').join('|')}) | #$4\": {" }
+      str.gsub!(%r{^(\s*)"(\S+)" \("([^)]+)"\) \(  /\* (.*) \*/$}) do
+        "#{$1}\"#{$2}(#{$3.split('" | "').join('|')}) | #{$4}\": {"
+      end
       # "foo" ("bar" | "baz") (  ->  "foo(bar|baz)": {
-      str.gsub!(%r|^(\s*)"(\S+)" \("([^)]+)"\) \($|) { "#$1\"#$2(#{$3.split('" | "').join('|')})\": {" }
+      str.gsub!(/^(\s*)"(\S+)" \("([^)]+)"\) \($/) { "#{$1}\"#{$2}(#{$3.split('" | "').join('|')})\": {" }
 
       # "foo" ("bar" | "baz") /* doc */,  ->  "foo": ["bar", "baz"],
-      str.gsub!(%r|^(\s*)"(\S+)" \(([^)]+)\)  /\* (.*) \*/(,?)$|) { "#$1\"#$2 | #$4\": [#{$3.split(' | ').join(', ')}]#$5" }
+      str.gsub!(%r{^(\s*)"(\S+)" \(([^)]+)\)  /\* (.*) \*/(,?)$}) do
+        "#{$1}\"#{$2} | #{$4}\": [#{$3.split(' | ').join(', ')}]#{$5}"
+      end
       # "foo" ("bar" | "baz"),  ->  "foo": ["bar", "baz"],
-      str.gsub!(%r|^(\s*)"(\S+)" \(([^)]+)\)(,?)$|) { "#$1\"#$2\": [#{$3.split(' | ').join(', ')}]#$4" }
+      str.gsub!(/^(\s*)"(\S+)" \(([^)]+)\)(,?)$/) { "#{$1}\"#{$2}\": [#{$3.split(' | ').join(', ')}]#{$4}" }
 
       # "foo" enum(("bar" | "baz"))  ->  "foo": new Enumeration(["bar", "baz"])
-      str.gsub!(/^(\s*)("\S+") enum\(\((.*)\)\)/) { "#$1#$2: new Enumeration(#{$3.gsub('"', '').split(' | ')})" }
+      str.gsub!(/^(\s*)("\S+") enum\(\((.*)\)\)/) { "#{$1}#{$2}: new Enumeration(#{$3.gsub('"', '').split(' | ')})" }
 
       # "foo" arg  /* doc */,  ->  "foo | doc": "arg",
-      str.gsub!(%r|^(\s*)"([^"]+)" arg  /\* (.*) \*/(,?)$|) { "#$1\"#$2 | #$3\": \"arg\"#$4" }
+      str.gsub!(%r{^(\s*)"([^"]+)" arg  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": \"arg\"#{$4}" }
       # "foo" arg,  ->  "foo": "arg",
-      str.gsub!(%r|(\s*)"([^"]+)" arg(,?)$|) { "#$1\"#$2\": \"arg\"#$3" }
+      str.gsub!(/(\s*)"([^"]+)" arg(,?)$/) { "#{$1}\"#{$2}\": \"arg\"#{$3}" }
 
       # "foo" ipaddr,  -> "foo": this.ipaddr(),
-      str.gsub!(%r|(\s*)"([^"]+)" ipaddr(,?)$|) { "#$1\"#$2\": this.ipaddr()#$3" }
+      str.gsub!(/(\s*)"([^"]+)" ipaddr(,?)$/) { "#{$1}\"#{$2}\": this.ipaddr()#{$3}" }
 
       str
     end
 
     def process_structural_syntax(str)
       # "foo" (  /* doc */  ->  "foo | doc": (opts) => {
-      str.gsub!(%r|^(\s*)"(\S+)" \(  /\* (.*) \*/|) { "#$1\"#$2 | #$3\": {" }
+      str.gsub!(%r{^(\s*)"(\S+)" \(  /\* (.*) \*/}) { "#{$1}\"#{$2} | #{$3}\": {" }
       # "foo" (  ->  "foo": (opts) => {
-      str.gsub!(%r|^(\s*)"(\S+)" \($|) { "#$1\"#$2\": {" }
+      str.gsub!(/^(\s*)"(\S+)" \($/) { "#{$1}\"#{$2}\": {" }
 
       # "foo" arg (  /* doc */  ->  "foo | doc": (opts) => {
-      str.gsub!(%r|^(\s*)"(\S+)" arg \(  /\* (.*) \*/|) { "#$1\"#$2 | #$3\": {" }
+      str.gsub!(%r{^(\s*)"(\S+)" arg \(  /\* (.*) \*/}) { "#{$1}\"#{$2} | #{$3}\": {" }
 
       str
     end
@@ -188,21 +195,21 @@ module Junoser
       str.gsub!(/ ((?!arg\w)(arg)|(enum)?\(arg\))/, ' "arg"')
 
       # "foo"  /* doc */,  ->  "foo | doc": null,
-      str.gsub!(%r|^(\s*)"([^"]+)"  /\* (.*) \*/(,?)$|) { "#$1\"#$2 | #$3\": null#$4" }
+      str.gsub!(%r{^(\s*)"([^"]+)"  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": null#{$4}" }
       # "foo",  ->  "foo": null,
-      str.gsub!(%r|^(\s*)"([^"]+)"(,?)$|) { "#$1\"#$2\": null#$3" }
+      str.gsub!(/^(\s*)"([^"]+)"(,?)$/) { "#{$1}\"#{$2}\": null#{$3}" }
 
       # ("foo" | "bar")  ->  ["foo", "bar"]
       str.gsub!(/^(\s*) \(+("[^"]+(?:" \| "[^"]+)*")\)+(,?)$/) do
         comma = $3
-        "#$1#{$2.gsub('"', '').split(' | ')}#{comma}"
+        "#{$1}#{$2.gsub('"', '').split(' | ')}#{comma}"
       end
 
       # enum(("bar" | "baz"))  ->  "foo": new Enumeration(["bar", "baz"])
-      str.gsub!(/^(\s*)enum\(\((.*)\)\)/) { "#$1new Enumeration(#{$2.gsub('"', '').split(' | ')})" }
+      str.gsub!(/^(\s*)enum\(\((.*)\)\)/) { "#{$1}new Enumeration(#{$2.gsub('"', '').split(' | ')})" }
 
       # (arg | "foo")  ->  ["arg", "foo"]
-      str.gsub!(/^(\s*) \(arg( \| "[^"]+")+\)/) { "#$1[\"arg\"#{$2.split(' | ').join(', ')}]" }
+      str.gsub!(/^(\s*) \(arg( \| "[^"]+")+\)/) { "#{$1}[\"arg\"#{$2.split(' | ').join(', ')}]" }
 
       str
     end
@@ -242,17 +249,14 @@ module Junoser
     end
 
     def fix_route_filter(str)
-      str.gsub!(/("exact \| [^"]*"): "arg"/) { "#$1: null" }
-      str.gsub!(/("longer \| [^"]*"): "arg"/) { "#$1: null" }
-      str.gsub!(/("orlonger \| [^"]*"): "arg"/) { "#$1: null" }
+      str.gsub!(/("exact \| [^"]*"): "arg"/) { "#{$1}: null" }
+      str.gsub!(/("longer \| [^"]*"): "arg"/) { "#{$1}: null" }
+      str.gsub!(/("orlonger \| [^"]*"): "arg"/) { "#{$1}: null" }
     end
 
     def process_comment(str)
-      # %  ->  %%
-      str.gsub! '%', '' % %''
-
       # "foo": ...  /* doc */,  ->  "foo | doc": ...,
-      str.gsub!(%r|^(\s*)"([^"]+)": (.*)  /\* (.*) \*/(,?)$|) { "#$1\"#$2 | #$4\": #$3#$5" }
+      str.gsub!(%r{^(\s*)"([^"]+)": (.*)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$4}\": #{$3}#{$5}" }
 
       str
     end
@@ -267,7 +271,7 @@ module Junoser
       # ->
       #
       # return ...
-      lines.gsub!(/return_next_line\n(\s*)/m) { "\n#$1return " }
+      lines.gsub!(/return_next_line\n(\s*)/m) { "\n#{$1}return " }
 
       # {
       #   {
@@ -276,7 +280,7 @@ module Junoser
       #
       # {
       #   "null_1": {
-      lines.gsub!(/([{,]\n\s*){/m) { "#$1\"null_#{sequence}\": {" }
+      lines.gsub!(/([{,]\n\s*){/m) { "#{$1}\"null_#{sequence}\": {" }
 
       # {
       #   foo()
@@ -285,10 +289,10 @@ module Junoser
       #
       # {
       #   "null_1": foo()
-      lines.gsub!(/([{,]\n\s*)([^ "(]+)/m) { "#$1\"null_#{sequence}\": #$2" }
+      lines.gsub!(/([{,]\n\s*)([^ "(]+)/m) { "#{$1}\"null_#{sequence}\": #{$2}" }
 
       # "arg"  ->  "arg_1"
-      lines.gsub('"arg":') { %["arg_#{sequence}":] }
+      lines.gsub('"arg":') { %("arg_#{sequence}":) }
 
       conditional_groups(lines)
     end
@@ -298,13 +302,15 @@ module Junoser
       # Fixes
       lines.gsub! 'Timeslots (1..24;', 'Timeslots (1..24);'
       lines.gsub! '(such that the VLAN range is x <= range <= y.', '(such that the VLAN range is x <= range <= y).'
-      lines.gsub! '(intended primarily for use with a peer or group"', '(intended primarily for use with a peer or group)"'
+      lines.gsub! '(intended primarily for use with a peer or group"',
+                  '(intended primarily for use with a peer or group)"'
       lines.gsub! '(e.g. QSFP28 and QSFP+,', '(e.g. QSFP28 and QSFP+),'
-      lines.gsub! '(see the description of policy evaluation at the top of this module."', '(see the description of policy evaluation at the top of this module)."'
+      lines.gsub! '(see the description of policy evaluation at the top of this module."',
+                  '(see the description of policy evaluation at the top of this module)."'
 
       count = 0
       target = nil
-      buf = ''
+      buf = +''
       stack = []
 
       lines.each_char do |c|
@@ -344,12 +350,12 @@ module Junoser
 
     def objectize_arg_of_s(lines)
       # s(  ->  s({
-      lines.gsub!(/^( *(?:return|\S+:)? +)s\($/m) { "#$1this.s({" }
+      lines.gsub!(/^( *(?:return|\S+:)? +)s\($/m) { "#{$1}this.s({" }
       # sc(  ->  sc({
-      lines.gsub!(/^( *(?:return|\S+:)? +)sc\($/m) { "#$1this.sc({" }
+      lines.gsub!(/^( *(?:return|\S+:)? +)sc\($/m) { "#{$1}this.sc({" }
 
       # )  ->  })
-      lines.gsub!(/^( *)\)(,?)$/m) { "#$1})#$2" }
+      lines.gsub!(/^( *)\)(,?)$/m) { "#{$1}})#{$2}" }
 
       lines
     end
@@ -360,13 +366,13 @@ module Junoser
       # (opts === undefined || opts?.configuration !== false) && { "null_13264": this.configuration(false) },
       #
       # ref: process_lines()
-      lines.gsub(/("groups\(arg\) \| .*":) {/) {
+      lines.gsub(/("groups\(arg\) \| .*":) {/) do
         "#{$1} opts?.groups !== false && {"
-      }
+      end
     end
 
     def rule_header
-      <<~EOS
+      <<~HEADER
         /* eslint-disable semi */
 
         class Enumeration {
@@ -405,17 +411,19 @@ module Junoser
             return new Repeatable(obj);
           }
 
-      EOS
+      HEADER
     end
 
     def rule_footer
-      <<~EOS
+      <<~FOOTER
 
         }
 
         // eslint-disable-next-line no-undef
         module.exports = {JunosSchema, Enumeration, Repeatable, Sequence};
-      EOS
+      FOOTER
     end
   end
 end
+
+# rubocop:enable Style/PerlBackrefs

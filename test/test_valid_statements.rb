@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'helper'
 
 class TestValidStatements < Test::Unit::TestCase
   test 'syntax check to pass' do
-    config = <<~EOS
+    config = <<~CONFIG
       set services service-set xxx nat-rules xxx
       set services service-set xxx next-hop-service inside-service-interface xxx
       set services service-set xxx next-hop-service outside-service-interface xxx
@@ -231,10 +233,10 @@ class TestValidStatements < Test::Unit::TestCase
       set system login class foo deny-commands-regexps "xxx xxx"
       set system login class foo allow-configuration-regexps "xxx xxx"
       set system login class foo deny-configuration-regexps "xxx xxx"
-    EOS
+    CONFIG
 
     config.split("\n").each do |l|
-      assert_true Junoser::Cli.commit_check(l), %["#{l}" should be valid]
+      assert_true Junoser::Cli.commit_check(l), %("#{l}" should be valid)
     end
   end
 end

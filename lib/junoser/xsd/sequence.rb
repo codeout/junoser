@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/xsd/base'
 require 'junoser/xsd/choice'
 require 'junoser/xsd/element'
@@ -8,23 +10,24 @@ module Junoser
       include Base
 
       def config
-        @config ||= children.map {|child|
+        @config ||= children.map do |child|
           case child.name
           when 'choice'
-            Junoser::Xsd::Choice.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::Choice.new(child, depth: @depth + 1, parent: self)
           when 'element'
-            Junoser::Xsd::Element.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::Element.new(child, depth: @depth + 1, parent: self)
           when 'any'
             'any'
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }
+        end
       end
 
       def to_s
         case
         when config.empty?
+          ''
         when has_single_child_of?(Junoser::Xsd::Choice)
           child = config.first
           str = child.config.map(&:to_s).reject(&:empty?).join(",\n")
@@ -33,13 +36,13 @@ module Junoser
 
           # Assuming that <xsd:sequence> always has <xsd:complexType> as the parent
           if parent.parent&.oneliner? && config.first.unbounded?
-            format('sc(', str, ')')
+            fmt('sc(', str, ')')
           else
-            format('c(', str, ')')
+            fmt('c(', str, ')')
           end
         else
-          str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.reject(&:empty?).join(",\n")
-          format('s(', str, ')')
+          str = config.map { |c| c.is_a?(String) ? fmt(OFFSET + c) : c.to_s }.reject(&:empty?).join(",\n")
+          fmt('s(', str, ')')
         end
       end
     end

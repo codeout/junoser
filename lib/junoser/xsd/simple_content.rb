@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/xsd/base'
 require 'junoser/xsd/restriction'
 
@@ -7,16 +9,16 @@ module Junoser
       include Base
 
       def config
-        @config ||= children.map {|child|
+        @config ||= children.map do |child|
           case child.name
           when 'restriction'
-            Junoser::Xsd::Restriction.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::Restriction.new(child, depth: @depth + 1, parent: self)
           when 'extension'
             'arg'
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }
+        end
       end
 
       def to_s
@@ -24,7 +26,7 @@ module Junoser
         raise "ERROR: simpleContent shouldn't have multiple children" if config.size > 1
 
         child = config.first
-        child.is_a?(String) ? format(OFFSET + child) : child.to_s
+        child.is_a?(String) ? fmt(OFFSET + child) : child.to_s
       end
     end
   end

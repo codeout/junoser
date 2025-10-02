@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/xsd/base'
 require 'junoser/xsd/complex_type'
 require 'junoser/xsd/simple_type'
@@ -7,38 +9,37 @@ module Junoser
     class Element
       include Base
 
-      def initialize(xml, options={})
+      def initialize(xml, options = {})
         super
         @argument = find_name_element || find_type_attribute
       end
 
       def config
-        @config ||= children.map {|child|
+        @config ||= children.map do |child|
           case child.name
           when 'complexType'
-            Junoser::Xsd::ComplexType.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::ComplexType.new(child, depth: @depth + 1, parent: self)
           when 'simpleType'
-            Junoser::Xsd::SimpleType.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::SimpleType.new(child, depth: @depth + 1, parent: self)
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }
+        end
       end
 
       def to_s
-        str = case
-              when nokeyword? && content.empty?
-                format('arg')
-              when nokeyword?
+        str = if nokeyword? && content.empty?
+                fmt(+'arg')
+              elsif nokeyword?
                 content
-              when content.empty?
-                format(label)
-              when content =~ /\A *arg\z/
-                format("#{label} arg")
-              when label
-                format("#{label} (", content, ')')
+              elsif content.empty?
+                fmt(label)
+              elsif content =~ /\A *arg\z/
+                fmt("#{label} arg")
+              elsif label
+                fmt("#{label} (", content, ')')
               else
-                format('(', content, ')')
+                fmt('(', content, ')')
               end
 
         oneliner? ? "#{str}.as(:oneline)" : str
@@ -46,32 +47,31 @@ module Junoser
 
       def content
         @content ||= if config.empty?
-                     xml['type'] ? format(OFFSET + xml['type'].underscore) : ''
-                   else
-                     config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.join("\n")
-                   end
+                       xml['type'] ? fmt(OFFSET + xml['type'].underscore) : ''
+                     else
+                       config.map { |c| c.is_a?(String) ? fmt(OFFSET + c) : c.to_s }.join("\n")
+                     end
       end
-
 
       private
 
       def label
         return unless xml['name']
 
-        %["#{xml['name']}" #{argument}].strip
+        %("#{xml['name']}" #{argument}).strip
       end
 
       def argument
         return unless @argument
 
-        case
-        when @argument.is_a?(String)
+        if @argument.is_a?(String)
           @argument
-        when @argument.name == 'simpleType'
+        elsif @argument.name == 'simpleType'
           'arg'
         else
-          arg = Junoser::Xsd::Element.new(@argument, depth: @depth+1, parent: self).config
+          arg = Junoser::Xsd::Element.new(@argument, depth: @depth + 1, parent: self).config
           raise "ERROR: argument shouldn't consist of multiple elements" if arg.size > 1
+
           arg.first.to_s.strip
         end
       end
@@ -81,25 +81,23 @@ module Junoser
       end
 
       def find_type_attribute
-        if xml['type'] =~ /^xsd:.*/
-          xml.remove_attribute 'type'
-          'arg'
-        end
+        return unless xml['type'] =~ /^xsd:.*/
+
+        xml.remove_attribute 'type'
+        'arg'
       end
 
-      def format(header, content = nil, footer = nil)
-        if documentation
-          header += "  /* #{documentation} */"
-        end
+      def fmt(header, content = nil, footer = nil)
+        header << "  /* #{documentation} */" if documentation
 
-        super(header, content, footer)
+        super
       end
 
       def documentation
         @documentation ||= xml.xpath('./xsd:annotation/xsd:documentation').text
 
         # Translate multiline documentation into a single line to make it parsable in further processes
-        @documentation.gsub! /\n\s*/, ' '
+        @documentation.gsub!(/\n\s*/, ' ')
 
         @documentation.empty? ? nil : @documentation
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Junoser
   module RuleTree
     class Node
@@ -14,7 +16,7 @@ module Junoser
       end
 
       def print(level = 0)
-        puts INDENT * level + "- #{@name}"
+        puts (INDENT * level) + "- #{@name}"
         @children.each do |child|
           child.print level + 1
         end

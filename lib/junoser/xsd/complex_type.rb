@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/xsd/base'
 require 'junoser/xsd/element'
 require 'junoser/xsd/sequence'
@@ -8,35 +10,36 @@ module Junoser
     class ComplexType
       include Base
 
-      def initialize(xml, options={})
+      def initialize(xml, options = {})
         super
         raise "ERROR: #{xml.name} shouldn't have name '#{xml['name']}'" if xml['name'] && !root?
+
         @argument = find_name_element
       end
 
       def config
-        @config ||= children.map {|child|
+        @config ||= children.map do |child|
           case child.name
           when 'sequence'
-            Junoser::Xsd::Sequence.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::Sequence.new(child, depth: @depth + 1, parent: self)
           when 'simpleContent'
-            Junoser::Xsd::SimpleContent.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::SimpleContent.new(child, depth: @depth + 1, parent: self)
           when 'attribute'
             'arg'
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }
+        end
       end
 
       def to_s
-        str = config.map {|c| c.is_a?(String) ? format(OFFSET + c) : c.to_s }.join("\n")
+        str = config.map { |c| c.is_a?(String) ? fmt(OFFSET + c) : c.to_s }.join("\n")
 
         str = case [!argument.nil?, !str.empty?]
               when [true, true]
-                format("#{argument} (", str, ')')
+                fmt("#{argument} (", str, ')')
               when [true, false]
-                format(argument)
+                fmt(argument)
               when [false, true]
                 simple_argument?(str) ? "#{str}.as(:arg)" : str
               else
@@ -46,17 +49,16 @@ module Junoser
         oneliner? ? "#{str}.as(:oneline)" : str
       end
 
-
       private
 
       def argument
         return unless @argument
 
-        arg = Junoser::Xsd::Element.new(@argument, depth: @depth+1, parent: self).config
+        arg = Junoser::Xsd::Element.new(@argument, depth: @depth + 1, parent: self).config
         raise "ERROR: argument shouldn't consist of multiple elements" if arg.size > 1
 
         if root?
-          arg.first.to_s.strip + ".as(:arg)"
+          "#{arg.first.to_s.strip}.as(:arg)"
         else
           arg.first.to_s.strip
         end

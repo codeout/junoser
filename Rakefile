@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/gem_tasks'
 require 'junoser/development'
 require 'nokogiri'
@@ -9,9 +11,9 @@ rule_path = File.join(__dir__, 'tmp/rule.rb')
 ruby_parser_path = File.join(__dir__, 'lib/junoser/parser.rb')
 js_parser_path = File.join(__dir__, 'tmp/junos.js')
 
-def open_files(input, output, &block)
-  i = open(input)
-  o = open(output, 'w')
+def open_files(input, output)
+  i = File.open(input)
+  o = File.open(output, 'w')
 
   yield i, o
 
@@ -71,6 +73,7 @@ namespace :rule do
   task :tree, [:path] do |_, args|
     if args.path
       raise "File not found: #{args.path}" unless File.exist?(args.path)
+
       Junoser::RuleTree::Parser.new(File.read(args.path)).print
     else
       Junoser::RuleTree::Parser.new($stdin.read).print

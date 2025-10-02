@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'parslet'
 require 'junoser/display'
 require 'junoser/input'
 require 'junoser/parser'
-
 
 module Junoser
   module Cli
@@ -36,7 +37,6 @@ module Junoser
           config
         end
       end
-
 
       private
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 
 module Junoser
@@ -9,7 +11,7 @@ module Junoser
 
       attr_accessor :deactivated
 
-      def initialize(depth=0)
+      def initialize(depth = 0)
         @hash = {}
         @depth = depth
         @deactivated = false
@@ -19,7 +21,7 @@ module Junoser
         store = self
 
         join_arg(str).split("\n").each_with_index do |element, index|
-          store[element] ||= self.class.new(index+1)
+          store[element] ||= self.class.new(index + 1)
           store = store[element]
         end
       end
@@ -36,13 +38,11 @@ module Junoser
           end
         else
           statement, store = inverse_match(deactivated_line)
-          if statement
-            store.deactivated = true
-          end
+          store.deactivated = true if statement
         end
       end
 
-      def each_with_inactive(str='', &block)
+      def each_with_inactive(str = '')
         each do |k, v|
           k = "inactive: #{k}" if v.deactivated
           yield k, v, str
@@ -52,7 +52,7 @@ module Junoser
       end
 
       def to_s
-        each_with_inactive('', &method(:hash_item_to_s))
+        each_with_inactive(+'', &method(:hash_item_to_s))
       end
 
       def_delegators :@hash, :[], :[]=, :each, :empty?
@@ -61,17 +61,17 @@ module Junoser
 
       def hash_item_to_s(key, value, str)
         if value.empty?
-          str << OFFSET*@depth << "#{key};\n"
+          str << (OFFSET * @depth) << "#{key};\n"
         else
-          str << OFFSET*@depth << "#{key} {\n"
+          str << (OFFSET * @depth) << "#{key} {\n"
           str << value.to_s.chop << "\n"
-          str << OFFSET*@depth << "}\n"
+          str << (OFFSET * @depth) << "}\n"
         end
       end
 
       def join_arg(str)
-        str.gsub!(/\narg\((.*)\)$/) { " #$1" }
-        str.gsub!(/arg\((.*)\)/) { "#$1" }
+        str.gsub!(/\narg\((.*)\)$/) { " #{::Regexp.last_match(1)}" }
+        str.gsub!(/arg\((.*)\)/) { ::Regexp.last_match(1).to_s }
         str
       end
 

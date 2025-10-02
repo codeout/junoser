@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser'
 require 'parslet'
 
@@ -22,9 +24,9 @@ module Junoser
         when /^activate /
           delete_lines l.gsub(/^activate /, 'deactivate ')
         when /^insert (.*) before (.*)/
-          insert_before "set #{$1}", $2
+          insert_before "set #{::Regexp.last_match(1)}", ::Regexp.last_match(2)
         when /^insert (.*) after (.*)/
-          insert_after "set #{$1}", $2
+          insert_after "set #{::Regexp.last_match(1)}", ::Regexp.last_match(2)
         end
       end
 
@@ -36,11 +38,11 @@ module Junoser
 
     def remove_command_context(lines)
       lines.each_with_index do |l, i|
-        lines[i..-1].each do |l2|
-          if l2[-1] == " "  # l2 is a command context
-            lines.delete(l2) if l.include?(l2) and l != l2
-          else  # l2 has argument
-            lines.delete(l2) if l.include?("#{l2} ")
+        lines[i..].each do |l2|
+          if l2[-1] == ' ' # l2 is a command context
+            lines.delete(l2) if l.include?(l2) && (l != l2)
+          elsif l.include?("#{l2} ") # l2 has argument
+            lines.delete(l2)
           end
         end
       end
@@ -48,24 +50,24 @@ module Junoser
 
     def delete_lines(pattern)
       @lines.each do |l|
-        l.sub!(/#{pattern}/) { $1 }
+        l.sub!(/#{pattern}/) { ::Regexp.last_match(1) }
       end
     end
 
     def split_last_token(line)
       tokens = join_arg(@transformer.apply(@parser.parse(line))).split("\n")
-      tokens.map! { |t|
-        t.gsub!(/arg\((.*)\)/) { "#$1" } # Strip arg
+      tokens.map! do |t|
+        t.gsub!(/arg\((.*)\)/) { ::Regexp.last_match(1).to_s } # Strip arg
         Regexp.escape(t.strip)
-      }
+      end
 
       [tokens[0..-2].join(' '), tokens.last]
     end
 
     # Ported from lib/junoser/display/config_store.rb
     def join_arg(str)
-      str.gsub!(/\narg\((.*)\)$/) { " #$1" }
-      str.gsub!(/arg\((.*)\)/) { "#$1" }
+      str.gsub!(/\narg\((.*)\)$/) { " #{::Regexp.last_match(1)}" }
+      str.gsub!(/arg\((.*)\)/) { ::Regexp.last_match(1).to_s }
       str
     end
 
@@ -76,7 +78,7 @@ module Junoser
 
     def insert_before(statement_to_insert, key_statement)
       key_tokens = key_statement.strip.split
-      key_statement = (statement_to_insert.strip.split[0..-(key_tokens.size+1)] + key_tokens).join(' ')
+      key_statement = (statement_to_insert.strip.split[0..-(key_tokens.size + 1)] + key_tokens).join(' ')
 
       lines_to_insert = @lines.select { |l| l.include?(statement_to_insert) }
       @lines.reject! { |l| l.include?(statement_to_insert) }

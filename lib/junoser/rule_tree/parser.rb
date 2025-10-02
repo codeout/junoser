@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Junoser
   module RuleTree
     class Parser
@@ -20,7 +22,7 @@ module Junoser
 
         validate_uniq rules[root_index..].map(&:first)
 
-        @nodes = Hash[rules[root_index..].map { |name, _| [name, Node.new(name)] }]
+        @nodes = rules[root_index..].to_h { |name, _| [name, Node.new(name)] }
         used = Set.new
 
         rules[root_index..].map do |name, refs|
@@ -30,6 +32,7 @@ module Junoser
           used += children
           children.each do |child|
             raise %(Unknown rule: #{child}) unless @nodes[child]
+
             @nodes[name] << @nodes[child]
           end
         end
@@ -40,11 +43,11 @@ module Junoser
       private
 
       def content
-        @_content ||= @content
-                        .gsub(%r| */\*.*\*/|, '')
-                        .gsub(/\.as\(:oneline\)/, '')
-                        .gsub(/^(?!rule.*).*["#()].*\n/, '')
-                        .gsub(/ *arg,?\n/, '')
+        @content ||= @content
+                     .gsub(%r{ */\*.*\*/}, '')
+                     .gsub('.as(:oneline)', '')
+                     .gsub(/^(?!rule.*).*["#()].*\n/, '')
+                     .gsub(/ *arg,?\n/, '')
       end
 
       def validate_uniq(rules)
@@ -58,8 +61,8 @@ module Junoser
         unused = all - used - %w[configuration]
         return if unused.empty?
 
-        $stderr.puts 'Warning: Unused rules:'
-        unused.each { |r| $stderr.puts "  - #{r}" }
+        warn 'Warning: Unused rules:'
+        unused.each { |r| warn "  - #{r}" }
       end
     end
   end

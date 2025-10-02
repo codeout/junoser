@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/display/set'
 require 'junoser/display/structure'
 

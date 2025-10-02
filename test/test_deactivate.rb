@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'helper'
 
 class TestDeactivate < Test::Unit::TestCase
@@ -18,14 +20,13 @@ class TestDeactivate < Test::Unit::TestCase
 
   test 'transform display set form with deactivated unit' do
     config = "set interfaces ge-0/0/0 unit 0 family inet dhcp\ndeactivate interfaces ge-0/0/0 unit 0"
-    pattern = /interfaces ge-0\/0\/0 {\s*inactive: unit 0 {\s*family {\s*inet {\s*dhcp;\s*}\s*}\s*}\s*}/
+    pattern = %r{interfaces ge-0/0/0 {\s*inactive: unit 0 {\s*family {\s*inet {\s*dhcp;\s*}\s*}\s*}\s*}}
     assert_match pattern, Junoser::Cli.struct(config)
   end
 
   test 'transform structured form with deactivated unit' do
     config = "interfaces {\n    ge-0/0/0 {\n        inactive: unit 0 {\n            family inet {\n                dhcp;\n            }\n        }\n    }\n}"
-    pattern = /set interfaces ge-0\/0\/0 unit 0 family inet dhcp\s*deactivate interfaces ge-0\/0\/0 unit 0/
+    pattern = %r{set interfaces ge-0/0/0 unit 0 family inet dhcp\s*deactivate interfaces ge-0/0/0 unit 0}
     assert_match pattern, Junoser::Display::Set.new(config).transform
   end
 end
-

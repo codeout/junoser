@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'junoser/xsd/base'
 require 'junoser/xsd/element'
 
@@ -7,26 +9,25 @@ module Junoser
       include Base
 
       def config
-        @config ||= children.map {|child|
+        @config ||= children.map do |child|
           case child.name
           when 'element'
-            Junoser::Xsd::Element.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::Element.new(child, depth: @depth + 1, parent: self)
           when 'choice'
-            Junoser::Xsd::Choice.new(child, depth: @depth+1, parent: self)
+            Junoser::Xsd::Choice.new(child, depth: @depth + 1, parent: self)
           else
             raise "ERROR: unknown element: #{child.name}"
           end
-        }
+        end
       end
 
       def to_s
-        case
-        when config.empty?
+        if config.empty?
           ''
-        when has_single_child_of?(Junoser::Xsd::Choice)
-          format('c(', config.first.config.map(&:to_s).join(",\n"), ')')
+        elsif has_single_child_of?(Junoser::Xsd::Choice)
+          fmt('c(', config.first.config.map(&:to_s).join(",\n"), ')')
         else
-          format('c(', config.map(&:to_s).join(",\n"), ')')
+          fmt('c(', config.map(&:to_s).join(",\n"), ')')
         end
       end
 
