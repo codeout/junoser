@@ -30666,7 +30666,7 @@ module Junoser
                                     ),
                                     c(
                                       b(str("source-address"),
-                                        (str("any") | str("any-ipv4") | str("any-ipv6") | arg)
+                                        (str("any-ipv4") | str("any-ipv6") | str("any") | arg)
                                       ),
                                       b(str("source-except"),
                                         (arg)
@@ -30683,7 +30683,7 @@ module Junoser
                                     ),
                                     c(
                                       b(str("destination-address"),
-                                        (str("any") | str("any-ipv4") | str("any-ipv6") | arg)
+                                        (str("any-ipv4") | str("any-ipv6") | str("any") | arg)
                                       ),
                                       b(str("destination-except"),
                                         (arg)
@@ -30800,7 +30800,7 @@ module Junoser
                                     ),
                                     c(
                                       b(str("source-address"),
-                                        (str("any") | str("any-ipv4") | str("any-ipv6") | arg)
+                                        (str("any-ipv4") | str("any-ipv6") | str("any") | arg)
                                       ),
                                       b(str("source-except"),
                                         (arg)
@@ -30817,7 +30817,7 @@ module Junoser
                                     ),
                                     c(
                                       b(str("destination-address"),
-                                        (str("any") | str("any-ipv4") | str("any-ipv6") | arg)
+                                        (str("any-ipv4") | str("any-ipv6") | str("any") | arg)
                                       ),
                                       b(str("destination-except"),
                                         (arg)
@@ -132365,12 +132365,12 @@ module Junoser
                 c(
                     c(
                       b(str("source-address"),
-                            (str("any") | str("any-ipv4") | str("any-ipv6") | arg)
+                            (str("any-ipv4") | str("any-ipv6") | str("any") | arg)
                       )
                     ),
                     c(
                       b(str("destination-address"),
-                            (str("any") | str("any-ipv4") | str("any-ipv6") | arg)
+                            (str("any-ipv4") | str("any-ipv6") | str("any") | arg)
                       )
                     ),
                     str("source-address-excluded"),
@@ -133404,12 +133404,12 @@ module Junoser
                 c(
                     c(
                       b(str("source-address"),
-                            (str("any") | str("any-ipv4") | str("any-ipv6") | arg)
+                            (str("any-ipv4") | str("any-ipv6") | str("any") | arg)
                       )
                     ),
                     c(
                       b(str("destination-address"),
-                            (str("any") | str("any-ipv4") | str("any-ipv6") | arg)
+                            (str("any-ipv4") | str("any-ipv6") | str("any") | arg)
                       )
                     ),
                     str("source-address-excluded"),
