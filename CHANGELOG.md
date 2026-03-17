@@ -1,3 +1,10 @@
+## [0.7.4] - 2026-03-17
+
+### Fixed
+
+* "security ... policy xxx match (source|destination)-address any-(ipv4|ipv6)" was unexpectedly marked as invalid
+
+
 ## [0.7.3] - 2025-10-02
 
 ### Added
