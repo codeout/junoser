@@ -145,6 +145,9 @@ class TestValidStatements < Test::Unit::TestCase
       set security nat source rule-set foo-nat rule foo match source-address-name bar
       set security nat source rule-set foo-nat rule foo match destination-address-name bar
 
+      set security policies from-zone trust to-zone untrust policy p1 match source-address any-ipv4
+      set security policies from-zone trust to-zone untrust policy p1 match destination-address any-ipv6
+
       set system license keys key foo
       set system license keys key "bar baz"
 
