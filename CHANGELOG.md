@@ -1,3 +1,10 @@
+## [0.7.5] - 2026-04-20
+
+### Fixed
+
+* Dependency vulnerabilities
+
+
 ## [0.7.4] - 2026-03-17
 
 ### Fixed
