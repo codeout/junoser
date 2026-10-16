@@ -72075,6 +72075,7 @@ rule(:juniper_protocols_bgp) do
             )
         ),
         "send-addpath-optimization"  /* Enable BGP addpath advertisement optimization */,
+        "drop-path-attributes" arg,
         "defaults" (
             c(
                 "ebgp" (  /* Options impacting external BGP default behaviors */
