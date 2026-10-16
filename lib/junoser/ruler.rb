@@ -166,7 +166,7 @@ module Junoser
 
       str.gsub! '"any" | "any-ipv4" | "any-ipv6"', '"any-ipv4" | "any-ipv6" | "any"'
 
-                # Fix overkill
+      # Fix overkill
       str.gsub!(/^(\s*)"priority" \(\s*ca\(\s*arg\s*\)/) do
         fmt(['"priority" (',
              '  a(arg, arg)', $1])
