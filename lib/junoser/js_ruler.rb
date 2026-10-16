@@ -292,7 +292,7 @@ module Junoser
       lines.gsub!(/([{,]\n\s*)([^ "(]+)/m) { "#{$1}\"null_#{sequence}\": #{$2}" }
 
       # "arg"  ->  "arg_1"
-      lines.gsub('"arg":') { %("arg_#{sequence}":) }
+      lines.gsub!('"arg":') { %("arg_#{sequence}":) }
 
       conditional_groups(lines)
     end
