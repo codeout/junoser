@@ -231,8 +231,13 @@ module Junoser
       # enum(("bar" | "baz"))  ->  "foo": new Enumeration(["bar", "baz"])
       str.gsub!(/^(\s*)enum\(\((.*)\)\)/) { "#{$1}new Enumeration(#{$2.gsub('"', '').split(' | ')})" }
 
-      # (arg | "foo")  ->  ["arg", "foo"]
-      str.gsub!(/^(\s*) \(arg( \| "[^"]+")+\)/) { "#{$1}[\"arg\"#{$2.split(' | ').join(', ')}]" }
+      # (arg | "foo" | "bar")  ->  ["arg", "foo", "bar"]
+      # capture the tail as a whole, because a repeated group keeps only its last match
+      str.gsub!(/^(\s*) \(arg((?: \| "[^"]+")+)\)/) do
+        indent = $1
+        members = ['"arg"'] + $2.scan(/"[^"]+"/)
+        "#{indent}[#{members.uniq.join(', ')}]"
+      end
 
       str
     end
