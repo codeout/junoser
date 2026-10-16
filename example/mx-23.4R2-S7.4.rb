@@ -9971,7 +9971,8 @@ rule(:configuration) do
                       c(
                           "ether-stats-ifd-only"  /* To stop exposing IFLs as part of etherStatsTable */
                       )
-                  )
+                  ),
+                  "stats-cache-lifetime" arg
               )
           ),
           "forwarding-options" (  /* Configure options to control packet forwarding */
