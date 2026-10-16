@@ -23682,6 +23682,162 @@ rule(:chassis_type) do
                 "use-actual-mac-on-physical-interfaces"  /* Use Hypervisor provided MAC for physical interfaces on virtual platforms */,
                 "use-active-child-mac-on-reth"  /* Copy Child's physical MAC on RETH parent's current MAC */
             )
+        ),
+        "high-availability" (  /* Enable High Availability mode */
+            c(
+                "hardware-upgrade"  /* Enable hardware upgrade state */,
+                "local-id" (  /* Local Identifier */
+                    sc(
+                          arg,
+                        "local-ip" (  /* Local IPv4/IPv6 address */
+                          ipaddr  /* Local IPv4/IPv6 address */
+                        )
+                    )
+                ).as(:oneline),
+                "peer-id" arg (  /* Peer related information */
+                    c(
+                        "desc" arg  /* Peer Description */,
+                        "peer-ip" (  /* Peer IPv4/IPv6 address */
+                          ipaddr  /* Peer IPv4/IPv6 address */
+                        ),
+                        "interface" (  /* Name of the interface */
+                          interface_name  /* Name of the interface */
+                        ),
+                        "routing-instance" arg  /* Routing instance to locate the peer route */,
+                        "vpn-profile" arg  /* VPN Profile name for HA link Encryption */,
+                        "liveness-detection" (  /* Bidirectional Forwarding Detection options for the peer */
+                            c(
+                                "version" (  /* BFD protocol version number */
+                                  ("0" | "1" | "automatic")
+                                ),
+                                "minimum-interval" arg  /* Minimum transmit and receive interval */,
+                                "minimum-transmit-interval" arg  /* Minimum transmit interval */,
+                                "minimum-receive-interval" arg  /* Minimum receive interval */,
+                                "multiplier" arg  /* Detection time multiplier */,
+                                c(
+                                  "no-adaptation"  /* Disable adaptation */
+                                ),
+                                "transmit-interval" (  /* Transmit-interval options */
+                                    c(
+                                        "minimum-interval" arg  /* Minimum transmit interval */,
+                                        "threshold" arg  /* High transmit interval triggering a trap */
+                                    )
+                                ),
+                                "detection-time" (  /* Detection-time options */
+                                    c(
+                                        "threshold" arg  /* High detection-time triggering a trap */
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                "traceoptions" (  /* Set chassis l3-ha traceoptions */
+                    c(
+                        "no-remote-trace"  /* Disable remote tracing */,
+                        "file" (  /* Trace file information */
+                            sc(
+                                  arg,
+                                "size" arg  /* Maximum trace file size */,
+                                "files" arg  /* Maximum number of trace files */,
+                                "world-readable"  /* Allow any user to read the log file */,
+                                "no-world-readable"  /* Don't allow any user to read the log file */,
+                                "match" (  /* Regular expression for lines to be logged */
+                                  regular_expression  /* Regular expression for lines to be logged */
+                                )
+                            )
+                        ).as(:oneline),
+                        "flag" enum(("cli" | "configuration" | "eventlib" | "fsm" | "heartbeat" | "interface" | "routing-socket" | "uspipc" | "init" | "socket" | "snmp" | "ip-monitoring" | "hw-monitoring" | "fabric-monitoring" | "health-monitoring" | "schedule-monitoring" | "heartbeat-tlv" | "ha-peer" | "srg" | "all"))  /* Tracing parameters */.as(:oneline),
+                        "level" (  /* Set level of tracing */
+                          ("emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "info" | "debug" | "all")
+                        )
+                    )
+                ),
+                "services-redundancy-group" arg (  /* Define the services level failover domain */
+                    c(
+                        "shutdown-on-failure" arg  /* Interfaces to be shut down in case of internal failures */,
+                        "deployment-type" (  /* Deployment type of the Services Redundancy Group */
+                          ("cloud" | "hybrid" | "routing" | "switching")
+                        ),
+                        "peer-id" (  /* Peer related information */
+                            c(
+                                  arg
+                            )
+                        ),
+                        "activeness-probe" (  /* The probe destination IP for activeness determination */
+                            c(
+                                "dest-ip" (  /* Destination IPV4/IPV6 address */
+                                    c(
+                                        "src-ip" (  /* Source IPV4/IPV6 address for activeness probe */
+                                          ipaddr  /* Source IPV4/IPV6 address for activeness probe */
+                                        ),
+                                        "routing-instance" arg  /* Routing instance */,
+                                          ipaddr  /* Destination IPV4/IPV6 address */
+                                    )
+                                ),
+                                "minimum-interval" arg  /* Define the time interval in milliseconds between activeness probing retries. */,
+                                "multiplier" arg  /* Number of retries needed to declare activeness probing failure */
+                            )
+                        ),
+                        "virtual-ip" arg (  /* HA virtual IP  */
+                            c(
+                                "ip" (  /* IPV4/IPV6 prefix, should be in the same subnet as the interface IP */
+                                  ipprefix_mandatory  /* IPV4/IPV6 prefix, should be in the same subnet as the interface IP */
+                                ),
+                                "interface" (  /* Name of the interface */
+                                  interface_name  /* Name of the interface */
+                                ),
+                                "use-virtual-mac"  /* Use virtual mac for SRG role enforcement */
+                            )
+                        ),
+                        "monitor" (  /* Configure the BFD and IP monitoring */
+                            c(
+                                "ip" arg (  /* Destination IPV4/IPV6 address for monitoring */
+                                    c(
+                                        "routing-instance" arg  /* Routing instance to locate the destination route */
+                                    )
+                                ),
+                                "bfd-liveliness" arg (  /* Configure BFD monitoring */
+                                    c(
+                                        "src-ip" (  /* Source IPV4 address for BFD monitoring */
+                                          ipv4addr  /* Source IPV4 address for BFD monitoring */
+                                        ),
+                                        "routing-instance" arg  /* Routing instance to locate the route */,
+                                        "session-type" (  /* BFD Mon Session Type */
+                                          ("singlehop" | "multihop")
+                                        ),
+                                        "interface" (  /* Name of the interface for single-hop sessions */
+                                          interface_name  /* Name of the interface for single-hop sessions */
+                                        )
+                                    )
+                                ),
+                                "interface" arg  /* Define interfaces to monitor */
+                            )
+                        ),
+                        "active-signal-route" (  /* Configure the active signal route */
+                            c(
+                                  ipv4addr  /* Active IPv4 address */,
+                                "routing-instance" arg  /* Routing instance to install the active signal route */
+                            )
+                        ),
+                        "backup-signal-route" (  /* Configure the backup signal route */
+                            c(
+                                  ipv4addr  /* Backup IPv4 address */,
+                                "routing-instance" arg  /* Routing instance to install the backup signal route */
+                            )
+                        ),
+                        "prefix-list" arg (  /* Define a named set of address prefixes */
+                            c(
+                                "routing-instance" arg  /* Routing instance */
+                            )
+                        ),
+                        "managed-services" enum(("ipsec"))  /* Define a named set of services to be applicable for this SRG */.as(:oneline),
+                        "preemption"  /* Allow preemption of activeness based on priority */,
+                        "process-packet-on-backup"  /* Enable PFE to process packets on backup node */,
+                        "activeness-priority" arg  /* Activeness Priority of the node for this SRG */
+                    )
+                )
+            )
         )
         # End of vSRX 22.4R1.10
     )
