@@ -111120,7 +111120,8 @@ rule(:juniper_system) do
                     )
                 )
             )
-        )
+        ),
+        "dump-on-panic"
     )
 end
 
