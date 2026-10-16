@@ -149,8 +149,10 @@ module Junoser
       # "foo" arg (  ->  "foo(arg)": {
       str.gsub!(/^(\s*)"(\S+)" arg \(/) { "#{$1}\"#{$2}(arg)\": {" }
 
-      # "foo" (... | arg)  /* doc */  ->  "foo": "arg"
-      str.gsub!(%r{^(\s*)"(\S+)" \(.* \| arg ?.*\)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": arg#{$4}" }
+      # "foo" ("bar" | arg)  /* doc */  ->  "foo | doc": ["bar", "arg"]
+      str.gsub!(%r{^(\s*)"(\S+)" \((.* \| arg ?.*)\)  /\* (.*) \*/(,?)$}) do
+        "#{$1}\"#{$2} | #{$4}\": #{array_members($3)}#{$5}"
+      end
 
       # "foo" ("bar" | arg) (  /* doc */  ->  "foo(bar|arg) | doc": {
       str.gsub!(%r{^(\s*)"(\S+)" \((.* \| arg ?.*)\) \(  /\* (.*) \*/$}) do
@@ -159,8 +161,10 @@ module Junoser
       # "foo" ("bar" | arg) (  ->  "foo(bar|arg)": {
       str.gsub!(/^(\s*)"(\S+)" \((.* \| arg ?.*)\) \($/) { "#{$1}\"#{$2}(#{pipe_members($3)})\": {" }
 
-      # "foo" (arg | ...)  /* doc */  ->  "foo": "arg"
-      str.gsub!(%r{^(\s*)"(\S+)" \(arg ?.*\)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": arg#{$4}" }
+      # "foo" (arg | "bar")  /* doc */  ->  "foo | doc": ["arg", "bar"]
+      str.gsub!(%r{^(\s*)"(\S+)" \((arg ?.*)\)  /\* (.*) \*/(,?)$}) do
+        "#{$1}\"#{$2} | #{$4}\": #{array_members($3)}#{$5}"
+      end
 
       # "foo" (arg | "bar") (  /* doc */  ->  "foo(arg|bar) | doc": {
       str.gsub!(%r{^(\s*)"(\S+)" \((arg ?.*)\) \(  /\* (.*) \*/(,?)$}) do
@@ -284,6 +288,15 @@ module Junoser
     # Keep the keywords next to arg, because vscode-junos offers every member as a completion candidate.
     def pipe_members(choice)
       choice.gsub('"', '').split(' | ').join('|')
+    end
+
+    # Put the members of a choice in an array, for a value. A lone arg stays a scalar, which is the shape
+    # loadString handles.
+    def array_members(choice)
+      list = choice.gsub('"', '').split(' | ')
+      return 'arg' if list == ['arg']
+
+      "[#{list.map { |member| %("#{member}") }.join(', ')}]"
     end
 
     def finalize(lines)
