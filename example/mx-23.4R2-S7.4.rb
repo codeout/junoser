@@ -6254,6 +6254,7 @@ rule(:configuration) do
                           ),
                           "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (  /* Logical interface */
                               c(
+                                  "enable",
                                   "interface-tag" arg  /* Interface tag name */,
                                   "policer-overhead" (  /* Policer overhead adjustment for this unit */
                                       c(
@@ -33544,6 +33545,7 @@ rule(:interfaces_type) do
         ),
         "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (  /* Logical interface */
             c(
+                "enable",
                 "interface-tag" arg  /* Interface tag name */,
                 "policer-overhead" (  /* Policer overhead adjustment for this unit */
                     c(
@@ -112977,6 +112979,7 @@ rule(:lr_interfaces_type) do
     c(
         "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (  /* Logical interface */
             c(
+                "enable",
                 "interface-tag" arg  /* Interface tag name */,
                 "policer-overhead" (  /* Policer overhead adjustment for this unit */
                     c(
@@ -127096,6 +127099,7 @@ rule(:tenant_interfaces_type) do
     c(
         "unit" enum(("$junos-underlying-interface-unit" | "$junos-interface-unit" | arg)) (  /* Logical interface */
             c(
+                "enable",
                 "interface-tag" arg  /* Interface tag name */,
                 "policer-overhead" (  /* Policer overhead adjustment for this unit */
                     c(
