@@ -68866,7 +68866,8 @@ rule(:juniper_protocols) do
                 ),
                 "tlv-filter" (  /* Filter MED TLVs to be sent */
                       enum(("all" | "med-capabilities" | "network-policy" | "location-id" | "ext-power-via-mdi"))
-                )
+                ),
+                "disable"
             )
         ),
         "igmp-snooping" (  /* IGMP snooping configuration */
