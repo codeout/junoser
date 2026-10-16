@@ -9620,7 +9620,20 @@ rule(:configuration) do
                                   "interval" arg  /* Interval at which data should be recorded */,
                                   "duration" arg  /* Duration to continue recording of data */
                               )
-                          )
+                          ),
+                          "af-mode"  /* Enable 802.3af */,
+                          "high-power"  /* Enable fourpair high power interface upto 60W */,
+                          "ultrahigh-power"  /* Enable fourpair ultra high power interface upto 95W */
+                      )
+                  ),
+                  "fpc" enum(("all" | "fpc-slot-number")) (  /* FPC slot number */
+                      c(
+                          "management" (  /* PoE management mode */
+                            ("static" | "class")
+                          ),
+                          "guard-band" arg  /* Guard band for PoE */,
+                          "maximum-power" arg  /* Maximum FPC power limit */,
+                          "lldp-priority"  /* PoE controller LLDP priority */
                       )
                   )
               )
