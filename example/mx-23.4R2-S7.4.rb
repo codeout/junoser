@@ -44954,7 +44954,8 @@ rule(:juniper_bd_protocols_mld_snooping) do
                         )
                     )
                 ),
-                "version" arg  /* Set MLD snooping version number */
+                "version" arg  /* Set MLD snooping version number */,
+                "disable"
             )
         )
     )
@@ -71325,7 +71326,8 @@ rule(:juniper_default_ri_protocols_mld_snooping) do
                             )
                         )
                     )
-                )
+                ),
+                "disable"
             )
         ),
         "traceoptions" (  /* Trace options for MLD Snooping */
@@ -85220,7 +85222,8 @@ rule(:juniper_ri_protocols_mld_snooping) do
                         )
                     )
                 ),
-                "version" arg  /* Set MLD snooping version number */
+                "version" arg  /* Set MLD snooping version number */,
+                "disable"
             )
         )
     )
