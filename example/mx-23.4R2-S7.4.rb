@@ -68707,7 +68707,39 @@ rule(:juniper_protocols) do
                 )
             )
         ),
-        "dcbx",
+        "dcbx" (
+            c(
+                "disable",
+                "interface" ("all" | arg) (
+                    c(
+                        "disable",
+                        "application-map" arg,
+                        "applications" (
+                            c(
+                                "no-auto-negotiation"
+                            )
+                        ),
+                        "enhanced-transmission-selection" (
+                            c(
+                                "no-auto-negotiation",
+                                "no-recommendation-tlv",
+                                "recommendation-tlv" (
+                                    c(
+                                        "no-auto-negotiation"
+                                    )
+                                )
+                            )
+                        ),
+                        "dcbx-version" ("auto-negotiate" | "ieee-dcbx" | "dcbx-version-1.01"),
+                        "priority-flow-control" (
+                            c(
+                                "no-auto-negotiation"
+                            )
+                        )
+                    )
+                )
+            )
+        ),
         "lldp" (  /* Link Layer Detection Protocol */
             c(
                   ("disable"),
