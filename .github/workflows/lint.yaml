@@ -2,6 +2,13 @@ name: Lint
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   RUBY_VERSION: 3.3
 
@@ -17,9 +24,7 @@ jobs:
         uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
-
-      - name: Install dependencies
-        run: bundle install
+          bundler-cache: true
 
       - name: Run rubocop
         run: bundle exec rubocop
