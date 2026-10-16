@@ -152,16 +152,20 @@ module Junoser
       # "foo" (... | arg)  /* doc */  ->  "foo": "arg"
       str.gsub!(%r{^(\s*)"(\S+)" \(.* \| arg ?.*\)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": arg#{$4}" }
 
-      # "foo" (... | arg) (  /* doc */  ->  "foo(arg)": {
-      str.gsub!(%r{^(\s*)"(\S+)" \(.* \| arg ?.*\) \(  /\* (.*) \*/$}) { "#{$1}\"#{$2}(arg) | #{$3}\": {" }
-      # "foo" (... | arg) (  ->  "foo(arg)": {
-      str.gsub!(/^(\s*)"(\S+)" \(.* \| arg ?.*\) \($/) { "#{$1}\"#{$2}(arg)\": {" }
+      # "foo" ("bar" | arg) (  /* doc */  ->  "foo(bar|arg) | doc": {
+      str.gsub!(%r{^(\s*)"(\S+)" \((.* \| arg ?.*)\) \(  /\* (.*) \*/$}) do
+        "#{$1}\"#{$2}(#{pipe_members($3)}) | #{$4}\": {"
+      end
+      # "foo" ("bar" | arg) (  ->  "foo(bar|arg)": {
+      str.gsub!(/^(\s*)"(\S+)" \((.* \| arg ?.*)\) \($/) { "#{$1}\"#{$2}(#{pipe_members($3)})\": {" }
 
       # "foo" (arg | ...)  /* doc */  ->  "foo": "arg"
       str.gsub!(%r{^(\s*)"(\S+)" \(arg ?.*\)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": arg#{$4}" }
 
-      # "foo" (arg | ...) (  /* doc */  ->  "foo(arg)": {
-      str.gsub!(%r{^(\s*)"(\S+)" \(arg ?.*\) \(  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2}(arg) | #{$3}\": {#{$4}" }
+      # "foo" (arg | "bar") (  /* doc */  ->  "foo(arg|bar) | doc": {
+      str.gsub!(%r{^(\s*)"(\S+)" \((arg ?.*)\) \(  /\* (.*) \*/(,?)$}) do
+        "#{$1}\"#{$2}(#{pipe_members($3)}) | #{$4}\": {#{$5}"
+      end
 
       # "foo" ("bar" | "baz") (  /* doc */  ->  "foo(bar|baz)": {
       str.gsub!(%r{^(\s*)"(\S+)" \("([^)]+)"\) \(  /\* (.*) \*/$}) do
@@ -274,6 +278,12 @@ module Junoser
       str.gsub!(%r{^(\s*)"([^"]+)": (.*)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$4}\": #{$3}#{$5}" }
 
       str
+    end
+
+    # Join the members of a choice with a pipe, for the parentheses of a key: "all" | arg -> all|arg.
+    # Keep the keywords next to arg, because vscode-junos offers every member as a completion candidate.
+    def pipe_members(choice)
+      choice.gsub('"', '').split(' | ').join('|')
     end
 
     def finalize(lines)
