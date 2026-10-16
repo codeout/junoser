@@ -40,12 +40,12 @@ module Junoser
         @oneliner ||= !xml.xpath('./xsd:annotation/xsd:appinfo/*[local-name()="flag" and text()="oneliner"]').empty?
       end
 
-      private
-
       def nokeyword?
         # don't use "/flag" as xsd manipulation automatically add "xsd:" prefix
         @nokeyword ||= !xml.xpath('./xsd:annotation/xsd:appinfo/*[local-name()="flag" and text()="nokeyword"]').empty?
       end
+
+      private
 
       def has_single_child_of?(klass) # rubocop:disable Naming/PredicatePrefix
         config.size == 1 && config.first.is_a?(klass)

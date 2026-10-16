@@ -35,7 +35,9 @@ module Junoser
           return if str.empty?
 
           # Assuming that <xsd:sequence> always has <xsd:complexType> as the parent
-          if parent.parent&.oneliner? && config.first.unbounded?
+          if child.sequential_arguments?
+            fmt('s(', str, ')')
+          elsif parent.parent&.oneliner? && child.unbounded?
             fmt('sc(', str, ')')
           else
             fmt('c(', str, ')')
