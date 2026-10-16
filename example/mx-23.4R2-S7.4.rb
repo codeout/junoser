@@ -89335,6 +89335,16 @@ rule(:juniper_system) do
                                 )
                             )
                         ),
+                        # Ported from vSRX 18.4R1.8
+                        "http" (  /* Unencrypted HTTP connection settings */
+                            c(
+                                "port" arg  /* TCP port for incoming HTTPS connections */,
+                                "interface" (  /* Interfaces that accept HTTP access */
+                                    interface_name  /* Interfaces that accept HTTP access */
+                                )
+                            )
+                        ),
+                        # End of vSRX 18.4R1.8
                         "control" (  /* Control of the web management process */
                             c(
                                 "max-threads" arg  /* Maximum simultaneous threads to handle requests */
