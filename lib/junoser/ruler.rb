@@ -166,7 +166,7 @@ module Junoser
 
       str.gsub! '"any" | "any-ipv4" | "any-ipv6"', '"any-ipv4" | "any-ipv6" | "any"'
 
-                # Fix overkill
+      # Fix overkill
       str.gsub!(/^(\s*)"priority" \(\s*ca\(\s*arg\s*\)/) do
         fmt(['"priority" (',
              '  a(arg, arg)', $1])
@@ -219,8 +219,8 @@ module Junoser
       # Fix .xsd: Elements without "nokeyword" flag
       #
       str.gsub!(/\((.*) \| "name"\)/) { "(#{$1} | arg)" }
+      str.gsub!(/\("name" \| (.*?)\)/) { "(#{$1} | arg)" }
       str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
-      str.gsub!(/\((.*) \| "vlan-id"\)/) { "(#{$1} | arg)" }
 
       %w[filename].each do |key|
         str.gsub! %("#{key}" arg), 'arg'
@@ -297,6 +297,12 @@ module Junoser
       str.gsub!(/^(\s*)\)(,\s*"fpc" enum\(\("all" \| "fpc-slot-number"\)\) \(\s*)c\((.*"lldp-priority"\s*\)\s*\))/m) do
         "#{$1}).as(:oneline)#{$2}sc(#{$3}.as(:oneline)"
       end
+      str.gsub! '"fpc" enum(("all" | "fpc-slot-number"))', '"fpc" ("all" | arg)'
+
+      # Fix .xsd: slot numbers in "set chassis alarm fru-absence ignore fpc xxx pem xxx"
+      # these must come after the "poe" section above, which matches "fpc" enum(("all" | "fpc-slot-number"))
+      str.gsub! '("all" | "fpc-slot-number")', '("all" | arg)'
+      str.gsub! '("all" | "psu-slot-number")', '("all" | arg)'
 
       # Fix .xsd: support "set protocols iccp peer xxx liveness-detection single-hop"
       str.gsub!(/(^rule\(:peer_group\) do.*?\n(\s*)"detection-time" \(\s*c\(\s*"threshold" arg\s*\)\s*\))/m) do

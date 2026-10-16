@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pathname'
-
 require 'helper'
 require 'junoser/squash'
 

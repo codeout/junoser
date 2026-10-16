@@ -77,6 +77,7 @@ module Junoser
 
     def process_line(str)
       str = remove_undefined_variables(str)
+      str = process_placeholder_syntax(str)
       str = process_common_syntax(str)
       str = process_argument_syntax(str)
       str = process_structural_syntax(str)
@@ -90,6 +91,20 @@ module Junoser
 
       # "$junos-interface-unit" |
       str.gsub!(/"\$[\w-]+" \| /, '')
+      # | "$junos-pon-id-interface-set-name"  (this one trails the other members)
+      str.gsub!(/ \| "\$[\w-]+"/, '')
+
+      str
+    end
+
+    def process_placeholder_syntax(str)
+      # The .xsd puts a placeholder name where an argument belongs, so the parser would accept only that word.
+      # Ruler does the same.
+      str.gsub!(/\((.*) \| "name"\)/) { "(#{$1} | arg)" }
+      str.gsub!(/\("name" \| (.*?)\)/) { "(#{$1} | arg)" }
+      str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
+      str.gsub! '("all" | "fpc-slot-number")', '("all" | arg)'
+      str.gsub! '("all" | "psu-slot-number")', '("all" | arg)'
 
       str
     end
@@ -134,19 +149,27 @@ module Junoser
       # "foo" arg (  ->  "foo(arg)": {
       str.gsub!(/^(\s*)"(\S+)" arg \(/) { "#{$1}\"#{$2}(arg)\": {" }
 
-      # "foo" (... | arg)  /* doc */  ->  "foo": "arg"
-      str.gsub!(%r{^(\s*)"(\S+)" \(.* \| arg ?.*\)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": arg#{$4}" }
+      # "foo" ("bar" | arg)  /* doc */  ->  "foo | doc": ["bar", "arg"]
+      str.gsub!(%r{^(\s*)"(\S+)" \((.* \| arg ?.*)\)  /\* (.*) \*/(,?)$}) do
+        "#{$1}\"#{$2} | #{$4}\": #{array_members($3)}#{$5}"
+      end
 
-      # "foo" (... | arg) (  /* doc */  ->  "foo(arg)": {
-      str.gsub!(%r{^(\s*)"(\S+)" \(.* \| arg ?.*\) \(  /\* (.*) \*/$}) { "#{$1}\"#{$2}(arg) | #{$3}\": {" }
-      # "foo" (... | arg) (  ->  "foo(arg)": {
-      str.gsub!(/^(\s*)"(\S+)" \(.* \| arg ?.*\) \($/) { "#{$1}\"#{$2}(arg)\": {" }
+      # "foo" ("bar" | arg) (  /* doc */  ->  "foo(bar|arg) | doc": {
+      str.gsub!(%r{^(\s*)"(\S+)" \((.* \| arg ?.*)\) \(  /\* (.*) \*/$}) do
+        "#{$1}\"#{$2}(#{pipe_members($3)}) | #{$4}\": {"
+      end
+      # "foo" ("bar" | arg) (  ->  "foo(bar|arg)": {
+      str.gsub!(/^(\s*)"(\S+)" \((.* \| arg ?.*)\) \($/) { "#{$1}\"#{$2}(#{pipe_members($3)})\": {" }
 
-      # "foo" (arg | ...)  /* doc */  ->  "foo": "arg"
-      str.gsub!(%r{^(\s*)"(\S+)" \(arg ?.*\)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$3}\": arg#{$4}" }
+      # "foo" (arg | "bar")  /* doc */  ->  "foo | doc": ["arg", "bar"]
+      str.gsub!(%r{^(\s*)"(\S+)" \((arg ?.*)\)  /\* (.*) \*/(,?)$}) do
+        "#{$1}\"#{$2} | #{$4}\": #{array_members($3)}#{$5}"
+      end
 
-      # "foo" (arg | ...) (  /* doc */  ->  "foo(arg)": {
-      str.gsub!(%r{^(\s*)"(\S+)" \(arg ?.*\) \(  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2}(arg) | #{$3}\": {#{$4}" }
+      # "foo" (arg | "bar") (  /* doc */  ->  "foo(arg|bar) | doc": {
+      str.gsub!(%r{^(\s*)"(\S+)" \((arg ?.*)\) \(  /\* (.*) \*/(,?)$}) do
+        "#{$1}\"#{$2}(#{pipe_members($3)}) | #{$4}\": {#{$5}"
+      end
 
       # "foo" ("bar" | "baz") (  /* doc */  ->  "foo(bar|baz)": {
       str.gsub!(%r{^(\s*)"(\S+)" \("([^)]+)"\) \(  /\* (.*) \*/$}) do
@@ -182,9 +205,6 @@ module Junoser
       # "foo" (  ->  "foo": (opts) => {
       str.gsub!(/^(\s*)"(\S+)" \($/) { "#{$1}\"#{$2}\": {" }
 
-      # "foo" arg (  /* doc */  ->  "foo | doc": (opts) => {
-      str.gsub!(%r{^(\s*)"(\S+)" arg \(  /\* (.*) \*/}) { "#{$1}\"#{$2} | #{$3}\": {" }
-
       str
     end
 
@@ -208,8 +228,13 @@ module Junoser
       # enum(("bar" | "baz"))  ->  "foo": new Enumeration(["bar", "baz"])
       str.gsub!(/^(\s*)enum\(\((.*)\)\)/) { "#{$1}new Enumeration(#{$2.gsub('"', '').split(' | ')})" }
 
-      # (arg | "foo")  ->  ["arg", "foo"]
-      str.gsub!(/^(\s*) \(arg( \| "[^"]+")+\)/) { "#{$1}[\"arg\"#{$2.split(' | ').join(', ')}]" }
+      # (arg | "foo" | "bar")  ->  ["arg", "foo", "bar"]
+      # capture the tail as a whole, because a repeated group keeps only its last match
+      str.gsub!(/^(\s*) \(arg((?: \| "[^"]+")+)\)/) do
+        indent = $1
+        members = ['"arg"'] + $2.scan(/"[^"]+"/)
+        "#{indent}[#{members.uniq.join(', ')}]"
+      end
 
       str
     end
@@ -259,6 +284,21 @@ module Junoser
       str.gsub!(%r{^(\s*)"([^"]+)": (.*)  /\* (.*) \*/(,?)$}) { "#{$1}\"#{$2} | #{$4}\": #{$3}#{$5}" }
 
       str
+    end
+
+    # Join the members of a choice with a pipe, for the parentheses of a key: "all" | arg -> all|arg.
+    # Keep the keywords next to arg, because vscode-junos offers every member as a completion candidate.
+    def pipe_members(choice)
+      choice.gsub('"', '').split(' | ').join('|')
+    end
+
+    # Put the members of a choice in an array, for a value. A lone arg stays a scalar, which is the shape
+    # loadString handles.
+    def array_members(choice)
+      list = choice.gsub('"', '').split(' | ')
+      return 'arg' if list == ['arg']
+
+      "[#{list.map { |member| %("#{member}") }.join(', ')}]"
     end
 
     def finalize(lines)

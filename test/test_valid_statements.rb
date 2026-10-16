@@ -236,6 +236,12 @@ class TestValidStatements < Test::Unit::TestCase
       set system login class foo deny-commands-regexps "xxx xxx"
       set system login class foo allow-configuration-regexps "xxx xxx"
       set system login class foo deny-configuration-regexps "xxx xxx"
+
+      set protocols mpls label-switched-path foo priority 7 0
+      set protocols mpls label-switched-path foo primary bar priority 7 0
+      set protocols mpls label-switched-path foo secondary bar priority 7 0
+      set protocols rsvp interface ge-0/0/0 link-protection priority 7 0
+      set protocols rsvp interface ge-0/0/0 link-protection bypass foo priority 7 0
     CONFIG
 
     config.split("\n").each do |l|
