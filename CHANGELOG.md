@@ -1,3 +1,18 @@
+## [0.8.0] - 2026-10-17
+
+### Added
+
+* Recreate parser based on MX 23.4R2-S7.4 xsd
+* Newly supported syntax
+  * "mld-snooping vlan all disable"
+  * "poe fpc xxx"
+  * "chassis alarm fru-absence ignore fpc xxx pem xxx"
+  * "ethernet-switching-options voip interface xxx"
+  * Positional arguments of a choice
+    * "protocols mpls label-switched-path xxx priority xxx xxx"
+    * "routing-options aggregate route xxx as-path aggregator xxx xxx"
+
+
 ## [0.7.6] - 2026-10-01
 
 ### Fixed
