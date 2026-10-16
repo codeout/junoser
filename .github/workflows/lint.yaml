@@ -1,0 +1,25 @@
+name: Lint
+
+on: [push, pull_request]
+
+env:
+  RUBY_VERSION: 3.3
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run rubocop
+        run: bundle exec rubocop
