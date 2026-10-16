@@ -26,6 +26,8 @@ Style/Documentation:
 
 AllCops:
   NewCops: enable
+  # keep it at the oldest ruby the test matrix covers to prevent autocorrect from using a newer idiom
+  TargetRubyVersion: 3.3
   Exclude:
     - example/**/*
     - lib/junoser/parser.rb
