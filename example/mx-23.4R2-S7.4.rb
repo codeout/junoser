@@ -18194,6 +18194,9 @@ rule(:configuration) do
                   )
               )
           ),
+          "ethernet-switching-options" (
+              juniper_ethernet_options
+          ),
           "ietf-interfaces:interfaces" (  /* Interface configuration parameters. */
               c(
                   "interface" arg (  /* The list of configured interfaces on the device. The operational state of an interface is available in the /interfaces-state/interface list.  If the configuration of a system-controlled interface cannot be used by the system (e.g., the interface hardware present does not match the interface type), then the configuration is not applied to the system-controlled interface shown in the /interfaces-state/interface list.  If the configuration of a user-controlled interface cannot be used by the system, the configured interface is not instantiated in the /interfaces-state/interface list. */
@@ -131106,3 +131109,315 @@ rule(:write_option_82_type) do
 
 end
 
+# End of the original MX-23.4R2-S7.4
+
+
+# Ported from vSRX 12.1x47 for "ethernet-switching-options"
+rule(:juniper_ethernet_options) do
+    c(
+        "traceoptions" (  /* Global tracing options for access security */
+            c(
+                "file" (  /* Trace file options */
+                  esp_trace_file_type  /* Trace file options */
+                ),
+                "flag" ("parse" | "regex-parse" | "config-internal" | "normal" | "general" | "state" | "task" | "timer" | "krt" | "vlan" | "forwarding-database" | "nexthop" | "interface" | "lib" | "stp" | "filter" | "access-security" | "rtg" | "ip-source-guard" | "analyzer" | "layer2-protocol-tunneling" | "unknown-unicast-forwarding" | "all") (  /* Tracing parameters */
+                    sc(
+                        "disable"  /* Disable this trace flag */
+                    )
+                ).as(:oneline)
+            )
+        ),
+        "voip" (  /* Voice-over-IP configuration */
+            c(
+                "interface" ("name" | "access-ports") (  /* Enable voice over IP on this port */
+                    c(
+                        "vlan" arg  /* VLAN for voice over IP */,
+                        "forwarding-class" arg  /* Forwarding class */
+                    )
+                )
+            )
+        ),
+        "unknown-unicast-forwarding" (  /* Set interface for forwarding of unknown unicast packets */
+            c(
+                "vlan" arg (  /* VLAN for the unknown unicast packets */
+                    c(
+                        "interface" (  /* Interface to send unknown unicast packets for the VLAN */
+                          interface_name  /* Interface to send unknown unicast packets for the VLAN */
+                        )
+                    )
+                )
+            )
+        ),
+        "dot1q-tunneling" (  /* Dot1q tunneling global options */
+            c(
+                "ether-type" (  /* Dot1q Ether-type value */
+                  ("0x8100" | "0x9100" | "0x88a8")
+                )
+            )
+        ),
+        "mac-notification" (  /* MAC notification options */
+            c(
+                "notification-interval" arg  /* Interval for sending MAC notifications */
+            )
+        ),
+        "interfaces" (  /* Ethernet switching family interface names */
+            c(
+                "esw-interface" (  /* Interface name */
+                  esw_interface_type  /* Interface name */
+                )
+            )
+        ),
+        "mac-table-aging-time" (  /* MAC aging time configuration */
+          mac_aging_time_config  /* MAC aging time configuration */
+        ),
+        "nonstop-bridging"  /* Enable Non stop operation */,
+        "static" (  /* Static forwarding entries */
+            c(
+                "vlan" arg (  /* VLAN static MAC entries */
+                    c(
+                        "mac" arg (  /* Static MAC */
+                            sc(
+                                "next-hop" (  /* Logical next-hop interface */
+                                  interface_name  /* Logical next-hop interface */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "secure-access-port" (  /* Access port security options */
+            c(
+                "interface" arg (  /* Configure access port security for this interface */
+                    c(
+                        "mac-limit" (  /* Number of MAC addresses allowed on this interface */
+                            sc(
+                                "limit" arg  /* Number of MAC addresses allowed on this interface */,
+                                "action" (  /* Action to take if limit is exceeded */
+                                  ("none" | "drop" | "log" | "shutdown")
+                                )
+                            )
+                        ).as(:oneline),
+                        "static-ip" (  /* Static IP address configuration */
+                          juniper_ip_mac_static  /* Static IP address configuration */
+                        ),
+                        "allowed-mac" (  /* Allowed MAC address on this interface */
+                          mac_addr  /* Allowed MAC address on this interface */
+                        ),
+                        "no-allowed-mac-log"  /* Do not log violation of allowed MAC on this interface */,
+                        "dhcp-trusted"  /* Make this interface trusted for DHCP */,
+                        "no-dhcp-trusted"  /* Don't make this interface trusted for DHCP */,
+                        "fcoe-trusted"  /* Make this interface trusted for FCoE */,
+                        "no-fcoe-trusted"  /* Don't make this interface trusted for FCoE */,
+                        "persistent-learning"  /* Enable persistent MAC learning on this interface */
+                    )
+                ),
+                "vlan" ("all" | "vlan-name") (  /* Configure access port security for this VLAN */
+                    c(
+                        c(
+                          "arp-inspection" (  /* Enable Dynamic ARP inspection on this VLAN */
+                              sc(
+                                  "forwarding-class" arg  /* Forwarding class assigned to re-injected ARP packets */
+                              )
+                          ).as(:oneline),
+                          "no-arp-inspection"  /* Disable Dynamic ARP inspection on this VLAN */
+                        ),
+                        c(
+                          "examine-dhcp" (  /* Enable DHCP snooping on this VLAN */
+                              sc(
+                                  "forwarding-class" arg  /* Forwarding class assigned to re-injected DHCP packets */
+                              )
+                          ).as(:oneline),
+                          "no-examine-dhcp"  /* Disable DHCP snooping on this VLAN */
+                        ),
+                        "examine-fip"  /* Enable FIP snooping on this VLAN */,
+                        "mac-move-limit" (  /* Number of MAC movements allowed on this VLAN */
+                            sc(
+                                "limit" arg  /* Number of MAC movements allowed on this VLAN */,
+                                "action" (  /* Action to be taken in case the MAC movement limit is exceeded */
+                                  ("none" | "drop" | "log" | "shutdown")
+                                )
+                            )
+                        ).as(:oneline),
+                        "ip-source-guard"  /* Enable IP source guard on this VLAN */,
+                        "no-ip-source-guard"  /* Don't enable IP source guard on this VLAN */,
+                        "dhcp-option82" (  /* Configure DHCP option 82 on this VLAN */
+                          dhcp_option82_type  /* Configure DHCP option 82 on this VLAN */
+                        )
+                    )
+                ),
+                "dhcp-snooping-file" (  /* Configure DHCP snooping persistence file, write-interval and timeout */
+                    c(
+                        "location" (  /* Location of DHCP snooping entries file */
+                          filename  /* Location of DHCP snooping entries file */
+                        ),
+                        "write-interval" arg  /* Time interval for writing DHCP snooping entries */,
+                        "timeout" arg  /* Timeout for remote read and write operations */
+                    )
+                )
+            )
+        ),
+        "authentication-whitelist" arg (  /* MAC authentication-whitelist configuration needed to bypass Authentication */
+            c(
+                "vlan-assignment" arg  /* VLAN name or 802.1q tag for the MAC address */,
+                "interface" (  /* Interface on which authentication is bypassed */
+                  interface_name  /* Interface on which authentication is bypassed */
+                )
+            )
+        ),
+        "analyzer" (  /* Analyzer options */
+          analyzer_type  /* Analyzer options */
+        ),
+        "port-error-disable" (  /* Port error disable options */
+            c(
+                "disable-timeout" arg  /* Timeout for which the port is disabled */
+            )
+        ),
+        "bpdu-block" (  /* Block BPDU on interface (BPDU Protect) */
+            c(
+                "interface" ("all" | "name")  /* Interface name to block BPDU on */,
+                "disable-timeout" arg  /* Disable timeout for BPDU Protect */
+            )
+        ),
+        "redundant-trunk-group" (  /* Redundant trunk group */
+            c(
+                "group" arg (  /* Name of Redundant trunk group */
+                    c(
+                        "preempt-cutover-timer" arg  /* Hold timer for primary interface before preempting secondary interface */,
+                        "description" arg  /* Text description of the RTG */,
+                        "interface" arg (  /* Interfaces that are part of this redundant trunk group */
+                            c(
+                                "primary"  /* Set Primary Redundant Trunk Group interface */
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        "storm-control" (  /* Storm control configuration */
+            c(
+                "action-shutdown"  /* Port is disabled for excessive storm control errors */,
+                "interface" ("all" | "name") (  /* Configure storm control for this interface */
+                    c(
+                        "bandwidth" arg  /* Link bandwidth */,
+                        "no-broadcast"  /* Disable broadcast storm control */,
+                        "no-unknown-unicast"  /* Disable unknown unicast storm control */,
+                        "level" arg,
+                        c(
+                          "multicast"  /* Enable multicast storm control */,
+                          "no-multicast"  /* Don't enable multicast storm control */,
+                          "no-registered-multicast"  /* Disable registered multicast storm control */,
+                          "no-unregistered-multicast"  /* Disable unregistered multicast storm control */
+                        )
+                    )
+                )
+            )
+        )
+    )
+end
+
+rule(:analyzer_type) do
+  arg.as(:arg) (
+    c(
+        "ratio" arg  /* Packet ratio */,
+        "loss-priority" (  /* Loss priority of mirrored packets */
+          ("low" | "high")
+        ),
+        "input" (  /* Ports and VLANs to monitor */
+          analyzer_input_type  /* Ports and VLANs to monitor */
+        ),
+        "output" (  /* Outgoing port or VLAN for mirrored packets */
+          analyzer_output_type  /* Outgoing port or VLAN for mirrored packets */
+        )
+    )
+  )
+end
+
+rule(:analyzer_input_type) do
+    c(
+        "ingress" (  /* Ports and VLANs to monitor incoming traffic */
+          analyzer_ingress_type  /* Ports and VLANs to monitor incoming traffic */
+        ),
+        "egress" (  /* Ports and VLANs to monitor outgoing traffic */
+          analyzer_egress_type  /* Ports and VLANs to monitor outgoing traffic */
+        )
+    )
+end
+
+rule(:analyzer_egress_type) do
+    c(
+        "interface" (  /* Port to monitor outgoing traffic */
+          analyzer_egress_interface_type  /* Port to monitor outgoing traffic */
+        ),
+        "vlan" (  /* VLAN to monitor outgoing traffic */
+          analyzer_vlan_type  /* VLAN to monitor outgoing traffic */
+        )
+    )
+end
+
+rule(:analyzer_ingress_type) do
+    c(
+        "interface" (  /* Port to monitor incoming traffic */
+          analyzer_ingress_interface_type  /* Port to monitor incoming traffic */
+        ),
+        "vlan" (  /* VLAN to monitor incoming traffic */
+          analyzer_vlan_type  /* VLAN to monitor incoming traffic */
+        )
+    )
+end
+
+rule(:analyzer_output_type) do
+    c(
+        "interface" arg  /* Outgoing port for mirrored packets */,
+        "vlan" arg (  /* Outgoing VLAN for mirrored packets */
+            c(
+                "no-tag"  /* Removes extra RSAPN tag from mirrored packets */
+            )
+        )
+    )
+end
+
+rule(:analyzer_vlan_type) do
+  arg.as(:arg)
+end
+
+rule(:esw_interface_type) do
+  arg.as(:arg) (
+    c(
+        "no-mac-learning"  /* Disable mac learning for this interface */
+    )
+  )
+end
+
+rule(:mac_aging_time_config) do
+    c(
+        c(
+          "time" arg  /* Time in seconds */,
+          "unlimited"  /* Disable MAC-aging */
+        )
+    )
+end
+
+rule(:juniper_ip_mac_static) do
+  arg.as(:arg) (
+    c(
+        "vlan" arg  /* VLAN name or VLAN Tag (1..4095) */,
+        "mac" (  /* MAC address */
+          mac_addr  /* MAC address */
+        )
+    )
+  ).as(:oneline)
+end
+
+rule(:esp_trace_file_type) do
+    c(
+        "filename" arg  /* Name of file in which to write trace information */,
+        "replace"  /* Replace trace file rather than appending to it */,
+        "size" arg  /* Maximum trace file size */,
+        "files" arg  /* Maximum number of trace files */,
+        "no-stamp"  /* Do not timestamp trace file */,
+        "world-readable"  /* Allow any user to read the log file */,
+        "no-world-readable"  /* Don't allow any user to read the log file */
+    ).as(:oneline)
+end
+# End of vSRX 12.1x47 for "ethernet-switching-options"
