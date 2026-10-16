@@ -9792,7 +9792,8 @@ rule(:configuration) do
                     "no-auto-conversion"  /* Disable automatic VC port conversion */,
                     "auto-conversion"  /* Enable automatic VC port conversion */
                   ),
-                  "vcp-no-hold-time"  /* Set no hold time for vcp interfaces */
+                  "vcp-no-hold-time"  /* Set no hold time for vcp interfaces */,
+                  "vcp-snmp-statistics"
               )
           ),
           "vlans" (  /* VLAN configuration */
