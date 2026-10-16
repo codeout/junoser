@@ -297,6 +297,7 @@ module Junoser
       str.gsub!(/^(\s*)\)(,\s*"fpc" enum\(\("all" \| "fpc-slot-number"\)\) \(\s*)c\((.*"lldp-priority"\s*\)\s*\))/m) do
         "#{$1}).as(:oneline)#{$2}sc(#{$3}.as(:oneline)"
       end
+      str.gsub! '"fpc" enum(("all" | "fpc-slot-number"))', '"fpc" ("all" | arg)'
 
       # Fix .xsd: support "set protocols iccp peer xxx liveness-detection single-hop"
       str.gsub!(/(^rule\(:peer_group\) do.*?\n(\s*)"detection-time" \(\s*c\(\s*"threshold" arg\s*\)\s*\))/m) do
