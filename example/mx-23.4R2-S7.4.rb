@@ -3620,6 +3620,7 @@ rule(:configuration) do
                   arg  /* Profile name */
               )
           ).as(:oneline),
+          # Ported from vSRX 22.4R1.10
           "security" (  /* Security configuration */
               c(
                   "alarms" (  /* Configure security alarms */
@@ -3633,13 +3634,60 @@ rule(:configuration) do
                               c(
                                   "authentication" arg  /* Raise alarm for specified number of authentication failures */,
                                   "cryptographic-self-test"  /* Raise alarm for cryptographic self test failures */,
-                                  "decryption-failures"  /* Raise alarm for specified number of decryption failures */,
-                                  "encryption-failures"  /* Raise alarm for specified number of encryption failures */,
-                                  "ike-phase1-failures"  /* Raise alarm for specified number of IKE Phase 1 failures */,
-                                  "ike-phase2-failures"  /* Raise alarm for specified number of IKE Phase 2 failures */,
+                                  "decryption-failures" (  /* No. of decryption failures before which an alarm needs to be raised */
+                                      c(
+                                          "threshold" arg  /* Threshold value [default is 1000] */
+                                      )
+                                  ),
+                                  "encryption-failures" (  /* No. of encryption failures before which an alarm needs to be raised */
+                                      c(
+                                          "threshold" arg  /* Threshold value [default is 1000] */
+                                      )
+                                  ),
+                                  "ike-phase1-failures" (  /* No. of IKE Phase-1 failures before which an alarm needs to be raised */
+                                      c(
+                                          "threshold" arg  /* Threshold value [default is 20] */
+                                      )
+                                  ),
+                                  "ike-phase2-failures" (  /* No. of IKE Phase-2 failures before which an alarm needs to be raised */
+                                      c(
+                                          "threshold" arg  /* Threshold value [default is 20] */
+                                      )
+                                  ),
                                   "key-generation-self-test"  /* Raise alarm for key generation self test failures */,
                                   "non-cryptographic-self-test"  /* Raise alarm for non-cryptographic self test failures */,
-                                  "policy"  /* Raise alarm for flow policy violations */,
+                                  "policy" (  /* Raise alarm for flow policy violations */
+                                      c(
+                                          "source-ip" (  /* Configure source address type of policy violation */
+                                              c(
+                                                  "threshold" arg  /* Number of source IP address matches to raise alarm */,
+                                                  "duration" arg  /* Time window matches must occur within */,
+                                                  "size" arg  /* Total source IP address number that can be done policy violation check concurrently */
+                                              )
+                                          ),
+                                          "destination-ip" (  /* Configure destination address type of policy violation */
+                                              c(
+                                                  "threshold" arg  /* Number of destination IP address matches to raise alarm */,
+                                                  "duration" arg  /* Time window matches must occur within */,
+                                                  "size" arg  /* Total destination IP address number that can be done policy violation check concurrently */
+                                              )
+                                          ),
+                                          "application" (  /* Configure application type of policy violation */
+                                              c(
+                                                  "threshold" arg  /* Number of application matches to raise alarm */,
+                                                  "duration" arg  /* Time window matches must occur within */,
+                                                  "size" arg  /* Total application number that can be done policy violation check concurrently */
+                                              )
+                                          ),
+                                          "policy-match" (  /* Configure policy type of policy violation */
+                                              c(
+                                                  "threshold" arg  /* Number of policy matches to raise alarm */,
+                                                  "duration" arg  /* Time window matches must occur within */,
+                                                  "size" arg  /* Total concurrent number of policy check violations */
+                                              )
+                                          )
+                                      )
+                                  ),
                                   "replay-attacks" (  /* No. of Replay attacks before which an alarm needs to be raised */
                                       c(
                                           "threshold" arg  /* Replay threshold value */
@@ -3652,7 +3700,277 @@ rule(:configuration) do
                       )
                   ),
                   "log" (  /* Configure auditable security logs */
-                    log_object  /* Configure auditable security logs */
+                      c(
+                          "exclude" arg (  /* List of security log criteria to exclude from the audit log */
+                              c(
+                                  "destination-address" (  /* Destination address */
+                                    ipaddr  /* Destination address */
+                                  ),
+                                  "destination-port" arg  /* Destination port */,
+                                  "event-id" arg  /* Event ID filter */,
+                                  "failure"  /* Event was a failure */,
+                                  "interface-name" arg  /* Name of interface */,
+                                  "policy-name" arg  /* Policy name filter */,
+                                  "process" arg  /* Process that generated the event */,
+                                  "protocol" arg  /* Protocol filter */,
+                                  "source-address" (  /* Source address */
+                                    ipaddr  /* Source address */
+                                  ),
+                                  "source-port" arg  /* Source port */,
+                                  "success"  /* Event was successful */,
+                                  "username" arg  /* Username filter */
+                              )
+                          ),
+                          "limit" arg  /* Limit number of security log entries to keep in memory */,
+                          "cache" (  /* Cache security log events in the audit log buffer */
+                              c(
+                                  "exclude" arg (  /* List of security log criteria to exclude from the audit log */
+                                      c(
+                                          "destination-address" (  /* Destination address */
+                                            ipaddr  /* Destination address */
+                                          ),
+                                          "destination-port" arg  /* Destination port */,
+                                          "event-id" arg  /* Event ID filter */,
+                                          "failure"  /* Event was a failure */,
+                                          "interface-name" arg  /* Name of interface */,
+                                          "policy-name" arg  /* Policy name filter */,
+                                          "process" arg  /* Process that generated the event */,
+                                          "protocol" arg  /* Protocol filter */,
+                                          "source-address" (  /* Source address */
+                                            ipaddr  /* Source address */
+                                          ),
+                                          "source-port" arg  /* Source port */,
+                                          "success"  /* Event was successful */,
+                                          "username" arg  /* Username filter */
+                                      )
+                                  ),
+                                  "limit" arg  /* Limit number of security log entries to keep in memory */
+                              )
+                          ),
+                          "host",
+                          "message-rate-limit" arg  /* Maximum syslog messages per second allowed from this interface. Applies per member if set at aggregate level */,
+                          "disable"  /* Disable security logging for the device */,
+                          "utc-timestamp"  /* Use UTC time for security log timestamps */,
+                          "mode" (  /* Controls how security logs are processed and exported */
+                            ("stream" | "event" | "stream-event")
+                          ),
+                          "event-rate" arg  /* Control plane event rate */,
+                          "format" (  /* Set security log format for the device */
+                            ("syslog" | "sd-syslog" | "binary")
+                          ),
+                          "escape"  /* Enable escape defined by RFC5424 for the sd and binary format logs */,
+                          "time-format" (  /* Configure year or millisecond for syslog */
+                            time_format_object  /* Configure year or millisecond for syslog */
+                          ),
+                          "rate-cap" arg  /* Data plane event rate */,
+                          "max-database-record" arg  /* Maximum records in database */,
+                          "report" (  /* Set security log report settings */
+                              c(
+                                  "logs-per-table" (  /* Log number per table in database */
+                                      c(
+                                          "session-all" arg  /* Log number of session */,
+                                          "screen" arg  /* Log number of screen */,
+                                          "idp" arg  /* Log number of idp */,
+                                          "utm" arg  /* Log number of utm */,
+                                          "ipsec-vpn" arg  /* Log number of ipsec-vpn */,
+                                          "sky" arg  /* Log number of sky */
+                                      )
+                                  ),
+                                  "table-lifetime" arg  /* Table lifetime day(s) */,
+                                  "table-mode" (  /* Report table mode */
+                                      c(
+                                          "dense"  /* Applicable when massive log and long duration */
+                                      )
+                                  ),
+                                  "database-filter" (  /* Check the logs whether should be inserted into database */
+                                      c(
+                                          "event-category" enum(("session" | "screen" | "idp" | "webfilter" | "content-filter" | "anti-virus" | "anti-spam" | "ipsec" | "sky" | "secintel" | "icap" | "ssl-proxy" | "dnsf" | "session-create" | "session-close" | "session-deny"))  /* Filter by event-category */,
+                                          "exclude"  /* Exclude the logs */
+                                      )
+                                  )
+                              )
+                          ),
+                          c(
+                            "source-address" (  /* Source ip address used when exporting security logs */
+                              ipaddr  /* Source ip address used when exporting security logs */
+                            ),
+                            "source-interface" (  /* Source interface used when exporting security logs */
+                              interface_name  /* Source interface used when exporting security logs */
+                            )
+                          ),
+                          "transport" (  /* Set security log transport settings */
+                              c(
+                                  "tcp-connections" arg  /* Set tcp connection number per-stream */,
+                                  "protocol" (  /* Set security log transport protocol for the device */
+                                    ("udp" | "tcp" | "tls")
+                                  ),
+                                  "tls-profile" arg  /* TLS profile */
+                              )
+                          ),
+                          "facility-override" (  /* Alternate facility for logging to remote host */
+                            ("authorization" | "daemon" | "ftp" | "kernel" | "user" | "local0" | "local1" | "local2" | "local3" | "local4" | "local5" | "local6" | "local7")
+                          ),
+                          "local-log-tag" arg  /* Tag included in logs */,
+                          "local-category" enum(("all" | "content-security" | "fw-auth" | "screen" | "alg" | "nat" | "flow" | "sctp" | "gtp" | "ipsec" | "idp" | "rtlog" | "pst-ds-lite" | "appqos" | "secintel" | "aamw" | "sfw" | "session" | "session-open" | "session-close" | "urlf" | "ha" | "ha-open" | "ha-close" | "pcp" | "dnsf"))  /* Selects the type of events that may be logged locally */,
+                          "root-streaming"  /* Logs will be streamed from the Root LSYS */,
+                          "stream" arg (  /* Set security log stream settings */
+                              c(
+                                  "severity" (  /* Severity threshold for security logs */
+                                    ("emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "info" | "debug")
+                                  ),
+                                  "format" (  /* Specify the log stream format */
+                                    ("syslog" | "sd-syslog" | "welf" | "binary")
+                                  ),
+                                  "category" enum(("all" | "content-security" | "fw-auth" | "screen" | "alg" | "nat" | "flow" | "sctp" | "gtp" | "ipsec" | "idp" | "rtlog" | "pst-ds-lite" | "appqos" | "secintel" | "aamw" | "sfw" | "session" | "session-open" | "session-close" | "urlf" | "ha" | "ha-open" | "ha-close" | "pcp" | "dnsf"))  /* Selects the type of events that may be logged */,
+                                  "filter" enum(("threat-attack"))  /* Selects the filter to filter the logs to be logged */,
+                                  "host" (  /* Destination to send security logs to */
+                                    host_object  /* Destination to send security logs to */
+                                  ),
+                                  "rate-limit" (  /* Rate-limit for security logs */
+                                      c(
+                                            arg
+                                      )
+                                  ),
+                                  "file" (  /* Security log file options for logs in local file */
+                                      c(
+                                          "localfilename" arg  /* Name of local log file */,
+                                          "size" arg  /* Maximum size of local log file in megabytes */,
+                                          "rotation" arg  /* Maximum number of rotate files */,
+                                          "allow-duplicates"  /* To disable log consolidation */
+                                      )
+                                  ),
+                                  "transport" (  /* Set security log transport settings */
+                                      c(
+                                          "tcp-connections" arg  /* Set tcp connection number per-stream */,
+                                          "protocol" (  /* Set security log transport protocol for the device */
+                                            ("udp" | "tcp" | "tls")
+                                          ),
+                                          "tls-profile" arg  /* TLS profile */
+                                      )
+                                  ),
+                                  "time-format" (  /* Configure year or millisecond for syslog */
+                                    time_format_object  /* Configure year or millisecond for syslog */
+                                  ),
+                                  "source-address" (  /* Source ip address used when exporting security logs */
+                                    ipaddr  /* Source ip address used when exporting security logs */
+                                  )
+                              )
+                          ),
+                          "file" (  /* Security log file options for logs in binary/protobuf format */
+                              c(
+                                  "filename" arg  /* Name of log file */,
+                                  "size" arg  /* Maximum size of log file in megabytes */,
+                                  "path" arg  /* Path to log files */,
+                                  "files" arg  /* Maximum number of log files */
+                              )
+                          ),
+                          "apply" (  /* Apply settings from other features */
+                              c(
+                                  "dscp-code-point"  /* Apply setting class-of-service host-outbound-traffic dscp-code-point */
+                              )
+                          ),
+                          "traceoptions" (  /* Security log daemon trace options */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "flag" enum(("source" | "configuration" | "all" | "report" | "hpl"))  /* List of things to include in trace */.as(:oneline)
+                              )
+                          ),
+                          "profile" arg (  /* Security log profile setting */
+                              c(
+                                  "stream-name" arg  /* Use which stream  */,
+                                  "category" (  /* Selects the category of events for the profile */
+                                      c(
+                                          "session" (  /* Select session category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "webfilter" (  /* Select webfilter category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "antivirus" (  /* Select antivirus category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "content-filter" (  /* Select content-filter category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "antispam" (  /* Select antispam category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "idp" (  /* Select idp category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "secintel" (  /* Select secintel category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "aamw" (  /* Select aamw category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "ssl-proxy" (  /* Select ssl-proxy category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          ),
+                                          "apptrack" (  /* Select apptrack category */
+                                              c(
+                                                  "field-extra-name" ("sd-id" | "hostname" | "timestamp")  /* Select the extra Fields, only apply to sd-syslog and syslog formt */,
+                                                  "field-name" (arg)  /* Select the fields by order */
+                                              )
+                                          )
+                                      )
+                                  ),
+                                  "default-profile" (
+                                      c(
+                                          "activate"  /* Set this profile as default profile */
+                                      )
+                                  ),
+                                  "template" (  /* Select the template for the profile */
+                                      c(
+                                          c(
+                                            "traditional-firewall"  /* Traditional-firewall */,
+                                            "unified-ngfw"  /* Unified-ngfw */,
+                                            "sd-wan"  /* Sd-wan */
+                                          )
+                                      )
+                                  )
+                              )
+                          )
+                      )
                   ),
                   "certificates" (  /* X.509 certificate configuration */
                       c(
@@ -3700,17 +4018,25 @@ rule(:configuration) do
                   "pki" (  /* PKI service configuration */
                     security_pki  /* PKI service configuration */
                   ),
-                  "group-vpn" (  /* Group VPN configuration */
-                    security_group_vpn  /* Group VPN configuration */
-                  ),
-                  "traceoptions" (  /* Trace options for IPSec key management */
-                    security_traceoptions  /* Trace options for IPSec key management */
+                  "ike" (  /* IKE configuration */
+                    security_ike  /* IKE configuration */
                   ),
                   "ipsec" (  /* IPSec configuration */
                     security_ipsec_vpn  /* IPSec configuration */
                   ),
-                  "ike" (  /* IKE configuration */
-                    security_ike  /* IKE configuration */
+                  "group-vpn" (  /* Group VPN configuration */
+                    security_group_vpn  /* Group VPN configuration */
+                  ),
+                  "ipsec-policy" (  /* IPSec policy configuration */
+                    security_ipsec_policies  /* IPSec policy configuration */
+                  ),
+                  "distribution-profile" (  /* IPSec Tunnels distribution profile */
+                      c(
+                          "fat-core"  /* Power Mode IPSec fat-tunnel mode */
+                      )
+                  ),
+                  "traceoptions" (  /* Trace options for IPSec key management */
+                    security_traceoptions  /* Trace options for IPSec key management */
                   ),
                   "idp" (  /* IDP configuration */
                       c(
@@ -3949,14 +4275,1144 @@ rule(:configuration) do
                           ),
                           "tenant-system" (  /* Configure max IDP sessions for the tenant */
                             tenant_system_type  /* Configure max IDP sessions for the tenant */
+                          ),
+                          "processes"  /* Configure IDP Processes */
+                      )
+                  ),
+                  "address-book" (  /* Security address book */
+                    named_address_book_type  /* Security address book */
+                  ),
+                  "alg" (  /* Configure ALG security options */
+                    alg_object  /* Configure ALG security options */
+                  ),
+                  "application-firewall" (  /* Configure application-firewall rule-sets */
+                      c(
+                          "traceoptions" (  /* Rule-sets Tracing Options */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "flag" enum(("configuration" | "lookup" | "compilation" | "ipc" | "all"))  /* Tracing parameters */.as(:oneline)
+                              )
+                          ),
+                          "profile" arg (  /* Configure application-firewall profile */
+                              c(
+                                  "block-message" (  /* Block message settings */
+                                      c(
+                                          "type" (  /* Type of block message desired */
+                                              c(
+                                                  c(
+                                                    "custom-text" (  /* Custom defined block message */
+                                                        c(
+                                                            "content" arg  /* Content of custom-text */
+                                                        )
+                                                    ),
+                                                    "custom-redirect-url" (  /* Custom redirect URL server */
+                                                        c(
+                                                            "content" arg  /* URL of block message */
+                                                        )
+                                                    )
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                          "rule-sets" arg (  /* Configure application-firewall rule-sets */
+                              c(
+                                  "rule" (  /* Rule */
+                                    appfw_rule_type  /* Rule */
+                                  ),
+                                  "default-rule" (  /* Specify default rule for a rule-set */
+                                      c(
+                                          c(
+                                            "permit"  /* Permit packets */,
+                                            "deny" (  /* Deny packets */
+                                                c(
+                                                    "block-message"  /* Block message */
+                                                )
+                                            ),
+                                            "reject" (  /* Reject packets */
+                                                c(
+                                                    "block-message"  /* Block message */
+                                                )
+                                            )
+                                          )
+                                      )
+                                  ),
+                                  "profile" arg  /* Profile for block message */
+                              )
+                          ),
+                          "nested-application" (  /* Configure nested application dynamic lookup */
+                              c(
+                                  "dynamic-lookup" (  /* Configure dynamic lookup */
+                                      c(
+                                          "enable"  /* Enable dynamic lookup */
+                                      )
+                                  )
+                              )
                           )
                       )
+                  ),
+                  "application-tracking" (  /* Application tracking configuration */
+                      c(
+                          "disable"  /* Disable Application tracking */,
+                          c(
+                            "first-update-interval" arg  /* Interval when the first update message is sent */,
+                            "first-update"  /* Generate Application tracking initial message when a session is created */
+                          ),
+                          "session-update-interval" arg  /* Frequency in which Application tracking update messages are generated */,
+                          "log-session-create"  /* Generate Application tracking session create log */,
+                          "log-session-close"  /* Generate Application tracking session close log */,
+                          "no-volume-updates"  /* Disable session volume update log */
+                      )
+                  ),
+                  "utm" (  /* Content security service configuration */
+                      c(
+                          "traceoptions" (  /* Trace options for utm */
+                            utm_traceoptions  /* Trace options for utm */
+                          ),
+                          "application-proxy" (  /* Application proxy settings */
+                              c(
+                                  "traceoptions" (  /* Trace options for application proxy */
+                                    utm_apppxy_traceoptions  /* Trace options for application proxy */
+                                  )
+                              )
+                          ),
+                          "ipc" (  /* IPC settings */
+                              c(
+                                  "traceoptions" (  /* Trace options for IPC */
+                                    utm_ipc_traceoptions  /* Trace options for IPC */
+                                  )
+                              )
+                          ),
+                          "custom-objects" (  /* Custom-objects settings */
+                              c(
+                                  "category-package" (  /* Category package download and install options */
+                                      c(
+                                          "url" arg  /* HTTPS URL of category package download */,
+                                          "proxy-profile" arg  /* Proxy profile */,
+                                          "routing-instance" arg  /* Routing instance name */,
+                                          "automatic" (  /* Scheduled download and install */
+                                              c(
+                                                  "start-time" (  /* Start time (YYYY-MM-DD.HH:MM:SS) */
+                                                    time  /* Start time (YYYY-MM-DD.HH:MM:SS) */
+                                                  ),
+                                                  "interval" arg  /* Interval in hours */,
+                                                  "enable"  /* Enable automatic download and install */
+                                              )
+                                          )
+                                      )
+                                  ),
+                                  "mime-pattern" (  /* Configure mime-list object */
+                                    mime_list_type  /* Configure mime-list object */
+                                  ),
+                                  "filename-extension" (  /* Configure extension-list object */
+                                    extension_list_type  /* Configure extension-list object */
+                                  ),
+                                  "url-pattern" (  /* Configure url-list object */
+                                    url_list_type  /* Configure url-list object */
+                                  ),
+                                  "custom-url-category" (  /* Configure category-list object */
+                                    category_list_type  /* Configure category-list object */
+                                  ),
+                                  "protocol-command" (  /* Configure command-list object */
+                                    command_list_type  /* Configure command-list object */
+                                  ),
+                                  "custom-message" (  /* Configure custom-message object */
+                                    custom_message_type  /* Configure custom-message object */
+                                  )
+                              )
+                          ),
+                          "default-configuration" (  /* Global default UTM configurations */
+                              c(
+                                  "anti-virus" (  /* Configure anti-virus feature */
+                                    default_anti_virus_feature  /* Configure anti-virus feature */
+                                  ),
+                                  "web-filtering" (  /* Configure web-filtering feature */
+                                    default_webfilter_feature  /* Configure web-filtering feature */
+                                  ),
+                                  "anti-spam" (  /* Configure anti-spam feature */
+                                    default_anti_spam_feature  /* Configure anti-spam feature */
+                                  ),
+                                  "content-filtering" (  /* Configure content filtering feature */
+                                    default_content_filtering_feature  /* Configure content filtering feature */
+                                  )
+                              )
+                          ),
+                          "feature-profile" (  /* Feature-profile settings */
+                              c(
+                                  "anti-virus" (  /* Configure anti-virus feature */
+                                    anti_virus_feature  /* Configure anti-virus feature */
+                                  ),
+                                  "web-filtering" (  /* Configure web-filtering feature */
+                                    webfilter_feature  /* Configure web-filtering feature */
+                                  ),
+                                  "anti-spam" (  /* Configure anti-spam feature */
+                                    anti_spam_feature  /* Configure anti-spam feature */
+                                  ),
+                                  "content-filtering" (  /* Configure content filtering feature */
+                                    content_filtering_feature  /* Configure content filtering feature */
+                                  )
+                              )
+                          ),
+                          "utm-policy" (  /* Configure profile  */
+                            profile_setting  /* Configure profile  */
+                          )
+                      )
+                  ),
+                  "dynamic-address" (  /* Configure security dynamic address */
+                      c(
+                          "traceoptions" (  /* Security dynamic address tracing options */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "level" (  /* Level of debugging output */
+                                    ("error" | "warning" | "notice" | "info" | "verbose" | "all")
+                                  ),
+                                  "flag" enum(("configuration" | "control" | "ipc" | "ip-entry" | "file-retrieval" | "lookup" | "all"))  /* Tracing parameters */.as(:oneline)
+                              )
+                          ),
+                          "feed-server" arg (  /* Security dynamic address feed-server */
+                              c(
+                                  "description" arg  /* Text description of feed-server */,
+                                  c(
+                                    "hostname" arg  /* Hostname or IP address of feed-server */,
+                                    "url" arg  /* URL,example:example.url.com;1.1.1.1/<folder-or-file-path>;Browser can verify its validity */
+                                  ),
+                                  "update-interval" arg  /* Interval to retrieve update */,
+                                  "hold-interval" arg  /* Time to keep IP entry when update failed */,
+                                  "tls-profile" arg  /* TLS profile */,
+                                  "validate-certificate-attributes" (  /* Validate some certificate attributes */
+                                      c(
+                                          "subject-or-subject-alternative-names"  /* One of them must match feed server host name */
+                                      )
+                                  ),
+                                  "feed-name" arg (  /* Feed name in feed-server */
+                                      c(
+                                          "description" arg  /* Text description of feed in feed-server */,
+                                          "path" arg  /* Path of feed, appended to feed-server to form a complete URL */,
+                                          "update-interval" arg  /* Interval to retrieve update */,
+                                          "hold-interval" arg  /* Time to keep IP entry when update failed */
+                                      )
+                                  )
+                              )
+                          ),
+                          "address-name" arg (  /* Security dynamic address name */
+                              c(
+                                  "description" arg  /* Text description of dynamic address */,
+                                  "profile" (  /* Information to categorize feed data into this dynamic address */
+                                      c(
+                                          "feed-name" arg  /* Name of feed in feed-server for this dynamic address */,
+                                          "category" arg (  /* Name of category */
+                                              c(
+                                                  "feed" arg  /* Name of feed under category */,
+                                                  "property" arg (  /* Property to match */
+                                                      c(
+                                                          c(
+                                                            "string" arg  /* Value type is strings */
+                                                          )
+                                                      )
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  ),
+                                  "session-scan"  /* Trigger session scan when the IP address is added */
+                              )
+                          ),
+                          "session-scan" (  /* Trigger session scan for all the dynamic addresses */
+                              c(
+                                  "hold-interval" arg  /* Time interval before the session scan request */
+                              )
+                          )
+                      )
+                  ),
+                  "remote-access" (  /* Configure remote access */
+                      c(
+                          "global-options" (  /* Global remote-access configuration */
+                              c(
+                                  "auth-token-valid-time" arg  /* Authentication token valid time (seconds) :default 60 */,
+                                  "config-file-size" arg  /* Set the Config file buffer size (default size 5120 bytes) */
+                              )
+                          ),
+                          "profile" (  /* Remote access profile */
+                            remote_access_profile_config  /* Remote access profile */
+                          ),
+                          "client-config" (  /* Remote-access client configuration */
+                            remote_access_client_config  /* Remote-access client configuration */
+                          ),
+                          "traceoptions" (  /* Remote-access trace configuration */
+                            remote_access_traceoptions  /* Remote-access trace configuration */
+                          ),
+                          "default-profile" arg  /* Configure default profile */
+                      )
+                  ),
+                  "dynamic-application" (  /* Configure dynamic-application */
+                      c(
+                          "traceoptions" (  /* Dynamic application tracing options */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "flag" enum(("configuration" | "lookup" | "compilation" | "ipc" | "all"))  /* Tracing parameters */.as(:oneline)
+                              )
+                          ),
+                          "profile" arg (  /* Configure application-firewall profile */
+                              c(
+                                  "redirect-message" (  /* Redirect message settings */
+                                      c(
+                                          "type" (  /* Type of redirect message desired */
+                                              c(
+                                                  c(
+                                                    "custom-text" (  /* Custom defined text block message */
+                                                        c(
+                                                            "content" arg  /* Content of custom-text */
+                                                        )
+                                                    ),
+                                                    "redirect-url" (  /* Custom redirect URL server */
+                                                        c(
+                                                            "content" arg  /* URL of block message */
+                                                        )
+                                                    )
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          )
+                      )
+                  ),
+                  "softwires" (  /* Configure softwire feature */
+                    softwires_object  /* Configure softwire feature */
+                  ),
+                  "forwarding-options" (  /* Security-forwarding-options configuration */
+                      c(
+                          "family" (  /* Security forwarding-options for family */
+                              c(
+                                  "inet6" (  /* Family IPv6 */
+                                      c(
+                                          "mode" (  /* Forwarding mode */
+                                            ("packet-based" | "flow-based" | "drop")
+                                          )
+                                      )
+                                  ),
+                                  "mpls" (  /* Family MPLS */
+                                      c(
+                                          "mode" (  /* Forwarding mode */
+                                            ("packet-based" | "flow-based")
+                                          )
+                                      )
+                                  ),
+                                  "iso" (  /* Family ISO */
+                                      c(
+                                          "mode" (  /* Forwarding mode */
+                                            ("packet-based")
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                          "mirror-filter" (  /* Security mirror filters */
+                            mirror_filter_type  /* Security mirror filters */
+                          ),
+                          "secure-wire" (  /* Secure-wire cross connections */
+                            secure_wire_type  /* Secure-wire cross connections */
+                          ),
+                          "mode" (  /* Tap or sniffer mode */
+                              c(
+                                  "tap" (  /* Tap mode */
+                                      c(
+                                          "interface" (  /* Tap enabled interface */
+                                            interface_name  /* Tap enabled interface */
+                                          ),
+                                          "inspect-pass-through-tunnel" (  /* Inspect pass-through tunnel */
+                                              c(
+                                                  "ipip"  /* IPIP */,
+                                                  "gre"  /* GRE */
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                          "receive-side-scaling" (  /* Receive side scaling */
+                              c(
+                                  "software-rss" (  /* Software RSS options */
+                                      c(
+                                          "mode" (  /* Mode of Software RSS */
+                                            ("automatic" | "enable" | "disable")
+                                          ),
+                                          "io-thread-number" arg  /* Software-RSS IO thread number */
+                                      )
+                                  ),
+                                  "nic-rss" (  /* NIC RSS options */
+                                      c(
+                                          "mode" (  /* Mode of NIC RSS */
+                                            ("disable")
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                          "security-service" (  /* Security service actions when memory resource is in shortage */
+                              c(
+                                  "fail-open"  /* Packet will bypass all the application services  */
+                              )
+                          ),
+                          "resource-manager" (  /* Manage the resource for special usage */
+                              c(
+                                  "cpu" (  /* The CPU resource */
+                                      c(
+                                          "re" arg  /* The count of vCPUs assigned to RE (default is 1) */
+                                      )
+                                  ),
+                                  "enhanced-logging"  /* Dedicated CPU resource for onbox logging */
+                              )
+                          ),
+                          "no-allow-dataplane-sleep"  /* Disable dataplane sleep */,
+                          "allow-dataplane-sleep"  /* Enable dataplane sleep */,
+                          "services-offload" (  /* Service offload option */
+                              c(
+                                  "disable"  /* Disable services-offload */
+                              )
+                          )
+                      )
+                  ),
+                  "advanced-services"  /* Advanced services configuration */,
+                  "flow" (  /* FLOW configuration */
+                      c(
+                          "enhanced-routing-mode"  /* Enable enhanced route scaling */,
+                          "traceoptions" (  /* Trace options for flow services */
+                            flow_traceoptions_object  /* Trace options for flow services */
+                          ),
+                          "pending-sess-queue-length" (  /* Maximum queued length per pending session */
+                            ("normal" | "moderate" | "high")
+                          ),
+                          "enable-reroute-uniform-link-check" (  /* Enable reroute check with uniform link */
+                              c(
+                                  "nat"  /* Enable NAT check */
+                              )
+                          ),
+                          "allow-dns-reply"  /* Allow unmatched incoming DNS reply packet */,
+                          "route-change-timeout" arg  /* Timeout value for route change to nonexistent route */,
+                          "nh-resolve-timeout" arg  /* Timeout value for nexthop resolve */,
+                          "multicast-nh-resolve-retry" arg  /* Retry count for nexthop resolve */,
+                          "syn-flood-protection-mode" (  /* TCP SYN flood protection mode */
+                            ("syn-cookie" | "syn-proxy")
+                          ),
+                          "allow-embedded-icmp"  /* Allow embedded ICMP packets not matching a session to pass through */,
+                          "mcast-buffer-enhance"  /* Allow to hold more packets during multicast session creation */,
+                          "strict-packet-order"  /* Maintain arrival ordering when packets departing */,
+                          "allow-reverse-ecmp"  /* Allow reverse ECMP route lookup */,
+                          "no-local-favor-ecmp"  /* Not prefer local node in HA ECMP route lookup */,
+                          "sync-icmp-session"  /* Allow icmp sessions to sync to peer node */,
+                          "ipsec-performance-acceleration"  /* Accelerate the IPSec traffic performance */,
+                          "gre-performance-acceleration"  /* Accelerate the GRE traffic performance */,
+                          "aging" (  /* Aging configuration */
+                              c(
+                                  "early-ageout" arg  /* Delay before device declares session invalid */,
+                                  "low-watermark" arg  /* Percentage of session-table capacity at which aggressive aging-out ends */,
+                                  "high-watermark" arg  /* Percentage of session-table capacity at which aggressive aging-out starts */
+                              )
+                          ),
+                          "ethernet-switching" (  /* Ethernet-switching configuration for flow */
+                              c(
+                                  "block-non-ip-all"  /* Block all non-IP and non-ARP traffic including broadcast/multicast */,
+                                  "bypass-non-ip-unicast"  /* Allow all non-IP (including unicast) traffic */,
+                                  "no-packet-flooding" (  /* Stop IP flooding, send ARP/ICMP to trigger MAC learning */
+                                      c(
+                                          "no-trace-route"  /* Don't send ICMP to trigger MAC learning */
+                                      )
+                                  ),
+                                  "bpdu-vlan-flooding"  /* Set 802.1D BPDU flooding based on VLAN */
+                              )
+                          ),
+                          "tcp-mss" (  /* TCP maximum segment size configuration */
+                              c(
+                                  "all-tcp" (  /* Enable MSS override for all packets */
+                                      c(
+                                          "mss" arg  /* MSS value */
+                                      )
+                                  ),
+                                  "ipsec-vpn" (  /* Enable MSS override for all packets entering IPSec tunnel */
+                                      c(
+                                          "mss" arg  /* MSS value */
+                                      )
+                                  ),
+                                  "gre-in" (  /* Enable MSS override for all GRE packets coming out of an IPSec tunnel */
+                                      c(
+                                          "mss" arg  /* MSS value */
+                                      )
+                                  ),
+                                  "gre-out" (  /* Enable MSS override for all GRE packets entering an IPsec tunnel */
+                                      c(
+                                          "mss" arg  /* MSS value */
+                                      )
+                                  )
+                              )
+                          ),
+                          "tcp-session" (  /* Transmission Control Protocol session configuration */
+                              c(
+                                  "rst-invalidate-session"  /* Immediately end session on receipt of reset (RST) segment */,
+                                  "fin-invalidate-session"  /* Immediately end session on receipt of fin (FIN) segment */,
+                                  "rst-sequence-check"  /* Check sequence number in reset (RST) segment */,
+                                  "no-syn-check"  /* Disable creation-time SYN-flag check */,
+                                  "strict-syn-check"  /* Enable strict syn check */,
+                                  "no-syn-check-in-tunnel"  /* Disable creation-time SYN-flag check for tunnel packets */,
+                                  "no-sequence-check"  /* Disable sequence-number checking */,
+                                  "aggressive-tcp-ack"  /* Enable aggressive TCP ACK, root lsys only */,
+                                  "tcp-initial-timeout" arg  /* Timeout for TCP session when initialization fails */,
+                                  "maximum-window" (  /* Maximum TCP proxy scaled receive window, default 256K bytes */
+                                    ("64K" | "128K" | "256K" | "512K" | "1M")
+                                  ),
+                                  "time-wait-state" (  /* Session timeout value in time-wait state, default 150 seconds */
+                                      c(
+                                          c(
+                                            "session-ageout"  /* Allow session to ageout using service based timeout values */,
+                                            "session-timeout" arg  /* Configure session timeout value for time-wait state */
+                                          ),
+                                          "apply-to-half-close-state"  /* Apply time-wait-state timeout to half-close state */
+                                      )
+                                  )
+                              )
+                          ),
+                          "force-ip-reassembly"  /* Force to reassemble ip fragments */,
+                          "preserve-incoming-fragment-size"  /* Preserve incoming fragment size for egress MTU */,
+                          "fragment-limit" arg  /* Maximum number of fragments allowed for a packet */,
+                          "fragment-reassembly-timeout" arg  /* Re-assembly timeout (seconds) for fragments of a packet */,
+                          "log" (  /* Enable log */
+                              c(
+                                  "dropped-icmp-packet"  /* Log dropped ICMPv4 packet */,
+                                  "dropped-illegal-packet"  /* Log dropped illegal packet */
+                              )
+                          ),
+                          "advanced-options" (  /* Flow config advanced options */
+                              c(
+                                  "drop-matching-reserved-ip-address"  /* Drop matching reserved source IP address */,
+                                  "drop-matching-link-local-address"  /* Drop matching link local address */,
+                                  "reverse-route-packet-mode-vr"  /* Allow reverse route lookup with packet mode vr */
+                              )
+                          ),
+                          "load-distribution" (  /* Flow config SPU load distribution */
+                              c(
+                                  "session-affinity"  /* SPU load distribution based on the service anchor SPU */
+                              )
+                          ),
+                          "packet-log" (  /* Configure flow packet log */
+                              c(
+                                  "enable"  /* Enable log for dropped packet */,
+                                  "throttle-interval" arg  /* Interval should be configured as a power of two */,
+                                  "packet-filter" (  /* Configure packet log filter */
+                                    flow_filter_type  /* Configure packet log filter */
+                                  )
+                              )
+                          ),
+                          "power-mode-disable"  /* Disable power mode express path processing */
+                      )
+                  ),
+                  "firewall-authentication" (  /* Firewall authentication parameters */
+                      c(
+                          "traceoptions" (  /* Data-plane firewall authentication tracing options */
+                              c(
+                                  "flag" enum(("authentication" | "proxy" | "all")) (  /* Events to include in trace output */
+                                      sc(
+                                          c(
+                                            "terse"  /* Include terse amount of output in trace */,
+                                            "detail"  /* Include detailed amount of output in trace */,
+                                            "extensive"  /* Include extensive amount of output in trace */
+                                          )
+                                      )
+                                  ).as(:oneline)
+                              )
+                          )
+                      )
+                  ),
+                  "screen" (  /* Configure screen feature */
+                      c(
+                          "trap" (  /* Configure trap interval */
+                              sc(
+                                  "interval" arg  /* Trap interval */
+                              )
+                          ).as(:oneline),
+                          "ids-option" (  /* Configure ids-option */
+                            ids_option_type  /* Configure ids-option */
+                          ),
+                          "traceoptions" (  /* Trace options for Network Security Screen */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "flag" enum(("configuration" | "flow" | "all"))  /* Tracing parameters */.as(:oneline)
+                              )
+                          ),
+                          "white-list" (  /* Set of IP addresses for white list */
+                            ids_wlist_type  /* Set of IP addresses for white list */
+                          )
+                      )
+                  ),
+                  "nat" (  /* Configure Network Address Translation */
+                    nat_object  /* Configure Network Address Translation */
+                  ),
+                  "forwarding-process" (  /* Configure security forwarding-process options */
+                      c(
+                          "enhanced-services-mode"  /* Enable enhanced application services mode */,
+                          "application-services" (  /* Configure application service options */
+                              c(
+                                  "maximize-alg-sessions"  /* Maximize ALG session capacity */,
+                                  "maximize-persistent-nat-capacity"  /* Increase persistent NAT capacity by reducing maximum flow sessions */,
+                                  "maximize-cp-sessions"  /* Maximize CP session capacity */,
+                                  "session-distribution-mode" arg  /* Session distribution mode */,
+                                  "enable-gtpu-distribution"  /* Enable GTP-U distribution */,
+                                  "packet-ordering-mode" arg  /* Packet ordering mode */,
+                                  "maximize-idp-sessions"  /* Run security services in dedicated processes to maximize IDP session capacity */,
+                                  "inline-fpga-crypto" arg  /* Disable inline FPGA crypto */
+                              )
+                          )
+                      )
+                  ),
+                  "policies" (  /* Configure Network Security Policies */
+                    policy_object_type  /* Configure Network Security Policies */
+                  ),
+                  "tcp-encap" (  /* Configure TCP Encapsulation. */
+                      c(
+                          "traceoptions" (  /* Trace options for TCP encapsulation service */
+                            ragw_traceoptions  /* Trace options for TCP encapsulation service */
+                          ),
+                          "profile" arg (  /* Configure profile. */
+                              c(
+                                  "ssl-profile" arg  /* SSL Termination profile */,
+                                  "log"  /* Enable logging for remote-access */
+                              )
+                          ),
+                          "global-options" (  /* Global settings for TCP encapsulation */
+                              c(
+                                  "enable-tunnel-tracking"  /* Track ESP tunnels */
+                              )
+                          )
+                      )
+                  ),
+                  "resource-manager" (  /* Configure resource manager security options */
+                      c(
+                          "traceoptions" (  /* Traceoptions for resource manager */
+                              c(
+                                  "flag" enum(("client" | "group" | "resource" | "gate" | "session" | "chassis cluster" | "messaging" | "service pinhole" | "error" | "all")) (  /* Resource manager objects and events to include in trace */
+                                      sc(
+                                          c(
+                                            "terse"  /* Set trace verbosity level to terse */,
+                                            "detail"  /* Set trace verbosity level to detail */,
+                                            "extensive"  /* Set trace verbosity level to extensive */
+                                          )
+                                      )
+                                  ).as(:oneline)
+                              )
+                          ),
+                          "services-memory"  /* Manage services memory resources */,
+                          "session-memory"  /* Manage session memory resources */,
+                          "cpu"  /* Manage cpu resources */
+                      )
+                  ),
+                  "analysis" (  /* Configure security analysis */
+                      c(
+                          "no-report"  /* Stops security analysis reporting */
+                      )
+                  ),
+                  "traceoptions" (  /* Network security daemon tracing options */
+                      c(
+                          "no-remote-trace"  /* Disable remote tracing */,
+                          "file" (  /* Trace file information */
+                              sc(
+                                    arg,
+                                  "size" arg  /* Maximum trace file size */,
+                                  "files" arg  /* Maximum number of trace files */,
+                                  "world-readable"  /* Allow any user to read the log file */,
+                                  "no-world-readable"  /* Don't allow any user to read the log file */,
+                                  "match" (  /* Regular expression for lines to be logged */
+                                    regular_expression  /* Regular expression for lines to be logged */
+                                  )
+                              )
+                          ).as(:oneline),
+                          "flag" enum(("configuration" | "routing-socket" | "compilation" | "operational-command" | "all"))  /* Tracing parameters */.as(:oneline),
+                          "rate-limit" arg  /* Limit the incoming rate of trace messages */
+                      )
+                  ),
+                  "datapath-debug" (  /* Datapath debug options */
+                      c(
+                          "traceoptions" (  /* End to end debug trace options */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline)
+                              )
+                          ),
+                          "capture-file" (  /* Packet capture options */
+                              sc(
+                                  arg  /* Capture file name */,
+                                  "format" (  /* Capture file format */
+                                    ("pcap")
+                                  ),
+                                  "size" arg  /* Maximum file size */,
+                                  "files" arg  /* Maximum number of files */,
+                                  "world-readable"  /* Allow any user to read packet-capture files */,
+                                  "no-world-readable"  /* Don't allow any user to read packet-capture files */
+                              )
+                          ).as(:oneline),
+                          "maximum-capture-size" arg  /* Max packet capture length */,
+                          "action-profile" (  /* Action profile definitions */
+                            e2e_action_profile  /* Action profile definitions */
+                          ),
+                          "packet-filter" (  /* Packet filter configuration */
+                            end_to_end_debug_filter  /* Packet filter configuration */
+                          )
+                      )
+                  ),
+                  "user-identification" (  /* Configure user-identification */
+                      c(
+                          "traceoptions" (  /* User-identification Tracing Options */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "flag" enum(("all"))  /* Tracing parameters */.as(:oneline)
+                              )
+                          ),
+                          "authentication-source" (  /* Configure user-identification authentication-source */
+                            authentication_source_type  /* Configure user-identification authentication-source */
+                          )
+                      )
+                  ),
+                  "zones" (  /* Zone configuration */
+                      c(
+                          "functional-zone" (  /* Functional zone */
+                              c(
+                                  "management" (  /* Host for out of band management interfaces */
+                                      c(
+                                          "interfaces" (  /* Interfaces that are part of this zone */
+                                            zone_interface_list_type  /* Interfaces that are part of this zone */
+                                          ),
+                                          "screen" arg  /* Name of ids option object applied to the zone */,
+                                          "host-inbound-traffic" (  /* Allowed system services & protocols */
+                                            zone_host_inbound_traffic_t  /* Allowed system services & protocols */
+                                          ),
+                                          "description" arg  /* Text description of zone */
+                                      )
+                                  )
+                              )
+                          ),
+                          "security-zone" (  /* Security zones */
+                            security_zone_type  /* Security zones */
+                          )
+                      )
+                  ),
+                  "advanced-connection-tracking-timeout" arg  /* System wide timeout value in seconds for advanced-connection-tracking entries */,
+                  "advance-policy-based-routing" (  /* Configure Network Security APBR Policies */
+                      c(
+                          "traceoptions" (  /* Advance policy based routing tracing options */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "flag" enum(("configuration" | "lookup" | "compilation" | "ipc" | "all"))  /* Tracing parameters */.as(:oneline)
+                              )
+                          ),
+                          "tunables" (  /* Configure advance policy based routing tunables */
+                              c(
+                                  "max-route-change" arg  /* Maximum route change */,
+                                  "drop-on-zone-mismatch"  /* Drop session if zone mismatches */,
+                                  "no-l3l4-app-lookup"  /* Ignore the look up for L3L4 custom app in APBR. */,
+                                  "enable-logging"  /* Enable AppTrack logging */
+                              )
+                          ),
+                          "profile" arg (  /* Configure advance-policy-based-routing profile */
+                              c(
+                                  "rule" (  /* Specify an advance policy based routing rule */
+                                    apbr_rule_type  /* Specify an advance policy based routing rule */
+                                  )
+                              )
+                          ),
+                          "active-probe-params" arg (  /* Active probe's settings */
+                              c(
+                                  "settings" (  /* Settings */
+                                    appqoe_probe_params  /* Settings */
+                                  )
+                              )
+                          ),
+                          "metrics-profile" arg (  /* Configure metric profiles */
+                              c(
+                                  "sla-threshold" (  /* Configure SLA metric threshold */
+                                    appqoe_sla_metric_profile  /* Configure SLA metric threshold */
+                                  )
+                              )
+                          ),
+                          "underlay-interface" arg (  /* Underlay interface setting */
+                              c(
+                                  "unit" arg (  /* One of more logical interface unit-numbers */
+                                      c(
+                                          "link-type" (  /* Link type of the interface */
+                                            ("IP" | "MPLS")
+                                          ),
+                                          "priority" arg  /* Configure the priority for selecting this link */,
+                                          "speed" arg  /* Speed of this link in Mbps */
+                                      )
+                                  )
+                              )
+                          ),
+                          "interface" arg (  /* Interface setting */
+                              c(
+                                  "unit" arg (  /* One of more logical interface unit-numbers */
+                                      c(
+                                          "link-tag" arg  /* Configure link-tag. Default is IP */,
+                                          "priority" arg  /* Configure the priority for selecting this link */,
+                                          "multipath-bandwidth" arg  /* Bandwidth of this link in Mbps */,
+                                          "weight" arg  /* Configure the weight for selecting this link */
+                                      )
+                                  )
+                              )
+                          ),
+                          "overlay-path" arg (  /* List of overlay paths */
+                              c(
+                                  "tunnel-path" (  /* Tunnel start & end ip addresses */
+                                    appqoe_probe_path  /* Tunnel start & end ip addresses */
+                                  ),
+                                  "probe-path" (  /* Probe start & end ip addresses */
+                                    appqoe_probe_path  /* Probe start & end ip addresses */
+                                  )
+                              )
+                          ),
+                          "destination-path-group" arg (  /* Group of tunnels to a particular destination */
+                              c(
+                                  "probe-routing-instance" (  /* Set routing instance for the probe-path */
+                                      c(
+                                          arg  /* Name of routing instance */
+                                      )
+                                  ),
+                                  "inline-gre-encap"  /* Enable inline GRE encapsulation */,
+                                  "active-probe-properties" (  /* Additional applicable properties for the destination path group */
+                                      c(
+                                          "active-probe-only"  /* Enable active probing only to the destination path group */
+                                      )
+                                  ),
+                                  "overlay-path" arg  /* List of paths */
+                              )
+                          ),
+                          "sla-options" (  /* Global SLA options */
+                              c(
+                                  "local-route-switch" (  /* Enable/disable Automatic local route switching */
+                                      c(
+                                          c(
+                                            "enabled"  /* Enable */,
+                                            "disabled"  /* Disable */
+                                          )
+                                      )
+                                  ),
+                                  "log" (  /* Choose the logging mechanism */
+                                      c(
+                                          c(
+                                            "disabled"  /* Disable logging */,
+                                            "syslog"  /* Choose syslog */
+                                          )
+                                      )
+                                  ),
+                                  "log-type" (  /* Choose the logging mechanism */
+                                      c(
+                                          c(
+                                            "disabled"  /* Disable logging */,
+                                            "syslog"  /* Choose syslog */
+                                          )
+                                      )
+                                  ),
+                                  "max-passive-probe-limit" (  /* Set max passive probe limits */
+                                      c(
+                                          "number-of-probes" (  /* Number of passive probes to be sent */
+                                              c(
+                                                    arg
+                                              )
+                                          ),
+                                          "interval" (  /* Interval within which to send */
+                                              c(
+                                                    arg
+                                              )
+                                          )
+                                      )
+                                  ),
+                                  "dynamic-load-balancer"  /* Enable dynamic load balancer */
+                              )
+                          ),
+                          "sla-rule" arg (  /* Create SLA rule */
+                              c(
+                                  "link-preferences" (  /* Configure the link preferences */
+                                      c(
+                                          "preferred-tag" arg  /* Configure the link-tag preference */,
+                                          "affinity" (  /* Configure the link-tag affinity */
+                                            ("strict")
+                                          )
+                                      )
+                                  ),
+                                  "preferred-link-type" (  /* Configure the link-type preference */
+                                    ("IP" | "MPLS" | "Any")
+                                  ),
+                                  "link-type-affinity" (  /* Configure the link-type affinity */
+                                    ("strict")
+                                  ),
+                                  "switch-idle-time" (  /* Idle timeout period where no SLA violation will be detected once path switch has happened */
+                                      c(
+                                            arg
+                                      )
+                                  ),
+                                  "metrics-profile" (  /* Set metrics profile for the SLA */
+                                      c(
+                                          arg  /* Metrics Profile name */
+                                      )
+                                  ),
+                                  "active-probe-params" (  /* Set Probe params for the overlay-path */
+                                      c(
+                                          arg  /* Probe parameter's name */
+                                      )
+                                  ),
+                                  "type" (  /* Choose type of SLA */
+                                    ("saas")
+                                  ),
+                                  "passive-probe-params" (  /* Passive probe settings */
+                                      c(
+                                          "sampling-percentage" (  /* Mininmum percentage of Sessions to be evaluated for the application */
+                                              c(
+                                                    arg
+                                              )
+                                          ),
+                                          "violation-count" (  /* Number of SLA violations within sampling period to be considered as a violation */
+                                              c(
+                                                    arg
+                                              )
+                                          ),
+                                          "sampling-period" (  /* Time period in which the sampling is done */
+                                              c(
+                                                    arg
+                                              )
+                                          ),
+                                          "sla-export-factor" (  /* Enabled sampling window based SLA exporting */
+                                              c(
+                                                    arg
+                                              )
+                                          ),
+                                          "type" (  /* Choose type of SLA measurement */
+                                              c(
+                                                  c(
+                                                    "book-ended"  /* Choose custom method of probing within WAN link */
+                                                  )
+                                              )
+                                          ),
+                                          "sampling-frequency" (  /* Sampling frequency settings */
+                                              c(
+                                                  "interval" (  /* Time based sampling interval */
+                                                      c(
+                                                            arg
+                                                      )
+                                                  ),
+                                                  "ratio" (  /* 1:N based sampling ratio */
+                                                      c(
+                                                            arg
+                                                      )
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  ),
+                                  "multipath-rule" (  /* Set AppBased Multipath Routing action */
+                                      c(
+                                          arg  /* Multipath action parameter's name */
+                                      )
+                                  ),
+                                  "violation-count" (  /* Number of SLA violations within sampling period to be considered as a violation */
+                                      c(
+                                            arg
+                                      )
+                                  )
+                              )
+                          ),
+                          "multipath-rule" arg (  /* APP based MULTIPATH Route Action's settings */
+                              c(
+                                  "number-of-paths" arg  /* No. of Paths in Multipath */,
+                                  "bandwidth-limit" arg  /* Bandwidth limit (bps) on slowest link to avoid saturation (%) */,
+                                  "enable-reverse-wing"  /* Packet copy enabled in reverse direction flow */,
+                                  "application" (
+                                        (arg | "junos:UNKNOWN" | "any")
+                                  ),
+                                  "application-group" (
+                                        (arg | "junos:unassigned")
+                                  ),
+                                  "link-type" arg  /* List of underlay interface user defined link types */,
+                                  "link-preferences" (  /* List of interface for link preferences */
+                                    interface_name  /* List of interface for link preferences */
+                                  )
+                              )
+                          ),
+                          "policy" arg (  /* Define a policy context from this zone */
+                              c(
+                                  "policy" (  /* Define security policy in specified zone-to-zone direction */
+                                    sla_policy_type  /* Define security policy in specified zone-to-zone direction */
+                                  )
+                              )
+                          )
+                      )
+                  ),
+                  "gtp" (  /* GPRS tunneling protocol configuration */
+                    gtp_object  /* GPRS tunneling protocol configuration */
+                  ),
+                  "sctp" (  /* GPRS stream control transmission protocol configuration */
+                    sctp_object  /* GPRS stream control transmission protocol configuration */
+                  ),
+                  "ngfw" (  /* Next generation unified L4/L7 firewall */
+                      c(
+                          "default-profile" (  /* Unified L4/L7 firewall default profile configuration */
+                              c(
+                                  "ssl-proxy" (  /* SSL proxy services */
+                                      c(
+                                          "profile-name" arg  /* Specify SSL proxy service profile name */
+                                      )
+                                  ),
+                                  "application-traffic-control" (  /* Application traffic control services */
+                                    jsf_application_traffic_control_rule_set_type  /* Application traffic control services */
+                                  )
+                              )
+                          )
+                      )
+                  ),
+                  "tunnel-inspection" (  /* Security tunnel-inspection */
+                      c(
+                          "inspection-profile" (  /* Security tunnel-inspection profile */
+                            tunnel_inspection_profile_type  /* Security tunnel-inspection profile */
+                          ),
+                          "vni" (  /* Security tunnel inspection vni */
+                            tunnel_inspection_vni_type  /* Security tunnel inspection vni */
+                          ),
+                          "traceoptions" (  /* Trace options for Network Security tunnel-inspection */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "flag" enum(("configuration" | "flow" | "all"))  /* Tracing parameters */.as(:oneline)
+                              )
+                          )
+                      )
+                  ),
+                  "l3vpn" (
+                      c(
+                          "traceoptions" (  /* Trace options for Network Security Vrf-group */
+                              c(
+                                  "no-remote-trace"  /* Disable remote tracing */,
+                                  "file" (  /* Trace file information */
+                                      sc(
+                                            arg,
+                                          "size" arg  /* Maximum trace file size */,
+                                          "files" arg  /* Maximum number of trace files */,
+                                          "world-readable"  /* Allow any user to read the log file */,
+                                          "no-world-readable"  /* Don't allow any user to read the log file */,
+                                          "match" (  /* Regular expression for lines to be logged */
+                                            regular_expression  /* Regular expression for lines to be logged */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "flag" enum(("configuration" | "flow" | "all"))  /* Tracing parameters */.as(:oneline)
+                              )
+                          ),
+                          "vrf-group" (  /* Configure vrf group */
+                            vrf_group_type  /* Configure vrf group */
+                          )
+                      )
+                  ),
+                  "cloud"  /* Configure Cloud security options */,
+                  "key-manager" (  /* Define JKM managed configurations */
+                    security_junos_key_manager  /* Define JKM managed configurations */
                   ),
                   "macsec" (  /* MAC Security configuration */
                     security_macsec  /* MAC Security configuration */
                   )
               )
           ),
+          # End of vSRX 22.4R1.10
           "interfaces" (  /* Interface configuration */
               c(
                   "pic-set" arg (  /* NP bundling configuration */
@@ -20089,9 +21545,14 @@ rule(:any_template) do
   )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:application_object) do
   arg.as(:arg) (
     c(
+        "description" arg  /* Text description of application */,
+        "term" (  /* Define individual application protocols */
+          term_object  /* Define individual application protocols */
+        ),
         "application-protocol" (  /* Application protocol type */
           ("bootp" | "dce-rpc" | "dce-rpc-portmap" | "dns" | "exec" | "ftp" | "ftp-data" | "gprs-gtp-c" | "gprs-gtp-u" | "gprs-gtp-v0" | "gprs-sctp" | "h323" | "icmp" | "icmpv6" | "ignore" | "iiop" | "ike-esp-nat" | "ip" | "login" | "mgcp-ca" | "mgcp-ua" | "ms-rpc" | "netbios" | "netshow" | "none" | "pptp" | "q931" | "ras" | "realaudio" | "rpc" | "rpc-portmap" | "rsh" | "rtsp" | "sccp" | "sip" | "shell" | "snmp" | "sqlnet" | "sqlnet-v2" | "sun-rpc" | "talk" | "tftp" | "traceroute" | "http" | "winframe" | "https" | "imap" | "smtp" | "ssh" | "telnet" | "twamp" | "pop3" | "smtps" | "imaps" | "pop3s")
         ),
@@ -20128,6 +21589,8 @@ rule(:application_object) do
         ),
         "gate-timeout" arg  /* Application-specific gate timeout */,
         "child-inactivity-timeout" arg  /* Application-specific child session inactivity timeout */,
+        "learn-sip-register"  /* Learn potential incoming SIP calls by inspecting the SIP register method */,
+        "sip-call-hold-timeout" arg  /* SIP flow timeout when call is put on hold */,
         c(
           "do-not-translate-AAAA-query-to-A-query"  /* Knob to control the translation of AAAA query to A query */,
           "do-not-translate-A-query-to-AAAA-query"  /* Knob to control the translation of A query to AAAA query */
@@ -116448,8 +117911,52 @@ rule(:nasreq_definition) do
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:nat_object) do
     c(
+        "source" (  /* Configure Source NAT */
+          ssg_source_nat_object  /* Configure Source NAT */
+        ),
+        "destination" (  /* Configure Destination NAT */
+          ssg_destination_nat_object  /* Configure Destination NAT */
+        ),
+        "static" (  /* Configure Static NAT */
+          ssg_static_nat_object  /* Configure Static NAT */
+        ),
+        "proxy-arp" (  /* Configure Proxy ARP */
+          ssg_proxy_arp_object  /* Configure Proxy ARP */
+        ),
+        "proxy-ndp" (  /* Configure Proxy NDP */
+          ssg_proxy_ndp_object  /* Configure Proxy NDP */
+        ),
+        "natv6v4" (  /* Configure NAT between IPv6 and IPv4 options */
+            c(
+                "no-v6-frag-header"  /* V6 packet does not always add fragment header when performing nat translation from v4 side to v6 side  */
+            )
+        ),
+        "allow-overlapping-pools"  /* IP addresses of NAT pools can overlap with other pool */,
+        "traceoptions" (  /* NAT trace options */
+            c(
+                "no-remote-trace"  /* Disable remote tracing */,
+                "file" (  /* Trace file information */
+                    sc(
+                          arg,
+                        "size" arg  /* Maximum trace file size */,
+                        "files" arg  /* Maximum number of trace files */,
+                        "world-readable"  /* Allow any user to read the log file */,
+                        "no-world-readable"  /* Don't allow any user to read the log file */,
+                        "match" (  /* Regular expression for lines to be logged */
+                          regular_expression  /* Regular expression for lines to be logged */
+                        )
+                    )
+                ).as(:oneline),
+                "flag" enum(("configuration" | "flow" | "routing-socket" | "routing-protocol" | "all" | "source-nat-re" | "source-nat-rt" | "source-nat-pfe" | "destination-nat-re" | "destination-nat-rt" | "destination-nat-pfe" | "static-nat-re" | "static-nat-rt" | "static-nat-pfe" | "nat-svc-set-re")) (  /* Tracing parameters */
+                    sc(
+                        "syslog"  /* Write NAT flow traces to system log also */
+                    )
+                ).as(:oneline)
+            )
+        ),
         "pool" (  /* Define a NAT pool */
           nat_pool_object  /* Define a NAT pool */
         ),
@@ -116458,6 +117965,7 @@ rule(:nat_object) do
                 "disable"  /* Disable IPv6 multicast filter for IPv6 NAT */
             )
         ),
+        "ipv6-multicast-interfaces"  /* Enable IPv6 multicast filter for IPv6 NAT */,
         "allow-overlapping-nat-pools"  /* Allow usage of overlapping and same nat pools in multiple service sets */,
         "rule" (  /* Define a NAT rule */
           nat_rule_object  /* Define a NAT rule */
@@ -122227,10 +123735,14 @@ rule(:security_dhcpv6_options_type) do
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:security_group_vpn) do
     c(
         "member" (  /* Group VPN member configuration */
           gvpn_member  /* Group VPN member configuration */
+        ),
+        "server" (  /* Group VPN server configuration */
+          gvpn_server  /* Group VPN server configuration */
         )
     )
 end
@@ -122246,6 +123758,7 @@ rule(:gvpn_member) do
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:gvpn_member_ike) do
     c(
         "traceoptions" (  /* Trace options for Group VPN Member */
@@ -122316,6 +123829,27 @@ rule(:gvpn_member_ike) do
                         )
                     )
                 ).as(:oneline),
+                "remote-identity" (  /* Set the remote IKE identity */
+                    sc(
+                        c(
+                          "inet" (  /* Use an IPv4 address */
+                              c(
+                                    ipv4addr  /* The remote IPv4 identity */
+                              )
+                          ),
+                          "hostname" (  /* Use a fully-qualified domain name */
+                              c(
+                                  arg  /* The remote hostname */
+                              )
+                          ),
+                          "user-at-hostname" (  /* Use an e-mail address */
+                              c(
+                                  arg  /* The remote user-FQDN */
+                              )
+                          )
+                        )
+                    )
+                ).as(:oneline),
                 "local-address" (  /* Local IPv4 address for group member */
                   ipv4addr  /* Local IPv4 address for group member */
                 ),
@@ -122364,6 +123898,7 @@ rule(:gvpn_ike_policy) do
   )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:gvpn_member_ike_proposal) do
   arg.as(:arg) (
     c(
@@ -122372,10 +123907,10 @@ rule(:gvpn_member_ike_proposal) do
           ("pre-shared-keys" | "rsa-signatures" | "dsa-signatures")
         ),
         "dh-group" (  /* Define Diffie-Hellman group */
-          ("group1" | "group2" | "group5" | "group14")
+          ("group1" | "group2" | "group5" | "group14" | "group24")
         ),
         "authentication-algorithm" (  /* Define authentication algorithm */
-          ("md5" | "sha1" | "sha-256")
+          ("md5" | "sha1" | "sha-256" | "sha-384")
         ),
         "encryption-algorithm" (  /* Define encryption algorithm */
           ("des-cbc" | "3des-cbc" | "aes-128-cbc" | "aes-192-cbc" | "aes-256-cbc")
@@ -122393,6 +123928,7 @@ rule(:gvpn_member_ipsec_vpn) do
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ipsec_gvpn_member_template) do
   arg.as(:arg) (
     c(
@@ -122406,12 +123942,16 @@ rule(:ipsec_gvpn_member_template) do
           ("input" | "output")
         ),
         "tunnel-mtu" arg  /* Maximum transmit packet size */,
+        "recovery-probe"  /* Enable triggering recovery probe mechanism */,
         "df-bit" (  /* Specifies how to handle the Don't Fragment bit */
           ("clear" | "set" | "copy")
         ),
         "forward-policy-mismatch"  /* Enables forwarding of policy mismatch packets */,
         "fail-open" (  /* List of fail open rules */
           ipsec_gvpn_fail_open_rule_object  /* List of fail open rules */
+        ),
+        "exclude" (  /* List of exclude rules */
+          ipsec_gvpn_exclude_rule_object  /* List of exclude rules */
         )
     )
   )
@@ -122425,6 +123965,7 @@ rule(:ipsec_gvpn_fail_open_rule_object) do
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ipsec_gvpn_rule_address_object) do
   arg.as(:arg) (
     c(
@@ -122433,7 +123974,8 @@ rule(:ipsec_gvpn_rule_address_object) do
         ),
         "destination-address" (  /* Match IP destination address */
           ipsec_gvpn_addr_object  /* Match IP destination address */
-        )
+        ),
+        "application" arg  /* Match application */
     )
   )
 end
@@ -122444,6 +123986,7 @@ rule(:ipsec_gvpn_addr_object) do
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:security_ike) do
     c(
         "traceoptions" (  /* Trace options for IPSec key management */
@@ -122490,15 +124033,20 @@ rule(:security_ike) do
                           "connections-limit" arg  /* Maximum number of users connected to gateway */,
                           "ike-user-type" (  /* Type of the IKE ID */
                             ("group-ike-id" | "shared-ike-id")
-                          )
+                          ),
+                          "reject-duplicate-connection"  /* Reject new connection from duplicate IKE-id */
                       )
                   )
                 ),
-                "dead-peer-detection" (  /* Enable RFC-3706 DPD */
+                "dead-peer-detection" (  /* Enable Dead Peer Detection  */
                     c(
-                        "always-send"  /* Send DPD messages periodically, regardless of traffic */,
-                        "interval" arg  /* The interval at which to send DPD messages */,
-                        "threshold" arg  /* Maximum number of DPD retransmissions */
+                        c(
+                          "optimized"  /* Send probes only when there is outgoing and no incoming data traffic - RFC3706 (Default mode) */,
+                          "probe-idle-tunnel"  /* Send probes same as in optimized mode and also when there is no outgoing & incoming data traffic */,
+                          "always-send"  /* Send probes periodically regardless of incoming and outgoing data traffic  */
+                        ),
+                        "interval" arg  /* The time between DPD probe messages  Default :10 */,
+                        "threshold" arg  /* Maximum number of DPD retransmissions Default :5 */
                     )
                 ),
                 "no-nat-traversal"  /* Disable IPSec NAT traversal */,
@@ -122526,7 +124074,12 @@ rule(:security_ike) do
                                   arg  /* The local user-FQDN */
                               )
                           ),
-                          "distinguished-name"  /* Use a distinguished name specified in local certificate */
+                          "distinguished-name"  /* Use a distinguished name specified in local certificate */,
+                          "key-id" (  /* Key ID identification values in ASCII string */
+                              c(
+                                    arg
+                              )
+                          )
                         )
                     )
                 ).as(:oneline),
@@ -122558,6 +124111,11 @@ rule(:security_ike) do
                                   "container" arg  /* Specify the container string */,
                                   "wildcard" arg  /* Specify the wildcard string */
                               )
+                          ),
+                          "key-id" (  /* Key ID identification values in string */
+                              c(
+                                    arg
+                              )
                           )
                         )
                     )
@@ -122565,32 +124123,88 @@ rule(:security_ike) do
                 "external-interface" (  /* External interface for IKE negotiations */
                   interface_unit  /* External interface for IKE negotiations */
                 ),
-                "xauth" (  /* Use extended authentication */
-                    sc(
-                        "access-profile" arg  /* Access profile that contains authentication information */
+                "local-address" (  /* Local IP address for IKE negotiations */
+                  ipaddr  /* Local IP address for IKE negotiations */
+                ),
+                "aaa" (  /* Use extended authentication */
+                    c(
+                        "access-profile" (  /* Access profile information */
+                          access_profile_template  /* Access profile information */
+                        ),
+                        "client" (  /* AAA client info for authentication */
+                            sc(
+                                "username" arg  /* AAA client username with 1 to 128 characters */,
+                                "password" arg  /* AAA client password with 1 to 128 characters */
+                            )
+                        ).as(:oneline)
                     )
-                ).as(:oneline),
+                ),
+                "xauth" (  /* Use extended authentication */
+                    c(
+                        "access-profile" arg  /* Access profile that contains authentication information */,
+                        "client" (  /* Xauth client info for authentication */
+                            sc(
+                                "username" arg  /* XAuth client username with 1 to 128 characters */,
+                                "password" arg  /* XAuth client password with 1 to 128 characters */
+                            )
+                        ).as(:oneline)
+                    )
+                ),
                 "general-ikeid"  /* Accept peer IKE-ID in general */,
+                "advpn" (  /* Enable Auto Discovery VPN */
+                  advpn_suggester_partner  /* Enable Auto Discovery VPN */
+                ),
                 "version" (  /* Negotiate using either IKE v1 or IKE v2 protocol */
                   ("v1-only" | "v2-only")
-                )
+                ),
+                "fragmentation" (  /* IKEv2 fragmentation configuration */
+                    c(
+                        "disable"  /* Disable IKEv2 fragmentation */,
+                        "size" arg  /* Default 576 bytes for ipv4 and 1280 bytes for ipv6 */
+                    )
+                ),
+                "tcp-encap-profile" arg  /* Ike over tcp profile name */
             )
         )
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ike_policy) do
   arg.as(:arg) (
     c(
-        "mode" (  /* Define the IKE first phase mode */
+        "mode" (  /* Define the IKE mode for Phase 1 */
           ("main" | "aggressive")
         ),
+        "reauth-frequency" arg  /* Re-auth Peer after reauth-frequency times hard lifetime. (0-100) Default:0=Disabled */,
         "description" arg  /* Text description of IKE policy */,
         "proposals" arg,
         "local-certificate" arg  /* File to read certificate from */,
         "local-key-pair" arg  /* File to read key-pair from */,
         "encoding" (  /* Encoding to use for certificate or CRL on disk */
           ("binary" | "pem")
+        ),
+        "certificate" (  /* Certificate configuration */
+            c(
+                "local-certificate" arg  /* Local certificate identifier */,
+                "trusted-ca" (  /* Specify the CA to use */
+                    sc(
+                        c(
+                          arg  /* Index of the preferred CA to use */,
+                          "use-all"  /* Use all configured CAs */,
+                          "ca-profile" arg  /* Name of the preferred CA to use */,
+                          "trusted-ca-group" arg  /* Name of the preferred CA group to use */
+                        )
+                    )
+                ).as(:oneline),
+                "peer-certificate-type" (  /* Preferred type of certificate from peer */
+                  ("pkcs7" | "x509-signature")
+                ),
+                "policy-oids" arg  /* Certificate policy object identifiers (maximum 5) */
+            )
+        ),
+        "proposal-set" (  /* Types of default IKE proposal-set */
+          ("basic" | "compatible" | "standard" | "suiteb-gcm-128" | "suiteb-gcm-256" | "prime-128" | "prime-256")
         ),
         "identity" arg  /* Define the remote certificate name */,
         "pre-shared-key" (  /* Define a preshared key */
@@ -122605,6 +124219,7 @@ rule(:ike_policy) do
   )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ike_proposal) do
   arg.as(:arg) (
     c(
@@ -122619,7 +124234,7 @@ rule(:ike_proposal) do
           ("md5" | "sha1" | "sha-256" | "sha-384")
         ),
         "encryption-algorithm" (  /* Define encryption algorithm */
-          ("des-cbc" | "3des-cbc" | "aes-128-cbc" | "aes-192-cbc" | "aes-256-cbc")
+          ("des-cbc" | "3des-cbc" | "aes-128-cbc" | "aes-192-cbc" | "aes-256-cbc" | "aes-128-gcm" | "aes-256-gcm")
         ),
         "lifetime-seconds" arg  /* Lifetime, in seconds */
     )
@@ -122664,6 +124279,7 @@ rule(:security_ipsec_vpn) do
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ipsec_internal_sa) do
     c(
         "description" arg  /* Text description of internal security association */,
@@ -122707,12 +124323,32 @@ rule(:ipsec_internal_sa) do
                             )
                         )
                     )
+                ),
+                "encryption" (  /* Define encryption parameters */
+                    c(
+                        "algorithm" (  /* Define encryption algorithm */
+                          ("3des-cbc" | "aes-128-cbc")
+                        ),
+                        "ike-ha-link-encryption" (  /* Enable HA link encryption IKE internal messages */
+                          ("enable")
+                        ),
+                        "key" (  /* Define an encryption key */
+                            sc(
+                                c(
+                                  "ascii-text" (  /* Format as text */
+                                    unreadable  /* Format as text */
+                                  )
+                                )
+                            )
+                        ).as(:oneline)
+                    )
                 )
             )
         )
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ipsec_policy) do
   arg.as(:arg) (
     c(
@@ -122726,12 +124362,13 @@ rule(:ipsec_policy) do
         ),
         "proposals" arg,
         "proposal-set" (  /* Types of default IPSEC proposal-set */
-          ("basic" | "compatible" | "standard")
+          ("basic" | "compatible" | "standard" | "suiteb-gcm-128" | "suiteb-gcm-256" | "prime-128" | "prime-256")
         )
     )
   )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ipsec_proposal) do
   arg.as(:arg) (
     c(
@@ -122745,7 +124382,8 @@ rule(:ipsec_proposal) do
         "encryption-algorithm" (  /* Define encryption algorithm */
           ("des-cbc" | "3des-cbc" | "aes-128-cbc" | "aes-192-cbc" | "aes-256-cbc" | "aes-128-gcm" | "aes-192-gcm" | "aes-256-gcm")
         ),
-        "lifetime-seconds" arg  /* Lifetime, in seconds */
+        "lifetime-seconds" arg  /* Lifetime, in seconds */,
+        "lifetime-kilobytes" arg  /* Lifetime, in kilobytes */
     )
   )
 end
@@ -122814,8 +124452,22 @@ rule(:ipsec_sa) do
   )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ipsec_traceoptions) do
     c(
+        "no-remote-trace"  /* Disable remote tracing */,
+        "file" (  /* Trace file information */
+            sc(
+                  arg,
+                "size" arg  /* Maximum trace file size */,
+                "files" arg  /* Maximum number of trace files */,
+                "world-readable"  /* Allow any user to read the log file */,
+                "no-world-readable"  /* Don't allow any user to read the log file */,
+                "match" (  /* Regular expression for lines to be logged */
+                  regular_expression  /* Regular expression for lines to be logged */
+                )
+            )
+        ).as(:oneline),
         "flag" enum(("packet-processing" | "packet-drops" | "security-associations" | "next-hop-tunnel-binding" | "all"))  /* Events to include in data-plane IPSec trace output */.as(:oneline)
     )
 end
@@ -122876,15 +124528,25 @@ rule(:ipsec_vpn_monitor) do
     )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ipsec_vpn_template) do
   arg.as(:arg) (
     c(
+        "ha-link-encryption"  /* Enable HA link encryption */,
         "bind-interface" (  /* Bind to tunnel interface (route-based VPN) */
           interface_name  /* Bind to tunnel interface (route-based VPN) */
         ),
         "df-bit" (  /* Specifies how to handle the Don't Fragment bit */
           ("clear" | "set" | "copy")
         ),
+        "multi-sa" (  /* Negotiate multiple SAs based on configuration choice */
+            c(
+                c(
+                  "forwarding-class" arg
+                )
+            )
+        ),
+        "copy-outer-dscp"  /* Enable copying outer IP header DSCP and ECN to inner IP header */,
         "vpn-monitor" (  /* Monitor VPN liveliness */
           ipsec_template_monitor  /* Monitor VPN liveliness */
         ),
@@ -122946,13 +124608,32 @@ rule(:ipsec_vpn_template) do
               )
           )
         ),
+        "traffic-selector" arg (  /* Traffic selector */
+            c(
+                "local-ip" (  /* IP address of local traffic-selector */
+                  ipprefix_mandatory  /* IP address of local traffic-selector */
+                ),
+                "remote-ip" (  /* IP address of remote traffic-selector */
+                  ipprefix_mandatory  /* IP address of remote traffic-selector */
+                )
+            )
+        ),
         "establish-tunnels" (  /* Define the criteria to establish tunnels */
           ("immediately" | "on-traffic")
-        )
+        ),
+        "passive-mode-tunneling"  /* No active IP packet checks before IPSec encapsulation */,
+        "match-direction" arg  /* Direction for which the rule match is applied */,
+        "tunnel-mtu" arg  /* Maximum transmit packet size */,
+        "udp-encapsulate" (  /* UDP encapsulation of IPsec data traffic */
+            sc(
+                "dest-port" arg  /* UDP destination port */
+            )
+        ).as(:oneline)
     )
   )
 end
 
+# Merged with vSRX 22.4R1.10
 rule(:ipsec_template_monitor) do
     c(
         "optimized"  /* Optimize for scalability */,
@@ -122961,6 +124642,14 @@ rule(:ipsec_template_monitor) do
         ),
         "destination-ip" (  /* Destination IP addres for monitor message */
           ipaddr  /* Destination IP addres for monitor message */
+        ),
+        "verify-path" (  /* Verify IPSec path using vpn-monitor before bring up st0 state */
+            c(
+                "destination-ip" (  /* Destination IP addres for verify IPSec path */
+                  ipaddr  /* Destination IP addres for verify IPSec path */
+                ),
+                "packet-size" arg  /* Size of the packet */
+            )
         )
     )
 end
@@ -131484,3 +133173,4995 @@ rule(:esp_trace_file_type) do
     ).as(:oneline)
 end
 # End of vSRX 12.1x47 for "ethernet-switching-options"
+
+# Ported from vSRX 22.4R1.10 for "security"
+rule(:alg_object) do
+    c(
+        "traceoptions" (  /* ALG trace options */
+            c(
+                "no-remote-trace"  /* Disable remote tracing */,
+                "file" (  /* Trace file information */
+                    sc(
+                          arg,
+                        "size" arg  /* Maximum trace file size */,
+                        "files" arg  /* Maximum number of trace files */,
+                        "world-readable"  /* Allow any user to read the log file */,
+                        "no-world-readable"  /* Don't allow any user to read the log file */,
+                        "match" (  /* Regular expression for lines to be logged */
+                          regular_expression  /* Regular expression for lines to be logged */
+                        )
+                    )
+                ).as(:oneline),
+                "level" (  /* Set level of tracing output */
+                  ("brief" | "detail" | "extensive" | "verbose")
+                )
+            )
+        ),
+        "alg-manager" (  /* Configure ALG-MANAGER */
+            sc(
+                "clear-dont-frag-bit"  /* Enable ALG clear DF(don't frag) bit in IP header */,
+                "traceoptions" (  /* ALG-MANAGER trace options */
+                    c(
+                        "flag" enum(("all")) (  /* ALG-MANAGER trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "alg-support-lib" (  /* Configure ALG-SUPPORT-LIB */
+            sc(
+                "traceoptions" (  /* ALG-SUPPORT-LIB trace options */
+                    c(
+                        "flag" enum(("all")) (  /* ALG-SUPPORT-LIB trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "dns" (  /* Configure DNS ALG */
+            c(
+                "disable"  /* Disable DNS ALG */,
+                "maximum-message-length" arg  /* Set maximum message length */,
+                "oversize-message-drop"  /* Drop oversized DNS packets */,
+                "doctoring" (  /* Configure DNS ALG doctoring */
+                    c(
+                        c(
+                          "none"  /* Disable all DNS ALG Doctoring */,
+                          "sanity-check"  /* Perform only DNS ALG sanity checks */
+                        )
+                    )
+                ),
+                "traceoptions" (  /* DNS ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* DNS ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "ftp" (  /* Configure FTP ALG */
+            sc(
+                "disable"  /* Disable FTP ALG */,
+                "ftps-extension"  /* Enable secure FTP and FTP-ssl protocols */,
+                "line-break-extension"  /* Enable CR+LF line termination */,
+                "allow-mismatch-ip-address"  /* Pass FTP packets with mismatched ip address headers and payload */,
+                "traceoptions" (  /* FTP ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* FTP ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "h323" (  /* Configure H.323 ALG */
+            c(
+                "disable"  /* Disable H.323 ALG */,
+                "endpoint-registration-timeout" arg  /* Timeout for endpoints */,
+                "media-source-port-any"  /* Permit media from any source port on the endpoint */,
+                "application-screen" (  /* Configure application screens */
+                    c(
+                        "unknown-message" (  /* Configure ALG action on receiving an unknown message */
+                            c(
+                                "permit-nat-applied"  /* Permit unknown messages on packets that are NATed */,
+                                "permit-routed"  /* Permit unknown messages on routed packets */
+                            )
+                        ),
+                        "message-flood" (  /* Configure Message flood ALG options */
+                            c(
+                                "gatekeeper" (  /* Set options for gatekeeper messages */
+                                    sc(
+                                        "threshold" arg  /* Message flood gatekeeper threshold */
+                                    )
+                                ).as(:oneline)
+                            )
+                        )
+                    )
+                ),
+                "dscp-rewrite" (  /* DSCP code rewrite */
+                    c(
+                        "code-point" arg  /* Set dscp codepoint 6-bit string */
+                    )
+                ),
+                "traceoptions" (  /* H.323 ALG trace options */
+                    c(
+                        "flag" enum(("q931" | "h245" | "ras" | "h225-asn1" | "h245-asn1" | "ras-asn1" | "chassis-cluster" | "all")) (  /* H.323 ALG trace flags */
+                            sc(
+                                c(
+                                  "terse"  /* Set trace verbosity level to terse */,
+                                  "detail"  /* Set trace verbosity level to detail */,
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "mgcp" (  /* Configure MGCP ALG */
+            c(
+                "disable"  /* Disable MGCP ALG */,
+                "inactive-media-timeout" arg  /* Set inactive media timeout */,
+                "transaction-timeout" arg  /* Set transaction timeout */,
+                "maximum-call-duration" arg  /* Set maximum call duration */,
+                "application-screen" (  /* Configure application screens */
+                    c(
+                        "unknown-message" (  /* Configure ALG action on receiving an unknown message */
+                            c(
+                                "permit-nat-applied"  /* Permit unknown messages on packets that are NATed */,
+                                "permit-routed"  /* Permit unknown messages on routed packets */
+                            )
+                        ),
+                        "message-flood" (  /* Set message flood ALG options */
+                            sc(
+                                "threshold" arg  /* Message flood threshold */
+                            )
+                        ).as(:oneline),
+                        "connection-flood" (  /* Set connection flood options */
+                            sc(
+                                "threshold" arg  /* Connection flood threshold */
+                            )
+                        ).as(:oneline)
+                    )
+                ),
+                "dscp-rewrite" (  /* DSCP code rewrite */
+                    c(
+                        "code-point" arg  /* Set dscp codepoint 6-bit string */
+                    )
+                ),
+                "traceoptions" (  /* MGCP ALG trace options */
+                    c(
+                        "flag" enum(("call" | "decode" | "error" | "chassis-cluster" | "nat" | "packet" | "rm" | "all")) (  /* MGCP ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "msrpc" (  /* Configure MSRPC ALG */
+            sc(
+                "disable"  /* Disable MSRPC ALG */,
+                "group-max-usage" arg  /* Set maximum group usage percentage, default 80 */,
+                "map-entry-timeout" arg  /* Set entry timeout, default 8hour */,
+                "traceoptions" (  /* MSRPC ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* MSRPC ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "sunrpc" (  /* Configure SUNRPC ALG */
+            sc(
+                "disable"  /* Disable SUNRPC ALG */,
+                "group-max-usage" arg  /* Set maximum group usage percentage, default 80 */,
+                "map-entry-timeout" arg  /* Set entry timeout, default 8hour */,
+                "traceoptions" (  /* SUNRPC ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* SUNRPC ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "rsh" (  /* Configure RSH ALG */
+            c(
+                "disable"  /* Disable RSH ALG */,
+                "traceoptions" (  /* RSH ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* RSH ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "rtsp" (  /* Configure RTSP ALG */
+            sc(
+                "disable"  /* Disable RTSP ALG */,
+                "traceoptions" (  /* RTSP ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* RTSP ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "sccp" (  /* Configure SCCP ALG */
+            c(
+                "disable"  /* Disable SCCP ALG */,
+                "inactive-media-timeout" arg  /* Set inactive media timeout */,
+                "application-screen" (  /* Configure application screens */
+                    c(
+                        "unknown-message" (  /* Configure ALG action on receiving an unknown message */
+                            c(
+                                "permit-nat-applied"  /* Permit unknown messages on packets that are NATed */,
+                                "permit-routed"  /* Permit unknown messages on routed packets */
+                            )
+                        ),
+                        "call-flood" (  /* Configure call flood thresholds */
+                            sc(
+                                "threshold" arg  /* Calls per second per client */
+                            )
+                        ).as(:oneline)
+                    )
+                ),
+                "dscp-rewrite" (  /* DSCP code rewrite */
+                    c(
+                        "code-point" arg  /* Set dscp codepoint 6-bit string */
+                    )
+                ),
+                "traceoptions" (  /* SCCP ALG trace options */
+                    c(
+                        "flag" enum(("call" | "cli" | "decode" | "error" | "chassis-cluster" | "init" | "nat" | "rm" | "all")) (  /* SCCP ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "sip" (  /* Configure SIP ALG */
+            c(
+                "disable"  /* Disable SIP ALG */,
+                "inactive-media-timeout" arg  /* Set inactive media timeout */,
+                "maximum-call-duration" arg  /* Set maximum call duration 0 or 3..720 */,
+                "t1-interval" arg  /* Set T1 interval */,
+                "t4-interval" arg  /* Set T4 interval */,
+                "c-timeout" arg  /* Set C timeout */,
+                "disable-call-id-hiding"  /* Disable translation of host IP in Call-ID header */,
+                "bulk-call-mode"  /* Enable SIP distribution session in bulk mode */,
+                "enable-call-distribution"  /* Enable Call-id-based SIP call distribution between SPUs */,
+                "retain-hold-resource"  /* Retain SDP resources during call hold */,
+                "hide-via-headers" (  /* Hide via headers options */
+                    c(
+                        "disable"  /* Disable hide via headers function */
+                    )
+                ),
+                "distribution-ip"  /* Configure SIP distribute server IPV6 or IPV4 ip */,
+                "application-screen" (  /* Configure application screens */
+                    c(
+                        "unknown-message" (  /* Configure ALG action on receiving an unknown message */
+                            c(
+                                "permit-nat-applied"  /* Permit unknown messages on packets that are NATed */,
+                                "permit-routed"  /* Permit unknown messages on routed packets */
+                            )
+                        ),
+                        "protect" (  /* Configure Protect options */
+                            c(
+                                "deny" (  /* Protect deny options */
+                                    c(
+                                        c(
+                                          "destination-ip" arg  /* List of protected destination server IP */,
+                                          "all"  /* Enable attack protection for all servers */
+                                        ),
+                                        "timeout" arg  /* Timeout value for SIP INVITE attack table entry */
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                "dscp-rewrite" (  /* DSCP code rewrite */
+                    c(
+                        "code-point" arg  /* Set dscp codepoint 6-bit string */
+                    )
+                ),
+                "traceoptions" (  /* SIP ALG trace options */
+                    c(
+                        "flag" enum(("call" | "chassis-cluster" | "nat" | "parser" | "rm" | "all")) (  /* SIP ALG trace flags */
+                            sc(
+                                c(
+                                  "terse"  /* Set trace verbosity level to terse */,
+                                  "detail"  /* Set trace verbosity level to detail */,
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "sql" (  /* Configure SQL ALG */
+            sc(
+                "disable"  /* Disable SQL ALG */,
+                "traceoptions" (  /* SQL ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* SQL ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "talk" (  /* Configure Talk ALG */
+            sc(
+                "disable"  /* Disable Talk ALG */,
+                "traceoptions" (  /* TALK ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* TALK ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "tftp" (  /* Configure TFTP ALG */
+            sc(
+                "disable"  /* Disable TFTP ALG */,
+                "traceoptions" (  /* TFTP ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* TFTP ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "pptp" (  /* Configure PPTP ALG */
+            sc(
+                "disable"  /* Disable PPTP ALG */,
+                "traceoptions" (  /* PPTP ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* PPTP ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ).as(:oneline),
+        "ike-esp-nat" (  /* Configure IKE-ESP ALG with NAT */
+            c(
+                "enable"  /* Enable IKE-ESP ALG */,
+                "esp-gate-timeout" arg  /* Set ESP gate timeout */,
+                "esp-session-timeout" arg  /* Set ESP session timeout */,
+                "state-timeout" arg  /* Set ALG state timeout */,
+                "traceoptions" (  /* IKE-ESP ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* IKE-ESP ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Set trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        ),
+        "twamp" (  /* Configure TWAMP ALG */
+            c(
+                "traceoptions" (  /* TWAMP ALG trace options */
+                    c(
+                        "flag" enum(("all")) (  /* TWAMP ALG trace flags */
+                            sc(
+                                c(
+                                  "extensive"  /* Trace verbosity level to extensive */
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                )
+            )
+        )
+    )
+end
+
+rule(:anti_spam_feature) do
+    c(
+        "sbl" (  /* SBL settings */
+          sbl_type  /* SBL settings */
+        )
+    )
+end
+
+rule(:anti_virus_feature) do
+    c(
+        "mime-whitelist" (  /* Anti-virus MIME whitelist */
+            c(
+                "list" arg  /* MIME list */,
+                "exception" arg  /* Exception settings for MIME white list */
+            )
+        ),
+        "url-whitelist" arg  /* Anti-virus URL white list */,
+        "type" (  /* Anti-virus engine type */
+          ("sophos-engine" | "avira-engine" | "anti-virus-none")
+        ),
+        "profile" arg (  /* Anti-virus profile */
+            c(
+                "fallback-options" (  /* Anti-virus fallback options */
+                  av_fallback_settings  /* Anti-virus fallback options */
+                ),
+                "notification-options" (  /* Anti-virus notification options */
+                  anti_virus_notification_options  /* Anti-virus notification options */
+                ),
+                "mime-whitelist" (  /* Anti-virus MIME whitelist */
+                    c(
+                        "list" arg  /* MIME list */,
+                        "exception" arg  /* Exception settings for MIME white list */
+                    )
+                ),
+                "url-whitelist" arg  /* Anti-virus URL white list */
+            )
+        ),
+        "traceoptions" (  /* Trace options for anti-virus feature */
+          anti_virus_traceoptions  /* Trace options for anti-virus feature */
+        ),
+        "sophos-engine" (  /* Anti-virus sophos-engine */
+            c(
+                "server" (  /* SAV and Anti-Spam first hop DNS server */
+                    c(
+                        "routing-instance" arg  /* Routing instance name */,
+                        "source-address" (  /* Source ip address used to connect server */
+                          ipaddr  /* Source ip address used to connect server */
+                        ),
+                          ipaddr  /* SAV and Anti-Spam first hop DNS server ip */
+                    )
+                ),
+                "sxl-timeout" arg  /* Sxl sophos anti-virus engine timeout */,
+                "sxl-retry" arg  /* Sxl sophos anti-virus engine query retry (number of times) */,
+                "pattern-update" (  /* Anti-virus sophos-engine pattern update */
+                  anti_virus_pattern_update  /* Anti-virus sophos-engine pattern update */
+                ),
+                "profile" arg (  /* Anti-virus sophos-engine profile */
+                    c(
+                        "fallback-options" (  /* Anti-virus sophos-engine fallback options */
+                          av_fallback_settings  /* Anti-virus sophos-engine fallback options */
+                        ),
+                        "scan-options" (  /* Anti-virus sophos-engine scan options */
+                          sophos_scan_options  /* Anti-virus sophos-engine scan options */
+                        ),
+                        "trickling" (  /* Anti-virus trickling */
+                          anti_virus_trickling  /* Anti-virus trickling */
+                        ),
+                        "notification-options" (  /* Anti-virus notification options */
+                          anti_virus_notification_options  /* Anti-virus notification options */
+                        ),
+                        "mime-whitelist" (  /* Anti-virus MIME whitelist */
+                            c(
+                                "list" arg  /* MIME list */,
+                                "exception" arg  /* Exception settings for MIME white list */
+                            )
+                        ),
+                        "url-whitelist" arg  /* Anti-virus URL white list */
+                    )
+                )
+            )
+        )
+    )
+end
+
+rule(:anti_virus_notification_options) do
+    c(
+        "virus-detection" (  /* Virus detection notification */
+            c(
+                "type" (  /* Virus detection notification type */
+                  ("protocol-only" | "message")
+                ),
+                "notify-mail-sender"  /* Notify mail sender */,
+                "no-notify-mail-sender"  /* Don't notify mail sender */,
+                "custom-message" arg  /* Custom message for notification */,
+                "custom-message-subject" arg  /* Custom message subject for notification */
+            )
+        ),
+        "fallback-block" (  /* Fallback block notification */
+            c(
+                "type" (  /* Fallback block notification type */
+                  ("protocol-only" | "message")
+                ),
+                "notify-mail-sender"  /* Notify mail sender */,
+                "no-notify-mail-sender"  /* Don't notify mail sender */,
+                "custom-message" arg  /* Custom message for notification */,
+                "custom-message-subject" arg  /* Custom message subject for notification */
+            )
+        ),
+        "fallback-non-block" (  /* Fallback non block notification */
+            c(
+                "notify-mail-recipient"  /* Notify mail recipient */,
+                "no-notify-mail-recipient"  /* Don't notify mail recipient */,
+                "custom-message" arg  /* Custom message for notification */,
+                "custom-message-subject" arg  /* Custom message subject for notification */
+            )
+        )
+    )
+end
+
+rule(:anti_virus_pattern_update) do
+    c(
+        "email-notify" (  /* Virus pattern file updated notification */
+            c(
+                "admin-email" arg  /* Admin emails to be notified about pattern file update */,
+                "custom-message" arg  /* Custom message for notification */,
+                "custom-message-subject" arg  /* Custom message subject for notification */
+            )
+        ),
+        "url" arg  /* Server URL */,
+        "proxy-profile" arg  /* Proxy profile */,
+        "routing-instance" arg  /* Routing instance name */,
+        "interval" arg  /* Interval in minutes to check the update */,
+        "start-time" (  /* Start time (YYYY-MM-DD.HH:MM:SS) */
+          time  /* Start time (YYYY-MM-DD.HH:MM:SS) */
+        ),
+        "no-autoupdate"  /* Don't automatically update anti-virus pattern */
+    )
+end
+
+rule(:anti_virus_traceoptions) do
+    c(
+        "flag" enum(("basic" | "detail" | "engine" | "pattern" | "updater" | "manager" | "worker" | "sendmail" | "ipc" | "event" | "statistics" | "all"))  /* Trace options for anti-virus feature flag */.as(:oneline)
+    )
+end
+
+rule(:anti_virus_trickling) do
+    c(
+        "timeout" arg  /* Trickling timeout */
+    ).as(:oneline)
+end
+
+rule(:apbr_rule_type) do
+  arg.as(:arg) (
+    c(
+        "disable-midstream-routing"  /* Disable midstream routing */,
+        "match" (  /* Specify security rule  match-criteria */
+            c(
+                "dynamic-application" (
+                      (arg | "junos:UNKNOWN" | "any")
+                ),
+                "dynamic-application-group" (
+                      (arg | "junos:unassigned")
+                ),
+                "category" (
+                      (arg | arg)
+                ),
+                "dscp" arg
+            )
+        ),
+        "then" (  /* Specify rule action to take when packet match criteria */
+            c(
+                "routing-instance" (  /* Packets are directed to specified routing instance */
+                    sc(
+                        arg  /* Name of routing instance */
+                    )
+                ).as(:oneline),
+                "sla-rule" (  /* SLA Rule */
+                    c(
+                        arg  /* SLA rule name */
+                    )
+                ),
+                "application-services-bypass"  /* Bypass the application services */
+            )
+        )
+    )
+  )
+end
+
+rule(:appfw_rule_type) do
+  arg.as(:arg) (
+    c(
+        "match" (  /* Specify security rule  match-criteria */
+            c(
+                "dynamic-application" (
+                      (arg | "junos:UNKNOWN" | "any")
+                ),
+                "dynamic-application-group" (
+                      (arg | "junos:unassigned")
+                ),
+                "ssl-encryption" (  /* Select SSL encryption rules */
+                  ("any" | "yes" | "no")
+                )
+            )
+        ),
+        "then" (  /* Specify rule action to take when packet match criteria */
+            c(
+                c(
+                  "permit"  /* Permit packets */,
+                  "deny" (  /* Deny packets */
+                      c(
+                          "block-message"  /* Redirect sessions */
+                      )
+                  ),
+                  "reject" (  /* Reject packets */
+                      c(
+                          "block-message"  /* Redirect sessions */
+                      )
+                  )
+                )
+            )
+        )
+    )
+  )
+end
+
+rule(:appqoe_probe_params) do
+    c(
+        "data-fill" (  /* Probe Data Payload content */
+            c(
+                  arg
+            )
+        ),
+        "data-size" (  /* Probe data size */
+            c(
+                  arg
+            )
+        ),
+        "per-packet-loss-timeout" (  /* Time interval between 2 consecutive SaaS probes */
+            c(
+                  arg
+            )
+        ),
+        "probe-interval" (  /* Time interval between 2 consecutive probes */
+            c(
+                  arg
+            )
+        ),
+        "probe-count" (  /* Minimum number of samples to be collected to evaluate SLA measurement */
+            c(
+                  arg
+            )
+        ),
+        "burst-size" (  /* Number of probes out of probe count to be sent as a burst */
+            c(
+                  arg
+            )
+        ),
+        "sla-export-interval" (  /* Enabled time based SLA exporting */
+            c(
+                  arg
+            )
+        ),
+        "dscp-code-points" (  /* Mapping of code point aliases to bit strings */
+            c(
+                arg  /* DSCP */
+            )
+        ),
+        "forwarding-class" (  /* Forwarding class corresponding to the DSCP */
+            c(
+                arg  /* Forwarding class name */
+            )
+        ),
+        "loss-priority" (
+            c(
+                "priority" (  /* Packet loss priority */
+                  ("low" | "medium-low" | "medium-high" | "high")
+                )
+            )
+        )
+    )
+end
+
+rule(:appqoe_probe_path) do
+    c(
+        "local" (  /* Local node's info */
+          appqoe_node  /* Local node's info */
+        ),
+        "remote" (  /* Remote node's info */
+          appqoe_node  /* Remote node's info */
+        )
+    )
+end
+
+rule(:appqoe_node) do
+    c(
+        "ip-address" (  /* Set IP address */
+            c(
+                  ipaddr  /* IP address */
+            )
+        )
+    )
+end
+
+rule(:appqoe_sla_metric_profile) do
+    c(
+        "delay-round-trip" (  /* Maximum acceptable delay */
+            c(
+                  arg
+            )
+        ),
+        "jitter" (  /* Maximum acceptable jitter */
+            c(
+                  arg
+            )
+        ),
+        "jitter-type" (  /* Type of Jitter */
+            c(
+                c(
+                  "two-way-jitter"  /* Two-way-jitter-type */,
+                  "egress-jitter"  /* Egress-jitter-type */,
+                  "ingress-jitter"  /* Ingress-jitter-type */
+                )
+            )
+        ),
+        "packet-loss" (  /* Maximum acceptable packet-loss */
+            c(
+                  arg
+            )
+        ),
+        "match" (  /* Type of SLA match */
+            c(
+                c(
+                  "any-one"  /* Match any one strings */,
+                  "all"  /* Match all metrics */
+                )
+            )
+        )
+    )
+end
+
+rule(:authentication_source_type) do
+  ("local-authentication-table" | "unified-access-control" | "firewall-authentication" | "active-directory-authentication-table" | "aruba-clearpass").as(:arg) (
+    c(
+        c(
+          "priority" arg  /* Larger number means lower priority, 0 for disable */
+        )
+    )
+  )
+end
+
+rule(:av_fallback_settings) do
+    c(
+        "default" (  /* Default action */
+          ("permit" | "log-and-permit" | "block")
+        ),
+        "content-size" (  /* Fallback action for over content size */
+          ("permit" | "log-and-permit" | "block")
+        ),
+        "engine-not-ready" (  /* Fallback action for engine not ready */
+          ("permit" | "log-and-permit" | "block")
+        ),
+        "timeout" (  /* Fallback action for engine scan timeout */
+          ("permit" | "log-and-permit" | "block")
+        ),
+        "out-of-resources" (  /* Fallback action for out of resources */
+          ("permit" | "log-and-permit" | "block")
+        ),
+        "too-many-requests" (  /* Fallback action for requests exceed engine limit */
+          ("permit" | "log-and-permit" | "block")
+        ),
+        "decompress-err" (  /* Fallback action for decompress error */
+          ("permit" | "log-and-permit" | "block")
+        )
+    )
+end
+
+rule(:category_list_type) do
+  arg.as(:arg) (
+    c(
+        "value" arg  /* Configure value of category-list object */
+    )
+  )
+end
+
+rule(:command_list_type) do
+  arg.as(:arg) (
+    c(
+        "value" arg  /* Configure value of command-list object */
+    )
+  )
+end
+
+rule(:content_filtering_feature) do
+    c(
+        "profile" arg (  /* Content filtering profile */
+            c(
+                "permit-command" arg  /* Permit command list */,
+                "block-command" arg  /* Block command list */,
+                "block-extension" arg  /* Block extension list */,
+                "block-mime" (  /* Content-filtering feature block MIME */
+                    c(
+                        "list" arg  /* Block MIME list */,
+                        "exception" arg  /* Exception of block MIME list */
+                    )
+                ),
+                "block-content-type" (  /* Content-filtering feature block content type */
+                    c(
+                        "activex"  /* Block activex */,
+                        "java-applet"  /* Block Java-applet */,
+                        "exe"  /* Block Windows/dos exe file */,
+                        "zip"  /* Block zip file */,
+                        "http-cookie"  /* Block HTTP cookie */
+                    )
+                ),
+                "notification-options" (  /* Notification options */
+                    c(
+                        "type" (  /* Notification options type */
+                          ("protocol-only" | "message")
+                        ),
+                        "notify-mail-sender"  /* Notifiy mail sender */,
+                        "no-notify-mail-sender"  /* Don't notifiy mail sender */,
+                        "custom-message" arg  /* Custom notification message */
+                    )
+                )
+            )
+        )
+    )
+end
+
+rule(:custom_message_type) do
+  arg.as(:arg) (
+    c(
+        "type" (  /* Type of custom message */
+          ("redirect-url" | "user-message" | "custom-page")
+        ),
+        c(
+          "content" arg  /* Content of custom message */,
+          "custom-page-file" arg  /* Name of custom page file */
+        )
+    )
+  )
+end
+
+rule(:default_anti_spam_feature) do
+    c(
+        "type" (  /* Anti-spam type */
+          ("sbl" | "anti-spam-none")
+        ),
+        "address-whitelist" arg  /* Anti-spam whitelist */,
+        "address-blacklist" arg  /* Anti-spam blacklist */,
+        "traceoptions" (  /* Trace options for anti-spam feature */
+          anti_spam_traceoptions  /* Trace options for anti-spam feature */
+        ),
+        "sbl" (  /* SBL settings */
+          default_sbl_type  /* SBL settings */
+        )
+    )
+end
+
+rule(:anti_spam_traceoptions) do
+    c(
+        "flag" enum(("manager" | "sbl" | "all"))  /* Trace options for anti-spam feature flag */.as(:oneline)
+    )
+end
+
+rule(:default_anti_virus_feature) do
+    c(
+        "mime-whitelist" (  /* Anti-virus MIME whitelist */
+            c(
+                "list" arg  /* MIME list */,
+                "exception" arg  /* Exception settings for MIME white list */
+            )
+        ),
+        "url-whitelist" arg  /* Anti-virus URL white list */,
+        "type" (  /* Anti-virus engine type */
+          ("sophos-engine" | "avira-engine" | "anti-virus-none")
+        ),
+        "forwarding-mode" (  /* Anti-virus forwarding mode */
+            c(
+                "hold"  /* Hold mode (hold file until analysis is complete, default is CDF mode) */,
+                "inline-tap"  /* Detect-only mode without blocking (default is off) */
+            )
+        ),
+        "scan-options" (  /* Anti-virus scan options */
+            c(
+                "pre-detection"  /* Anti-virus Pre-Detection */,
+                "no-pre-detection"  /* Don't anti-virus Pre-Detection */,
+                "uri-check"  /* Anti-virus uri-check */,
+                "no-uri-check"  /* Don't anti-virus uri-check */,
+                "content-size-limit" arg  /* Content size limit */,
+                "timeout" arg  /* Scan engine timeout */,
+                "decompress-layer-limit" arg  /* Decompress layer limit */
+            )
+        ),
+        "trickling" (  /* Anti-virus trickling */
+          anti_virus_trickling  /* Anti-virus trickling */
+        ),
+        "notification-options" (  /* Anti-virus notification options */
+          anti_virus_notification_options  /* Anti-virus notification options */
+        ),
+        "fallback-options" (  /* Anti-virus fallback options */
+          av_fallback_settings  /* Anti-virus fallback options */
+        ),
+        "traceoptions" (  /* Trace options for anti-virus feature */
+          anti_virus_traceoptions  /* Trace options for anti-virus feature */
+        ),
+        "avira-engine" (  /* Anti-virus Avira-engine */
+            c(
+                "pattern-update" (  /* Anti-virus avira-engine pattern update */
+                  anti_virus_pattern_update  /* Anti-virus avira-engine pattern update */
+                )
+            )
+        ),
+        "sophos-engine" (  /* Anti-virus sophos-engine */
+            c(
+                "server" (  /* SAV and Anti-Spam first hop DNS server */
+                    c(
+                        "routing-instance" arg  /* Routing instance name */,
+                        "source-address" (  /* Source ip address used to connect server */
+                          ipaddr  /* Source ip address used to connect server */
+                        ),
+                          ipaddr  /* SAV and Anti-Spam first hop DNS server ip */
+                    )
+                ),
+                "sxl-timeout" arg  /* Sxl sophos anti-virus engine timeout */,
+                "sxl-retry" arg  /* Sxl sophos anti-virus engine query retry (number of times) */,
+                "pattern-update" (  /* Anti-virus sophos-engine pattern update */
+                  anti_virus_pattern_update  /* Anti-virus sophos-engine pattern update */
+                ),
+                "fallback-options" (  /* Anti-virus sophos-engine fallback options */
+                  av_fallback_settings  /* Anti-virus sophos-engine fallback options */
+                ),
+                "scan-options" (  /* Anti-virus sophos-engine scan options */
+                  default_sophos_scan_options  /* Anti-virus sophos-engine scan options */
+                ),
+                "trickling" (  /* Anti-virus trickling */
+                  anti_virus_trickling  /* Anti-virus trickling */
+                ),
+                "notification-options" (  /* Anti-virus notification options */
+                  anti_virus_notification_options  /* Anti-virus notification options */
+                )
+            )
+        )
+    )
+end
+
+rule(:default_content_filtering_feature) do
+    c(
+        "type" (  /* Content-filtering type */
+          ("local" | "content-filtering-none")
+        ),
+        "traceoptions" (  /* Trace options for content-filtering feature */
+          content_filtering_traceoptions  /* Trace options for content-filtering feature */
+        ),
+        "permit-command" arg  /* Permit command list */,
+        "block-command" arg  /* Block command list */,
+        "block-extension" arg  /* Block extension list */,
+        "block-mime" (  /* Content-filtering feature block MIME */
+            c(
+                "list" arg  /* Block MIME list */,
+                "exception" arg  /* Exception of block MIME list */
+            )
+        ),
+        "block-content-type" (  /* Content-filtering feature block content type */
+            c(
+                "activex"  /* Block activex */,
+                "java-applet"  /* Block Java-applet */,
+                "exe"  /* Block Windows/dos exe file */,
+                "zip"  /* Block zip file */,
+                "http-cookie"  /* Block HTTP cookie */
+            )
+        ),
+        "rule-set" (  /* Default Rule-set configuration */
+          cf_rule_set  /* Default Rule-set configuration */
+        ),
+        "notification-options" (  /* Notification options */
+            c(
+                "log"  /* Generate security event if content is blocked by rule */,
+                "type" (  /* Notification options type */
+                  ("protocol-only" | "message")
+                ),
+                "notify-mail-sender"  /* Notifiy mail sender */,
+                "no-notify-mail-sender"  /* Don't notifiy mail sender */,
+                "custom-message" arg  /* Custom notification message */
+            )
+        ),
+        "disable-cf-jdpi-parser"  /* Disable JDPI for Content Filtering */
+    )
+end
+
+rule(:cf_rule_set) do
+  arg.as(:arg) (
+    c(
+        "rule" (  /* Configure UTM CF Rules */
+          cf_rule  /* Configure UTM CF Rules */
+        )
+    )
+  )
+end
+
+rule(:cf_rule) do
+  arg.as(:arg) (
+    c(
+        "match" (  /* Rule match criteria */
+            c(
+                "applications" arg  /* List of applications to be inspected */,
+                "direction" (  /* Direction of the content to be inspected */
+                  ("upload" | "download" | "any")
+                ),
+                "file-types" arg  /* List of file-types in match critera */
+            )
+        ),
+        "then" (  /* Rule then criteria */
+            c(
+                "action" (  /* Configure action */
+                  ("no-action" | "block" | "close-client" | "close-server" | "close-client-and-server")
+                ),
+                "notification" (  /* Event logging and notification options */
+                  cf_notification  /* Event logging and notification options */
+                )
+            )
+        )
+    )
+  )
+end
+
+rule(:cf_notification) do
+    c(
+        "log"  /* Generate security event if content is blocked by rule */,
+        "endpoint" (
+            c(
+                "type" (  /* Endpoint notification type */
+                  ("protocol-only" | "message")
+                ),
+                "notify-mail-sender"  /* Notifiy mail sender */,
+                "no-notify-mail-sender"  /* Don't notifiy mail sender */,
+                "custom-message" arg  /* Custom notification message */
+            )
+        )
+    )
+end
+
+rule(:content_filtering_traceoptions) do
+    c(
+        "flag" enum(("basic" | "detail" | "all"))  /* Trace options for content-filtering feature flag */.as(:oneline)
+    )
+end
+
+rule(:default_sbl_type) do
+    c(
+        "sbl-default-server"  /* Default SBL server */,
+        "no-sbl-default-server"  /* Don't default SBL server */,
+        "spam-action" (  /* Anti-spam actions */
+          ("block" | "tag-header" | "tag-subject")
+        ),
+        "custom-tag-string" arg  /* Custom tag string */
+    )
+end
+
+rule(:default_sophos_scan_options) do
+    c(
+        "uri-check"  /* Anti-virus uri-check */,
+        "no-uri-check"  /* Don't anti-virus uri-check */,
+        "content-size-limit" arg  /* Content size limit */,
+        "timeout" arg  /* Scan engine timeout */
+    )
+end
+
+rule(:default_webfilter_feature) do
+    c(
+        "url-whitelist" arg  /* Configure custom URL for whitelist category */,
+        "url-blacklist" arg  /* Configure custom URL for blacklist category */,
+        "performance-mode"  /* Improves performance by only analyzing requests on ports 80 and 443 */,
+        "http-reassemble"  /* Reassemble HTTP request segments */,
+        "http-persist"  /* Check all HTTP request in a connection */,
+        "type" (  /* Configure web-filtering engine type */
+          ("websense-redirect" | "juniper-local" | "juniper-enhanced" | "web-filtering-none")
+        ),
+        "traceoptions" (  /* Trace options for web-filtering feature */
+          web_filtering_traceoptions  /* Trace options for web-filtering feature */
+        ),
+        "websense-redirect" (  /* Configure web-filtering websense redirect engine */
+          default_websense_type  /* Configure web-filtering websense redirect engine */
+        ),
+        "juniper-local" (  /* Configure web-filtering juniper local engine */
+          default_juniper_local_type  /* Configure web-filtering juniper local engine */
+        ),
+        "juniper-enhanced" (  /* Configure web-filtering juniper enhanced engine */
+          default_juniper_enhanced_type  /* Configure web-filtering juniper enhanced engine */
+        )
+    )
+end
+
+rule(:default_juniper_enhanced_type) do
+    c(
+        "cache" (
+            c(
+                "timeout" arg  /* Juniper enhanced cache timeout */,
+                "size" arg  /* Juniper enhanced cache size */
+            )
+        ),
+        "server" (  /* Juniper enhanced server */
+          juniper_enhanced_server  /* Juniper enhanced server */
+        ),
+        "reputation" (  /* Customize reputation level */
+            c(
+                "reputation-very-safe" arg  /* Base-reputation-value (default 90) */,
+                "reputation-moderately-safe" arg  /* Base-reputation-value (default 80) */,
+                "reputation-fairly-safe" arg  /* Base-reputation-value (default 70) */,
+                "reputation-suspicious" arg  /* Base-reputation-value (default 60) */
+            )
+        ),
+        "query-type" (  /* Juniper enhanced query type */
+          ("url-ip" | "url")
+        ),
+        "base-filter" arg  /* Juniper base filter */,
+        "category" (  /* Juniper enhanced category */
+          juniper_enhanced_category_type  /* Juniper enhanced category */
+        ),
+        "site-reputation-action" (  /* Juniper enhanced site reputation action */
+          juniper_enhanced_site_reputation_setting  /* Juniper enhanced site reputation action */
+        ),
+        "default" (  /* Juniper enhanced profile default */
+          ("permit" | "block" | "log-and-permit" | "quarantine")
+        ),
+        "custom-message" arg  /* Custom message */,
+        "fallback-settings" (  /* Juniper enhanced fallback settings */
+          web_filtering_fallback_setting  /* Juniper enhanced fallback settings */
+        ),
+        "timeout" arg  /* Juniper enhanced timeout */,
+        "no-safe-search"  /* Do not perform safe-search for Juniper enhanced protocol */
+    )
+end
+
+rule(:default_juniper_local_type) do
+    c(
+        "default" (  /* Juniper local profile default */
+          ("permit" | "block" | "log-and-permit")
+        ),
+        "category" (  /* Custom category */
+          custom_category_type  /* Custom category */
+        ),
+        "custom-message" arg  /* Custom message */,
+        "no-safe-search"  /* Do not perform safe-search for Juniper local protocol */,
+        "fallback-settings" (  /* Juniper local fallback settings */
+          web_filtering_fallback_setting  /* Juniper local fallback settings */
+        ),
+        "timeout" arg  /* Juniper local timeout */
+    )
+end
+
+rule(:custom_category_type) do
+  arg.as(:arg) (
+    c(
+        "action" (  /* Action to perform when web traffic matches category */
+          ("permit" | "log-and-permit" | "block" | "quarantine")
+        ),
+        "custom-message" arg  /* Custom message */
+    )
+  )
+end
+
+rule(:default_websense_type) do
+    c(
+        "server" (  /* Websense redirect server */
+          server  /* Websense redirect server */
+        ),
+        "category" (  /* Custom category */
+          custom_category_type  /* Custom category */
+        ),
+        "custom-message" arg  /* Custom message */,
+        "no-safe-search"  /* Do not perform safe-search for websense redirect protocol */,
+        "fallback-settings" (  /* Websense redirect fallback settings */
+          web_filtering_fallback_setting  /* Websense redirect fallback settings */
+        ),
+        "timeout" arg  /* Websense redirect timeout */,
+        "sockets" arg  /* Websense redirect sockets number */,
+        "account" arg  /* Websense redirect account */
+    )
+end
+
+rule(:e2e_action_profile) do
+  arg.as(:arg) (
+    c(
+        "preserve-trace-order"  /* Preserve trace order (has performance overhead) */,
+        "record-pic-history"  /* Record the PIC(s) in which the packet has been processed */,
+        "event" (
+          e2e_event
+        ),
+        "module" (
+          e2e_module
+        )
+    )
+  )
+end
+
+rule(:e2e_event) do
+  ("np-ingress" | "np-egress" | "mac-ingress" | "mac-egress" | "lbt" | "pot" | "jexec" | "lt-enter" | "lt-leave").as(:arg) (
+    c(
+        "trace"  /* Trace action */,
+        "count"  /* Count action */,
+        "packet-summary"  /* Packet summary action */,
+        "packet-dump"  /* Packet dump action */
+    )
+  )
+end
+
+rule(:e2e_module) do
+  ("flow").as(:arg) (
+    c(
+        "flag" enum(("all"))  /* Events and other information to include in trace output */.as(:oneline)
+    )
+  )
+end
+
+rule(:end_to_end_debug_filter) do
+  arg.as(:arg) (
+    c(
+        "action-profile" (  /* Actions to take with this filter */
+          ("default" | arg)
+        ),
+        "protocol" (  /* Match IP protocol type */
+          ("icmp" | "igmp" | "ipip" | "tcp" | "egp" | "udp" | "rsvp" | "gre" | "esp" | "ah" | "icmp6" | "ospf" | "pim" | "sctp" | arg)
+        ),
+        "source-prefix" (  /* Source IPv4/IPv6 address prefix */
+          ipprefix  /* Source IPv4/IPv6 address prefix */
+        ),
+        "destination-prefix" (  /* Destination IPv4/IPv6 address prefix */
+          ipprefix  /* Destination IPv4/IPv6 address prefix */
+        ),
+        "source-port" (  /* Match TCP/UDP source port */
+          ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
+        ),
+        "destination-port" (  /* Match TCP/UDP destination port */
+          ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
+        ),
+        "interface" (  /* Logical interface */
+          interface_name  /* Logical interface */
+        )
+    )
+  )
+end
+
+rule(:extension_list_type) do
+  arg.as(:arg) (
+    c(
+        "value" arg  /* Configure value of extension-list object */
+    )
+  )
+end
+
+rule(:flow_filter_type) do
+  arg.as(:arg) (
+    c(
+        "protocol" (  /* Match IP protocol type */
+          ("icmp" | "igmp" | "ipip" | "tcp" | "egp" | "udp" | "rsvp" | "gre" | "esp" | "ah" | "icmp6" | "ospf" | "pim" | "sctp" | arg)
+        ),
+        "source-prefix" (  /* Source IP address prefix */
+          ipprefix  /* Source IP address prefix */
+        ),
+        "destination-prefix" (  /* Destination IP address prefix */
+          ipprefix  /* Destination IP address prefix */
+        ),
+        "conn-tag" arg  /* Session connection tag */,
+        "logical-system" arg  /* Logical system */,
+        "source-port" (  /* Match TCP/UDP source port */
+          ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
+        ),
+        "destination-port" (  /* Match TCP/UDP destination port */
+          ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
+        ),
+        "interface" (  /* Source logical interface */
+          interface_name  /* Source logical interface */
+        )
+    )
+  )
+end
+
+rule(:flow_traceoptions_object) do
+    c(
+        "no-remote-trace"  /* Disable remote tracing */,
+        "file" (  /* Trace file information */
+            sc(
+                  arg,
+                "size" arg  /* Maximum trace file size */,
+                "files" arg  /* Maximum number of trace files */,
+                "world-readable"  /* Allow any user to read the log file */,
+                "no-world-readable"  /* Don't allow any user to read the log file */,
+                "match" (  /* Regular expression for lines to be logged */
+                  regular_expression  /* Regular expression for lines to be logged */
+                )
+            )
+        ).as(:oneline),
+        "flag" enum(("all" | "basic-datapath" | "high-availability" | "host-traffic" | "fragmentation" | "multicast" | "route" | "session" | "session-scan" | "tcp-basic" | "tunnel" | "jexec"))  /* Events and other information to include in trace output */.as(:oneline),
+        "rate-limit" arg  /* Limit the incoming rate of trace messages */,
+        "packet-filter" (  /* Flow packet debug filters */
+          flow_filter_type  /* Flow packet debug filters */
+        ),
+        "trace-level" (  /* FLow trace level */
+            c(
+                c(
+                  "minimal"  /* Significant messages including warning, error, criticality, alert and emergency. */,
+                  "brief"  /* Brief messages including notice, in addition to minimal messages */,
+                  "detail"  /* Detail messages including info and debug, in addition to brief messages */
+                )
+            )
+        ),
+        "root-override"  /* Allow collect flow trace in root from all logical-systems and tenants */
+    )
+end
+
+rule(:gtp_object) do
+    c(
+        "profile" arg (  /* Configure GTP Profile */
+            c(
+                "min-message-length" arg  /* Minimum message length, from 0 to 65535  */,
+                "max-message-length" arg  /* Maximum message length, from 1 to 65535 */,
+                "timeout" arg  /* Tunnel idle timeout */,
+                "rate-limit" (  /* Limit messages per second */
+                  rate_limit_object  /* Limit messages per second */
+                ),
+                "log" (  /* GPRS tunneling protocol logs */
+                    c(
+                        "forwarded" (  /* Log passed good packets */
+                          ("basic" | "detail")
+                        ),
+                        "event" (  /* Log alarms and tunnel management events */
+                          ("basic" | "detail")
+                        ),
+                        "prohibited" (  /* Log dropped packets */
+                          ("basic" | "detail")
+                        ),
+                        "gtp-u" enum(("all" | "dropped"))  /* Logs for gtp-u */,
+                        "rate-limited" (  /* Dropped for rate-limit */
+                            c(
+                                c(
+                                  "basic"  /* Basic logs */,
+                                  "detail"  /* Detailed logs */
+                                )
+                            )
+                        )
+                    )
+                ),
+                "remove-ie" (  /* Remove information elements */
+                    c(
+                        "version" enum(("v1")) (  /* GTP version */
+                            c(
+                                "release" enum(("R6" | "R7" | "R8" | "R9"))  /* Remove information elements by release */,
+                                "number" (  /* Remove information elements by number */
+                                    c(
+                                          arg
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                "path-rate-limit" (  /* Limit control messages based on IP pairs */
+                    c(
+                        "message-type" enum(("create-req" | "delete-req" | "echo-req" | "other")) (  /* Specific group of control messages */
+                            c(
+                                "drop-threshold" (  /* Set drop threshold for path rate limiting */
+                                    c(
+                                        "forward" arg  /* Limit messages of forward direction */,
+                                        "reverse" arg  /* Limit messages of reverse direction */
+                                    )
+                                ),
+                                "alarm-threshold" (  /* Set alarm threshold for path rate limiting */
+                                    c(
+                                        "forward" arg  /* Limit messages of forward direction */,
+                                        "reverse" arg  /* Limit messages of reverse direction */
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                "drop" (  /* Drop certain type of messages */
+                    c(
+                        "aa-create-pdp" (  /* Create AA pdp request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */
+                                )
+                            )
+                        ),
+                        "aa-delete-pdp" (  /* Delete AA pdp request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */
+                                )
+                            )
+                        ),
+                        "bearer-resource" (  /* Bearer resource command/failure message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "change-notification" (  /* Change notification request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "config-transfer" (  /* Configuration transfer message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "context" (  /* Context request/response/ack message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "create-bearer" (  /* Create bearer request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "create-data-forwarding" (  /* Create indirect data forwarding tunnel request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "create-pdp" (  /* Create pdp request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "create-session" (  /* Create session request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "create-tnl-forwarding" (  /* Create forwarding tunnel request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "cs-paging" (  /* CS paging indication message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "data-record" (  /* Data record request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "delete-bearer" (  /* Delete bearer request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "delete-command" (  /* Delete bearer command/failure message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "delete-data-forwarding" (  /* Delete indirect data forwarding tunnel request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "delete-pdn" (  /* Delete PDN connection set request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "delete-pdp" (  /* Delete pdp request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "delete-session" (  /* Delete session request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "detach" (  /* Detach notification/ack message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "downlink-notification" (  /* Downlink data notification/ack/failure message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "echo" (  /* Echo request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "error-indication" (  /* Error indication message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "failure-report" (  /* Failure report request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "fwd-access" (  /* Forward access context notification/ack message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "fwd-relocation" (  /* Forward relocation request/response/comp/comp-ack message */
+                            c(
+                                c(
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "fwd-srns-context" (  /* Forward SRNS context/context-ack message */
+                            c(
+                                c(
+                                  "1"  /* Version 1 */
+                                )
+                            )
+                        ),
+                        "g-pdu" (  /* G-PDU (user PDU) message/T-PDU */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "identification" (  /* Identification request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "mbms-session-start" (  /* MBMS session start request/response message */
+                            c(
+                                c(
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "mbms-session-stop" (  /* MBMS session stop request/response message */
+                            c(
+                                c(
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "mbms-session-update" (  /* MBMS session update request/response message */
+                            c(
+                                c(
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "modify-bearer" (  /* Modify bearer request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "modify-command" (  /* Modify bearer command/failure message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "node-alive" (  /* Node alive request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "note-ms-present" (  /* Note MS GPRS present request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "pdu-notification" (  /* PDU notification requst/response/reject/reject-response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "ran-info" (  /* RAN info relay message */
+                            c(
+                                c(
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "redirection" (  /* Redirection request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "release-access" (  /* Release access-bearer request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "relocation-cancel" (  /* Relocation cancel request/response message */
+                            c(
+                                c(
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "resume" (  /* Resume notification/ack message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "send-route" (  /* Send route info request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "sgsn-context" (  /* SGSN context request/response/ack message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "stop-paging" (  /* Stop paging indication message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "supported-extension" (  /* Supported extension headers notification message */
+                            c(
+                                c(
+                                  "1"  /* Version 1 */
+                                )
+                            )
+                        ),
+                        "suspend" (  /* Suspend notification/ack message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "trace-session" (  /* Trace session activation/deactivation message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "update-bearer" (  /* Update bearer request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "update-pdn" (  /* Update PDN connection set request/response message */
+                            c(
+                                c(
+                                  "2"  /* Version 2 */
+                                )
+                            )
+                        ),
+                        "update-pdp" (  /* Update pdp request/response message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        ),
+                        "ver-not-supported" (  /* Version not supported message */
+                            c(
+                                c(
+                                  "0"  /* Version 0 */,
+                                  "1"  /* Version 1 */,
+                                  "2"  /* Version 2 */,
+                                  "all"  /* All versions */
+                                )
+                            )
+                        )
+                    )
+                ),
+                "apn" arg (  /* GTP Access Point Name (APN) filter */
+                    c(
+                        "imsi-prefix" arg (  /* Specific filter prefix digits for International Mobile Subscriber Identification(IMSI) */
+                            c(
+                                "action" (  /* Configure GTP profile APN action */
+                                    c(
+                                        c(
+                                          "pass"  /* Pass all selection modes for this APN */,
+                                          "drop"  /* Drop all selection modes for this APN */,
+                                          "selection" (  /* Allowed selection modes for this APN */
+                                              c(
+                                                  "ms"  /* Mobile Station selection mode */,
+                                                  "net"  /* Network selection mode */,
+                                                  "vrf"  /* Subscriber verified mode */
+                                              )
+                                          )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                "restart-path" (  /* Restart GTP paths */
+                  ("echo" | "create" | "all")
+                ),
+                "seq-number-validated"  /* Validate G-PDU sequence number */,
+                "gtp-in-gtp-denied"  /* Deny nested GTP */,
+                "u-tunnel-validated"  /* Validate GTP-u tunnel */,
+                "end-user-address-validated"  /* Validate end user address */,
+                "req-timeout" arg  /* Request message timeout, default timeout value 5 seconds */,
+                "handover-on-roaming-intf"  /* Enable tunnel setup by Handover messages on roaming interface */,
+                "handover-group" (  /* SGSN handover group configuration */
+                    c(
+                          arg
+                    )
+                ),
+                "listening-mode"  /* Enable listening-mode for GTP inspection */,
+                "ne-group" (  /* IP validation check for NE group configuration */
+                    c(
+                          arg
+                    )
+                ),
+                "ue-group" (  /* End User IP validation check for UE group configuration */
+                    c(
+                          arg
+                    )
+                ),
+                "must-ie-v1" (  /* GTPv1 Must IE check configuration */
+                    c(
+                          arg
+                    )
+                ),
+                "must-ie-v2" (  /* GTPv2 Must IE check configuration */
+                    c(
+                          arg
+                    )
+                ),
+                "remove-ie-v1" (  /* GTPv1 IE Removal configuration */
+                    c(
+                          arg
+                    )
+                ),
+                "remove-ie-v2" (  /* GTPv2 IE Removal configuration */
+                    c(
+                          arg
+                    )
+                ),
+                c(
+                  "apn-control" (  /* GTP per APN control */
+                      c(
+                            arg
+                      )
+                  ),
+                  "apn-control-group" (  /* GTP per APN control group */
+                      c(
+                            arg
+                      )
+                  )
+                )
+            )
+        ),
+        "traceoptions" (  /* Trace options for GPRS tunneling protocol */
+            c(
+                "no-remote-trace"  /* Disable remote tracing */,
+                "file" (  /* Trace file information */
+                    sc(
+                          arg,
+                        "size" arg  /* Maximum trace file size */,
+                        "files" arg  /* Maximum number of trace files */,
+                        "world-readable"  /* Allow any user to read the log file */,
+                        "no-world-readable"  /* Don't allow any user to read the log file */,
+                        "match" (  /* Regular expression for lines to be logged */
+                          regular_expression  /* Regular expression for lines to be logged */
+                        )
+                    )
+                ).as(:oneline),
+                "flag" enum(("configuration" | "flow" | "parser" | "chassis-cluster" | "gsn" | "jmpi" | "tnl" | "req" | "path" | "all"))  /* Tracing parameters */.as(:oneline),
+                "trace-level" (  /* GTP trace level */
+                    c(
+                        c(
+                          "error"  /* Match error conditions */,
+                          "warning"  /* Match warning messages */,
+                          "notice"  /* Match conditions that should be handled specially */,
+                          "info"  /* Match informational messages */,
+                          "verbose"  /* Match verbose messages */
+                        )
+                    )
+                )
+            )
+        ),
+        "handover-default" (  /* Set handover default deny */
+            c(
+                "deny"  /* Handover default deny */
+            )
+        ),
+        "ip-group" arg (  /* Set GTP IP group */
+            c(
+                "address-book" arg (  /* Set addreess book */
+                    c(
+                        "address-set" (  /* Set address set */
+                            c(
+                                  arg
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        "ie-set" arg (  /* Set GTP IE set profile */
+            c(
+                "ie" arg  /* Set IE number */
+            )
+        ),
+        "message-ie-profile-v1" arg (  /* Set GTPv1 message IE profile */
+            c(
+                "message" arg (  /* Set message type */
+                    c(
+                        "ie" arg  /* Set IE number */
+                    )
+                )
+            )
+        ),
+        "grouped-ie-profile" arg (  /* Set GTP grouped IE filter profile */
+            c(
+                "ie" (  /* Set IE number */
+                  ie_filter_object  /* Set IE number */
+                )
+            )
+        ),
+        "message-ie-profile-v2" arg (  /* Set GTP message IE filter profile */
+            c(
+                "message" arg (  /* Set message type */
+                    c(
+                        "ie" (  /* Set IE number */
+                          ie_filter_object  /* Set IE number */
+                        )
+                    )
+                )
+            )
+        ),
+        "message-list" arg (  /* Set message list */
+            c(
+                "message" arg  /* Set message type */
+            )
+        ),
+        "rate-limit" ("default") (  /* Limiting message rate */
+            c(
+                "message" (  /* GTP limited message type */
+                  message_object  /* GTP limited message type */
+                )
+            )
+        ),
+        "apn-control" arg (  /* GTP APN control profile */
+            c(
+                "apn" (  /* APN of the APN control profile */
+                    c(
+                          arg
+                    )
+                ),
+                "rate-limit" (  /* APN controlled rate-limit */
+                  rate_limit_object  /* APN controlled rate-limit */
+                )
+            )
+        ),
+        "apn-control-group" arg (  /* GTP APN control profile group */
+            c(
+                "apn-control" arg  /* APN control profile */
+            )
+        )
+    )
+end
+
+rule(:ids_option_type) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of screen */,
+        "alarm-without-drop"  /* Do not drop packet, only generate alarm */,
+        "match-direction" (  /* Match direction */
+          ("input" | "output" | "input-output")
+        ),
+        "aggregation" (  /* Configure the source and Destination prefix for a ids-option */
+            c(
+                "source-prefix-mask" arg  /* Source IPV4 prefix */,
+                "destination-prefix-mask" arg  /* Destination IPV4 prefix */,
+                "source-prefix-v6-mask" arg  /* Source IPV6 prefix */,
+                "destination-prefix-v6-mask" arg  /* Destination IPV6 prefix */
+            )
+        ),
+        "icmp" (  /* Configure ICMP ids options */
+            c(
+                "ip-sweep" (  /* Configure ip sweep ids option */
+                    sc(
+                        "threshold" arg  /* Threshold */
+                    )
+                ).as(:oneline),
+                "fragment"  /* Enable ICMP fragment ids option */,
+                "large"  /* Enable large ICMP packet (size > 1024) ids option */,
+                "flood" (  /* Configure icmp flood ids option */
+                    sc(
+                        "threshold" arg  /* Threshold */
+                    )
+                ).as(:oneline),
+                "ping-death"  /* Enable ping of death ids option */,
+                "icmpv6-malformed"  /* Enable icmpv6 malformed ids option */
+            )
+        ),
+        "ip" (  /* Configure IP layer ids options */
+            c(
+                "bad-option"  /* Enable ip with bad option ids option */,
+                "record-route-option"  /* Enable ip with record route option ids option */,
+                "timestamp-option"  /* Enable ip with timestamp option ids option */,
+                "security-option"  /* Enable ip with security option ids option */,
+                "stream-option"  /* Enable ip with stream option ids option */,
+                "spoofing"  /* Enable IP address spoofing ids option */,
+                "source-route-option"  /* Enable ip source route ids option */,
+                "loose-source-route-option"  /* Enable ip with loose source route ids option */,
+                "strict-source-route-option"  /* Enable ip with strict source route ids option */,
+                "unknown-protocol"  /* Enable ip unknown protocol ids option */,
+                "block-frag" (  /* Enable ip fragment blocking ids option */
+                    c(
+                        "white-list" arg  /* Configure ip block fragmentation white list group name */
+                    )
+                ),
+                "tear-drop"  /* Enable tear drop ids option */,
+                "ipv6-extension-header" (  /* Configure ipv6 extension header ids option */
+                    c(
+                        "hop-by-hop-header" (  /* Enable ipv6 hop by hop option header ids option */
+                            c(
+                                "jumbo-payload-option"  /* Enable jumbo payload option ids option */,
+                                "router-alert-option"  /* Enable router alert option ids option */,
+                                "quick-start-option"  /* Enable quick start option ids option */,
+                                "CALIPSO-option"  /* Enable Common Architecture Label ipv6 Security Option ids option */,
+                                "SMF-DPD-option"  /* Enable Simplified Multicast Forwarding ipv6 Duplicate Packet Detection option ids option */,
+                                "RPL-option"  /* Enable Routing Protocol for Low-power and Lossy networks option ids option */,
+                                "user-defined-option-type" arg (  /* User-defined option type range */
+                                    sc(
+                                        "to" (  /* Upper limit of option type range */
+                                            c(
+                                                  arg
+                                            )
+                                        )
+                                    )
+                                ).as(:oneline)
+                            )
+                        ),
+                        "routing-header"  /* Enable ipv6 routing header ids option */,
+                        "fragment-header"  /* Enable ipv6 fragment header ids option */,
+                        "ESP-header"  /* Enable ipv6 Encapsulating Security Payload header ids option */,
+                        "AH-header"  /* Enable ipv6 Authentication Header ids option */,
+                        "no-next-header"  /* Enable ipv6 no next header ids option */,
+                        "destination-header" (  /* Enable ipv6 destination option header ids option */
+                            c(
+                                "tunnel-encapsulation-limit-option"  /* Enable tunnel encapsulation limit option ids option */,
+                                "home-address-option"  /* Enable home address option ids option */,
+                                "ILNP-nonce-option"  /* Enable Identifier-Locator Network Protocol Nonce option ids option */,
+                                "line-identification-option"  /* Enable line identification option ids option */,
+                                "user-defined-option-type" arg (  /* User-defined option type range */
+                                    sc(
+                                        "to" (  /* Upper limit of option type range */
+                                            c(
+                                                  arg
+                                            )
+                                        )
+                                    )
+                                ).as(:oneline)
+                            )
+                        ),
+                        "shim6-header"  /* Enable ipv6 shim header ids option */,
+                        "mobility-header"  /* Enable ipv6 mobility header ids option */,
+                        "HIP-header"  /* Enable ipv6 Host Identify Protocol header ids option */,
+                        "user-defined-header-type" arg (  /* User-defined header type range */
+                            sc(
+                                "to" (  /* Upper limit of header type range */
+                                    c(
+                                          arg
+                                    )
+                                )
+                            )
+                        ).as(:oneline)
+                    )
+                ),
+                "ipv6-extension-header-limit" arg  /* Enable ipv6 extension header limit ids option */,
+                "ipv6-malformed-header"  /* Enable ipv6 malformed header ids option */,
+                "tunnel" (  /* Configure IP tunnel ids options */
+                    c(
+                        "bad-inner-header"  /* Enable IP tunnel bad inner header ids option */,
+                        "gre" (  /* Configure IP tunnel GRE ids option */
+                            c(
+                                "gre-6in4"  /* Enable IP tunnel GRE 6in4 ids option */,
+                                "gre-4in6"  /* Enable IP tunnel GRE 4in6 ids option */,
+                                "gre-6in6"  /* Enable IP tunnel GRE 6in6 ids option */,
+                                "gre-4in4"  /* Enable IP tunnel GRE 4in4 ids option */
+                            )
+                        ),
+                        "ip-in-udp" (  /* Configure IP tunnel IPinUDP ids option */
+                            c(
+                                "teredo"  /* Enable IP tunnel IPinUDP Teredo ids option */
+                            )
+                        ),
+                        "ipip" (  /* Configure IP tunnel IPIP ids option */
+                            c(
+                                "ipip-6to4relay"  /* Enable IP tunnel IPIP 6to4 Relay ids option */,
+                                "ipip-6in4"  /* Enable IP tunnel IPIP 6in4 ids option */,
+                                "ipip-4in6"  /* Enable IP tunnel IPIP 4in6 ids option */,
+                                "ipip-4in4"  /* Enable IP tunnel IPIP 4in4 ids option */,
+                                "ipip-6in6"  /* Enable IP tunnel IPIP 6in6 ids option */,
+                                "ipip-6over4"  /* Enable IP tunnel IPIP 6over4 ids option */,
+                                "isatap"  /* Enable IP tunnel IPIP ISATAP ids option */,
+                                "dslite"  /* Enable IP tunnel IPIP DS-Lite ids option */
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        "tcp" (  /* Configure TCP Layer ids options */
+            c(
+                "syn-fin"  /* Enable SYN and FIN bits set attack ids option */,
+                "fin-no-ack"  /* Enable Fin bit with no ACK bit ids option */,
+                "tcp-no-flag"  /* Enable TCP packet without flag ids option */,
+                "syn-frag"  /* Enable SYN fragment ids option */,
+                "syn-defense"  /* Enable tcp syn-defense */,
+                "port-scan" (  /* Configure TCP port scan ids option */
+                    sc(
+                        "threshold" arg  /* Threshold */
+                    )
+                ).as(:oneline),
+                "syn-ack-ack-proxy" (  /* Configure syn-ack-ack proxy ids option */
+                    sc(
+                        "threshold" arg  /* Threshold */
+                    )
+                ).as(:oneline),
+                "syn-flood" (  /* Configure SYN flood ids option */
+                    c(
+                        "alarm-threshold" arg  /* Alarm threshold */,
+                        "attack-threshold" arg  /* Attack threshold */,
+                        "source-threshold" arg  /* Source threshold */,
+                        "destination-threshold" arg  /* Destination threshold */,
+                        "queue-size" arg  /* Queue size */,
+                        "timeout" arg  /* SYN flood ager timeout */,
+                        "white-list" arg (  /* Set of IP addresses that will not trigger a screen */
+                            c(
+                                "source-address" (  /* Source address */
+                                  ipprefix  /* Source address */
+                                ),
+                                "destination-address" (  /* Destination address */
+                                  ipprefix  /* Destination address */
+                                )
+                            )
+                        )
+                    )
+                ),
+                "land"  /* Enable land attack ids option */,
+                "winnuke"  /* Enable winnuke attack ids option */,
+                "tcp-sweep" (  /* Configure TCP sweep ids option */
+                    sc(
+                        "threshold" arg  /* Threshold */
+                    )
+                ).as(:oneline)
+            )
+        ),
+        "udp" (  /* Configure UDP layer ids options */
+            c(
+                "flood" (  /* Configure UDP flood ids option */
+                    c(
+                        "threshold" arg  /* Threshold */,
+                        "white-list" arg  /* Configure UDP flood white list group name */
+                    )
+                ),
+                "udp-sweep" (  /* Configure UDP sweep ids option */
+                    sc(
+                        "threshold" arg  /* Threshold */
+                    )
+                ).as(:oneline),
+                "port-scan" (  /* Configure UDP port scan ids option */
+                    sc(
+                        "threshold" arg  /* Threshold */
+                    )
+                ).as(:oneline)
+            )
+        ),
+        "limit-session" (  /* Limit sessions */
+            c(
+                "source-ip-based" arg  /* Limit sessions from the same source IP */,
+                "destination-ip-based" arg  /* Limit sessions to the same destination IP */,
+                "by-source" (  /* Limit sessions from the same source IP or subnet */
+                    c(
+                        "maximum-sessions" arg  /* Limit sessions on the basis of maximum concurrent sessions */,
+                        "packet-rate" arg  /* Limit sessions on the basis of packet rate */,
+                        "session-rate" arg  /* Limit sessions on the basis of session rate */,
+                        "by-protocol" (  /* Limit sessions on the basis of protocol */
+                          by_protocol_object_type  /* Limit sessions on the basis of protocol */
+                        ),
+                        "whitelist" arg  /* Configure white list group name */
+                    )
+                ),
+                "by-destination" (  /* Limit sessions to the same destination IP or subnet */
+                    c(
+                        "maximum-sessions" arg  /* Limit sessions on the basis of maximum concurrent sessions */,
+                        "packet-rate" arg  /* Limit sessions on the basis of packet rate */,
+                        "session-rate" arg  /* Limit sessions on the basis of session rate */,
+                        "by-protocol" (  /* Limit sessions on the basis of protocol */
+                          by_protocol_object_type  /* Limit sessions on the basis of protocol */
+                        ),
+                        "whitelist" arg  /* Configure white list group name */
+                    )
+                )
+            )
+        )
+    )
+  )
+end
+
+rule(:by_protocol_object_type) do
+    c(
+        "tcp" (  /* Configure limit-session on the basis of TCP */
+          by_protocol_object_limit_tcp_type  /* Configure limit-session on the basis of TCP */
+        ),
+        "udp" (  /* Configure limit-session on the basis of UDP */
+          by_protocol_object_limit_type  /* Configure limit-session on the basis of UDP */
+        ),
+        "icmp" (  /* Configure limit-session on the basis of ICMP */
+          by_protocol_object_limit_type  /* Configure limit-session on the basis of ICMP */
+        )
+    )
+end
+
+rule(:by_protocol_object_limit_tcp_type) do
+    c(
+        "maximum-sessions" arg  /* Limit sessions on the basis of maximum concurrent sessions */,
+        "packet-rate" arg  /* Limit sessions on the basis of packet rate */,
+        "session-rate" arg  /* Limit sessions on the basis of session rate */,
+        "whitelist" arg  /* Configure white list group name */,
+        "syn-cookie" (  /* Configure syn-cookie parameters */
+            c(
+                "mss" arg  /* TCP maximum segment size */,
+                "threshold-rate" arg  /* TCP-SYN cps rate to trigger SYN-COOKIE */,
+                "threshold-num" arg  /* Number of sessions to trigger SYN-COOKIE */
+            )
+        )
+    )
+end
+
+rule(:by_protocol_object_limit_type) do
+    c(
+        "maximum-sessions" arg  /* Limit sessions on the basis of maximum concurrent sessions */,
+        "packet-rate" arg  /* Limit sessions on the basis of packet rate */,
+        "session-rate" arg  /* Limit sessions on the basis of session rate */,
+        "whitelist" arg  /* Configure white list group name */
+    )
+end
+
+rule(:ids_wlist_type) do
+  arg.as(:arg) (
+    c(
+        "address" (  /* Address */
+          ipprefix  /* Address */
+        )
+    )
+  )
+end
+
+rule(:ie_filter_object) do
+  arg.as(:arg) (
+    c(
+        "instance" arg (  /* Set instance */
+            c(
+                "grouped-ie-profile" (  /* Set GTP IE filter for grouped IE */
+                    c(
+                          arg
+                    )
+                )
+            )
+        )
+    )
+  )
+end
+
+rule(:jsf_application_traffic_control_rule_set_type) do
+    c(
+        "rule-set" arg  /* Service rule-set name */
+    )
+end
+
+rule(:juniper_enhanced_category_type) do
+  arg.as(:arg) (
+    c(
+        "action" (  /* Action to perform when web traffic matches category */
+          ("permit" | "log-and-permit" | "block" | "quarantine")
+        ),
+        "custom-message" arg  /* Custom message */
+    )
+  )
+end
+
+rule(:juniper_enhanced_server) do
+    c(
+        "host" arg  /* Server host IP address or string host name */,
+        "port" arg  /* Server port */,
+        "proxy-profile" arg  /* Proxy profile */,
+        "routing-instance" arg  /* Routing instance name */,
+        "source-address" (  /* Source ip address used to connect server */
+          ipaddr  /* Source ip address used to connect server */
+        )
+    )
+end
+
+rule(:juniper_enhanced_site_reputation_setting) do
+    c(
+        "very-safe" (  /* Action when site reputation is very safe */
+          ("permit" | "log-and-permit" | "block" | "quarantine")
+        ),
+        "moderately-safe" (  /* Action when site reputation is moderately safe */
+          ("permit" | "log-and-permit" | "block" | "quarantine")
+        ),
+        "fairly-safe" (  /* Action when site reputation is fairly safe */
+          ("permit" | "log-and-permit" | "block" | "quarantine")
+        ),
+        "suspicious" (  /* Action when site reputation is suspicious */
+          ("permit" | "log-and-permit" | "block" | "quarantine")
+        ),
+        "harmful" (  /* Action when site reputation is harmful */
+          ("permit" | "log-and-permit" | "block" | "quarantine")
+        )
+    )
+end
+
+rule(:host_object) do
+    c(
+          arg,
+        "port" arg  /* Host port number */,
+        "routing-instance" arg  /* Routing-instance name */,
+        "log-tag" arg  /* Tag included in logs to this host */
+    )
+end
+
+rule(:message_object) do
+    c(
+        "v0" (  /* GTPv0 message type */
+            c(
+                  arg
+            )
+        ),
+        "v1" (  /* GTPv1 message type */
+            c(
+                  arg
+            )
+        ),
+        "v2" (  /* GTPv2 message type */
+            c(
+                  arg
+            )
+        )
+    )
+end
+
+rule(:mime_list_type) do
+  arg.as(:arg) (
+    c(
+        "value" arg  /* Configure MIME value */
+    )
+  )
+end
+
+rule(:mirror_filter_type) do
+  arg.as(:arg) (
+    c(
+        "protocol" (  /* Match IP protocol type */
+          ("icmp" | "igmp" | "ipip" | "tcp" | "egp" | "udp" | "rsvp" | "gre" | "esp" | "ah" | "icmp6" | "ospf" | "pim" | "sctp" | arg)
+        ),
+        "source-prefix" (  /* Source IP address prefix */
+          ipprefix  /* Source IP address prefix */
+        ),
+        "destination-prefix" (  /* Destination IP address prefix */
+          ipprefix  /* Destination IP address prefix */
+        ),
+        "source-port" (  /* Match TCP/UDP source port */
+          ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
+        ),
+        "destination-port" (  /* Match TCP/UDP destination port */
+          ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
+        ),
+        "interface-in" (  /* Incoming Logical interface */
+          interface_name  /* Incoming Logical interface */
+        ),
+        "interface-out" (  /* Outgoing Logical interface */
+          interface_name  /* Outgoing Logical interface */
+        ),
+        "output" (  /* Configure output interface and MAC address */
+            c(
+                "interface" (  /* Outgoing Logical interface */
+                  interface_name  /* Outgoing Logical interface */
+                ),
+                "destination-mac" arg  /* MAC address to match */
+            )
+        )
+    )
+  )
+end
+
+rule(:named_address_book_type) do
+  ("global" | arg).as(:arg) (
+    c(
+        "description" arg  /* Text description of address book */,
+        "address" (  /* Define a security address */
+          address_type  /* Define a security address */
+        ),
+        "address-set" (  /* Define a security address set */
+          address_set_type  /* Define a security address set */
+        ),
+        "attach" (  /* Attach this address book to interface, zone or routing-instance */
+            c(
+                "zone" arg  /* Define a zone to be attached */
+            )
+        )
+    )
+  )
+end
+
+rule(:address_set_type) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of address set */,
+        "address" arg  /* Address to be included in this set */,
+        "address-set" arg  /* Define an address-set name */
+    )
+  )
+end
+
+rule(:address_type) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of address */,
+        c(
+          "dns-name" (  /* DNS address name */
+            dns_name_type  /* DNS address name */
+          ),
+          "wildcard-address" (  /* Numeric IPv4 wildcard address with in the form of a.d.d.r/netmask */
+            wildcard_address_type  /* Numeric IPv4 wildcard address with in the form of a.d.d.r/netmask */
+          ),
+          "range-address" (  /* Address range */
+            range_address_type  /* Address range */
+          ),
+          "address-range" (  /* Address range */
+            usf_range_address_type  /* Address range */
+          ),
+            ipprefix  /* Numeric IPv4 or IPv6 address with prefix */
+        )
+    )
+  )
+end
+
+rule(:dns_name_type) do
+  arg.as(:arg) (
+    c(
+        "ipv4-only"  /* IPv4 dns address */,
+        "ipv6-only"  /* IPv6 dns address */,
+        "dns-query-interval" arg  /* DNS Address query Interval */
+    )
+  )
+end
+
+rule(:policy_object_type) do
+    c(
+        "traceoptions" (  /* Network Security Policy Tracing Options */
+            c(
+                "no-remote-trace"  /* Disable remote tracing */,
+                "file" (  /* Trace file information */
+                    sc(
+                          arg,
+                        "size" arg  /* Maximum trace file size */,
+                        "files" arg  /* Maximum number of trace files */,
+                        "world-readable"  /* Allow any user to read the log file */,
+                        "no-world-readable"  /* Don't allow any user to read the log file */,
+                        "match" (  /* Regular expression for lines to be logged */
+                          regular_expression  /* Regular expression for lines to be logged */
+                        )
+                    )
+                ).as(:oneline),
+                "flag" enum(("configuration" | "routing-socket" | "compilation" | "ipc" | "rules" | "lookup" | "all"))  /* Tracing parameters */.as(:oneline)
+            )
+        ),
+        "policy" (  /* Define a policy context from this zone */
+            s(
+                    arg,
+              "to-zone-name" arg  /* Destination zone */,
+              c(
+                "policy" (  /* Define security policy in specified zone-to-zone direction */
+                  policy_type  /* Define security policy in specified zone-to-zone direction */
+                ),
+                "application-services" (  /* Application Services */
+                  context_application_services_type  /* Application Services */
+                )
+              )
+            )
+        ),
+        "global" (  /* Define a global policy context */
+            c(
+                "policy" (  /* Define security policy in global context */
+                  policy_type  /* Define security policy in global context */
+                )
+            )
+        ),
+        "policy-set" arg (  /* Define a policy context for tunnel-inspection */
+            c(
+                "policy" (  /* Define security policy in tunnel-inspection context */
+                  policy_type  /* Define security policy in tunnel-inspection context */
+                )
+            )
+        ),
+        "default-policy" (  /* Configure default action when no user-defined policy match */
+            c(
+                c(
+                  "permit-all"  /* Permit all traffic if no policy match */,
+                  "deny-all"  /* Deny all traffic if no policy match */
+                ),
+                "log-profile" arg  /* Rtlog profile */
+            )
+        ),
+        "policy-rematch" (  /* Re-evaluate the policy when changed */
+            sc(
+                "extensive"  /* Perform policy extensive rematch */
+            )
+        ).as(:oneline),
+        "policy-stats" (  /* Parameters for policy statistics */
+            c(
+                "system-wide" (  /* Enable/Disable system-wide policy statistics */
+                  ("enable" | "disable")
+                )
+            )
+        ),
+        "pre-id-default-policy" (  /* Configure default policy action before dynamic application is finally identified */
+            c(
+                "then" (  /* Specify policy action to take when packet match criteria */
+                    c(
+                        "log" (  /* Enable log */
+                          log_type  /* Enable log */
+                        ),
+                        "session-timeout" (  /* Session timeout */
+                          session_timeout_type  /* Session timeout */
+                        )
+                    )
+                )
+            )
+        ),
+        "unified-policy" (  /* Unified policies lookup limitations */
+            c(
+                "max-lookups" arg  /* Max lookup times upon micro-app transaction finals */
+            )
+        ),
+        "dns-cache" (  /* Define security policy dns-cache behaviors */
+            c(
+                "error-response-delete-ip" (  /* Clear DNS cache entry IP on error DNS response */
+                    c(
+                        "retry-interval" arg  /* Interval between deleting IP and resending DNS requests */
+                    )
+                )
+            )
+        ),
+        "stateful-firewall-rule" arg (  /* Define a stateful-firewall-rule */
+            c(
+                "match-direction" (  /* Direction for which the rule match is applied */
+                  ("input" | "output" | "input-output")
+                ),
+                "policy" (  /* Define a stateful-firewall policy */
+                  policy_type  /* Define a stateful-firewall policy */
+                )
+            )
+        ),
+        "stateful-firewall-rule-set" arg (  /* Defines a set of stateful firewall rules */
+            c(
+                "stateful-firewall-rule" arg  /* Rule to be included in this stateful firewall rule set */
+            )
+        )
+    )
+end
+
+rule(:context_application_services_type) do
+    c(
+        "security-metadata-streaming-policy" arg  /* Specify security-metadata-streaming-policy */
+    )
+end
+
+rule(:log_type) do
+    c(
+        "session-init"  /* Log at session init time */,
+        "session-close"  /* Log at session close time */,
+        "session-update" arg  /* Log with specified interval (0 to disable this log) */,
+        "sfw"  /* Display Stateful-fire-wall SYSLOGs */,
+        "profile" arg  /* Name of rtlog profile */
+    )
+end
+
+rule(:policy_type) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of policy */,
+        "match" (  /* Specify security policy match-criteria */
+            c(
+                c(
+                  "source-address" (
+                        ("any" | "any-ipv4" | "any-ipv6" | arg)
+                  )
+                ),
+                c(
+                  "destination-address" (
+                        ("any" | "any-ipv4" | "any-ipv6" | arg)
+                  )
+                ),
+                "source-address-excluded"  /* Exclude source addresses */,
+                "destination-address-excluded"  /* Exclude destination addresses */,
+                c(
+                  "application" (
+                        (arg | "junos-defaults")
+                  )
+                ),
+                c(
+                  "source-identity" (
+                        ("any" | "authenticated-user" | "unauthenticated-user" | "unknown-user" | arg)
+                  )
+                ),
+                c(
+                  "source-identity-feed" arg
+                ),
+                c(
+                  "destination-identity-feed" arg
+                ),
+                c(
+                  "source-end-user-profile" (  /* Match source end user profile */
+                    match_source_end_user_profile_value  /* Match source end user profile */
+                  )
+                ),
+                c(
+                  "dynamic-application" (
+                        (arg | "junos:UNKNOWN" | "junos:unassigned" | "any" | "none")
+                  )
+                ),
+                c(
+                  "url-category" (
+                        (arg | arg | "any" | "none")
+                  )
+                ),
+                c(
+                  "from-zone" (
+                        ("any" | arg)
+                  )
+                ),
+                c(
+                  "to-zone" (
+                        ("any" | arg)
+                  )
+                ),
+                c(
+                  "source-l3vpn-vrf-group" arg
+                ),
+                c(
+                  "destination-l3vpn-vrf-group" arg
+                )
+            )
+        ),
+        "then" (  /* Specify policy action to take when packet match criteria */
+            c(
+                c(
+                  "deny" (  /* Deny packets */
+                      c(
+                          "application-services" (  /* Application Services */
+                              c(
+                                  "security-intelligence" (  /* Generate security intellegence feeds */
+                                    security_intelligence_feeds  /* Generate security intellegence feeds */
+                                  )
+                              )
+                          )
+                      )
+                  ),
+                  "reject" (  /* Reject packets */
+                      c(
+                          "profile" arg  /* Profile for redirect HTTP/S traffic */,
+                          "ssl-proxy" (  /* SSL proxy services */
+                              c(
+                                  "profile-name" arg  /* Specify SSL proxy service profile name */
+                              )
+                          ),
+                          "application-services" (  /* Application Services */
+                              c(
+                                  "security-intelligence" (  /* Generate security intellegence feeds */
+                                    security_intelligence_feeds  /* Generate security intellegence feeds */
+                                  )
+                              )
+                          )
+                      )
+                  ),
+                  "permit" (  /* Permit packets */
+                      c(
+                          "tunnel" (  /* Tunnel packets */
+                            tunnel_type  /* Tunnel packets */
+                          ),
+                          "firewall-authentication" (  /* Enable authentication for this policy if permit or tunnel */
+                            firewall_authentication_type  /* Enable authentication for this policy if permit or tunnel */
+                          ),
+                          "destination-address" (  /* Enable destination address translation */
+                            destination_nat_enable_type  /* Enable destination address translation */
+                          ),
+                          "application-services" (  /* Application Services */
+                            application_services_type  /* Application Services */
+                          ),
+                          "tunnel-inspection" (  /* Enable tunnel inspection */
+                              c(
+                                    arg
+                              )
+                          ),
+                          "tcp-options" (  /* Transmission Control Protocol session configuration */
+                              c(
+                                  "syn-check-required"  /* Enable per policy SYN-flag check */,
+                                  "sequence-check-required"  /* Enable per policy sequence-number checking */,
+                                  "initial-tcp-mss" arg  /* Override MSS value for initial direction */,
+                                  "reverse-tcp-mss" arg  /* Override MSS value for reverse direction */,
+                                  "window-scale"  /* Enable per policy window-scale */
+                              )
+                          ),
+                          "services-offload"  /* Enable services offloading */,
+                          "no-services-offload"  /* Disenable services offloading */,
+                          "advanced-connection-tracking"  /* Lookup advanced-connection-tracking table on to-zone */
+                      )
+                  )
+                ),
+                "log" (  /* Enable log */
+                  log_type  /* Enable log */
+                ),
+                "count" (  /* Enable count */
+                  count_type  /* Enable count */
+                )
+            )
+        ),
+        "scheduler-name" arg  /* Name of scheduler */,
+        "report-skip"  /* Skip report for this policy */
+    )
+  )
+end
+
+rule(:application_services_type) do
+    c(
+        "gtp-profile" arg  /* Specify GPRS Tunneling Protocol profile name */,
+        "sctp-profile" arg  /* Specify Stream Control Protocol profile name */,
+        "idp"  /* Intrusion detection and prevention */,
+        "packet-capture"  /* Capturing traffic related to this policy */,
+        "idp-policy" arg  /* Specify idp policy name */,
+        "ssl-proxy" (  /* SSL proxy services */
+            c(
+                "profile-name" arg  /* Specify SSL proxy service profile name */
+            )
+        ),
+        "web-proxy" (  /* Web proxy services */
+            c(
+                "profile-name" arg  /* Specify Web proxy service profile name */
+            )
+        ),
+        "uac-policy" (  /* Enable unified access control enforcement of policy */
+            c(
+                "captive-portal" arg
+            )
+        ),
+        "utm-policy" arg  /* Specify utm policy name */,
+        "icap-redirect" arg  /* Specify icap redirect profile name */,
+        "application-firewall" (  /* Application firewall services */
+          jsf_service_rule_set_type  /* Application firewall services */
+        ),
+        "application-traffic-control" (  /* Application traffic control services */
+          jsf_application_traffic_control_rule_set_type  /* Application traffic control services */
+        ),
+        c(
+          "redirect-wx"  /* Set WX redirection */,
+          "reverse-redirect-wx"  /* Set WX reverse redirection */
+        ),
+        "security-intelligence-policy" arg  /* Specify security-intelligence policy name */,
+        "advanced-anti-malware-policy" arg  /* Specify advanced-anti-malware policy name */,
+        "security-intelligence" (  /* Generate security intellegence feeds */
+          security_intelligence_feeds  /* Generate security intellegence feeds */
+        ),
+        "anti-virus-policy" arg  /* Specify anti-virus policy name */
+    )
+end
+
+rule(:count_type) do
+
+end
+
+rule(:destination_nat_enable_type) do
+    c(
+        c(
+          "drop-translated"  /* Drop the policy if NAT translated */,
+          "drop-untranslated"  /* Drop the policy if NAT untranslated */
+        )
+    )
+end
+
+rule(:firewall_authentication_type) do
+    c(
+        c(
+          "pass-through" (  /* Pass-through firewall authentication settings */
+              c(
+                  "access-profile" arg  /* Specify access profile name */,
+                  "client-match" arg,
+                  "web-redirect"  /* Redirect unauthenticated HTTP requests to the device's internal web server */,
+                  "web-redirect-to-https"  /* Redirect unauthenticated HTTP requests to the device's internal HTTPS web server */,
+                  "web-authentication-server" arg  /* Firewall web authentication server */,
+                  "ssl-termination-profile" arg  /* Specify SSL termination profile used to the SSL offload */,
+                  "auth-only-browser"  /* Authenticate only browser traffic */,
+                  "auth-user-agent" arg  /* Authenticate HTTP traffic with specified user agent */
+              )
+          ),
+          "web-authentication" (  /* Web-authentication settings */
+              c(
+                  "client-match" arg
+              )
+          ),
+          "user-firewall" (  /* User-firewall firewall authentication settings */
+              c(
+                  "access-profile" arg  /* Specify access profile name */,
+                  "web-redirect"  /* Redirect unauthenticated HTTP req to web server */,
+                  "web-redirect-to-https"  /* Redirect unauthenticated HTTP req to HTTPS web server */,
+                  "web-authentication-server" arg  /* Firewall web authentication server */,
+                  "ssl-termination-profile" arg  /* Specify SSL termination profile used to the SSL offload */,
+                  "auth-only-browser"  /* Authenticate only browser traffic */,
+                  "auth-user-agent" arg  /* Authenticate HTTP traffic with specified user agent */,
+                  "domain" arg  /* Specify domain name */
+              )
+          )
+        ),
+        "push-to-identity-management"  /* Push auth entry to identity management server */
+    )
+end
+
+rule(:jsf_service_rule_set_type) do
+    c(
+        "rule-set" arg  /* Service rule set name */
+    )
+end
+
+rule(:match_source_end_user_profile_value) do
+    c(
+        arg  /* Specify source-end-user-profile name from list to match */
+    )
+end
+
+rule(:profile_setting) do
+  arg.as(:arg) (
+    c(
+        "anti-virus" (  /* UTM policy anti-virus profile */
+            c(
+                "http-profile" arg  /* Anti-virus profile */,
+                "ftp" (  /* FTP profile */
+                    c(
+                        "upload-profile" arg  /* Anti-virus profile */,
+                        "download-profile" arg  /* Anti-virus profile */
+                    )
+                ),
+                "smtp-profile" arg  /* Anti-virus profile */,
+                "pop3-profile" arg  /* Anti-virus profile */,
+                "imap-profile" arg  /* Anti-virus profile */
+            )
+        ),
+        "content-filtering" (  /* Content-filtering profile */
+            c(
+                "http-profile" arg  /* Content-filtering profile */,
+                "ftp" (  /* FTP profile */
+                    c(
+                        "upload-profile" arg  /* Content-filtering FTP upload profile */,
+                        "download-profile" arg  /* Content-filtering FTP download profile */
+                    )
+                ),
+                "smtp-profile" arg  /* Content-filtering SMTP profile */,
+                "pop3-profile" arg  /* Content-filtering POP3 profile */,
+                "imap-profile" arg  /* Content-filtering IMAP profile */,
+                "rule-set" (  /* Configure UTM CF Rule Sets */
+                  cf_rule_set  /* Configure UTM CF Rule Sets */
+                )
+            )
+        ),
+        "web-filtering" (  /* Web-filtering profile */
+            c(
+                "http-profile" arg  /* Web-filtering HTTP profile */
+            )
+        ),
+        "anti-spam" (  /* Anti-spam profile */
+            c(
+                "smtp-profile" arg  /* Anti-spam profile */
+            )
+        ),
+        "traffic-options" (  /* Traffic options */
+            c(
+                "sessions-per-client" (  /* Sessions per client */
+                    c(
+                        "limit" arg  /* Sessions limit */,
+                        "over-limit" (  /* Over limit number */
+                          ("log-and-permit" | "block")
+                        )
+                    )
+                )
+            )
+        )
+    )
+  )
+end
+
+rule(:ragw_traceoptions) do
+    c(
+        "no-remote-trace"  /* Disable remote tracing */,
+        "file" (  /* Trace file information */
+            sc(
+                  arg,
+                "size" arg  /* Maximum trace file size */,
+                "files" arg  /* Maximum number of trace files */,
+                "world-readable"  /* Allow any user to read the log file */,
+                "no-world-readable"  /* Don't allow any user to read the log file */,
+                "match" (  /* Regular expression for lines to be logged */
+                  regular_expression  /* Regular expression for lines to be logged */
+                )
+            )
+        ).as(:oneline),
+        "level" (  /* Level of debugging output */
+          ("brief" | "detail" | "extensive" | "verbose")
+        ),
+        "flag" enum(("configuration" | "tunnel" | "session" | "all"))  /* Tracing parameters */.as(:oneline)
+    )
+end
+
+rule(:range_address_type) do
+  arg.as(:arg) (
+    c(
+        "to" (  /* Port range upper limit */
+            c(
+                  ipv4addr  /* Upper limit of address range */
+            )
+        )
+    )
+  )
+end
+
+rule(:rate_limit_object) do
+    c(
+        "alarm-threshold" arg  /* Set alarm threshold for rate-limit */,
+        "drop-threshold" arg  /* Set drop threshold for rate-limit */,
+        "message" (  /* GTP limited message type */
+          message_object  /* GTP limited message type */
+        )
+    )
+end
+
+rule(:remote_access_client_config) do
+  arg.as(:arg) (
+    c(
+        "connection-mode" (  /* Set connection-mode of client */
+          ("manual" | "always")
+        ),
+        "biometric-authentication"  /* Enable biometric authentication */,
+        "windows-logon" (
+            c(
+                "mode" (  /* Set windows logon mode */
+                  ("manual" | "automatic")
+                ),
+                "domain" arg  /* Domain name for automatic windows logon */,
+                "disconnect-at-logoff"  /* Disconnect after logoff */,
+                "flush-credential-at-logoff"  /* Flush cached credentials upon after logoff */,
+                "lead-time-duration" arg  /* Lead time duration for domain logon (seconds) */,
+                "eap-auth"  /* EAP Authentication before profile selection */,
+                "auto-dialog-open"  /* Automatically open dialog for connection establishment */
+            )
+        ),
+        "no-dead-peer-detection"  /* Disable dead-peer-detection on client */,
+        "dead-peer-detection" (  /* Dead Peer Detection configuration */
+            c(
+                "interval" arg  /* The time between DPD probe messages (seconds) Default :60 */,
+                "threshold" arg  /* Maximum number of DPD retransmissions Default :5 */
+            )
+        ),
+        "no-tcp-encap"  /* Disable tcp encapsulation */,
+        "no-eap-tls"  /* Disable EAP-TLS IKEV2 method */,
+        "certificate" (  /* Certificate identifier */
+            c(
+                "no-expiry-warning"  /* Disable certificate expiry warning */,
+                "no-pin-request-per-connection"  /* Disable certificate pin request per connection */,
+                "warn-before-expiry" arg  /* Certificate expiration warning days (1 - 90) */
+            )
+        ),
+        "domain-name" arg  /* Define the set of domain-name */,
+        "credentials" (  /* Credentials saving option */
+            c(
+                c(
+                  "password"  /* Remember both username & password */,
+                  "username"  /* Remember username only */
+                )
+            )
+        )
+    )
+  )
+end
+
+rule(:remote_access_profile_config) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of remote-access profile */,
+        "ipsec-vpn" arg  /* Select the ipsec-vpn policy object */,
+        "access-profile" arg  /* Select the access-profile */,
+        "client-config" arg  /* Select the client config object */,
+        "options" (  /* Set profile options */
+            c(
+                "multi-access"  /* Allow a user to connect from multiple devices */
+            )
+        )
+    )
+  )
+end
+
+rule(:remote_access_traceoptions) do
+    c(
+        "no-remote-trace"  /* Disable remote tracing */,
+        "file" (  /* Trace file information */
+            sc(
+                  arg,
+                "size" arg  /* Maximum trace file size */,
+                "files" arg  /* Maximum number of trace files */,
+                "world-readable"  /* Allow any user to read the log file */,
+                "no-world-readable"  /* Don't allow any user to read the log file */,
+                "match" (  /* Regular expression for lines to be logged */
+                  regular_expression  /* Regular expression for lines to be logged */
+                )
+            )
+        ).as(:oneline),
+        "level" (  /* Level of debugging output */
+          ("brief" | "detail" | "extensive" | "verbose")
+        ),
+        "flag" enum(("cli-configuration" | "all"))  /* Tracing parameters */.as(:oneline)
+    )
+end
+
+rule(:sbl_type) do
+    c(
+        "profile" arg (  /* SBL profile */
+            c(
+                "sbl-default-server"  /* Default SBL server */,
+                "no-sbl-default-server"  /* Don't default SBL server */,
+                "spam-action" (  /* Anti-spam actions */
+                  ("block" | "tag-header" | "tag-subject")
+                ),
+                "custom-tag-string" arg  /* Custom tag string */,
+                "address-whitelist" arg  /* Anti-spam whitelist */,
+                "address-blacklist" arg  /* Anti-spam blacklist */
+            )
+        )
+    )
+end
+
+rule(:sctp_object) do
+    c(
+        "profile" arg (  /* Configure stream transmission protocol */
+            c(
+                "nat-only"  /* Only do payload IPs translation for SCTP packet */,
+                "association-timeout" arg  /* SCTP association timeout length, in minutes */,
+                "handshake-timeout" arg  /* SCTP handshake timeout, in seconds */,
+                "drop" (  /* Disallowed SCTP payload message */
+                    c(
+                        "m3ua-service" enum(("sccp" | "tup" | "isup"))  /* MTP level 3 (MTP3) user adaptation layer service */.as(:oneline),
+                        "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "all" | arg))  /* SCTP payload protocol identifier */.as(:oneline)
+                    )
+                ),
+                "permit" (  /* Permit SCTP payload message */
+                    c(
+                        "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "all" | arg))  /* SCTP payload protocol identifier */.as(:oneline)
+                    )
+                ),
+                "limit" (  /* Packet limits */
+                    c(
+                        "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "others" | arg)) (  /* Payload Rate limit */
+                            sc(
+                                "rate" arg  /* Rate limit */
+                            )
+                        ).as(:oneline),
+                        "address" arg (  /* Rate limit for a list of IP addresses */
+                            c(
+                                "payload-protocol" enum(("reserved" | "iua" | "m2ua" | "m3ua" | "sua" | "m2pa" | "v5ua" | "h248" | "bicc" | "tali" | "dua" | "asap" | "enrp" | "h323" | "qipc" | "simco" | "ddp-segment" | "ddp-stream" | "s1ap" | "x2ap" | "diameter-sctp" | "diameter-dtls" | "others" | arg)) (  /* Payload Rate limit */
+                                    sc(
+                                        "rate" arg  /* Rate limit */
+                                    )
+                                ).as(:oneline)
+                            )
+                        ),
+                        "rate" (  /* Rate limit */
+                            c(
+                                "sccp" arg  /* Global SCCP messages rate limit */,
+                                "ssp" arg  /* Global SSP messages rate limit */,
+                                "sst" arg  /* Global SST messages rate limit */,
+                                "address" arg (  /* Rate limit for a list of IP addresses */
+                                    c(
+                                        "sccp" arg  /* SCCP messages rate limit */,
+                                        "ssp" arg  /* SSP messages rate limit */,
+                                        "sst" arg  /* SST messages rate limit */
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        "multichunk-inspection" (  /* Configure for SCTP multi chunks inspection */
+            c(
+                c(
+                  "disable"  /* Set multichunk inspection flag to disable */
+                )
+            )
+        ),
+        "nullpdu" (  /* Configure for SCTP NULLPDU protocol value */
+            c(
+                "protocol" (  /* SCTP NULLPDU payload protocol identifier */
+                    c(
+                        c(
+                          "ID-0x0000"  /* Set 0x0000 to be NULLPDU ID value */,
+                          "ID-0xFFFF"  /* Set 0xFFFF to be NULLPDU ID value */
+                        )
+                    )
+                )
+            )
+        ),
+        "log" enum(("configuration" | "rate-limit" | "association" | "data-message-drop" | "control-message-drop" | "control-message-all"))  /* GPRS stream control transmission protocol logs */.as(:oneline),
+        "traceoptions" (  /* Trace options for GPRS stream control transmission protocol */
+            c(
+                "no-remote-trace"  /* Disable remote tracing */,
+                "file" (  /* Trace file information */
+                    sc(
+                          arg,
+                        "size" arg  /* Maximum trace file size */,
+                        "files" arg  /* Maximum number of trace files */,
+                        "world-readable"  /* Allow any user to read the log file */,
+                        "no-world-readable"  /* Don't allow any user to read the log file */,
+                        "match" (  /* Regular expression for lines to be logged */
+                          regular_expression  /* Regular expression for lines to be logged */
+                        )
+                    )
+                ).as(:oneline),
+                "flag" enum(("configuration" | "detail" | "flow" | "parser" | "chassis-cluster" | "all"))  /* Tracing parameters */.as(:oneline)
+            )
+        )
+    )
+end
+
+rule(:secure_wire_type) do
+  arg.as(:arg) (
+    c(
+        "interface" (  /* Secure-wire logical interface */
+          interface_unit  /* Secure-wire logical interface */
+        )
+    )
+  )
+end
+
+rule(:gvpn_server) do
+    c(
+        "traceoptions" (  /* Trace options for Group VPN debug */
+          gvpn_server_traceoptions  /* Trace options for Group VPN debug */
+        ),
+        "ike" (  /* Group VPN IKE configuration */
+          gvpn_server_ike  /* Group VPN IKE configuration */
+        ),
+        "ipsec" (  /* Group VPN IPsec configuration */
+          gvpn_server_ipsec_vpn  /* Group VPN IPsec configuration */
+        ),
+        "group" (  /* Define a Group VPN group */
+          gvpn_server_group_template  /* Define a Group VPN group */
+        )
+    )
+end
+
+rule(:gvpn_server_group_template) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of Group VPN group */,
+        "group-id" arg  /* Enable Group VPN by defining group id */,
+        "member-threshold" arg  /* Maximum number of members in this group */,
+        "server-cluster" (  /* Enable server cluster for this group */
+          gvpn_server_cluster  /* Enable server cluster for this group */
+        ),
+        "ike-gateway" (  /* Name of the IKE gateway */
+          gvpn_server_ike_gateway  /* Name of the IKE gateway */
+        ),
+        "activation-time-delay" arg  /* Configure delay in seconds for Group VPN key activation */,
+        "anti-replay-time-window" arg  /* Configure Anti Replay time in milliseconds */,
+        "server-member-communication" (  /* Configure Server to Member communication parameters */
+          gvpn_server_member_communication  /* Configure Server to Member communication parameters */
+        ),
+        "ipsec-sa" (  /* Define a Group VPN group SA */
+          gvpn_server_group_ipsecsa  /* Define a Group VPN group SA */
+        )
+    )
+  )
+end
+
+rule(:gvpn_server_cluster) do
+    c(
+        "server-role" (  /* Primary or backup server */
+          ("root-server" | "sub-server")
+        ),
+        "ike-gateway" (  /* Name of the IKE gateway */
+          gvpn_server_ike_gateway_sc  /* Name of the IKE gateway */
+        ),
+        "retransmission-period" arg  /* Configure retransmission period in seconds Default :10 */
+    )
+end
+
+rule(:gvpn_server_group_ipsecsa) do
+  arg.as(:arg) (
+    c(
+        "proposal" arg  /* Name of the IPsec proposal */,
+        "match-policy" (  /* Configure a Group VPN group SA */
+          gvpn_server_group_ipsecsa_match  /* Configure a Group VPN group SA */
+        )
+    )
+  )
+end
+
+rule(:gvpn_server_group_ipsecsa_match) do
+  arg.as(:arg) (
+    c(
+        "source" (  /* Specify the source IP address to be matched (0.0.0.0/0 for any) */
+          ipv4prefix_mandatory  /* Specify the source IP address to be matched (0.0.0.0/0 for any) */
+        ),
+        "destination" (  /* Specify the destination IP address to be matched (0.0.0.0/0 for any) */
+          ipv4prefix_mandatory  /* Specify the destination IP address to be matched (0.0.0.0/0 for any) */
+        ),
+        "source-port" arg  /* Specify the source port to be matched (0 for any) */,
+        "destination-port" arg  /* Specify the destination port to be matched (0 for any) */,
+        "protocol" arg  /* Specify the protocol number to be matched (0 for any) */
+    )
+  )
+end
+
+rule(:gvpn_server_ike) do
+    c(
+        "proposal" (  /* Define an IKE proposal */
+          gvpn_server_ike_proposal  /* Define an IKE proposal */
+        ),
+        "policy" (  /* Define an IKE policy */
+          gvpn_ike_policy  /* Define an IKE policy */
+        ),
+        "gateway" arg (  /* Define an IKE gateway */
+            c(
+                "ike-policy" arg  /* Name of the IKE policy */,
+                c(
+                  "address" arg  /* IP address of peer */,
+                  "dynamic" (  /* Site to site peer with dynamic IP address */
+                      c(
+                          c(
+                            "hostname" arg  /* Use a fully-qualified domain name */,
+                            "inet" (  /* Use an IPV4 address to identify the dynamic peer */
+                              ipv4addr  /* Use an IPV4 address to identify the dynamic peer */
+                            ),
+                            "user-at-hostname" arg  /* Use an e-mail address */
+                          )
+                      )
+                  )
+                ),
+                "dead-peer-detection" (  /* Enable Dead Peer Detection between group-server-cluster servers */
+                    c(
+                        c(
+                          "always-send"  /* Send probes periodically regardless of incoming and outgoing data traffic  */
+                        ),
+                        "interval" arg  /* The time between DPD probe messages  Default :10 */,
+                        "threshold" arg  /* Maximum number of DPD retransmissions Default :5 */
+                    )
+                ),
+                "local-identity" (  /* Set the local IKE identity */
+                    sc(
+                        c(
+                          "inet" (  /* Use an IPv4 address */
+                              c(
+                                    ipv4addr  /* The local IPv4 identity */
+                              )
+                          ),
+                          "hostname" (  /* Use a fully-qualified domain name */
+                              c(
+                                  arg  /* The local hostname */
+                              )
+                          ),
+                          "user-at-hostname" (  /* Use an e-mail address */
+                              c(
+                                  arg  /* The local user-FQDN */
+                              )
+                          )
+                        )
+                    )
+                ).as(:oneline),
+                "remote-identity" (  /* Set the remote IKE identity */
+                    sc(
+                        c(
+                          "inet" (  /* Use an IPv4 address */
+                              c(
+                                    ipv4addr  /* The remote IPv4 identity */
+                              )
+                          ),
+                          "hostname" (  /* Use a fully-qualified domain name */
+                              c(
+                                  arg  /* The remote hostname */
+                              )
+                          ),
+                          "user-at-hostname" (  /* Use an e-mail address */
+                              c(
+                                  arg  /* The remote user-FQDN */
+                              )
+                          )
+                        )
+                    )
+                ).as(:oneline),
+                "local-address" (  /* Local IP address for IKE negotiations */
+                  ipaddr  /* Local IP address for IKE negotiations */
+                ),
+                "routing-instance" arg  /* Name of routing instance that hosts local address */
+            )
+        )
+    )
+end
+
+rule(:gvpn_server_ike_gateway) do
+  arg.as(:arg)
+end
+
+rule(:gvpn_server_ike_gateway_sc) do
+  arg.as(:arg)
+end
+
+rule(:gvpn_server_ike_proposal) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of IKE proposal */,
+        "authentication-method" (  /* Define authentication method */
+          ("pre-shared-keys")
+        ),
+        "authentication-algorithm" (  /* Define authentication algorithm */
+          ("sha-256" | "sha-384")
+        ),
+        "dh-group" (  /* Define Diffie-Hellman group */
+          ("group14" | "group24")
+        ),
+        "encryption-algorithm" (  /* Define encryption algorithm */
+          ("aes-128-cbc" | "aes-192-cbc" | "aes-256-cbc")
+        )
+    )
+  )
+end
+
+rule(:gvpn_server_ipsec_vpn) do
+    c(
+        "proposal" (  /* Define an IPSec proposal */
+          gvpn_server_ipsec_proposal  /* Define an IPSec proposal */
+        )
+    )
+end
+
+rule(:gvpn_server_ipsec_proposal) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of IPSec proposal */,
+        "authentication-algorithm" (  /* Define authentication algorithm */
+          ("hmac-sha-256-128")
+        ),
+        "encryption-algorithm" (  /* Define encryption algorithm */
+          ("aes-128-cbc" | "aes-192-cbc" | "aes-256-cbc")
+        ),
+        "lifetime-seconds" arg  /* Lifetime, in seconds */
+    )
+  )
+end
+
+rule(:gvpn_server_member_communication) do
+    c(
+        "communication-type" (  /* Define type of server member communication */
+          ("unicast")
+        ),
+        "lifetime-seconds" arg  /* Configure lifetime in seconds */,
+        "retransmission-period" arg  /* Configure retransmission period in seconds */,
+        "number-of-retransmission" arg  /* Configure maximum number of retransmission attempts */,
+        "heartbeat" arg  /* Configure heartbeat period in seconds */,
+        "encryption-algorithm" (  /* Define encryption algorithm */
+          ("aes-128-cbc" | "aes-192-cbc" | "aes-256-cbc")
+        ),
+        "sig-hash-algorithm" (  /* Define sig-hash algorithm */
+          ("sha-256" | "sha-384")
+        ),
+        "certificate" arg  /* Certificate identifier */
+    )
+end
+
+rule(:gvpn_server_traceoptions) do
+    c(
+        "no-remote-trace"  /* Disable remote tracing */,
+        "file" (  /* Trace file information */
+            sc(
+                  arg,
+                "size" arg  /* Maximum trace file size */,
+                "files" arg  /* Maximum number of trace files */,
+                "world-readable"  /* Allow any user to read the log file */,
+                "no-world-readable"  /* Don't allow any user to read the log file */,
+                "match" (  /* Regular expression for lines to be logged */
+                  regular_expression  /* Regular expression for lines to be logged */
+                )
+            )
+        ).as(:oneline),
+        "level" (  /* Level of debugging output */
+          ("error" | "warning" | "notice" | "info" | "verbose" | "all")
+        ),
+        "flag" enum(("timer" | "routing-socket" | "parse" | "config" | "ike" | "policy-manager" | "general" | "database" | "certificates" | "snmp" | "thread" | "high-availability" | "next-hop-tunnels" | "all"))  /* Tracing parameters for GKSD */.as(:oneline),
+        "gateway-filter" (  /* Set gateway filter for trace */
+            c(
+                "local-address" (  /* Use an IPV4 address to identify the local gateway */
+                  ipv4addr  /* Use an IPV4 address to identify the local gateway */
+                ),
+                "remote-address" (  /* Use an IPV4 address to identify the remote gateway */
+                  ipv4addr  /* Use an IPV4 address to identify the remote gateway */
+                )
+            )
+        )
+    )
+end
+
+rule(:ipsec_gvpn_exclude_rule_object) do
+    c(
+        "rule" (  /* Define exlude rules upto 10 */
+          ipsec_gvpn_rule_address_object  /* Define exlude rules upto 10 */
+        )
+    )
+end
+
+rule(:access_profile_template) do
+  arg.as(:arg) (
+    c(
+        "config-payload-password" arg  /* Common client password for IKEv2 config-payload with 1 to 128 characters */
+    )
+  )
+end
+
+rule(:advpn_suggester_partner) do
+    c(
+        "suggester" (  /* Configure Shortcut Suggester parameters */
+            c(
+                "disable"  /* Disable Suggester capability */
+            )
+        ),
+        "partner" (  /* Configure Shortcut Partner parameters */
+            c(
+                "connection-limit" arg  /* Maximum number of shortcut connections (default: varies per platform) */,
+                "idle-time" arg  /* The duration (in sec) after which shortcut is torn down (default: 300 sec) */,
+                "idle-threshold" arg  /* The packet rate below which shortcut is torn down (default: 5 packets/sec) */,
+                "disable"  /* Disable Partner capability */
+            )
+        )
+    )
+end
+
+rule(:security_ipsec_policies) do
+    c(
+        "from-zone" (  /* Define ipsec policy context */
+          security_ipsec_policy  /* Define ipsec policy context */
+        )
+    )
+end
+
+rule(:security_ipsec_policy) do
+    s(
+            arg,
+      "to-zone" arg  /* Outgoing zone */,
+      c(
+        "ipsec-group-vpn" arg  /* Group VPN name */
+      )
+    )
+end
+
+rule(:security_junos_key_manager) do
+    c(
+        "traceoptions" (  /* Define trace options for Junos Key Manager */
+            c(
+                "no-remote-trace"  /* Disable remote tracing */,
+                "file" (  /* Trace file information */
+                    sc(
+                          arg,
+                        "size" arg  /* Maximum trace file size */,
+                        "files" arg  /* Maximum number of trace files */,
+                        "world-readable"  /* Allow any user to read the log file */,
+                        "no-world-readable"  /* Don't allow any user to read the log file */,
+                        "match" (  /* Regular expression for lines to be logged */
+                          regular_expression  /* Regular expression for lines to be logged */
+                        )
+                    )
+                ).as(:oneline),
+                "level" (  /* Define trace level for Junos Key Manager */
+                  ("critical" | "error" | "terse" | "warning" | "detail" | "extensive")
+                )
+            )
+        ),
+        "profiles" (  /* Define key-profile(s) */
+            c(
+                    c(
+                        c(
+                          "quantum-key-manager" (  /* Define a quantum-key-manager key profile */
+                              c(
+                                  "url" arg  /* Define url of KME server */,
+                                  "local-sae-id" arg  /* Define local SAE identifier */,
+                                  "peer-sae-ids" arg,
+                                  "local-certificate-id" arg  /* Define local certificate identifier for client authentication */,
+                                  "default-key-size" arg  /* Define default size of keys (in bits) */,
+                                  "trusted-cas" arg  /* Define a list of CA cert(s) for server certificate verification */
+                              )
+                          ),
+                          "static" (  /* Define a static key profile */
+                              c(
+                                  "key-id" (  /* Define Define a key identifier key-id */
+                                      sc(
+                                          c(
+                                            "ascii-text" arg  /* Format as text */,
+                                            "hexadecimal" arg  /* Format as hexadecimal */
+                                          )
+                                      )
+                                  ).as(:oneline),
+                                  "key" (  /* Define Define a key key */
+                                      sc(
+                                          c(
+                                            "ascii-text" arg  /* Format as text */,
+                                            "hexadecimal" arg  /* Format as hexadecimal */
+                                          )
+                                      )
+                                  ).as(:oneline)
+                              )
+                          )
+                        )
+                    )
+            )
+        )
+    )
+end
+
+rule(:security_zone_type) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of zone */,
+        "tcp-rst"  /* Send RST for NON-SYN packet not matching TCP session */,
+        "address-book" (  /* Address book entries */
+          address_book_type  /* Address book entries */
+        ),
+        "screen" arg  /* Name of ids option object applied to the zone */,
+        "host-inbound-traffic" (  /* Allowed system services & protocols */
+          zone_host_inbound_traffic_t  /* Allowed system services & protocols */
+        ),
+        "interfaces" (  /* Interfaces that are part of this zone */
+          zone_interface_list_type  /* Interfaces that are part of this zone */
+        ),
+        "application-tracking"  /* Enable Application tracking support for this zone */,
+        "source-identity-log"  /* Show user and group info in session log for this zone */,
+        "advance-policy-based-routing-profile" (  /* Enable Advance Policy Based Routing on this zone */
+            c(
+                  arg
+            )
+        ),
+        "enable-reverse-reroute"  /* Enable Reverse route lookup when there is change in ingress interface */,
+        "unidirectional-session-refreshing"  /* Enable unidirectional session refreshing on this zone */,
+        "advanced-connection-tracking" (  /* Enable Advance Policy Based Routing on this zone */
+            c(
+                "timeout" arg  /* Timeout value in seconds for advanced-connection-tracking table for this zone */,
+                "mode" (
+                  ("allow-any-host" | "allow-target-host" | "allow-target-host-port")
+                ),
+                "track-all-policies-to-this-zone"  /* Mandate all policies with to-zone set to this zone to do connection track table lookup */
+            )
+        )
+    )
+  )
+end
+
+rule(:address_book_type) do
+    c(
+        "address" (  /* Define a security address */
+          address_type  /* Define a security address */
+        ),
+        "address-set" (  /* Define a security address set */
+          address_set_type  /* Define a security address set */
+        )
+    )
+end
+
+rule(:security_intelligence_feeds) do
+    c(
+        "add-source-ip-to-feed" (  /* Add Source IP to Feed */
+            c(
+                  arg
+            )
+        ),
+        "add-destination-ip-to-feed" (  /* Add Destination IP to Feed */
+            c(
+                  arg
+            )
+        ),
+        "add-source-identity-to-feed" (  /* Add Source Identity to Feed */
+            c(
+                  arg
+            )
+        ),
+        "add-destination-identity-to-feed" (  /* Add Destination Identity to Feed */
+            c(
+                  arg
+            )
+        )
+    )
+end
+
+rule(:server) do
+    c(
+        "host" arg  /* Server host IP address or string host name */,
+        "port" arg  /* Server port */,
+        "routing-instance" arg  /* Routing instance name */,
+        "source-address" (  /* Source ip address used to connect server */
+          ipaddr  /* Source ip address used to connect server */
+        )
+    )
+end
+
+rule(:session_timeout_type) do
+    c(
+        "tcp" arg  /* Timeout value for tcp sessions */,
+        "udp" arg  /* Timeout value for udp sessions */,
+        "ospf" arg  /* Timeout value for ospf sessions */,
+        "icmp" arg  /* Timeout value for icmp sessions */,
+        "icmp6" arg  /* Timeout value for icmp6 sessions */,
+        "others" arg  /* Timeout value for other sessions */
+    )
+end
+
+rule(:sla_policy_type) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of policy */,
+        "match" (  /* Specify sla policy match-criteria */
+            c(
+                c(
+                  "source-address" (
+                        ("any" | "any-ipv4" | "any-ipv6" | arg)
+                  )
+                ),
+                c(
+                  "destination-address" (
+                        ("any" | "any-ipv4" | "any-ipv6" | arg)
+                  )
+                ),
+                "source-address-excluded"  /* Exclude source addresses */,
+                "destination-address-excluded"  /* Exclude destination addresses */,
+                c(
+                  "application" arg
+                ),
+                c(
+                  "source-identity" (
+                        ("any" | "authenticated-user" | "unauthenticated-user" | arg)
+                  )
+                )
+            )
+        ),
+        "then" (  /* Specify policy action to take when packet match criteria */
+            c(
+                c(
+                  "application-services" (  /* Application Services */
+                    sla_application_services_type  /* Application Services */
+                  )
+                )
+            )
+        ),
+        "scheduler-name" arg  /* Name of scheduler */
+    )
+  )
+end
+
+rule(:sla_application_services_type) do
+    c(
+        "advance-policy-based-routing-profile" arg  /* Specify APBR profile name */
+    )
+end
+
+rule(:softwires_object) do
+    c(
+        "softwire-name" (  /* Configure softwire object */
+          softwire_option_type  /* Configure softwire object */
+        ),
+        "softwire-types" (  /* Configure softwire objects */
+            c(
+                "v6rd" (  /* Configure v6rd object */
+                  softwire_option_type  /* Configure v6rd object */
+                ),
+                "ds-lite" (  /* Configure ds-lite object */
+                  softwire_option_type  /* Configure ds-lite object */
+                ),
+                "map-e" (  /* Configure Map-e object */
+                  map_e_domain  /* Configure Map-e object */
+                )
+            )
+        ),
+        "map-e" (  /* Configure a MAP-E domain and domain rules */
+          map_e_domain  /* Configure a MAP-E domain and domain rules */
+        ),
+        "traceoptions" (  /* Trace options for Network Security DS-Lite */
+            c(
+                "no-remote-trace"  /* Disable remote tracing */,
+                "file" (  /* Trace file information */
+                    sc(
+                          arg,
+                        "size" arg  /* Maximum trace file size */,
+                        "files" arg  /* Maximum number of trace files */,
+                        "world-readable"  /* Allow any user to read the log file */,
+                        "no-world-readable"  /* Don't allow any user to read the log file */,
+                        "match" (  /* Regular expression for lines to be logged */
+                          regular_expression  /* Regular expression for lines to be logged */
+                        )
+                    )
+                ).as(:oneline),
+                "flag" enum(("configuration" | "flow" | "all"))  /* Tracing parameters */.as(:oneline)
+            )
+        ),
+        "rule-set" (  /* Define a softwire rule set */
+          sw_rule_set_object  /* Define a softwire rule set */
+        )
+    )
+end
+
+rule(:map_e_domain) do
+  arg.as(:arg) (
+    c(
+        "confidentiality"  /* Configure JUNOS MAP-E confidentiality */,
+        "br-address" (  /* Ipv6 address of BR */
+          unreadable  /* Ipv6 address of BR */
+        ),
+        "end-user-prefix" (  /* Configure end-user-prefix value or source interface for obtaining end-user-prefix */
+            c(
+                  ipv6prefix  /* End user prefix */
+            )
+        ),
+        "rule" (  /* Configure a BMR or FMR rule for map-e  */
+          map_e_rule  /* Configure a BMR or FMR rule for map-e  */
+        ),
+        "role" (  /* Define a role of the MAP-E */
+          ("CE")
+        ),
+        "version" (  /* Define version of the MAP-E */
+          ("3")
+        )
+    )
+  )
+end
+
+rule(:map_e_rule) do
+  arg.as(:arg) (
+    c(
+        "rule-type" (  /* Define a rule type of MAP-E */
+          ("BMR" | "FMR")
+        ),
+        "ipv4-prefix" (  /* Ipv4 prefix */
+          unreadable  /* Ipv4 prefix */
+        ),
+        "ipv6-prefix" (  /* Ipv6 prefix */
+          unreadable  /* Ipv6 prefix */
+        ),
+        "ea-bits-length" arg  /* EA bits length */,
+        "psid-offset" (  /* PSID offset */
+          unreadable  /* PSID offset */
+        ),
+        "psid-len" arg  /* PSID length */,
+        "mtu-v6" arg  /* MTU for the softwire tunnel */,
+        "v4-reassembly"  /* MAP-E IPv4 reassembly support */,
+        "v6-reassembly"  /* MAP-E IPv6 reassembly support */,
+        "disable-auto-route"  /* MAP-E Disable Auto Route */,
+        "v4-partial-reassembly"  /* For higher number of fragments/reassembled packet size */
+    )
+  )
+end
+
+rule(:softwire_option_type) do
+  arg.as(:arg) (
+    c(
+        "softwire-concentrator" (  /* Concentrator address */
+          ipaddr  /* Concentrator address */
+        ),
+        "softwire-type" (  /* Softwire-type */
+          ("IPv4-in-IPv6" | "v6rd")
+        ),
+        "ipv4-prefix" (  /* 6rd customer edge IPV4 prefix */
+          ipv4prefix  /* 6rd customer edge IPV4 prefix */
+        ),
+        "v6rd-prefix" (  /* 6rd domain's IPV6 prefix */
+          ipv6prefix  /* 6rd domain's IPV6 prefix */
+        ),
+        "mtu-v4" arg  /* MTU for the softwire tunnel */,
+        "mtu-v6" arg  /* MTU for the softwire tunnel */,
+        "auto-update-mtu"  /* Auto update MTU from received ICMPv6 messages */,
+        "copy-dscp"  /* Copy DSCP (type of service) from IPv6 to IPv4 header */,
+        "flow-limit" arg  /* Max Number of IPv4 flows per Softwire */,
+        "session-limit-per-prefix" arg  /* Max number of sessions allowed per Softwire prefix */
+    )
+  )
+end
+
+rule(:sophos_scan_options) do
+    c(
+        "uri-check"  /* Anti-virus uri-check */,
+        "no-uri-check"  /* Don't anti-virus uri-check */,
+        "content-size-limit" arg  /* Content size limit */,
+        "timeout" arg  /* Scan engine timeout */
+    )
+end
+
+rule(:ssg_destination_nat_object) do
+    c(
+        "pool" arg (  /* Define a destination address pool */
+            c(
+                "description" arg  /* Text description of pool */,
+                "routing-instance" (  /* Routing instance */
+                    c(
+                        c(
+                          "default"  /* Default routing-instance */,
+                          arg  /* Routing-instance name */
+                        )
+                    )
+                ),
+                "address" (  /* Add address or address range to pool */
+                    sc(
+                        c(
+                          "to" (  /* Upper limit of address range */
+                              c(
+                                    ipprefix  /* IPv4 or IPv6 upper limit of address range */
+                              )
+                          ),
+                          "port" arg  /* Specify the port value */
+                        ),
+                          ipprefix  /* IPv4 or IPv6 address or address range */
+                    )
+                ).as(:oneline),
+                "address-name" (  /* Add address to pool */
+                    sc(
+                          arg,
+                        "port" arg  /* Specify the port value */
+                    )
+                ).as(:oneline)
+            )
+        ),
+        "port-forwarding" arg (  /* Define a port-forwarding mapping pool */
+            c(
+                "description" arg  /* Text description of port forwarding mapping */,
+                "destined-port" (  /* Port forwarding mappings */
+                    s(
+                            arg,
+                      "translated-port" arg  /* Translated port */
+                    )
+                ).as(:oneline)
+            )
+        ),
+        "rule-set" arg (  /* Configurate a set of rules */
+            c(
+                "description" arg  /* Text description of rule set */,
+                "from" (  /* Where is the traffic from */
+                    sc(
+                        c(
+                          "routing-instance" (  /* Source routing instance list */
+                                ("default" | arg)
+                          ),
+                          "routing-group" arg  /* Source routing group list */,
+                          "zone" arg  /* Source zone list */,
+                          "interface" (  /* Source interface list */
+                            interface_name  /* Source interface list */
+                          )
+                        )
+                    )
+                ).as(:oneline),
+                "rule" (  /* Destination NAT rule */
+                  dest_nat_rule_object  /* Destination NAT rule */
+                ),
+                "match-direction" (  /* Match direction */
+                  ("input" | "output")
+                )
+            )
+        )
+    )
+end
+
+rule(:dest_nat_rule_object) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of rule */,
+        "dest-nat-rule-match" (  /* Specify Destination NAT rule match criteria */
+            c(
+                "source-address" (  /* Source address */
+                      ("any-unicast" | arg)
+                ),
+                "source-address-name" arg  /* Address/address-set from address book */,
+                c(
+                  "destination-address" (  /* Destination address */
+                      sc(
+                          c(
+                            "any-unicast"  /* Match any unicast address */,
+                              ipprefix  /* IPv4 or IPv6 destination address */
+                          )
+                      )
+                  ).as(:oneline),
+                  "destination-address-name" (  /* Address from address book */
+                      sc(
+                            arg
+                      )
+                  ).as(:oneline)
+                ),
+                "destination-port" arg (  /* Destination port */
+                    sc(
+                        "to" (  /* Port range upper limit */
+                            c(
+                                arg  /* Upper limit of port range */
+                            )
+                        )
+                    )
+                ).as(:oneline),
+                "protocol" (  /* IP Protocol */
+                      ("icmp" | "igmp" | "ipip" | "tcp" | "egp" | "udp" | "rsvp" | "gre" | "esp" | "ah" | "icmp6" | "ospf" | "pim" | "sctp" | arg)
+                ),
+                "application" arg
+            )
+        ),
+        "then" (  /* Then action */
+            c(
+                "destination-nat" (  /* Destination NAT action */
+                    c(
+                        c(
+                          "off"  /* No action */,
+                          "pool" (  /* Use Destination NAT pool */
+                              c(
+                                    arg
+                              )
+                          ),
+                          "destination-prefix" (  /* Destination prefix to be used for NAT64 and 464 translation type */
+                            ipprefix_only  /* Destination prefix to be used for NAT64 and 464 translation type */
+                          )
+                        ),
+                        "xlat-source-rule" (  /* Set source nat rule to match for NAT464 */
+                            c(
+                                "rule-set" arg (  /* Source nat rule-set */
+                                    c(
+                                        "rule" arg  /* Source NAT rule name */
+                                    )
+                                )
+                            )
+                        ),
+                        "port-forwarding-mappings" (  /* Use Destination NAT port forwarding mapping pool */
+                            c(
+                                  arg
+                            )
+                        ),
+                        "rule-session-count-alarm" (  /* Config rule-session-count-alarm to destination rule */
+                          nat_rule_session_count_alarm_object  /* Config rule-session-count-alarm to destination rule */
+                        ).as(:oneline)
+                    )
+                ),
+                "syslog"  /* System log information about the packet */
+            )
+        )
+    )
+  )
+end
+
+rule(:nat_rule_session_count_alarm_object) do
+    c(
+        "raise-threshold" arg  /* Raise threshold for rule session count alarm */,
+        "clear-threshold" arg  /* Clear threshold for session count hit alarm */
+    ).as(:oneline)
+end
+
+rule(:ssg_proxy_arp_object) do
+    c(
+        "interface" (  /* Interface with proxy arp configured */
+          ssg_interface_object  /* Interface with proxy arp configured */
+        )
+    )
+end
+
+rule(:ssg_interface_object) do
+  arg.as(:arg) (
+    c(
+        "address" arg (  /* Proxy ARP address */
+            sc(
+                "to" (  /* Upper limit of address range */
+                    c(
+                          ipv4prefix  /* Upper limit of address range */
+                    )
+                )
+            )
+        ).as(:oneline)
+    )
+  )
+end
+
+rule(:ssg_proxy_ndp_object) do
+    c(
+        "interface" (  /* Interface with proxy arp configured */
+          ssg_proxy_ndp_interface_object  /* Interface with proxy arp configured */
+        )
+    )
+end
+
+rule(:ssg_proxy_ndp_interface_object) do
+  arg.as(:arg) (
+    c(
+        "address" arg (  /* Proxy ndp address */
+            sc(
+                "to" (  /* Upper limit of address range */
+                    c(
+                          ipv6addr  /* Upper limit of address range */
+                    )
+                )
+            )
+        ).as(:oneline)
+    )
+  )
+end
+
+rule(:ssg_source_nat_object) do
+    c(
+        "persistent-nat" (  /* Persistent NAT info */
+            sc(
+                "log" (  /* Configure persistent NAT log */
+                    sc(
+                          ("disable")
+                    )
+                ).as(:oneline)
+            )
+        ).as(:oneline),
+        "pool" arg (  /* Define a source address pool */
+            c(
+                "description" arg  /* Text description of pool */,
+                "routing-instance" (  /* Routing instance */
+                    c(
+                        arg  /* Routing instance name */
+                    )
+                ),
+                "address" arg (  /* Add address to pool */
+                    sc(
+                        "to" (  /* Upper limit of address range */
+                            c(
+                                  ipprefix  /* IPv4 or IPv6 upper limit of address range */
+                            )
+                        )
+                    )
+                ).as(:oneline),
+                "address-name" (  /* Add address to pool */
+                    sc(
+                          arg
+                    )
+                ).as(:oneline),
+                "host-address-base" (  /* The base of host address */
+                    sc(
+                          ipprefix  /* IPv4 or IPv6 base address */
+                    )
+                ).as(:oneline),
+                "port" (  /* Config port attribute to pool */
+                    c(
+                        c(
+                          "no-translation"  /* Do not perform port translation */,
+                          "range" (  /* Port range */
+                              c(
+                                  c(
+                                    "random-allocation"  /* Allocate port randomly */,
+                                    "round-robin"  /* Allocate port round-robin */
+                                  ),
+                                    arg,
+                                  "to" (  /* Port range upper limit */
+                                      c(
+                                            arg
+                                      )
+                                  ),
+                                  "twin-port" (  /* Twin port range */
+                                      c(
+                                            arg,
+                                          "to" (  /* Twin port range upper limit */
+                                              c(
+                                                    arg
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                          "automatic" (  /* Port assignment */
+                              c(
+                                  c(
+                                    "random-allocation"  /* Allocate port randomly */,
+                                    "round-robin"  /* Allocate port by round-robin */
+                                  )
+                              )
+                          )
+                        ),
+                        "port-overloading-factor" arg  /* Port overloading factor for each IP */,
+                        "enhanced-port-overloading-algorithm"  /* Enhanced port overloading algorithm for the pool */,
+                        "block-allocation" (  /* Port block allocation */
+                          block_allocation_object  /* Port block allocation */
+                        ),
+                        "deterministic" (  /* Deterministic nat allocation */
+                          deterministic_object  /* Deterministic nat allocation */
+                        ),
+                        "preserve-parity"  /* Allocate port as the same parity as incoming port */,
+                        "preserve-range"  /* Allocate port from the same port range as incoming port */
+                    )
+                ),
+                "overflow-pool" (  /* Specify an overflow pool */
+                    sc(
+                        c(
+                            arg,
+                          "interface"  /* Allow interface pool to support overflow */
+                        )
+                    )
+                ).as(:oneline),
+                "address-shared"  /* Allow multiple hosts to share an externel address */,
+                "address-pooling" (  /* Specify the address-pooling behavior */
+                    sc(
+                        c(
+                          "paired"  /* Allow address-pooling paired for a source pool with port translation */,
+                          "no-paired"  /* Allow address-pooling no-paired for a source pool without port translation */
+                        )
+                    )
+                ).as(:oneline),
+                "address-persistent" (  /* Specify the address-persistent behavior */
+                    sc(
+                        "subscriber" (  /* Configure address persistent for subscriber */
+                            sc(
+                                "ipv6-prefix-length" arg  /* Ipv6 prefix length for address persistent */
+                            )
+                        ).as(:oneline)
+                    )
+                ).as(:oneline),
+                "pool-utilization-alarm" (  /* Config pool-utilization-alarm to pool */
+                  source_nat_pool_utilization_alarm_object  /* Config pool-utilization-alarm to pool */
+                ).as(:oneline),
+                "ei-mapping-timeout" arg  /* Endpoint-independent mapping timeout */,
+                "mapping-timeout" arg  /* Address-pooling paired and endpoint-independent mapping timeout */,
+                "limit-ports-per-host" arg  /* Number of ports allocated per host */,
+                "allocation-domain" (  /* Specify map-e domain name for pool */
+                    sc(
+                          arg,
+                        "allocation-rule" (  /* Specify map-e rule name for pool */
+                            sc(
+                                  arg
+                            )
+                        ).as(:oneline)
+                    )
+                ).as(:oneline)
+            )
+        ),
+        "address-persistent"  /* Allow source address to maintain same translation */,
+        "session-persistence-scan"  /* Allow source to maintain session when session scan */,
+        "session-drop-hold-down" arg  /* Session drop hold down time */,
+        "pool-utilization-alarm" (  /* Configure pool utilization alarm */
+          source_nat_pool_utilization_alarm_object  /* Configure pool utilization alarm */
+        ).as(:oneline),
+        "port-randomization" (  /* Configure Source NAT port randomization */
+            sc(
+                  ("disable")
+            )
+        ).as(:oneline),
+        "port-round-robin"  /* Configure Source NAT port randomization */.as(:oneline),
+        "port-scaling-enlargement"  /* Configure source port scaling to 2.4G only for NGSPC */,
+        "pool-distribution"  /* Configure Source pool distribution, the APPCP bottleneck of NAT CPS can be alleviated. */,
+        "pool-default-port-range" (  /* Configure Source NAT default port range */
+            sc(
+                  arg,
+                "to" (  /* Port range upper limit */
+                    c(
+                          arg
+                    )
+                )
+            )
+        ).as(:oneline),
+        "pool-default-twin-port-range" (  /* Configure Source NAT default twin port range */
+            sc(
+                  arg,
+                "to" (  /* Twin port range upper limit */
+                    c(
+                          arg
+                    )
+                )
+            )
+        ).as(:oneline),
+        "interface" (  /* Configure interface port overloading for persistent NAT */
+            c(
+                c(
+                  "port-overloading" (  /* Configure port overloading */
+                      sc(
+                          "off"  /* Turn off interface port over-loading */
+                      )
+                  ).as(:oneline),
+                  "port-overloading-factor" arg  /* Port overloading factor for interface NAT */
+                ),
+                "enhanced-port-overloading-algorithm"  /* Enhanced port overloading algorithm for interface NAT */
+            )
+        ),
+        "rule-set" arg (  /* Configurate a set of rules */
+            c(
+                "description" arg  /* Text description of rule set */,
+                "from" (  /* Where is the traffic from */
+                    sc(
+                        c(
+                          "routing-instance" (  /* Source routing instance list */
+                                ("default" | arg)
+                          ),
+                          "routing-group" arg  /* Source routing group list */,
+                          "zone" arg  /* Source zone list */,
+                          "interface" (  /* Source interface list */
+                            interface_name  /* Source interface list */
+                          )
+                        )
+                    )
+                ).as(:oneline),
+                "to" (  /* Where is the traffic to */
+                    sc(
+                        c(
+                          "routing-instance" (  /* Destination routing instance list */
+                                ("default" | arg)
+                          ),
+                          "routing-group" arg  /* Destination routing group list */,
+                          "zone" arg  /* Destination zone list */,
+                          "interface" (  /* Destination interface list */
+                            interface_name  /* Destination interface list */
+                          )
+                        )
+                    )
+                ).as(:oneline),
+                "rule" (  /* Source NAT rule */
+                  src_nat_rule_object  /* Source NAT rule */
+                ),
+                "match-direction" (  /* Match direction */
+                  ("input" | "output")
+                )
+            )
+        )
+    )
+end
+
+rule(:block_allocation_object) do
+    c(
+        "block-size" arg  /* Block size */,
+        "maximum-blocks-per-host" arg  /* Maximum block number per host */,
+        "active-block-timeout" arg  /* Active block timeout interval */,
+        "interim-logging-interval" arg  /* Interim Logging interval */,
+        "last-block-recycle-timeout" arg  /* Last Block recycle timeout interval */,
+        "log" (  /* Configure port block log */
+            sc(
+                  ("disable")
+            )
+        ).as(:oneline)
+    )
+end
+
+rule(:deterministic_object) do
+    c(
+        "block-size" arg  /* Block size */,
+        "det-nat-configuration-log-interval" arg  /* Deterministic nat configuration logging interval */,
+        "host" (  /* Host address */
+            sc(
+                "address" (  /* Host ip address */
+                  ipprefix  /* Host ip address */
+                ),
+                "address-name" arg  /* Host address/address-set from address book */
+            )
+        ).as(:oneline),
+        "include-boundary-addresses"  /* Include network and broadcast in 'match' source address */
+    )
+end
+
+rule(:source_nat_pool_utilization_alarm_object) do
+    c(
+        "raise-threshold" arg  /* Raise threshold for pool utilization alarm */,
+        "clear-threshold" arg  /* Clear threshold for pool utilization alarm */
+    ).as(:oneline)
+end
+
+rule(:src_nat_rule_object) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of rule */,
+        "src-nat-rule-match" (  /* Specify Source NAT rule match criteria */
+            c(
+                "source-address" (  /* Source address */
+                      ("any-unicast" | arg)
+                ),
+                "source-address-name" arg  /* Address/address-set from address book */,
+                "source-port" arg (  /* Source port */
+                    sc(
+                        "to" (  /* Port range upper limit */
+                            c(
+                                arg  /* Upper limit of port range */
+                            )
+                        )
+                    )
+                ).as(:oneline),
+                "destination-address" (  /* Destination address */
+                      ("any-unicast" | arg)
+                ),
+                "destination-address-name" arg  /* Address/address-set from address book */,
+                "destination-port" arg (  /* Destination port */
+                    sc(
+                        "to" (  /* Port range upper limit */
+                            c(
+                                arg  /* Upper limit of port range */
+                            )
+                        )
+                    )
+                ).as(:oneline),
+                "protocol" (  /* IP Protocol */
+                      ("icmp" | "igmp" | "ipip" | "tcp" | "egp" | "udp" | "rsvp" | "gre" | "esp" | "ah" | "icmp6" | "ospf" | "pim" | "sctp" | arg)
+                ),
+                "application" arg
+            )
+        ),
+        "then" (  /* Then action */
+            c(
+                "source-nat" (  /* Source NAT action */
+                    c(
+                        c(
+                          "off"  /* No action */,
+                          "pool" (  /* Use Source NAT pool */
+                              c(
+                                    arg,
+                                  "persistent-nat" (  /* Persistent NAT info */
+                                    persistent_nat_object  /* Persistent NAT info */
+                                  )
+                              )
+                          ),
+                          "interface" (  /* Use egress interface address */
+                              c(
+                                  "persistent-nat" (  /* Persistent NAT info */
+                                    persistent_nat_object  /* Persistent NAT info */
+                                  )
+                              )
+                          )
+                        ),
+                        "clat-prefix" (  /* An IPv6 prefix to be used for XLAT464 and prefix length can only be 32/40/48/56/64/96 */
+                          ipprefix_only  /* An IPv6 prefix to be used for XLAT464 and prefix length can only be 32/40/48/56/64/96 */
+                        ),
+                        "clat-ipv6-prefix-length" (  /* The ipv6 prefix length for CLAT source address */
+                          ("32" | "40" | "48" | "56" | "64" | "96")
+                        ),
+                        "rule-session-count-alarm" (  /* Config rule-session-count-alarm to source rule */
+                          nat_rule_session_count_alarm_object  /* Config rule-session-count-alarm to source rule */
+                        ).as(:oneline),
+                        "mapping-type" (  /* Source nat mapping type */
+                            sc(
+                                "endpoint-independent"  /* Endpoint independent mapping */,
+                                "address-pooling-paired"  /* Address pooling paired mapping */
+                            )
+                        ).as(:oneline),
+                        "secure-nat-mapping" (  /* Mapping options for enhanced security */
+                            c(
+                                "eif-flow-limit" arg  /* Number of inbound flows to be allowed for a EIF mapping */,
+                                "mapping-refresh" (  /* Enable timer refresh option */
+                                  ("inbound" | "outbound" | "inbound-outbound")
+                                )
+                            )
+                        ),
+                        "filtering-type" (  /* Source NAT filtering type */
+                            c(
+                                "endpoint-independent" (  /* Endpoint independent filtering */
+                                    c(
+                                        "prefix-list" arg (  /* One or more named lists of source prefixes to match */
+                                            sc(
+                                                "except"  /* Name of prefix list not to match against */
+                                            )
+                                        ).as(:oneline)
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                "syslog"  /* System log information about the packet */
+            )
+        )
+    )
+  )
+end
+
+rule(:persistent_nat_object) do
+    c(
+        "permit" (  /* Persistent NAT permit configure */
+            sc(
+                c(
+                  "any-remote-host"  /* Permit any remote host */,
+                  "target-host"  /* Permit target host */,
+                  "target-host-port"  /* Permit target host port */
+                )
+            )
+        ).as(:oneline),
+        "block-ext-session"  /* Block sessions from external hosts */,
+        "address-mapping"  /* Address-to-address mapping */,
+        "inactivity-timeout" arg  /* Inactivity timeout value */,
+        "max-session-number" arg  /* The maximum session number value */
+    )
+end
+
+rule(:ssg_static_nat_object) do
+    c(
+        "rule-set" arg (  /* Configurate a set of rules */
+            c(
+                "description" arg  /* Text description of rule set */,
+                "from" (  /* Where is the traffic from */
+                    sc(
+                        c(
+                          "routing-instance" (  /* Source routing instance list */
+                                ("default" | arg)
+                          ),
+                          "routing-group" arg  /* Source routing group list */,
+                          "zone" arg  /* Source zone list */,
+                          "interface" (  /* Source interface list */
+                            interface_name  /* Source interface list */
+                          )
+                        )
+                    )
+                ).as(:oneline),
+                "rule" (  /* Static NAT rule */
+                  static_nat_rule_object  /* Static NAT rule */
+                ),
+                "match-direction" (  /* Match direction */
+                  ("input" | "output")
+                )
+            )
+        )
+    )
+end
+
+rule(:static_nat_rule_object) do
+  arg.as(:arg) (
+    c(
+        "description" arg  /* Text description of rule */,
+        "static-nat-rule-match" (  /* Specify Static NAT rule match criteria */
+            c(
+                "source-address" (  /* Source address */
+                  ipprefix  /* Source address */
+                ),
+                "source-address-name" arg  /* Address from address book */,
+                "source-port" arg (  /* Source port */
+                    sc(
+                        "to" (  /* Port range upper limit */
+                            c(
+                                arg  /* Upper limit of port range */
+                            )
+                        )
+                    )
+                ).as(:oneline),
+                c(
+                  "destination-address" (  /* Destination address */
+                      sc(
+                            ipprefix  /* IPv4 or IPv6 Destination address prefix */
+                      )
+                  ).as(:oneline),
+                  "destination-address-name" (  /* Address from address book */
+                      sc(
+                            arg
+                      )
+                  ).as(:oneline)
+                ),
+                "destination-port" (  /* Destination port */
+                    sc(
+                        arg  /* Port or lower limit of port range */,
+                        "to" (  /* Port range upper limit */
+                            c(
+                                arg  /* Upper limit of port range */
+                            )
+                        )
+                    )
+                ).as(:oneline)
+            )
+        ),
+        "then" (  /* Then action */
+            c(
+                "static-nat" (  /* Static NAT action */
+                    c(
+                        c(
+                          "inet" (  /* Translated to IPv4 address */
+                              c(
+                                  "routing-instance" (  /* Routing instance */
+                                    ("default" | arg)
+                                  )
+                              )
+                          ),
+                          "prefix" (  /* Address prefix */
+                              c(
+                                  "mapped-port" (  /* Mapped port */
+                                    static_nat_rule_mapped_port_object  /* Mapped port */
+                                  ).as(:oneline),
+                                  "routing-instance" (  /* Routing instance */
+                                    ("default" | arg)
+                                  ),
+                                    ipprefix  /* IPv4 or IPv6 address prefix value */
+                              )
+                          ),
+                          "prefix-name" (  /* Address from address book */
+                              c(
+                                    arg,
+                                  "mapped-port" (  /* Mapped port */
+                                    static_nat_rule_mapped_port_object  /* Mapped port */
+                                  ).as(:oneline),
+                                  "routing-instance" (  /* Routing instance */
+                                    ("default" | arg)
+                                  )
+                              )
+                          ),
+                          "nptv6-prefix" (  /* NPTv6 address prefix, the longest prefix will be supported is /64 */
+                              c(
+                                  "routing-instance" (  /* Routing instance */
+                                    ("default" | arg)
+                                  ),
+                                    ipprefix  /* IPv6 address prefix value, the longest prefix will be supported is /64 */
+                              )
+                          ),
+                          "nptv6-prefix-name" (  /* NPTv6 address from address book */
+                              c(
+                                    arg,
+                                  "routing-instance" (  /* Routing instance */
+                                    ("default" | arg)
+                                  )
+                              )
+                          )
+                        ),
+                        "rule-session-count-alarm" (  /* Config rule-session-count-alarm to static rule */
+                          nat_rule_session_count_alarm_object  /* Config rule-session-count-alarm to static rule */
+                        ).as(:oneline)
+                    )
+                )
+            )
+        )
+    )
+  )
+end
+
+rule(:static_nat_rule_mapped_port_object) do
+    c(
+        arg  /* Port or lower limit of port range */,
+        "to" (  /* Port range upper limit */
+            c(
+                arg  /* Upper limit of port range */
+            )
+        )
+    ).as(:oneline)
+end
+
+rule(:sw_rule_set_object) do
+  arg.as(:arg) (
+    c(
+        "rule" arg (  /* Define a rule term */
+            c(
+                "then" (  /* Action to take if the condition is matched */
+                    c(
+                        c(
+                          "ds-lite" arg  /* Apply DS-Lite softwire */,
+                          "v6rd" arg  /* Apply 6rd softwire */,
+                          "map-e" arg  /* Apply MAP-E softwire */
+                        )
+                    )
+                )
+            )
+        ),
+        "match-direction" (  /* Match direction */
+          ("input" | "output")
+        )
+    )
+  )
+end
+
+rule(:term_object) do
+  arg.as(:arg) (
+    c(
+        "alg" (  /* Application Layer Gateway */
+          ("bootp" | "dce-rpc" | "dce-rpc-portmap" | "dns" | "exec" | "ftp" | "ftp-data" | "gprs-gtp-c" | "gprs-gtp-u" | "gprs-gtp-v0" | "gprs-sctp" | "h323" | "icmp" | "icmpv6" | "ignore" | "iiop" | "ike-esp-nat" | "ip" | "login" | "mgcp-ca" | "mgcp-ua" | "ms-rpc" | "netbios" | "netshow" | "none" | "pptp" | "q931" | "ras" | "realaudio" | "rpc" | "rpc-portmap" | "rsh" | "rtsp" | "sccp" | "sip" | "shell" | "snmp" | "sqlnet" | "sqlnet-v2" | "sun-rpc" | "talk" | "tftp" | "traceroute" | "http" | "winframe" | "https" | "imap" | "smtp" | "ssh" | "telnet" | "twamp" | "pop3" | "smtps" | "imaps" | "pop3s")
+        ),
+        "protocol" (  /* Match IP protocol type */
+          ("icmp" | "igmp" | "ipip" | "tcp" | "egp" | "udp" | "rsvp" | "gre" | "esp" | "ah" | "icmp6" | "ospf" | "pim" | "sctp" | arg)
+        ),
+        "source-port" (  /* Match TCP/UDP source port */
+          ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
+        ),
+        "destination-port" (  /* Match TCP/UDP destination port */
+          ("ftp-data" | "ftp" | "ssh" | "telnet" | "smtp" | "tacacs" | "tacacs-ds" | "domain" | "dhcp" | "bootps" | "bootpc" | "tftp" | "finger" | "http" | "kerberos-sec" | "pop3" | "sunrpc" | "ident" | "nntp" | "ntp" | "netbios-ns" | "netbios-dgm" | "netbios-ssn" | "imap" | "snmp" | "snmptrap" | "xdmcp" | "bgp" | "ldap" | "mobileip-agent" | "mobilip-mn" | "msdp" | "https" | "snpp" | "biff" | "exec" | "login" | "who" | "cmd" | "syslog" | "printer" | "talk" | "ntalk" | "rip" | "timed" | "klogin" | "kshell" | "ldp" | "krb-prop" | "krbupdate" | "kpasswd" | "socks" | "afs" | "pptp" | "radius" | "radacct" | "zephyr-srv" | "zephyr-clt" | "zephyr-hm" | "nfsd" | "eklogin" | "ekshell" | "rkinit" | "cvspserver" | arg)
+        ),
+        "icmp-type" (  /* Match ICMP message type */
+          ("echo-request" | "echo-reply" | "unreachable" | "source-quench" | "redirect" | "router-advertisement" | "router-solicit" | "time-exceeded" | "parameter-problem" | "timestamp" | "timestamp-reply" | "info-request" | "info-reply" | "mask-request" | "mask-reply" | arg)
+        ),
+        "icmp-code" (  /* Match ICMP message code */
+          ("network-unreachable" | "host-unreachable" | "protocol-unreachable" | "port-unreachable" | "fragmentation-needed" | "source-route-failed" | "destination-network-unknown" | "destination-host-unknown" | "source-host-isolated" | "destination-network-prohibited" | "destination-host-prohibited" | "network-unreachable-for-tos" | "host-unreachable-for-tos" | "communication-prohibited-by-filtering" | "host-precedence-violation" | "precedence-cutoff-in-effect" | "redirect-for-network" | "redirect-for-host" | "redirect-for-tos-and-net" | "redirect-for-tos-and-host" | "ttl-eq-zero-during-transit" | "ttl-eq-zero-during-reassembly" | "ip-header-bad" | "required-option-missing" | arg)
+        ),
+        "icmp6-type" (  /* Match ICMP6 message type */
+          ("echo-request" | "echo-reply" | "destination-unreachable" | "router-advertisement" | "router-solicit" | "time-exceeded" | "parameter-problem" | "packet-too-big" | "membership-query" | "membership-report" | "membership-termination" | "redirect" | "neighbor-solicit" | "neighbor-advertisement" | "router-renumbering" | "node-information-request" | "node-information-reply" | arg)
+        ),
+        "icmp6-code" (  /* Match ICMP6 message code */
+          ("no-route-to-destination" | "administratively-prohibited" | "address-unreachable" | "port-unreachable" | "ttl-eq-zero-during-transit" | "ttl-eq-zero-during-reassembly" | "ip6-header-bad" | "unrecognized-next-header" | "unrecognized-option" | arg)
+        ),
+        "rpc-program-number" arg  /* Match range of RPC program numbers */,
+        "uuid" arg  /* Match universal unique identifier for DCE RPC objects */,
+        "inactivity-timeout" (  /* Application-specific inactivity timeout */
+          ("never" | arg)
+        )
+    )
+  ).as(:oneline)
+end
+
+rule(:time_format_object) do
+    c(
+        "year"  /* Year in time format for syslog */,
+        "millisecond"  /* Millisecond in time format for syslog */
+    )
+end
+
+rule(:tunnel_inspection_profile_type) do
+  arg.as(:arg) (
+    c(
+        c(
+          "vxlan" (  /* Define a vxlan tunnel */
+            vxlan_tunnel_type  /* Define a vxlan tunnel */
+          )
+        )
+    )
+  )
+end
+
+rule(:tunnel_inspection_vni_type) do
+  arg.as(:arg) (
+    c(
+        c(
+          "vni-range" (  /* VNI range */
+            vni_range_type  /* VNI range */
+          ),
+          "vni-id" arg  /* VNI ID */
+        )
+    )
+  )
+end
+
+rule(:tunnel_type) do
+    c(
+        c(
+          "ipsec-vpn" arg  /* Enable VPN with name */,
+          "ipsec-group-vpn" arg  /* Enable dynamic IPSEC group with name */
+        ),
+        "pair-policy" arg  /* Policy in the reverse direction, to form a pair */
+    )
+end
+
+rule(:url_list_type) do
+  arg.as(:arg) (
+    c(
+        "value" arg  /* Configure value of url-list object */
+    )
+  )
+end
+
+rule(:usf_range_address_type) do
+  arg.as(:arg) (
+    c(
+        "to" (  /* Port range upper limit */
+            c(
+                  ipprefix  /* Upper limit of address range */
+            )
+        )
+    )
+  )
+end
+
+rule(:utm_apppxy_traceoptions) do
+    c(
+        "flag" enum(("abort" | "application-objects" | "utm-realtime" | "anti-virus" | "basic" | "buffer" | "detail" | "ftp-data" | "ftp-control" | "http" | "imap" | "memory" | "parser" | "pfe" | "pop3" | "queue" | "smtp" | "tcp" | "timer" | "connection-rating" | "mime" | "regex-engine" | "sophos-anti-virus" | "all"))  /* Tracing parameters for utm application proxy */.as(:oneline)
+    )
+end
+
+rule(:utm_ipc_traceoptions) do
+    c(
+        "flag" enum(("basic" | "detail" | "connection-manager" | "connection-status" | "pfe" | "utm-realtime" | "all"))  /* Traceoptions for utm IPC flag */.as(:oneline)
+    )
+end
+
+rule(:utm_traceoptions) do
+    c(
+        "flag" enum(("cli" | "daemon" | "ipc" | "pfe" | "all"))  /* Tracing UTM information */.as(:oneline)
+    )
+end
+
+rule(:vni_range_type) do
+  arg.as(:arg) (
+    c(
+        "to" (  /* VNI range upper limit */
+            c(
+                  arg
+            )
+        )
+    )
+  )
+end
+
+rule(:vrf_group_type) do
+  arg.as(:arg) (
+    c(
+        "vrf" arg
+    )
+  )
+end
+
+rule(:vxlan_tunnel_type) do
+  arg.as(:arg) (
+    c(
+        "policy-set" arg  /* Define a security policy set */,
+        "vni" (
+              ("any" | arg)
+        )
+    )
+  )
+end
+
+rule(:web_filtering_fallback_setting) do
+    c(
+        "default" (  /* Fallback default settings */
+          ("log-and-permit" | "block")
+        ),
+        "server-connectivity" (  /* Fallback action when device cannot connect to server */
+          ("log-and-permit" | "block")
+        ),
+        "timeout" (  /* Fallback action when connection to server timeout */
+          ("log-and-permit" | "block")
+        ),
+        "too-many-requests" (  /* Fallback action when requests exceed the limit of engine */
+          ("log-and-permit" | "block")
+        )
+    )
+end
+
+rule(:web_filtering_traceoptions) do
+    c(
+        "flag" enum(("basic" | "session-manager" | "heartbeat" | "packet" | "profile" | "requests" | "response" | "socket" | "timer" | "ipc" | "cache" | "enhanced" | "all"))  /* Trace options for web-filtering feature trace flag */.as(:oneline)
+    )
+end
+
+rule(:webfilter_feature) do
+    c(
+        "surf-control-integrated" (  /* Configure web-filtering surf-control integrated engine */
+          surf_control_integrated_type  /* Configure web-filtering surf-control integrated engine */
+        ),
+        "websense-redirect" (  /* Configure web-filtering websense redirect engine */
+          websense_type  /* Configure web-filtering websense redirect engine */
+        ),
+        "juniper-local" (  /* Configure web-filtering juniper local engine */
+          juniper_local_type  /* Configure web-filtering juniper local engine */
+        ),
+        "juniper-enhanced" (  /* Configure web-filtering juniper enhanced engine */
+          juniper_enhanced_type  /* Configure web-filtering juniper enhanced engine */
+        )
+    )
+end
+
+rule(:juniper_enhanced_type) do
+    c(
+        "profile" arg (  /* Juniper enhanced profile */
+            c(
+                "base-filter" arg  /* Juniper base filter */,
+                "category" (  /* Juniper enhanced category */
+                  juniper_enhanced_category_type  /* Juniper enhanced category */
+                ),
+                "site-reputation-action" (  /* Juniper enhanced site reputation action */
+                  juniper_enhanced_site_reputation_setting  /* Juniper enhanced site reputation action */
+                ),
+                "default" (  /* Juniper enhanced profile default */
+                  ("permit" | "block" | "log-and-permit" | "quarantine")
+                ),
+                "custom-message" arg  /* Custom message */,
+                "fallback-settings" (  /* Juniper enhanced fallback settings */
+                  web_filtering_fallback_setting  /* Juniper enhanced fallback settings */
+                ),
+                "timeout" arg  /* Juniper enhanced timeout */,
+                "no-safe-search"  /* Do not perform safe-search for Juniper enhanced protocol */
+            )
+        )
+    )
+end
+
+rule(:juniper_local_type) do
+    c(
+        "profile" arg (  /* Juniper local profile */
+            c(
+                "default" (  /* Juniper local profile default */
+                  ("permit" | "block" | "log-and-permit")
+                ),
+                "category" (  /* Custom category */
+                  custom_category_type  /* Custom category */
+                ),
+                "custom-message" arg  /* Custom message */,
+                "no-safe-search"  /* Do not perform safe-search for Juniper local protocol */,
+                "fallback-settings" (  /* Juniper local fallback settings */
+                  web_filtering_fallback_setting  /* Juniper local fallback settings */
+                ),
+                "timeout" arg  /* Juniper local timeout */
+            )
+        )
+    )
+end
+
+rule(:surf_control_integrated_type) do
+    c(
+        "cache" (
+            c(
+                "timeout" arg  /* Surf control integrated cache timeout */,
+                "size" arg  /* Surf control integrated cache size */
+            )
+        ),
+        "server" (  /* Surf control server */
+          server  /* Surf control server */
+        ),
+        "profile" arg (  /* Surf control integrated profile */
+            c(
+                "category" (  /* Surf control integrated category */
+                  surf_control_integrated_category_type  /* Surf control integrated category */
+                ),
+                "default" (  /* Surf control integrated profile default */
+                  ("permit" | "block" | "log-and-permit")
+                ),
+                "custom-block-message" arg  /* Surf control integrated custom block message */,
+                "fallback-settings" (  /* Surf control integrated fallback settings */
+                  web_filtering_fallback_setting  /* Surf control integrated fallback settings */
+                ),
+                "timeout" arg  /* Surf control integrated timeout */
+            )
+        )
+    )
+end
+
+rule(:surf_control_integrated_category_type) do
+  arg.as(:arg) (
+    c(
+        "action" (  /* Surf control integrated category type action */
+          ("permit" | "block" | "log-and-permit")
+        )
+    )
+  )
+end
+
+rule(:websense_type) do
+    c(
+        "profile" arg (  /* Websense redirect profile */
+            c(
+                "server" (  /* Websense redirect server */
+                  server  /* Websense redirect server */
+                ),
+                "category" (  /* Custom category */
+                  custom_category_type  /* Custom category */
+                ),
+                "custom-message" arg  /* Custom message */,
+                "no-safe-search"  /* Do not perform safe-search for websense redirect protocol */,
+                "fallback-settings" (  /* Websense redirect fallback settings */
+                  web_filtering_fallback_setting  /* Websense redirect fallback settings */
+                ),
+                "timeout" arg  /* Websense redirect timeout */,
+                "sockets" arg  /* Websense redirect sockets number */,
+                "account" arg  /* Websense redirect account */
+            )
+        )
+    )
+end
+
+rule(:wildcard_address_type) do
+  arg.as(:arg)
+end
+
+rule(:zone_interface_list_type) do
+  arg.as(:arg) (
+    c(
+        "host-inbound-traffic" (
+          interface_host_inbound_traffic_t
+        )
+    )
+  )
+end
+
+rule(:interface_host_inbound_traffic_t) do
+    c(
+        "system-services" (  /* Type of incoming system-service traffic to accept */
+          interface_system_services_object_type  /* Type of incoming system-service traffic to accept */
+        ),
+        "protocols" (  /* Protocol type of incoming traffic to accept */
+          host_inbound_protocols_object_type  /* Protocol type of incoming traffic to accept */
+        )
+    )
+end
+
+rule(:host_inbound_protocols_object_type) do
+  enum(("all" | "bfd" | "bgp" | "dvmrp" | "igmp" | "ldp" | "msdp" | "ndp" | "nhrp" | "ospf" | "ospf3" | "pgm" | "pim" | "rip" | "ripng" | "router-discovery" | "rsvp" | "sap" | "vrrp")).as(:arg) (
+    c(
+        "except"  /* Protocol type of incoming traffic to disallow */
+    )
+  )
+end
+
+rule(:interface_system_services_object_type) do
+  enum(("all" | "bootp" | "dhcp" | "dhcpv6" | "dns" | "finger" | "ftp" | "ident-reset" | "http" | "https" | "ike" | "netconf" | "ping" | "rlogin" | "reverse-telnet" | "reverse-ssh" | "rpm" | "rsh" | "snmp" | "snmp-trap" | "ssh" | "telnet" | "traceroute" | "xnm-ssl" | "xnm-clear-text" | "tftp" | "lsping" | "lsselfping" | "ntp" | "sip" | "r2cp" | "webapi-clear-text" | "webapi-ssl" | "tcp-encap" | "appqoe" | "high-availability" | "any-service")).as(:arg) (
+    c(
+        "except"  /* Type of incoming system-service traffic to disallow */
+    )
+  )
+end
+
+rule(:zone_host_inbound_traffic_t) do
+    c(
+        "system-services" (  /* Type of incoming system-service traffic to accept */
+          zone_system_services_object_type  /* Type of incoming system-service traffic to accept */
+        ),
+        "protocols" (  /* Protocol type of incoming traffic to accept */
+          host_inbound_protocols_object_type  /* Protocol type of incoming traffic to accept */
+        )
+    )
+end
+
+rule(:zone_system_services_object_type) do
+  enum(("all" | "bootp" | "dhcp" | "dhcpv6" | "dns" | "finger" | "ftp" | "ident-reset" | "http" | "https" | "ike" | "netconf" | "ping" | "rlogin" | "reverse-telnet" | "reverse-ssh" | "rpm" | "rsh" | "snmp" | "snmp-trap" | "ssh" | "telnet" | "traceroute" | "xnm-ssl" | "xnm-clear-text" | "tftp" | "lsping" | "lsselfping" | "ntp" | "sip" | "r2cp" | "webapi-clear-text" | "webapi-ssl" | "tcp-encap" | "appqoe" | "high-availability" | "any-service")).as(:arg) (
+    c(
+        "except"  /* Type of incoming system-service traffic to disallow */
+    )
+  )
+end
+# End of vSRX 22.4R1.10 for "security"
