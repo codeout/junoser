@@ -25,11 +25,11 @@ module Junoser
         if config.empty?
           ''
         elsif has_single_child_of?(Junoser::Xsd::Choice)
-          fmt('c(', config.first.config.map(&:to_s).join(",\n"), ')')
+          fmt('c(', config.first.config.join(",\n"), ')')
         elsif sequential_arguments?
-          fmt('s(', config.map(&:to_s).join(",\n"), ')')
+          fmt('s(', config.join(",\n"), ')')
         else
-          fmt('c(', config.map(&:to_s).join(",\n"), ')')
+          fmt('c(', config.join(",\n"), ')')
         end
       end
 

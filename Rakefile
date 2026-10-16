@@ -3,7 +3,6 @@
 require 'bundler/gem_tasks'
 require 'junoser/development'
 require 'nokogiri'
-require 'pathname'
 require 'rake/testtask'
 
 xsd_path = File.join(__dir__, 'tmp/junos-system-23.4.xsd')
@@ -12,13 +11,11 @@ ruby_parser_path = File.join(__dir__, 'lib/junoser/parser.rb')
 js_parser_path = File.join(__dir__, 'tmp/junos.js')
 
 def open_files(input, output)
-  i = File.open(input)
-  o = File.open(output, 'w')
-
-  yield i, o
-
-  i.close
-  o.close
+  File.open(input) do |i|
+    File.open(output, 'w') do |o|
+      yield i, o
+    end
+  end
 end
 
 def move_wildcards(element)

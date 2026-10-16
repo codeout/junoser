@@ -3,9 +3,8 @@
 
 require 'English'
 require 'optparse'
-require 'pathname'
 
-$LOAD_PATH << File.expand_path('../../lib', Pathname.new(__FILE__).realpath)
+$LOAD_PATH << File.expand_path('../../lib', File.realpath(__FILE__))
 require 'junoser/squash'
 
 command = :squash
