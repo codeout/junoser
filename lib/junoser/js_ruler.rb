@@ -91,6 +91,8 @@ module Junoser
 
       # "$junos-interface-unit" |
       str.gsub!(/"\$[\w-]+" \| /, '')
+      # | "$junos-pon-id-interface-set-name"  (this one trails the other members)
+      str.gsub!(/ \| "\$[\w-]+"/, '')
 
       str
     end
