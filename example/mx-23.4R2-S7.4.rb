@@ -43061,7 +43061,8 @@ rule(:juniper_bd_protocols_igmp_snooping) do
                         )
                     )
                 ),
-                "version" arg  /* Set IGMP snooping version number */
+                "version" arg  /* Set IGMP snooping version number */,
+                "disable"
             )
         )
     )
@@ -69393,7 +69394,8 @@ rule(:juniper_default_ri_protocols_igmp_snooping) do
                         )
                     )
                 ),
-                "version" arg  /* Set IGMP version number on interface_help_string */
+                "version" arg  /* Set IGMP version number on interface_help_string */,
+                "disable"
             )
         ),
         "traceoptions" (  /* Trace options for IGMP Snooping */
@@ -83252,7 +83254,8 @@ rule(:juniper_ri_protocols_igmp_snooping) do
                         )
                     )
                 ),
-                "version" arg  /* Set IGMP snooping version number */
+                "version" arg  /* Set IGMP snooping version number */,
+                "disable"
             )
         )
     )
