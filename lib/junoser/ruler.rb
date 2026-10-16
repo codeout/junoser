@@ -300,6 +300,11 @@ module Junoser
       end
       str.gsub! '"fpc" enum(("all" | "fpc-slot-number"))', '"fpc" ("all" | arg)'
 
+      # Fix .xsd: slot numbers in "set chassis alarm fru-absence ignore fpc xxx pem xxx"
+      # these must come after the "poe" section above, which matches "fpc" enum(("all" | "fpc-slot-number"))
+      str.gsub! '("all" | "fpc-slot-number")', '("all" | arg)'
+      str.gsub! '("all" | "psu-slot-number")', '("all" | arg)'
+
       # Fix .xsd: support "set protocols iccp peer xxx liveness-detection single-hop"
       str.gsub!(/(^rule\(:peer_group\) do.*?\n(\s*)"detection-time" \(\s*c\(\s*"threshold" arg\s*\)\s*\))/m) do
         "#{$1},\n#{fmt('"single-hop"', $2)}"
