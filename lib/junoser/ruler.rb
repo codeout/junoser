@@ -219,6 +219,7 @@ module Junoser
       # Fix .xsd: Elements without "nokeyword" flag
       #
       str.gsub!(/\((.*) \| "name"\)/) { "(#{$1} | arg)" }
+      str.gsub!(/\("name" \| (.*?)\)/) { "(#{$1} | arg)" }
       str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
       str.gsub!(/\((.*) \| "vlan-id"\)/) { "(#{$1} | arg)" }
 
