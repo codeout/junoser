@@ -87450,7 +87450,14 @@ rule(:juniper_system) do
                                         ),
                                         "max-connections" arg  /* Maximum number of connections */,
                                         "routing-instance" arg  /* Routing instance for grpc */,
-                                        "grpc-keep-alive" arg  /* GRPC keep alive duration in seconds */
+                                        "grpc-keep-alive" arg  /* GRPC keep alive duration in seconds */,
+                                        "clear-text" (
+                                            c(
+                                                "address" ipaddr,
+                                                "port" arg
+                                            )
+                                        ),
+                                        "skip-authentication"
                                     )
                                 )
                             )
