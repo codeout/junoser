@@ -23589,6 +23589,100 @@ rule(:chassis_type) do
             )
         ),
         "dump-on-panic",
+        # Ported from vSRX 22.4R1.10
+        "cluster" (  /* Chassis cluster configuration */
+            c(
+                "traceoptions" (  /* Set chassis cluster traceoptions */
+                    c(
+                        "no-remote-trace"  /* Disable remote tracing */,
+                        "file" (  /* Trace file information */
+                            sc(
+                                  arg,
+                                "size" arg  /* Maximum trace file size */,
+                                "files" arg  /* Maximum number of trace files */,
+                                "world-readable"  /* Allow any user to read the log file */,
+                                "no-world-readable"  /* Don't allow any user to read the log file */,
+                                "match" (  /* Regular expression for lines to be logged */
+                                  regular_expression  /* Regular expression for lines to be logged */
+                                )
+                            )
+                        ).as(:oneline),
+                        "flag" enum(("cli" | "configuration" | "eventlib" | "fsm" | "heartbeat" | "interface" | "routing-socket" | "uspipc" | "init" | "socket" | "snmp" | "ip-monitoring" | "hw-monitoring" | "fabric-monitoring" | "health-monitoring" | "schedule-monitoring" | "heartbeat-tlv" | "ha-peer" | "srg" | "all"))  /* Tracing parameters */.as(:oneline),
+                        "level" (  /* Set level of tracing */
+                          ("emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "info" | "debug" | "all")
+                        )
+                    )
+                ),
+                "control-link-recovery"  /* Enable automatic control link recovery */,
+                "health-monitoring"  /* Enable ha health monitoring */,
+                "reth-count" arg  /* Number of redundant ethernet interfaces */,
+                "control-interface" (  /* Disable/enable HA control-link interface */
+                    c(
+                        "node" arg (  /* Set node specific parameters */
+                            sc(
+                                "disable"  /* Disable HA control interface */
+                            )
+                        ).as(:oneline)
+                    )
+                ),
+                "redundant-interface"  /* Redundant peer configuration */,
+                "fabric-member"  /* Fabric member interface configuration */,
+                "control-ports"  /* Enable specific chassis cluster control ports */.as(:oneline),
+                "scb-control-ports"  /* Enable specific chassis cluster SCB control ports */.as(:oneline),
+                "heartbeat-interval" arg  /* Interval between successive heartbeats */,
+                "heartbeat-threshold" arg  /* Number of consecutive missed heartbeats to indicate device failure */,
+                "network-management"  /* Define parameters for network management */,
+                "node" enum(("0" | "1"))  /* Set the list of nodes in the cluster */,
+                "redundancy-group" arg (  /* Set redundancy-group parameters */
+                    c(
+                        "node" enum(("0" | "1")) (  /* Set node specific parameters */
+                            sc(
+                                "priority" arg  /* Priority of the node in the redundancy-group */
+                            )
+                        ).as(:oneline),
+                        "preempt" (  /* Allow preemption of primaryship based on priority */
+                            c(
+                                "delay" arg  /* Time to wait before taking over mastership */,
+                                "limit" arg  /* Max number of preemptive failovers allowed */,
+                                "period" arg  /* Time period during which the limit is applied */
+                            )
+                        ),
+                        "gratuitous-arp-count" arg  /* Number of gratuitous ARPs to send on an active interface after failover */,
+                        "hold-down-interval" arg  /* RG failover interval. RG0(300-1800) RG1+(0-1800) */,
+                        "interface-monitor" arg (  /* Define interfaces to monitor */
+                            sc(
+                                "weight" arg  /* Weight assigned to this interface that influences failover */
+                            )
+                        ).as(:oneline),
+                        "ip-monitoring" (  /* Define parameters for IP monitoring feature */
+                            c(
+                                "global-weight" arg  /* Define global weight for IP monitoring */,
+                                "global-threshold" arg  /* Define global threshold for IP monitoring */,
+                                "retry-interval" arg  /* Define the time interval in seconds between retries. */,
+                                "retry-count" arg  /* Number of retries needed to declare reachablity failure */,
+                                "family" (  /* Define protocol family */
+                                    c(
+                                        "inet" (  /* Define IPv4 related parameters */
+                                            c(
+                                                  ip_monitoring_address_type  /* Define IP address related parameters */
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                "configuration-synchronize" (  /* Cluster configuration action */
+                    c(
+                        "no-secondary-bootup-auto"  /* Disable auto configuration synchronize on secondary bootup */
+                    )
+                ),
+                "use-actual-mac-on-physical-interfaces"  /* Use Hypervisor provided MAC for physical interfaces on virtual platforms */,
+                "use-active-child-mac-on-reth"  /* Copy Child's physical MAC on RETH parent's current MAC */
+            )
+        )
+        # End of vSRX 22.4R1.10
     )
 end
 
@@ -138165,3 +138259,20 @@ rule(:zone_system_services_object_type) do
   )
 end
 # End of vSRX 22.4R1.10 for "security"
+
+# Ported from vSRX 22.4R1.10 for "chassis cluster"
+rule(:ip_monitoring_address_type) do
+  arg.as(:arg) (
+    c(
+        "weight" arg  /* Define weight for this IP address */,
+        "interface" arg (  /* Logical interface through which to monitor this IP address */
+            c(
+                "secondary-ip-address" (  /* Define source address for monitoring packets on secondary link */
+                  ipv4addr  /* Define source address for monitoring packets on secondary link */
+                )
+            )
+        )
+    )
+  )
+end
+# End of vSRX 22.4R1.10 for "chassis cluster"
