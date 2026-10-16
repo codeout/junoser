@@ -205,9 +205,6 @@ module Junoser
       # "foo" (  ->  "foo": (opts) => {
       str.gsub!(/^(\s*)"(\S+)" \($/) { "#{$1}\"#{$2}\": {" }
 
-      # "foo" arg (  /* doc */  ->  "foo | doc": (opts) => {
-      str.gsub!(%r{^(\s*)"(\S+)" arg \(  /\* (.*) \*/}) { "#{$1}\"#{$2} | #{$3}\": {" }
-
       str
     end
 
