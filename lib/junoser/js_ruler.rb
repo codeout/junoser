@@ -77,6 +77,7 @@ module Junoser
 
     def process_line(str)
       str = remove_undefined_variables(str)
+      str = process_placeholder_syntax(str)
       str = process_common_syntax(str)
       str = process_argument_syntax(str)
       str = process_structural_syntax(str)
@@ -90,6 +91,18 @@ module Junoser
 
       # "$junos-interface-unit" |
       str.gsub!(/"\$[\w-]+" \| /, '')
+
+      str
+    end
+
+    def process_placeholder_syntax(str)
+      # The .xsd puts a placeholder name where an argument belongs, so the parser would accept only that word.
+      # Ruler does the same.
+      str.gsub!(/\((.*) \| "name"\)/) { "(#{$1} | arg)" }
+      str.gsub!(/\("name" \| (.*?)\)/) { "(#{$1} | arg)" }
+      str.gsub! '"vlan" ("all" | "vlan-name")', '"vlan" ("all" | arg)'
+      str.gsub! '("all" | "fpc-slot-number")', '("all" | arg)'
+      str.gsub! '("all" | "psu-slot-number")', '("all" | arg)'
 
       str
     end
