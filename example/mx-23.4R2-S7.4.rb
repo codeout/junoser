@@ -22109,7 +22109,8 @@ rule(:chassis_type) do
                 ),
                 "vlan-isolation"  /* Enable VLAN isolation for Control Plane */
             )
-        )
+        ),
+        "dump-on-panic",
     )
 end
 
